@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T11:27:15.784231+00:00",
+  "updatedAt": "2026-10-08T12:10:07.102381+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -27,5 +27,164 @@
       "status": "ok"
     }
   ],
+  "healthCheck": {
+    "enabled": true,
+    "checkedUrls": 577,
+    "healthyUrls": 385,
+    "failedUrls": 192,
+    "failures": [
+      {
+        "channel": "TRT1",
+        "url": "http://176.65.146.171:9981/stream/channelid/838617424?profile=htsp",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "TRT1",
+        "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "TV 8",
+        "url": "https://x.canlitvapp.com/kanal8/index.m3u8",
+        "detail": "HTTP Error 403: Forbidden"
+      },
+      {
+        "channel": "TV 8",
+        "url": "https://trn03.tulix.tv/gt-tv8-tv/tracks-v1a1/mono.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "TV 8",
+        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1633",
+        "detail": "<urlopen error [Errno 111] Connection refused>"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "KANAL D",
+        "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
+        "detail": "HTTP Error 403: Forbidden"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://176.65.146.104:9981/stream/channelid/518299962",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
+        "detail": "HTTP Error 403: Forbidden"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
+        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>"
+      },
+      {
+        "channel": "TV100",
+        "url": "https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8",
+        "detail": "<urlopen error [Errno -2] Name or service not known>"
+      },
+      {
+        "channel": "TV100",
+        "url": "https://tv100.daioncdn.net/tv100/tv100_1080p.m3u8?app=web",
+        "detail": "<urlopen error [Errno -2] Name or service not known>"
+      },
+      {
+        "channel": "BEYAZ TV",
+        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1632",
+        "detail": "<urlopen error [Errno 111] Connection refused>"
+      },
+      {
+        "channel": "TRT HABER",
+        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1636",
+        "detail": "<urlopen error [Errno 111] Connection refused>"
+      },
+      {
+        "channel": "HABERTURK",
+        "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://x.canlitvapp.com/aSPOR/index.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://trkvz-live.daioncdn.net/aSPOR/aSPOR_1080p.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "http://50.7.144.122:1935/livetv/aSPOR.stream/sec-f5-v1-a1.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "http://195.142.1.211:4022/udp/224.2.2.21:10001",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "TRT COCUK",
+        "url": "https://trn03.tulix.tv/gt-trtcocuk/index.m3u8",
+        "detail": "HTTP Error 403: Forbidden"
+      },
+      {
+        "channel": "TRT COCUK",
+        "url": "http://185.234.111.229:8000/play/a00b",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "KANAL 33",
+        "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
+        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
+      },
+      {
+        "channel": "KANAL 68",
+        "url": "https://live.artidijitalmedya.com/artidijital_kanal68/kanal68/playlist.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "KANAL B",
+        "url": "https://baskentaudiovideo.xyz/ULUSALApp/streams/mUE22idl26lA1683879097431.m3u8",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "KANAL Z",
+        "url": "https://live.artidijitalmedya.com/artidijital_kanalz/kanalz/playlist.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "KANAL URFA",
+        "url": "https://edge1.socialsmart.tv/kanalurfa/bant1/playlist.m3u8",
+        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
+      },
+      {
+        "channel": "KAY TV",
+        "url": "https://live.artidijitalmedya.com/artidijital_kaytv/kaytv1/playlist.m3u8",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "KOCAELİ TV",
+        "url": "https://edge1.socialsmart.tv/kocaelitv/bant1/playlist.m3u8",
+        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
+      }
+    ],
+    "ordering": "healthy-first, failed-last"
+  },
   "message": "Multi-source playlist merged successfully."
 }
