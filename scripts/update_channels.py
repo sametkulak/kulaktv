@@ -38,6 +38,71 @@ TIMEOUT = 45
 MIN_CHANNELS = 10
 MAX_ALTERNATIVES = 4
 
+HEALTH_CHECK_ENABLED = True
+HEALTH_CHECK_TIMEOUT = 8
+HEALTH_CHECK_WORKERS = 12
+HEALTH_MAX_URLS = 900
+HEALTH_BODY_LIMIT = 128 * 1024
+
+
+def check_stream_url(url: str) -> tuple[str, str]:
+    """Check that a public HLS/M3U8 manifest is reachable and looks like HLS."""
+    try:
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": USER_AGENT,
+                "Accept": "application/vnd.apple.mpegurl,application/x-mpegURL,text/plain,*/*",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
+            status = getattr(response, "status", 200)
+            content_type = str(response.headers.get("Content-Type") or "")
+            body = response.read(HEALTH_BODY_LIMIT).decode(
+                "utf-8-sig", errors="replace"
+            )
+
+        if not (200 <= status < 300):
+            return "bad", f"HTTP {status}"
+        if "#EXTM3U" not in body.upper():
+            return "bad", "response is not a valid M3U8 manifest"
+        return "ok", f"HTTP {status}" + (f" • {content_type}" if content_type else "")
+    except Exception as exc:
+        return "bad", str(exc)
+
+
+def health_check_urls(urls: list[str]) -> dict[str, dict[str, str]]:
+    """Check unique stream URLs with modest concurrency and no retry storm."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
+    unique = list(dict.fromkeys(urls))[:HEALTH_MAX_URLS]
+    if not HEALTH_CHECK_ENABLED or not unique:
+        return {
+            url: {"status": "unknown", "detail": "health check disabled"}
+            for url in unique
+        }
+
+    results: dict[str, dict[str, str]] = {}
+    with ThreadPoolExecutor(max_workers=HEALTH_CHECK_WORKERS) as executor:
+        futures = {executor.submit(check_stream_url, url): url for url in unique}
+        for future in as_completed(futures):
+            url = futures[future]
+            try:
+                status, detail = future.result()
+            except Exception as exc:
+                status, detail = "bad", str(exc)
+            results[url] = {"status": status, "detail": detail}
+    return results
+
+
+def order_urls(urls: list[str], health: dict[str, dict[str, str]]) -> list[str]:
+    """Healthy first, untested next, failed last while preserving original order."""
+    tiers = {"ok": 0, "unknown": 1, "bad": 2}
+    return sorted(
+        list(dict.fromkeys(urls)),
+        key=lambda url: tiers.get(health.get(url, {}).get("status", "unknown"), 1),
+    )
+
 
 def fetch_text(url: str) -> tuple[str, str]:
     req = urllib.request.Request(
@@ -190,8 +255,25 @@ def merge_channels(
                     existing_urls.append(url)
 
     result = list(merged.values())
+
+    all_urls: list[str] = []
     for item in result:
+        all_urls.append(str(item["url"]))
+        all_urls.extend(str(value) for value in item["alternatives"])
+
+    health = health_check_urls(all_urls)
+
+    for item in result:
+        urls = [str(item["url"])] + [str(value) for value in item["alternatives"]]
+        ordered = order_urls(urls, health)
+        item["url"] = ordered[0]
+        item["alternatives"] = ordered[1:1 + MAX_ALTERNATIVES]
+        item["health"] = {
+            url: health.get(url, {"status": "unknown", "detail": "not checked"})
+            for url in ordered
+        }
         item.pop("sources", None)
+
     return result
 
 
@@ -266,6 +348,24 @@ def main() -> int:
         return 0
 
     merged = merge_channels(successful)
+
+    health_summary = {"checked": 0, "healthy": 0, "failed": 0}
+    health_failures: list[dict[str, str]] = []
+    for channel in merged:
+        for url, result in (channel.get("health") or {}).items():
+            health_summary["checked"] += 1
+            if result.get("status") == "ok":
+                health_summary["healthy"] += 1
+            elif result.get("status") == "bad":
+                health_summary["failed"] += 1
+                if len(health_failures) < 30:
+                    health_failures.append({
+                        "channel": str(channel["name"]),
+                        "url": url,
+                        "detail": str(result.get("detail") or "unknown"),
+                    })
+        channel.pop("health", None)
+
     if len(merged) < MIN_CHANNELS:
         raise RuntimeError(
             f"Merged playlist contains only {len(merged)} channels; refusing to replace the last good list."
@@ -298,6 +398,14 @@ def main() -> int:
                 )
             ]
             + failed,
+            "healthCheck": {
+                "enabled": HEALTH_CHECK_ENABLED,
+                "checkedUrls": health_summary["checked"],
+                "healthyUrls": health_summary["healthy"],
+                "failedUrls": health_summary["failed"],
+                "failures": health_failures,
+                "ordering": "healthy-first, failed-last",
+            },
             "message": (
                 "Multi-source playlist merged successfully."
                 if changed
