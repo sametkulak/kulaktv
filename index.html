@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0f17">
+  <title>KulakTV • IPTV Player</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div class="brand-title">KulakTV</div>
+        <div class="brand-subtitle">M3U / HLS Web Player</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button id="refreshDefault" class="ghost-btn" title="Güncel kaynak listesini yeniden yükle">↻ Güncelle</button>
+      <button id="loadFile" class="ghost-btn">M3U Dosyası</button>
+      <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="player-panel">
+      <div class="player-wrap">
+        <video id="video" controls playsinline></video>
+        <div id="playerOverlay" class="player-overlay">
+          <div class="play-icon">▶</div>
+          <div class="overlay-title">Kanal seç</div>
+          <div class="overlay-text">Sol taraftaki listeden bir yayın aç.</div>
+        </div>
+      </div>
+      <div class="now-playing">
+        <div>
+          <div class="eyebrow">ŞİMDİ OYNUYOR</div>
+          <h1 id="nowTitle">Henüz kanal seçilmedi</h1>
+          <div id="nowMeta" class="meta">M3U oynatma listesi hazır.</div>
+        </div>
+        <button id="copyStream" class="secondary-btn" disabled>Yayın URL'sini Kopyala</button>
+      </div>
+      <div id="errorBox" class="error-box" hidden></div>
+      <div class="player-note">Not: Bazı yayınlar coğrafi kısıtlı olabilir veya yayıncı tarafından zaman zaman kapatılabilir. Durum göstergesi gerçek oynatma denemesine göre güncellenir.</div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="add-source card">
+        <div class="section-head">
+          <div>
+            <div class="section-title">M3U Kaynağı Ekle</div>
+            <div class="section-desc">URL'yi yapıştır, listeyi aç.</div>
+          </div>
+        </div>
+        <div class="source-row">
+          <input id="playlistUrl" type="url" placeholder="https://ornek.com/liste.m3u" autocomplete="off">
+          <button id="loadUrl" class="primary-btn">Yükle</button>
+        </div>
+        <div class="source-actions">
+          <button id="defaultList" class="link-btn">Yerleşik Türkiye listesi</button>
+          <button id="iptvOrgList" class="link-btn">iptv-org Türkiye</button>
+        </div>
+      </div>
+
+      <div class="list-tools card">
+        <div class="stats">
+          <span id="channelCount">0 kanal</span>
+          <span id="statusText">Hazır</span>
+        </div>
+        <div class="filters">
+          <input id="search" type="search" placeholder="Kanal ara…" autocomplete="off">
+          <select id="groupFilter"><option value="all">Tüm kategoriler</option></select>
+        </div>
+      </div>
+
+      <div id="channelList" class="channel-list"></div>
+    </aside>
+  </main>
+
+  <footer>
+    <span>KulakTV</span>
+    <span>Yerleşik liste: ücretsiz / herkese açık yayın uçları</span>
+    <span id="autoUpdateStatus">Liste otomatik güncellenir</span><a href="https://github.com/iptv-org/iptv" target="_blank" rel="noopener noreferrer">Kaynak bilgisi</a>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
