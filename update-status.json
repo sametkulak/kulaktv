@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T13:45:39.034865+00:00",
-  "channelCount": 561,
+  "updatedAt": "2026-10-08T14:07:08.542465+00:00",
+  "channelCount": 560,
   "sourceCount": 5,
   "changed": true,
   "sources": [
@@ -9,7 +9,7 @@
       "name": "OnurEröz Türkiye",
       "url": "https://onureroz.com/indirmeler/turk/index.m3u",
       "resolvedUrl": "https://onureroz.com/indirmeler/turk/index.m3u",
-      "channelCount": 414,
+      "channelCount": 413,
       "status": "ok"
     },
     {
@@ -45,9 +45,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 733,
-    "healthyUrls": 459,
-    "failedUrls": 274,
+    "checkedUrls": 729,
+    "healthyUrls": 457,
+    "failedUrls": 272,
     "failures": [
       {
         "channel": "TRT1",
