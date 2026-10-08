@@ -48,6 +48,68 @@ HEALTH_BODY_LIMIT = 128 * 1024
 FAILED_STREAK_TO_REMOVE = 2
 GLOBAL_HEALTH_MIN_RATIO = 0.20
 
+# Preferred display order for major Turkish channels. Only channels that
+# actually exist in the merged playlist are included. The order is applied
+# inside each health tier, so healthy channels still stay above failed ones.
+PRIORITY_CHANNELS = [
+    "ATV",
+    "KANAL D",
+    "STAR TV",
+    "TRT 1",
+    "SHOW TV",
+    "NOW",
+    "TV8",
+    "BEYAZ TV",
+    "CNN TÜRK",
+    "A HABER",
+    "TRT HABER",
+    "SÖZCÜ TV",
+    "HALK TV",
+    "A SPOR",
+    "TRT SPOR",
+    "KANAL 7",
+    "NTV",
+    "TV100",
+    "HABERTÜRK",
+    "HABER GLOBAL",
+    "TGRT HABER",
+    "24 TV",
+    "TV8,5",
+    "TRT SPOR YILDIZ",
+    "TRT BELGESEL",
+    "TRT 2",
+    "TRT MÜZİK",
+    "TRT ÇOCUK",
+    "TRT TÜRK",
+    "TRT AVAZ",
+    "360 TV",
+    "FLASH HABER",
+    "TELE1",
+    "KRT TV",
+    "TV5",
+    "ÜLKE TV",
+    "KANAL 24",
+    "BLOOMBERG HT",
+    "A PARA",
+    "EKOTÜRK",
+    "SPORTS TV",
+    "TİVİBU SPOR",
+    "FB TV",
+    "GS TV",
+    "HT SPOR",
+    "KRAL POP TV",
+    "DREAM TÜRK",
+    "POWERTÜRK TV",
+    "NUMBER1 TV",
+    "NR1 TÜRK",
+]
+
+# Small name aliases for common variants found in M3U sources.
+PRIORITY_ALIASES = {
+    "NOW TV": "NOW",
+    "KANAL24": "KANAL 24",
+}
+
 
 def load_health_state() -> dict[str, dict[str, object]]:
     if not HEALTH_STATE_PATH.exists():
@@ -357,13 +419,30 @@ def apply_health_policy(
         channel["_healthTier"] = 0 if has_healthy else (2 if has_checked else 1)
         kept.append(channel)
 
-    # Preserve the original playlist order inside each health tier.
-    # OnurEröz is the first source, so its existing order remains the primary
-    # "most important / most visible" channel order.
-    kept.sort(key=lambda item: (
-        int(item.pop("_healthTier", 1)),
-        int(item.pop("_sourceOrder", 10**9)),
-    ))
+    # Preserve the health policy first: healthy channels stay above
+    # one-day failures. Inside each tier, preferred channels use the
+    # explicit display order above; everything else keeps source order.
+    priority_map = {
+        normalize_name(name): index
+        for index, name in enumerate(PRIORITY_CHANNELS, start=1)
+    }
+    alias_map = {
+        normalize_name(source): normalize_name(target)
+        for source, target in PRIORITY_ALIASES.items()
+    }
+
+    def priority_key(item: dict[str, object]) -> tuple[int, int, int]:
+        name_key = normalize_name(str(item["name"]))
+        priority = priority_map.get(name_key)
+        if priority is None:
+            priority = priority_map.get(alias_map.get(name_key, ""), len(PRIORITY_CHANNELS) + 1)
+        return (
+            int(item.pop("_healthTier", 1)),
+            priority,
+            int(item.pop("_sourceOrder", 10**9)),
+        )
+
+    kept.sort(key=priority_key)
     return kept, next_state, {
         "degraded": int(degraded),
         "pendingRemoval": pending,
