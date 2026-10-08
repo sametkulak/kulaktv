@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-10-08T11:15:00+03:00",
+  "updatedAt": "2026-10-08T08:42:46.694201+00:00",
   "source": "https://iptv-org.github.io/iptv/countries/tr.m3u",
   "localChannels": 29,
-  "upstreamChannels": null,
+  "upstreamChannels": 174,
   "urlsChanged": 0,
-  "channelsWithSafeMatch": 0
+  "channelsWithSafeMatch": 22
 }
