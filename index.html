@@ -2,89 +2,124 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b0f17">
-  <title>KulakTV • IPTV Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07090d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>KulakTV</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-mark">K</div>
-      <div>
-        <div class="brand-title">KulakTV</div>
-        <div class="brand-subtitle">M3U / HLS Web Player</div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">K</div>
+        <div class="brand-copy">
+          <div class="brand-title">KulakTV</div>
+          <div class="brand-subtitle">Canlı TV</div>
+        </div>
       </div>
-    </div>
-    <div class="top-actions">
-      <button id="refreshDefault" class="ghost-btn" title="Güncel kaynak listesini yeniden yükle">↻ Güncelle</button>
-      <button id="loadFile" class="ghost-btn">M3U Dosyası</button>
-      <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
-    </div>
-  </header>
+      <div class="top-status" id="topStatus">Hazır</div>
+      <button id="openChannels" class="icon-btn channel-menu-btn" aria-label="Kanal listesini aç">
+        <span class="icon">☰</span><span class="btn-label">Kanallar</span>
+      </button>
+    </header>
 
-  <main class="layout">
-    <section class="player-panel">
-      <div class="player-wrap">
-        <video id="video" controls playsinline></video>
+    <main class="stage">
+      <section class="video-stage">
+        <video id="video" controls playsinline preload="metadata"></video>
         <div id="playerOverlay" class="player-overlay">
-          <div class="play-icon">▶</div>
-          <div class="overlay-title">Kanal seç</div>
-          <div class="overlay-text">Sol taraftaki listeden bir yayın aç.</div>
-        </div>
-      </div>
-      <div class="now-playing">
-        <div>
-          <div class="eyebrow">ŞİMDİ OYNUYOR</div>
-          <h1 id="nowTitle">Henüz kanal seçilmedi</h1>
-          <div id="nowMeta" class="meta">M3U oynatma listesi hazır.</div>
-        </div>
-        <button id="copyStream" class="secondary-btn" disabled>Yayın URL'sini Kopyala</button>
-      </div>
-      <div id="errorBox" class="error-box" hidden></div>
-      <div class="player-note">Not: Bazı yayınlar coğrafi kısıtlı olabilir veya yayıncı tarafından zaman zaman kapatılabilir. Durum göstergesi gerçek oynatma denemesine göre güncellenir.</div>
-    </section>
-
-    <aside class="sidebar">
-      <div class="add-source card">
-        <div class="section-head">
-          <div>
-            <div class="section-title">M3U Kaynağı Ekle</div>
-            <div class="section-desc">URL'yi yapıştır, listeyi aç.</div>
+          <div class="overlay-card">
+            <div class="play-icon">▶</div>
+            <div class="overlay-title">Kanal seç</div>
+            <div class="overlay-text">Kanallar düğmesine dokun.</div>
           </div>
         </div>
-        <div class="source-row">
-          <input id="playlistUrl" type="url" placeholder="https://ornek.com/liste.m3u" autocomplete="off">
-          <button id="loadUrl" class="primary-btn">Yükle</button>
+        <div class="video-gradient"></div>
+        <div class="quick-controls">
+          <button id="prevChannel" class="round-btn" aria-label="Önceki kanal">‹</button>
+          <button id="playPause" class="round-btn play-pause" aria-label="Oynat / duraklat">▶</button>
+          <button id="nextChannel" class="round-btn" aria-label="Sonraki kanal">›</button>
         </div>
-        <div class="source-actions">
-          <button id="defaultList" class="link-btn">KulakTV otomatik listesi</button>
-          <button id="bytefixList" class="link-btn">ByteFix kaynak listesi</button>
-          <button id="iptvOrgList" class="link-btn">iptv-org Türkiye</button>
+        <div class="channel-info">
+          <div class="channel-now-logo" id="nowLogo">K</div>
+          <div class="channel-info-text">
+            <div class="live-pill"><span></span> CANLI</div>
+            <div id="nowTitle" class="now-title">KulakTV</div>
+            <div id="nowMeta" class="now-meta">Kanal listesini açıp bir yayın seç.</div>
+          </div>
         </div>
-      </div>
+        <button id="openChannelsFloating" class="floating-channels" aria-label="Kanal listesini aç">☰ <span>Kanal Listesi</span></button>
+      </section>
+    </main>
 
-      <div class="list-tools card">
-        <div class="stats">
-          <span id="channelCount">0 kanal</span>
-          <span id="statusText">Hazır</span>
+    <aside id="channelDrawer" class="drawer" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <div class="drawer-title">Kanallar</div>
+          <div id="channelCount" class="drawer-subtitle">0 kanal</div>
         </div>
-        <div class="filters">
-          <input id="search" type="search" placeholder="Kanal ara…" autocomplete="off">
-          <select id="groupFilter"><option value="all">Tüm kategoriler</option></select>
-        </div>
+        <button id="closeChannels" class="close-btn" aria-label="Kanal listesini kapat">×</button>
       </div>
-
+      <div class="drawer-tools">
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="search" type="search" placeholder="Kanal ara..." autocomplete="off">
+        </div>
+        <select id="groupFilter"><option value="all">Tüm kategoriler</option></select>
+      </div>
       <div id="channelList" class="channel-list"></div>
+      <div class="drawer-foot">
+        <button id="openSettings" class="settings-btn">⚙ Ayarlar ve kaynaklar</button>
+      </div>
     </aside>
-  </main>
+    <div id="drawerBackdrop" class="drawer-backdrop"></div>
 
-  <footer>
-    <span>KulakTV</span>
-    <span>Kanal listesi: ByteFix kaynağından otomatik senkronize edilir</span>
-    <span id="autoUpdateStatus">Liste otomatik güncellenir</span><a href="https://github.com/iptv-org/iptv" target="_blank" rel="noopener noreferrer">Kaynak bilgisi</a>
-  </footer>
+    <aside id="settingsDrawer" class="settings-drawer" aria-hidden="true">
+      <div class="settings-head">
+        <div>
+          <div class="drawer-title">Ayarlar</div>
+          <div class="drawer-subtitle">Kaynaklar ve oynatma seçenekleri</div>
+        </div>
+        <button id="closeSettings" class="close-btn" aria-label="Ayarları kapat">×</button>
+      </div>
+      <div class="settings-body">
+        <section class="settings-card">
+          <div class="settings-title">M3U kaynak URL'si</div>
+          <div class="settings-desc">İstersen farklı bir listeyi geçici olarak yükleyebilirsin.</div>
+          <div class="source-row">
+            <input id="playlistUrl" type="url" placeholder="https://ornek.com/liste.m3u" autocomplete="off">
+            <button id="loadUrl" class="primary-btn">Yükle</button>
+          </div>
+          <div class="source-links">
+            <button id="defaultList" class="link-btn">KulakTV listesi</button>
+            <button id="bytefixList" class="link-btn">ByteFix</button>
+            <button id="iptvOrgList" class="link-btn">iptv-org TR</button>
+          </div>
+        </section>
+        <section class="settings-card action-grid">
+          <button id="refreshDefault" class="settings-action">↻<span>Listeyi yenile</span></button>
+          <button id="loadFile" class="settings-action">▣<span>M3U dosyası aç</span></button>
+          <button id="copyStream" class="settings-action" disabled>⧉<span>Yayın URL'sini kopyala</span></button>
+          <button id="openStream" class="settings-action" disabled>↗<span>Dış oynatıcıda aç</span></button>
+          <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
+        </section>
+        <section class="settings-card info-card">
+          <div class="settings-title">Otomatik güncelleme</div>
+          <div id="autoUpdateStatus">Kontrol ediliyor...</div>
+          <div class="settings-desc">KulakTV'nin GitHub Actions görevi kaynak listesini otomatik kontrol eder.</div>
+        </section>
+        <div id="errorBox" class="error-box" hidden></div>
+      </div>
+    </aside>
+    <div id="settingsBackdrop" class="drawer-backdrop"></div>
+
+    <footer class="footer">
+      <span>KulakTV</span>
+      <span id="footerSource">Otomatik kaynak</span>
+    </footer>
+  </div>
 
   <script src="app.js" defer></script>
 </body>
