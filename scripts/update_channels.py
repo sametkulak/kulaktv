@@ -40,7 +40,7 @@ SOURCES = [
 USER_AGENT = "KulakTV-AutoUpdater/3.1"
 TIMEOUT = 45
 MIN_CHANNELS = 10
-MAX_ALTERNATIVES = 6
+MAX_ALTERNATIVES = 8
 # Güvenilmez yayın sunucuları
 BLOCKED_STREAM_HOSTS = {
     "helga.iptv2022.com",
