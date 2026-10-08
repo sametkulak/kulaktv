@@ -432,7 +432,14 @@ def enrich_missing_logos(channels: list[dict[str, object]]) -> int:
             continue
 
         name = str(channel.get("name") or "").strip()
-        alias_filename = LOGO_ALIASES.get(normalize_name(name))
+        alias_filename = next(
+            (
+                candidate
+                for alias, candidate in LOGO_ALIASES.items()
+                if normalize_name(alias) == normalize_name(name)
+            ),
+            None,
+        )
         filename = alias_filename
 
         if not filename:
