@@ -6,7 +6,9 @@ const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
   sourceName: 'KulakTV otomatik kaynak listesi',
-  drawerOpen: false, settingsOpen: false
+  drawerOpen: false, settingsOpen: false,
+  showFavorites: false,
+  favorites: new Set(JSON.parse(localStorage.getItem('kulaktv-favorites') || '[]'))
 };
 
 const $ = id => document.getElementById(id);
@@ -50,8 +52,68 @@ function parseM3U(text) {
 }
 function dedupeChannels(channels){ const seen=new Set(); return channels.filter(ch=>{const key=`${ch.name.toLowerCase()}|${ch.url}`; if(seen.has(key))return false;seen.add(key);return true;}); }
 function getInitials(name){ const words=name.replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean); if(!words.length)return'TV'; if(words.length===1)return words[0].slice(0,2).toUpperCase(); return(words[0][0]+words[1][0]).toUpperCase(); }
-function renderGroups(){ const select=$('groupFilter'), current=select.value; const groups=[...new Set(state.channels.map(c=>c.group).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr')); select.innerHTML='<option value="all">Tüm kategoriler</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join(''); select.value=groups.includes(current)?current:'all'; }
-function applyFilters(){ const q=$('search').value.trim().toLocaleLowerCase('tr-TR'), group=$('groupFilter').value; state.filtered=state.channels.filter(c=>(!q||c.name.toLocaleLowerCase('tr-TR').includes(q)||c.group.toLocaleLowerCase('tr-TR').includes(q))&&(group==='all'||c.group===group)); renderChannelList(); $('channelCount').textContent=`${state.filtered.length} / ${state.channels.length} kanal`; }
+function renderGroups(){
+  const select=$('groupFilter');
+  if(!select)return;
+  const current=select.value;
+  const groups=[...new Set(state.channels.map(c=>c.group).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr'));
+  select.innerHTML='<option value="all">Tüm kategoriler</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join('');
+  select.value=groups.includes(current)?current:'all';
+  renderCategoryChips();
+}
+function groupLabel(group){return String(group||'Diğer').replace(/^ulusal\s*-\s*/i,'').trim();}
+function renderCategoryChips(){
+  const root=$('categoryChips');
+  if(!root)return;
+  const groups=[...new Set(state.channels.map(c=>groupLabel(c.group)).filter(Boolean))];
+  const counts=new Map(groups.map(g=>[g,state.channels.filter(c=>groupLabel(c.group)===g).length]));
+  root.innerHTML=[
+    `<button type="button" class="category-chip active" data-group="all">Tümü ${state.channels.length}</button>`,
+    ...groups.map(g=>`<button type="button" class="category-chip" data-group="${escapeHtml(g)}">${escapeHtml(g)} ${counts.get(g)}</button>`)
+  ].join('');
+  root.querySelectorAll('.category-chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const group=btn.dataset.group||'all';
+      $('groupFilter').value = group==='all'
+        ? 'all'
+        : ([...$('groupFilter').options].find(o=>o.value===group)?.value || group);
+      root.querySelectorAll('.category-chip').forEach(x=>x.classList.toggle('active',x===btn));
+      applyFilters();
+    });
+  });
+}
+function updateBarState(){
+  const active = Boolean(state.current && !video.paused);
+  $('playPause').textContent = active ? '❚❚' : '▶';
+}
+function updateFavoriteUi(){
+  const count=$('favoriteCount');
+  if(count)count.textContent=state.favorites.size;
+  $('favoritesTab')?.classList.toggle('active',state.showFavorites);
+  $('allChannelsTab')?.classList.toggle('active',!state.showFavorites);
+}
+function toggleFavorite(ch,event){
+  event?.stopPropagation();
+  const id=String(ch.id);
+  if(state.favorites.has(id))state.favorites.delete(id);else state.favorites.add(id);
+  localStorage.setItem('kulaktv-favorites',JSON.stringify([...state.favorites]));
+  updateFavoriteUi();
+  applyFilters();
+}
+function applyFilters(){
+  const q=$('search').value.trim().toLocaleLowerCase('tr-TR');
+  const group=$('groupFilter').value;
+  state.filtered=state.channels.filter(c=>{
+    const matchesSearch=!q||c.name.toLocaleLowerCase('tr-TR').includes(q)||c.group.toLocaleLowerCase('tr-TR').includes(q);
+    const matchesGroup=group==='all'||c.group===group||groupLabel(c.group)===group;
+    const matchesFavorites=!state.showFavorites||state.favorites.has(String(c.id));
+    return matchesSearch&&matchesGroup&&matchesFavorites;
+  });
+  renderChannelList();
+  const prefix=state.showFavorites?'Favoriler':'Tüm kanallar';
+  $('channelCount').textContent=`${state.filtered.length} / ${state.channels.length} kanal • ${prefix}`;
+  updateFavoriteUi();
+}
 function renderChannelList(){
   const root=$('channelList'); root.innerHTML='';
   if(!state.filtered.length){root.innerHTML='<div class="empty">Bu filtreyle kanal bulunamadı.</div>';return;}
@@ -59,7 +121,8 @@ function renderChannelList(){
   state.filtered.forEach(ch=>{
     const div=document.createElement('div'); div.className='channel-item'+(state.current?.id===ch.id?' active':''); div.dataset.id=ch.id;
     const logo=ch.logo?`<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:getInitials(ch.name);
-    div.innerHTML=`<div class="channel-logo">${logo}</div><div><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    div.innerHTML=`<button class="channel-fav${state.favorites.has(String(ch.id))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(String(ch.id))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    div.querySelector('.channel-fav').addEventListener('click',e=>toggleFavorite(ch,e));
     div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
   }); root.appendChild(frag);
 }
@@ -90,6 +153,8 @@ async function openInExternalPlayer(url){
 function updateNowLogo(ch){const root=$('nowLogo');root.innerHTML=ch.logo?`<img src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:escapeHtml(getInitials(ch.name));}
 function setCurrentTitle(ch){
   $('nowTitle').textContent=ch.name;
+  $('mobileNowTitle').textContent=ch.name;
+  $('barChannelName').textContent=ch.name;
   const fallbackCount = Array.isArray(ch.alternatives) ? ch.alternatives.length : 0;
   $('nowMeta').textContent = `${ch.group} • HLS / M3U8${fallbackCount ? ` • ${fallbackCount} yedek kaynak` : ''}`;
   updateNowLogo(ch);
@@ -142,10 +207,46 @@ function closeChannels(){state.drawerOpen=false;$('channelDrawer').classList.rem
 function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawer').classList.add('open');$('settingsBackdrop').classList.add('open');$('settingsDrawer').setAttribute('aria-hidden','false');}
 function closeSettings(){state.settingsOpen=false;$('settingsDrawer').classList.remove('open');$('settingsBackdrop').classList.remove('open');$('settingsDrawer').setAttribute('aria-hidden','true');}
 function nextChannel(dir){if(!state.current||!state.filtered.length)return;const i=state.filtered.findIndex(c=>c.id===state.current.id);const next=state.filtered[(i+dir+state.filtered.length)%state.filtered.length];if(next)playChannel(next);}
-$('openChannels').addEventListener('click',openChannels);$('openChannelsFloating').addEventListener('click',openChannels);$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
+$('openChannels').addEventListener('click',openChannels);$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
 $('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{if(video.paused)video.play().catch(()=>{});else video.pause();});
-video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
-$('search').addEventListener('input',applyFilters);$('groupFilter').addEventListener('change',applyFilters);
+async function toggleFullscreen(){
+  try{
+    if(document.fullscreenElement){
+      await document.exitFullscreen();
+      return;
+    }
+    if(video.webkitEnterFullscreen){
+      video.webkitEnterFullscreen();
+      return;
+    }
+    const target=$('videoStage');
+    if(target?.requestFullscreen){
+      await target.requestFullscreen();
+      return;
+    }
+    showError('Bu tarayıcı tam ekran oynatmayı desteklemiyor.');
+  }catch{
+    try{
+      if(video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+      else showError('Tam ekran açılamadı.');
+    }catch{
+      showError('Tam ekran açılamadı.');
+    }
+  }
+}
+$('fullscreenBtn').addEventListener('click',toggleFullscreen);
+video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});
+video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
+$('search').addEventListener('input',applyFilters);
+$('groupFilter').addEventListener('change',()=>{
+  document.querySelectorAll('.category-chip').forEach(x=>{
+    const active=($('groupFilter').value==='all'&&x.dataset.group==='all') || x.dataset.group===$('groupFilter').value;
+    x.classList.toggle('active',active);
+  });
+  applyFilters();
+});
+$('allChannelsTab').addEventListener('click',()=>{state.showFavorites=false;applyFilters();});
+$('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});
 $('loadUrl').addEventListener('click',async()=>{clearError();try{await loadUrl($('playlistUrl').value,'Özel M3U listesi');closeSettings();openChannels();}catch(e){setStatus('Hata');showError(`Liste yüklenemedi: ${e.message}. Harici M3U sunucusunun CORS izni vermesi gerekebilir.`);}});
 $('playlistUrl').addEventListener('keydown',e=>{if(e.key==='Enter')$('loadUrl').click();});
 $('defaultList').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
@@ -172,3 +273,6 @@ updateStreamActions();
 $('openStream').addEventListener('click',()=>{if(state.currentUrl)openInExternalPlayer(state.currentUrl);});
 async function loadUpdateStatus(){try{const res=await fetch('./update-status.json',{cache:'no-store'});if(!res.ok)return;const info=await res.json();const el=$('autoUpdateStatus');if(!el||!info.updatedAt)return;const d=new Date(info.updatedAt),count=info.channelCount?` • ${info.channelCount} kanal`:'';el.textContent=info.status==='fetch_failed'?`Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`:`Son otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}`;el.title=`Kaynak: ${info.source||''}`;}catch{}}
 loadUpdateStatus();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
+
+// Initial UI state
+updateFavoriteUi();
