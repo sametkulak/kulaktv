@@ -181,7 +181,21 @@ function playChannel(ch){
   };
   trySource(ch,0);
 }
-async function loadM3UText(text,sourceName){const channels=parseM3U(text);if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');state.channels=channels;state.sourceName=sourceName;$('nowMeta').textContent=`${sourceName} • ${channels.length} kanal`;$('footerSource').textContent=sourceName;renderGroups();applyFilters();setStatus('Hazır');}
+async function loadM3UText(text,sourceName){
+  const channels=parseM3U(text);
+  if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');
+  state.channels=channels;
+  state.sourceName=sourceName;
+  state.showFavorites=false;
+  state.activeCategory='all';
+  $('nowMeta').textContent=`${sourceName} • ${channels.length} kanal`;
+  $('footerSource').textContent=sourceName;
+  renderGroups();
+  renderCategoryChips();
+  updateFavoriteUi();
+  applyFilters();
+  setStatus('Hazır');
+}
 async function loadUrl(url,sourceLabel=url){const u=url.trim();if(!/^https?:\/\//i.test(u))throw new Error('Geçerli bir http/https M3U URL gir.');setStatus('Liste indiriliyor…');const res=await fetch(u,{cache:'no-store'});if(!res.ok)throw new Error(`Liste HTTP ${res.status} ile döndü.`);await loadM3UText(await res.text(),sourceLabel);}
 async function loadDefault(){
   setStatus('Liste yükleniyor…');
