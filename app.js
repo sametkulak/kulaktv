@@ -6,6 +6,7 @@ const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
   sourceName: 'KulakTV otomatik kaynak listesi',
+  sourceCandidates: [], sourceIndex: -1,
   drawerOpen: false, settingsOpen: false,
   showFavorites: false,
   activeCategory: 'all',
@@ -168,27 +169,126 @@ function setCurrentTitle(ch){
   updateNowLogo(ch);
 }
 function playChannel(ch){
-  clearError();stopHls();state.current=ch;state.currentUrl=ch.url;updateStreamActions();setCurrentTitle(ch);renderChannelList();$('playerOverlay').classList.add('hidden');setStatus('Yayın açılıyor…');
-  const fallbackObjects = (ch.alternatives || []).map(url => ({...ch, url}));
-  const alternatives = [ch, ...fallbackObjects, ...getAlternativeChannels(ch)]
-    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index);
-  const maxAttempts = Math.min(alternatives.length,7);let attemptIndex=0,settled=false;const timers=new Set();
-  const clearTimers=()=>{for(const t of timers)clearTimeout(t);timers.clear();};
-  const success=(url,sourceIndex)=>{if(settled)return;settled=true;clearTimers();state.currentUrl=url;mark(ch,'ok');setStatus(sourceIndex?'Canlı • alternatif kaynak':'Canlı');};
-  const failure=(detail='Yayın açılamadı')=>{if(settled)return;clearTimers();stopHls();if(attemptIndex+1<maxAttempts){attemptIndex++;setStatus(`Alternatif kaynak ${attemptIndex+1}/${maxAttempts} deneniyor…`);trySource(alternatives[attemptIndex],attemptIndex);return;}settled=true;mark(ch,'bad');setStatus('Açılamadı');showError(`${detail}. Web tarayıcısı bu yayını kabul etmiyor olabilir. APTV gibi native bir oynatıcı aynı URL'yi açabilir.`);};
-  const trySource=(candidate,sourceIndex)=>{
-    clearError();state.currentUrl=candidate.url;updateStreamActions();setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);video.pause();video.removeAttribute('src');video.load();let started=false;
-    const onPlaying=()=>{started=true;success(candidate.url,sourceIndex);};
-    const onLoaded=()=>{setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);video.play().catch(()=>{});};
-    const onVideoError=()=>{if(!started)failure('Video kaynağı tarayıcı tarafından reddedildi');};
-    video.onplaying=onPlaying;video.onloadedmetadata=onLoaded;video.onerror=onVideoError;
-    const timeout=setTimeout(()=>{if(!started)failure('Kaynak 12 saniye içinde oynatılmaya başlamadı');},12000);timers.add(timeout);
-    if(video.canPlayType('application/vnd.apple.mpegurl')){video.src=candidate.url;video.load();video.play().catch(()=>{});return;}
-    if(!window.Hls||!Hls.isSupported()){failure('Tarayıcınız HLS oynatmayı desteklemiyor');return;}
-    state.hls=new Hls({enableWorker:true,lowLatencyMode:true,backBufferLength:30,maxBufferLength:20,manifestLoadingTimeOut:10000,fragLoadingTimeOut:10000});
-    state.hls.loadSource(candidate.url);state.hls.attachMedia(video);state.hls.on(Hls.Events.MANIFEST_PARSED,()=>{setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);video.play().catch(()=>{});});state.hls.on(Hls.Events.ERROR,(_e,data)=>{if(data?.fatal)failure(data.details||'HLS fatal error');});
+  clearError();
+  stopHls();
+  state.current = ch;
+  state.sourceCandidates = [ch, ...(ch.alternatives || []).map(url => ({...ch, url} ), ...getAlternativeChannels(ch)]
+    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index)
+    .slice(0,7);
+  state.sourceIndex = 0;
+  state.currentUrl = state.sourceCandidates[0]?.url || ch.url;
+  updateStreamActions();
+  setCurrentTitle(ch);
+  renderChannelList();
+  $('playerOverlay').classList.add('hidden');
+  setStatus('Yayın açılıyor…');
+
+  const alternatives = state.sourceCandidates;
+  const maxAttempts = alternatives.length;
+  let attemptIndex = 0;
+  let settled = false;
+  const timers = new Set();
+
+  const clearTimers = () => {
+    for(const t of timers) clearTimeout(t);
+    timers.clear();
   };
-  trySource(ch,0);
+
+  const success = (url, sourceIndex) => {
+    if(settled) return;
+    settled = true;
+    clearTimers();
+    state.sourceIndex = sourceIndex;
+    state.currentUrl = url;
+    updateSourceButton();
+    mark(ch,'ok');
+    setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
+  };
+
+  const failure = (detail='Yayın açılamadı') => {
+    if(settled) return;
+    clearTimers();
+    stopHls();
+    if(attemptIndex + 1 < maxAttempts){
+      attemptIndex++;
+      state.sourceIndex = attemptIndex;
+      updateSourceButton();
+      setStatus(`Alternatif kaynak ${attemptIndex+1}/${maxAttempts} deneniyor…`);
+      trySource(alternatives[attemptIndex], attemptIndex);
+      return;
+    }
+    settled = true;
+    mark(ch,'bad');
+    setStatus('Açılamadı');
+    showError(`${detail}. Diğer kaynakları denemek için "Kaynak değiştir" düğmesini kullanabilirsiniz.`);
+  };
+
+  const trySource = (candidate, sourceIndex) => {
+    clearError();
+    state.sourceIndex = sourceIndex;
+    state.currentUrl = candidate.url;
+    updateStreamActions();
+    setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+    let started = false;
+
+    const onPlaying = () => {
+      started = true;
+      success(candidate.url, sourceIndex);
+    };
+    const onLoaded = () => {
+      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);
+      video.play().catch(()=>{});
+    };
+    const onVideoError = () => {
+      if(!started) failure('Video kaynağı tarayıcı tarafından reddedildi');
+    };
+
+    video.onplaying = onPlaying;
+    video.onloadedmetadata = onLoaded;
+    video.onerror = onVideoError;
+
+    const timeout = setTimeout(() => {
+      if(!started) failure('Kaynak 12 saniye içinde oynatılmaya başlamadı');
+    },12000);
+    timers.add(timeout);
+
+    if(video.canPlayType('application/vnd.apple.mpegurl')){
+      video.src = candidate.url;
+      video.load();
+      video.play().catch(()=>{});
+      return;
+    }
+
+    if(!window.Hls || !Hls.isSupported()){
+      failure('Tarayıcınız HLS oynatmayı desteklemiyor');
+      return;
+    }
+
+    state.hls = new Hls({
+      enableWorker:true,
+      lowLatencyMode:true,
+      backBufferLength:30,
+      maxBufferLength:20,
+      manifestLoadingTimeOut:10000,
+      fragLoadingTimeOut:10000
+    });
+    state.hls.loadSource(candidate.url);
+    state.hls.attachMedia(video);
+    state.hls.on(Hls.Events.MANIFEST_PARSED,()=>{
+      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);
+      video.play().catch(()=>{});
+    });
+    state.hls.on(Hls.Events.ERROR,(_e,data)=>{
+      if(data?.fatal) failure(data.details || 'HLS fatal error');
+    });
+  };
+
+  state._trySource = trySource;
+  state._sourceFailure = failure;
+  trySource(alternatives[0],0);
 }
 async function loadM3UText(text,sourceName){
   const channels=parseM3U(text);
@@ -269,6 +369,14 @@ async function toggleFullscreen(){
   }
 }
 $('fullscreenBtn').addEventListener('click',toggleFullscreen);
+$('changeSourceBtn').addEventListener('click',()=>{
+  const total = state.sourceCandidates.length;
+  if(total < 2 || !state.current || !state._trySource) return;
+  stopHls();
+  clearError();
+  const nextIndex = (state.sourceIndex + 1) % total;
+  state._trySource(state.sourceCandidates[nextIndex], nextIndex);
+});
 video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});
 video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
 $('search').addEventListener('input',applyFilters);
@@ -281,10 +389,26 @@ $('bytefixList').addEventListener('click',async()=>{$('playlistUrl').value=BYTEF
 $('refreshDefault').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
 $('iptvOrgList').addEventListener('click',async()=>{$('playlistUrl').value=IPTV_ORG_TR;try{await loadUrl(IPTV_ORG_TR,'iptv-org Türkiye');closeSettings();openChannels();}catch(e){showError(`iptv-org listesi yüklenemedi: ${e.message}`);}});
 $('loadFile').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{await loadM3UText(await file.text(),file.name);closeSettings();openChannels();}catch(err){showError(`Dosya okunamadı: ${err.message}`);}e.target.value='';});
+function updateSourceButton(){
+  const btn = $('changeSourceBtn');
+  if(!btn) return;
+  const total = state.sourceCandidates.length;
+  btn.disabled = total < 2;
+  btn.classList.toggle('source-switching', total >= 2);
+  if(total >= 2){
+    const next = (state.sourceIndex + 1) % total;
+    btn.title = `Sonraki kaynak: ${next + 1}/${total}`;
+    btn.setAttribute('aria-label', `Kaynak değiştir, sonraki kaynak ${next + 1}/${total}`);
+  }else{
+    btn.title = 'Bu kanal için başka kaynak yok';
+    btn.setAttribute('aria-label', 'Bu kanal için başka kaynak yok');
+  }
+}
 function updateStreamActions(){
   const hasUrl = Boolean(state.currentUrl);
   $('copyStream').disabled = !hasUrl;
   $('openStream').disabled = !hasUrl;
+  updateSourceButton();
 }
 $('copyStream').addEventListener('click',async()=>{
   if(!state.currentUrl)return;
