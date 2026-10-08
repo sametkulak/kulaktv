@@ -289,7 +289,31 @@ $('copyStream').addEventListener('click',async()=>{
 });
 updateStreamActions();
 $('openStream').addEventListener('click',()=>{if(state.currentUrl)openInExternalPlayer(state.currentUrl);});
-async function loadUpdateStatus(){try{const res=await fetch('./update-status.json',{cache:'no-store'});if(!res.ok)return;const info=await res.json();const el=$('autoUpdateStatus');if(!el||!info.updatedAt)return;const d=new Date(info.updatedAt),count=info.channelCount?` • ${info.channelCount} kanal`:'';el.textContent=info.status==='fetch_failed'?`Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`:`Son otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}`;el.title=`Kaynak: ${info.source||''}`;}catch{}}
+async function loadUpdateStatus(){
+  try{
+    const res=await fetch('./update-status.json',{cache:'no-store'});
+    if(!res.ok)return;
+    const info=await res.json();
+    const el=$('autoUpdateStatus');
+    if(!el||!info.updatedAt)return;
+
+    const d=new Date(info.updatedAt);
+    const count=info.channelCount ? ` • ${info.channelCount} benzersiz kanal` : '';
+    const sourceCount=info.sourceCount ? ` • ${info.sourceCount} kaynak` : '';
+    const health=info.healthCheck;
+    const healthText=health?.enabled
+      ? ` • Yayın kontrolü: ${health.healthyUrls}/${health.checkedUrls} URL çalışıyor`
+      : '';
+
+    el.textContent=info.status==='fetch_failed'
+      ? `Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`
+      : `Son otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}${sourceCount}${healthText}`;
+
+    if(Array.isArray(info.sources)){
+      el.title=info.sources.map(s=>`${s.name}: ${s.status||'unknown'}`).join(' | ');
+    }
+  }catch{}
+}
 loadUpdateStatus();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
 
 // Initial UI state
