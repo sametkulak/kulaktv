@@ -20,7 +20,7 @@ import unicodedata
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 M3U_PATH = ROOT / "channels.m3u"
@@ -41,6 +41,16 @@ USER_AGENT = "KulakTV-AutoUpdater/3.1"
 TIMEOUT = 45
 MIN_CHANNELS = 10
 MAX_ALTERNATIVES = 6
+# Güvenilmez yayın sunucuları
+BLOCKED_STREAM_HOSTS = {
+    "helga.iptv2022.com",
+}
+
+def is_blocked_stream_url(url: str) -> bool:
+    try:
+        return (urlsplit(url).hostname or "").lower() in BLOCKED_STREAM_HOSTS
+    except Exception:
+        return False
 
 HEALTH_CHECK_ENABLED = True
 HEALTH_CHECK_TIMEOUT = 8
@@ -385,12 +395,15 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
                 name,
                 flags=re.I,
             ).strip()
-
+            if is_blocked_stream_url(line):
+                pending = None
+                current_meta = {}
+                continue
             alternatives: list[str] = []
             for key, value in current_meta.items():
                 if key.lower().startswith(("yedek", "backup")) and re.match(
                     r"^https?://", value, re.I
-                ):
+                ) and not is_blocked_stream_url(value):
                     if value != line and value not in alternatives:
                         alternatives.append(value)
 
@@ -441,7 +454,14 @@ def merge_channels(
 
             urls = [str(channel["url"])]
             urls.extend(str(item) for item in channel.get("alternatives", []))
-            urls = [item for item in urls if re.match(r"^https?://", item, re.I)]
+            urls = [
+                item for item in urls
+                if re.match(r"^https?://", item, re.I)
+                and not is_blocked_stream_url(item)
+            ]
+
+            if not urls:
+                continue
 
             target = merged.get(key)
             if target is None:
