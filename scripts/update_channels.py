@@ -53,7 +53,7 @@ def is_blocked_stream_url(url: str) -> bool:
         return False
 
 HEALTH_CHECK_ENABLED = True
-HEALTH_CHECK_TIMEOUT = 8
+HEALTH_CHECK_TIMEOUT = 12
 HEALTH_CHECK_WORKERS = 12
 HEALTH_MAX_URLS = 900
 HEALTH_BODY_LIMIT = 128 * 1024
@@ -295,28 +295,79 @@ def check_stream_url(url: str) -> tuple[str, str]:
 
 
 def health_check_urls(urls: list[str]) -> dict[str, dict[str, str]]:
-    """Check unique stream URLs with modest concurrency and no retry storm."""
+    """Check unique stream URLs, then retry failed URLs once."""
     from concurrent.futures import ThreadPoolExecutor, as_completed
 
     unique = list(dict.fromkeys(urls))[:HEALTH_MAX_URLS]
+
     if not HEALTH_CHECK_ENABLED or not unique:
         return {
             url: {"status": "unknown", "detail": "health check disabled"}
             for url in unique
         }
 
-    results: dict[str, dict[str, str]] = {}
-    with ThreadPoolExecutor(max_workers=HEALTH_CHECK_WORKERS) as executor:
-        futures = {executor.submit(check_stream_url, url): url for url in unique}
-        for future in as_completed(futures):
-            url = futures[future]
-            try:
-                status, detail = future.result()
-            except Exception as exc:
-                status, detail = "bad", str(exc)
-            results[url] = {"status": status, "detail": detail}
-    return results
+    def run_check_pass(check_urls: list[str]) -> dict[str, dict[str, str]]:
+        results: dict[str, dict[str, str]] = {}
 
+        with ThreadPoolExecutor(max_workers=HEALTH_CHECK_WORKERS) as executor:
+            futures = {
+                executor.submit(check_stream_url, url): url
+                for url in check_urls
+            }
+
+            for future in as_completed(futures):
+                url = futures[future]
+                try:
+                    status, detail = future.result()
+                except Exception as exc:
+                    status, detail = "bad", str(exc)
+
+                results[url] = {
+                    "status": status,
+                    "detail": detail,
+                }
+
+        return results
+
+    # İlk test
+    results = run_check_pass(unique)
+
+    # Sadece ilk testte başarısız olan kaynakları ikinci kez test et
+    failed_urls = [
+        url
+        for url, result in results.items()
+        if result.get("status") == "bad"
+    ]
+
+    if failed_urls:
+        retry_results = run_check_pass(failed_urls)
+
+        for url, retry_result in retry_results.items():
+            first_result = results.get(url, {})
+
+            if retry_result.get("status") == "ok":
+                results[url] = {
+                    "status": "ok",
+                    "detail": (
+                        "İlk test başarısızdı • ikinci test başarılı: "
+                        + str(retry_result.get("detail", ""))
+                    ),
+                }
+            else:
+                results[url] = {
+                    "status": "bad",
+                    "detail": (
+                        "İki testte de başarısız • "
+                        + str(
+                            retry_result.get(
+                                "detail",
+                                first_result.get("detail", "")
+                            )
+                        ),
+                    ),
+                }
+
+    return results
 
 def order_urls(urls: list[str], health: dict[str, dict[str, str]]) -> list[str]:
     """Healthy first, untested next, failed last while preserving original order."""
