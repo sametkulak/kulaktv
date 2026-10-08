@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T14:07:08.542465+00:00",
+  "updatedAt": "2026-10-08T14:26:17.914680+00:00",
   "channelCount": 560,
   "sourceCount": 5,
   "changed": true,
@@ -46,158 +46,158 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 729,
-    "healthyUrls": 457,
-    "failedUrls": 272,
+    "healthyUrls": 447,
+    "failedUrls": 282,
     "failures": [
       {
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/838617424?profile=htsp",
-        "detail": "<urlopen error timed out>"
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
-        "detail": "<urlopen error timed out>"
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "TRT1",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "TRT 4K",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "NOW TV",
         "url": "http://116.202.238.88/FOXTV_TR/index.m3u8",
-        "detail": "<urlopen error [Errno 111] Connection refused>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
         "channel": "TV 8",
         "url": "https://x.canlitvapp.com/kanal8/index.m3u8",
-        "detail": "HTTP Error 403: Forbidden"
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
       {
         "channel": "TV 8",
         "url": "https://trn03.tulix.tv/gt-tv8-tv/tracks-v1a1/mono.m3u8",
-        "detail": "HTTP Error 404: Not Found"
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "TV 8",
         "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1633",
-        "detail": "<urlopen error [Errno 111] Connection refused>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
         "channel": "TV 8",
         "url": "https://bcovlive-a.akamaihd.net/ccee7091e86040d18e14cd0efef2a51b/eu-central-1/6415845530001/profile_0/chunklist.m3u8",
-        "detail": "HTTP Error 503: Service Unavailable"
+        "detail": "('İki testte de başarısız • HTTP Error 503: Service Unavailable',)"
       },
       {
         "channel": "TV 8",
         "url": "https://goldvod.org/tv/uyanik?id=8&extension=m3u8",
-        "detail": "<urlopen error [Errno -2] Name or service not known>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
-        "detail": "<urlopen error timed out>"
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "SHOW TV HD",
         "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
-        "detail": "HTTP Error 404: Not Found"
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "SHOW TV HD",
         "url": "https://goldvod.org/live/hpgdiscoo/123456/521.m3u8",
-        "detail": "<urlopen error [Errno -2] Name or service not known>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
         "channel": "KANAL D",
         "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
-        "detail": "HTTP Error 404: Not Found"
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "KANAL D",
         "url": "http://176.65.146.171:9981/stream/channelid/23410162?profile=htsp",
-        "detail": "<urlopen error timed out>"
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "KANAL D",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "STAR TV",
         "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
-        "detail": "HTTP Error 403: Forbidden"
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
       {
         "channel": "STAR TV",
         "url": "http://176.65.146.104:9981/stream/channelid/518299962",
-        "detail": "<urlopen error timed out>"
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
-        "detail": "HTTP Error 403: Forbidden"
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "STAR TV",
         "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "<urlopen error [Errno -3] Temporary failure in name resolution>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       },
       {
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
-        "detail": "segment unavailable: HTTP Error 401: Unauthorized"
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
       },
       {
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
-        "detail": "segment unavailable: HTTP Error 401: Unauthorized"
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
       },
       {
         "channel": "KANAL 7",
         "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
-        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>"
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
       },
       {
         "channel": "TV100",
         "url": "https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8",
-        "detail": "<urlopen error [Errno -2] Name or service not known>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
         "channel": "TV100",
         "url": "https://tv100.daioncdn.net/tv100/tv100_1080p.m3u8?app=web",
-        "detail": "<urlopen error [Errno -2] Name or service not known>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
         "channel": "BEYAZ TV",
         "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1632",
-        "detail": "<urlopen error [Errno 111] Connection refused>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
         "channel": "TRT HABER",
         "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1636",
-        "detail": "<urlopen error [Errno 111] Connection refused>"
+        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
         "channel": "HABERTURK",
         "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
-        "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
-        "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "https://x.canlitvapp.com/aSPOR/index.m3u8",
-        "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "https://trkvz-live.daioncdn.net/aSPOR/aSPOR_1080p.m3u8",
-        "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "http://50.7.144.122:1935/livetv/aSPOR.stream/sec-f5-v1-a1.m3u8",
-        "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "http://195.142.1.211:4022/udp/224.2.2.21:10001",
-        "detail": "<urlopen error timed out>"
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
