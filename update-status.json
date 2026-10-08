@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T12:40:06.108689+00:00",
+  "updatedAt": "2026-10-08T12:41:43.836229+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -27,12 +27,12 @@
       "status": "ok"
     }
   ],
-  "logosFilled": 10,
+  "logosFilled": 17,
   "healthCheck": {
     "enabled": true,
     "checkedUrls": 577,
-    "healthyUrls": 383,
-    "failedUrls": 194,
+    "healthyUrls": 381,
+    "failedUrls": 196,
     "failures": [
       {
         "channel": "TRT1",
@@ -155,6 +155,11 @@
         "detail": "<urlopen error timed out>"
       },
       {
+        "channel": "TRT COCUK",
+        "url": "https://helga.iptv2022.com/sh/trt_cocuk/tracks-v4a1/mono.ts.m3u8?filter.tracks=a1v1v2v3v4",
+        "detail": "response is not a valid M3U8 manifest"
+      },
+      {
         "channel": "KANAL 33",
         "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
         "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
@@ -178,11 +183,6 @@
         "channel": "KANAL URFA",
         "url": "https://edge1.socialsmart.tv/kanalurfa/bant1/playlist.m3u8",
         "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
-      },
-      {
-        "channel": "KAY TV",
-        "url": "https://live.artidijitalmedya.com/artidijital_kaytv/kaytv1/playlist.m3u8",
-        "detail": "HTTP Error 404: Not Found"
       }
     ],
     "ordering": "healthy-first, failed-last",
