@@ -172,7 +172,7 @@ function playChannel(ch){
   const fallbackObjects = (ch.alternatives || []).map(url => ({...ch, url}));
   const alternatives = [ch, ...fallbackObjects, ...getAlternativeChannels(ch)]
     .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index);
-  const maxAttempts = Math.min(alternatives.length,5);let attemptIndex=0,settled=false;const timers=new Set();
+  const maxAttempts = Math.min(alternatives.length,7);let attemptIndex=0,settled=false;const timers=new Set();
   const clearTimers=()=>{for(const t of timers)clearTimeout(t);timers.clear();};
   const success=(url,sourceIndex)=>{if(settled)return;settled=true;clearTimers();state.currentUrl=url;mark(ch,'ok');setStatus(sourceIndex?'Canlı • alternatif kaynak':'Canlı');};
   const failure=(detail='Yayın açılamadı')=>{if(settled)return;clearTimers();stopHls();if(attemptIndex+1<maxAttempts){attemptIndex++;setStatus(`Alternatif kaynak ${attemptIndex+1}/${maxAttempts} deneniyor…`);trySource(alternatives[attemptIndex],attemptIndex);return;}settled=true;mark(ch,'bad');setStatus('Açılamadı');showError(`${detail}. Web tarayıcısı bu yayını kabul etmiyor olabilir. APTV gibi native bir oynatıcı aynı URL'yi açabilir.`);};
