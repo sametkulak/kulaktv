@@ -48,9 +48,7 @@ def parse_free_tv_turkey(text: str) -> list[dict[str, object]]:
         if len(cells) < 2:
             continue
         name = re.sub(r"[ⓈⒼⓎ]$", "", cells[1]).strip()
-        match = re.search(r"[>\]\((https?://[^)]+)\)", line)
-        if not match:
-            match = re.search(r"\[>\]\((https?://[^)]+)\)", line)
+        match = re.search(r"\[>\]\((https?://[^)]+)\)", line)
         if not match:
             continue
         url = match.group(1)
