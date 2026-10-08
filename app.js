@@ -453,7 +453,14 @@ function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawe
 function closeSettings(){state.settingsOpen=false;$('settingsDrawer').classList.remove('open');$('settingsBackdrop').classList.remove('open');$('settingsDrawer').setAttribute('aria-hidden','true');}
 function nextChannel(dir){if(!state.current||!state.filtered.length)return;const i=state.filtered.findIndex(c=>c.id===state.current.id);const next=state.filtered[(i+dir+state.filtered.length)%state.filtered.length];if(next)playChannel(next);}
 $('openChannels').addEventListener('click',openChannels);$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
-$('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{if(video.paused)video.play().catch(()=>{});else video.pause();});
+$('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{
+  if(video.muted){
+    video.muted=false;
+    video.play().catch(()=>{});
+    return;
+  }
+  if(video.paused)video.play().catch(()=>{});else video.pause();
+});
 async function toggleFullscreen(){
   try{
     if(document.fullscreenElement){
