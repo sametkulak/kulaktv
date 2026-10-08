@@ -172,7 +172,11 @@ function playChannel(ch){
   clearError();
   stopHls();
   state.current = ch;
-  state.sourceCandidates = [ch, ...(ch.alternatives || []).map(url => ({...ch, url} ), ...getAlternativeChannels(ch)]
+  state.sourceCandidates = [
+    ch,
+    ...(ch.alternatives || []).map(url => ({...ch, url})),
+    ...getAlternativeChannels(ch)
+  ]
     .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index)
     .slice(0,7);
   state.sourceIndex = 0;
