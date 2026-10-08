@@ -470,7 +470,25 @@ function closeChannels(){
 }
 function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawer').classList.add('open');$('settingsBackdrop').classList.add('open');$('settingsDrawer').setAttribute('aria-hidden','false');}
 function closeSettings(){state.settingsOpen=false;$('settingsDrawer').classList.remove('open');$('settingsBackdrop').classList.remove('open');$('settingsDrawer').setAttribute('aria-hidden','true');}
-function nextChannel(dir){if(!state.current||!state.filtered.length)return;const i=state.filtered.findIndex(c=>c.id===state.current.id);const next=state.filtered[(i+dir+state.filtered.length)%state.filtered.length];if(next)playChannel(next);}
+function nextChannel(dir){
+  if(!state.current||!state.filtered.length)return;
+
+  // Kanal geçişinde tvg-id/id kullanma. Birçok M3U kaynağı aynı id'yi
+  // birden fazla kanala verdiği için (ör. "ext") yanlış kanala sıçrayabilir.
+  // Önce gerçek obje referansını bul, bulunamazsa URL ile eşleştir.
+  let i = state.filtered.findIndex(c => c === state.current);
+
+  if(i < 0){
+    i = state.filtered.findIndex(c =>
+      c.url === state.current.url || c.name === state.current.name
+    );
+  }
+
+  if(i < 0) i = 0;
+
+  const next = state.filtered[(i + dir + state.filtered.length) % state.filtered.length];
+  if(next) playChannel(next);
+}
 $('openChannels').addEventListener('click',openChannels);$('barChannelsBtn').addEventListener('click',()=>state.drawerOpen?closeChannels():openChannels());$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
 $('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{
   if(video.muted){
