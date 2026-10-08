@@ -183,7 +183,7 @@ function playChannel(ch){
     ...getAlternativeChannels(ch)
   ]
     .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index)
-    .slice(0,7);
+    .slice(0,9);
   state.sourceIndex = 0;
   state.currentUrl = state.sourceCandidates[0]?.url || ch.url;
   updateStreamActions();
