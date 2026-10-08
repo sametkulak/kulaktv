@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T12:29:23.469792+00:00",
+  "updatedAt": "2026-10-08T12:37:38.211276+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -27,11 +27,12 @@
       "status": "ok"
     }
   ],
+  "logosFilled": 10,
   "healthCheck": {
     "enabled": true,
     "checkedUrls": 577,
-    "healthyUrls": 382,
-    "failedUrls": 195,
+    "healthyUrls": 384,
+    "failedUrls": 193,
     "failures": [
       {
         "channel": "TRT1",
@@ -67,6 +68,11 @@
         "channel": "KANAL D",
         "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
         "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "KANAL D",
+        "url": "https://ackaxsqacw.turknet.ercdn.net/ozfkfbbjba/kanald/kanald_1080p.m3u8",
+        "detail": "The read operation timed out"
       },
       {
         "channel": "STAR TV",
@@ -147,11 +153,6 @@
         "channel": "TRT COCUK",
         "url": "http://185.234.111.229:8000/play/a00b",
         "detail": "<urlopen error timed out>"
-      },
-      {
-        "channel": "TRT COCUK",
-        "url": "https://helga.iptv2022.com/sh/trt_cocuk/tracks-v4a1/mono.ts.m3u8?filter.tracks=a1v1v2v3v4",
-        "detail": "response is not a valid M3U8 manifest"
       },
       {
         "channel": "KANAL 33",
