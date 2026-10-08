@@ -290,8 +290,14 @@ function playChannel(ch){
     });
   };
 
-  state._trySource = trySource;
-  state._sourceFailure = failure;
+  state._switchSource = (sourceIndex) => {
+    if(!alternatives[sourceIndex]) return;
+    clearTimers();
+    stopHls();
+    settled = false;
+    attemptIndex = sourceIndex;
+    trySource(alternatives[sourceIndex], sourceIndex);
+  };
   trySource(alternatives[0],0);
 }
 async function loadM3UText(text,sourceName){
@@ -375,11 +381,9 @@ async function toggleFullscreen(){
 $('fullscreenBtn').addEventListener('click',toggleFullscreen);
 $('changeSourceBtn').addEventListener('click',()=>{
   const total = state.sourceCandidates.length;
-  if(total < 2 || !state.current || !state._trySource) return;
-  stopHls();
-  clearError();
+  if(total < 2 || !state.current || !state._switchSource) return;
   const nextIndex = (state.sourceIndex + 1) % total;
-  state._trySource(state.sourceCandidates[nextIndex], nextIndex);
+  state._switchSource(nextIndex);
 });
 video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});
 video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
