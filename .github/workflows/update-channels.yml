@@ -2,7 +2,8 @@ name: KulakTV kanal listesini güncelle
 
 on:
   schedule:
-    - cron: '15 3 * * *'
+    # Her gün 03:15 UTC = Türkiye saatiyle 06:15
+    - cron: "15 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -16,8 +17,11 @@ jobs:
       - name: Repository'yi al
         uses: actions/checkout@v4
 
-      - name: Python ile kanal listesini güncelle
+      - name: Python kanal güncellemesini çalıştır
         run: python scripts/update_channels.py
+
+      - name: Değişiklikleri kontrol et
+        run: git status --short
 
       - name: Değişiklik varsa kaydet
         run: |
@@ -27,8 +31,8 @@ jobs:
           git add channels.m3u update-status.json
 
           if git diff --cached --quiet; then
-            echo "Değişiklik yok."
+            echo "Kanal listesinde değişiklik yok."
           else
-            git commit -m "chore: otomatik kanal listesi güncellemesi"
+            git commit -m "chore: ByteFix kanal listesi otomatik güncelleme"
             git push
           fi
