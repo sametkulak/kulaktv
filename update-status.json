@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T14:26:17.914680+00:00",
+  "updatedAt": "2026-10-08T14:56:25.562517+00:00",
   "channelCount": 560,
   "sourceCount": 5,
   "changed": true,
@@ -45,9 +45,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 729,
-    "healthyUrls": 447,
-    "failedUrls": 282,
+    "checkedUrls": 746,
+    "healthyUrls": 470,
+    "failedUrls": 276,
     "failures": [
       {
         "channel": "TRT1",
@@ -58,16 +58,6 @@
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "TRT 4K",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "NOW TV",
@@ -100,14 +90,14 @@
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
-        "channel": "SHOW TV HD",
-        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+        "channel": "TV 8",
+        "url": "http://tv.smartglwiz.workers.dev/?ID=Now_HD",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -118,6 +108,11 @@
         "channel": "SHOW TV HD",
         "url": "https://goldvod.org/live/hpgdiscoo/123456/521.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=3",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       },
       {
         "channel": "KANAL D",
@@ -131,8 +126,8 @@
       },
       {
         "channel": "KANAL D",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "STAR TV",
@@ -151,13 +146,18 @@
       },
       {
         "channel": "STAR TV",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       },
       {
         "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
+        "url": "https://vavoo.ahkm.workers.dev/?ID=272055669263af9be64671",
+        "detail": "('İki testte de başarısız • timed out',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "KANAL 7",
