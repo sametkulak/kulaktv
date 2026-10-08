@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T12:10:07.102381+00:00",
+  "updatedAt": "2026-10-08T12:20:59.096191+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -30,8 +30,8 @@
   "healthCheck": {
     "enabled": true,
     "checkedUrls": 577,
-    "healthyUrls": 385,
-    "failedUrls": 192,
+    "healthyUrls": 382,
+    "failedUrls": 195,
     "failures": [
       {
         "channel": "TRT1",
@@ -62,6 +62,11 @@
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
         "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv_1080p.m3u8",
+        "detail": "The read operation timed out"
       },
       {
         "channel": "KANAL D",
@@ -177,14 +182,12 @@
         "channel": "KAY TV",
         "url": "https://live.artidijitalmedya.com/artidijital_kaytv/kaytv1/playlist.m3u8",
         "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "KOCAELİ TV",
-        "url": "https://edge1.socialsmart.tv/kocaelitv/bant1/playlist.m3u8",
-        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
       }
     ],
-    "ordering": "healthy-first, failed-last"
+    "ordering": "healthy-first, failed-last",
+    "globalHealthDegraded": false,
+    "pendingRemoval": 0,
+    "removedAfterTwoFailures": 0
   },
   "message": "Multi-source playlist merged successfully."
 }
