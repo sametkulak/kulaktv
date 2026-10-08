@@ -447,12 +447,31 @@ async function loadDefault(){
   }
   throw new Error(`Liste yüklenemedi: ${lastErr?.message || 'bilinmeyen hata'}`);
 }
-function openChannels(){state.drawerOpen=true;$('channelDrawer').classList.add('open');$('drawerBackdrop').classList.add('open');$('channelDrawer').setAttribute('aria-hidden','false');setTimeout(()=>$('search').focus({preventScroll:true}),150);}
-function closeChannels(){state.drawerOpen=false;$('channelDrawer').classList.remove('open');if(!state.settingsOpen)$('drawerBackdrop').classList.remove('open');$('channelDrawer').setAttribute('aria-hidden','true');}
+function updateChannelButton(){
+  const btn=$('barChannelsBtn');
+  if(!btn)return;
+  btn.classList.toggle('active',state.drawerOpen);
+  btn.setAttribute('aria-label',state.drawerOpen?'Kanal listesini kapat':'Kanal listesini aç');
+}
+function openChannels(){
+  state.drawerOpen=true;
+  $('channelDrawer').classList.add('open');
+  $('drawerBackdrop').classList.add('open');
+  $('channelDrawer').setAttribute('aria-hidden','false');
+  updateChannelButton();
+  setTimeout(()=>$('search').focus({preventScroll:true}),150);
+}
+function closeChannels(){
+  state.drawerOpen=false;
+  $('channelDrawer').classList.remove('open');
+  if(!state.settingsOpen)$('drawerBackdrop').classList.remove('open');
+  $('channelDrawer').setAttribute('aria-hidden','true');
+  updateChannelButton();
+}
 function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawer').classList.add('open');$('settingsBackdrop').classList.add('open');$('settingsDrawer').setAttribute('aria-hidden','false');}
 function closeSettings(){state.settingsOpen=false;$('settingsDrawer').classList.remove('open');$('settingsBackdrop').classList.remove('open');$('settingsDrawer').setAttribute('aria-hidden','true');}
 function nextChannel(dir){if(!state.current||!state.filtered.length)return;const i=state.filtered.findIndex(c=>c.id===state.current.id);const next=state.filtered[(i+dir+state.filtered.length)%state.filtered.length];if(next)playChannel(next);}
-$('openChannels').addEventListener('click',openChannels);$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
+$('openChannels').addEventListener('click',openChannels);$('barChannelsBtn').addEventListener('click',()=>state.drawerOpen?closeChannels():openChannels());$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
 $('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{
   if(video.muted){
     video.muted=false;
