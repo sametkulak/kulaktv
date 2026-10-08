@@ -1,4 +1,5 @@
-const DEFAULT_M3U = './channels.m3u';
+const DEFAULT_M3U = 'https://raw.githubusercontent.com/sametkulak/kulaktv/main/channels.m3u';
+const LOCAL_M3U = './channels.m3u';
 const IPTV_ORG_TR = 'https://iptv-org.github.io/iptv/countries/tr.m3u';
 const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 
@@ -78,7 +79,24 @@ function playChannel(ch){
 }
 async function loadM3UText(text,sourceName){const channels=parseM3U(text);if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');state.channels=channels;state.sourceName=sourceName;$('nowMeta').textContent=`${sourceName} • ${channels.length} kanal`;$('footerSource').textContent=sourceName;renderGroups();applyFilters();setStatus('Hazır');}
 async function loadUrl(url,sourceLabel=url){const u=url.trim();if(!/^https?:\/\//i.test(u))throw new Error('Geçerli bir http/https M3U URL gir.');setStatus('Liste indiriliyor…');const res=await fetch(u,{cache:'no-store'});if(!res.ok)throw new Error(`Liste HTTP ${res.status} ile döndü.`);await loadM3UText(await res.text(),sourceLabel);}
-async function loadDefault(){setStatus('KulakTV listesi açılıyor…');const res=await fetch(DEFAULT_M3U,{cache:'no-store'});if(!res.ok)throw new Error('Yerleşik M3U dosyasına erişilemedi.');await loadM3UText(await res.text(),'KulakTV otomatik listesi');}
+async function loadDefault(){
+  setStatus('Liste yükleniyor…');
+  const urls = [DEFAULT_M3U, LOCAL_M3U];
+  let lastErr = null;
+  for (const url of urls) {
+    try {
+      const bust = (url.includes('?') ? '&' : '?') + '_=' + Date.now();
+      const res = await fetch(url + bust, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      await loadM3UText(text, url === DEFAULT_M3U ? 'KulakTV otomatik liste' : 'Yerel M3U');
+      return;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw new Error(`Liste yüklenemedi: ${lastErr?.message || 'bilinmeyen hata'}`);
+}
 function openChannels(){state.drawerOpen=true;$('channelDrawer').classList.add('open');$('drawerBackdrop').classList.add('open');$('channelDrawer').setAttribute('aria-hidden','false');setTimeout(()=>$('search').focus({preventScroll:true}),150);}
 function closeChannels(){state.drawerOpen=false;$('channelDrawer').classList.remove('open');if(!state.settingsOpen)$('drawerBackdrop').classList.remove('open');$('channelDrawer').setAttribute('aria-hidden','true');}
 function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawer').classList.add('open');$('settingsBackdrop').classList.add('open');$('settingsDrawer').setAttribute('aria-hidden','false');}
