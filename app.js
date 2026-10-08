@@ -34,7 +34,17 @@ function parseM3U(text) {
     for(let j=i+1;j<lines.length;j++){ const next=lines[j].trim(); if(!next||next.startsWith('#')) continue; url=next;i=j;break; }
     if(!url) continue;
     name=name.replace(/\s*\[(?:Not 24\/7|Geo-blocked)\]\s*$/i,'').trim();
-    out.push({id:attrs['tvg-id']||`${name}-${url}`,name,group:attrs['group-title']||'Genel',logo:attrs['tvg-logo']||'',url});
+    const alternatives = Object.entries(attrs)
+      .filter(([key, value]) => /^(?:yedek\d*|backup\d*)$/i.test(key) && /^https?:\/\//i.test(value) && value !== url)
+      .map(([, value]) => value);
+    out.push({
+      id: attrs['tvg-id'] || `${name}-${url}`,
+      name,
+      group: attrs['group-title'] || 'Genel',
+      logo: attrs['tvg-logo'] || '',
+      url,
+      alternatives: [...new Set(alternatives)]
+    });
   }
   return dedupeChannels(out);
 }
@@ -64,18 +74,37 @@ function getAlternativeChannels(ch){
   return state.channels.filter(x=>x!==ch&&String(x.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+(live|hd|fhd|sd)$/i,'').replace(/\s+/g,' ').trim()===normalized);
 }
 async function openInExternalPlayer(url){
-  try { window.location.href=url; } catch { try{await navigator.clipboard.writeText(url);showError('Yayın URL\'si panoya kopyalandı. APTV\'ye yapıştırabilirsiniz.');}catch{showError('Dış oynatıcı açılamadı. Yayın URL\'sini kopyalayın.');} }
+  try {
+    const opened = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!opened) throw new Error('popup-blocked');
+  } catch {
+    try {
+      await navigator.clipboard.writeText(url);
+      showError('Yayın URL\'si panoya kopyalandı. APTV gibi bir dış oynatıcıya yapıştırabilirsiniz.');
+      setTimeout(clearError, 2200);
+    } catch {
+      showError('Dış oynatıcı açılamadı. Yayın URL\'sini kopyalayın.');
+    }
+  }
 }
 function updateNowLogo(ch){const root=$('nowLogo');root.innerHTML=ch.logo?`<img src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:escapeHtml(getInitials(ch.name));}
-function setCurrentTitle(ch){$('nowTitle').textContent=ch.name;$('nowMeta').textContent=`${ch.group} • HLS / M3U8`;updateNowLogo(ch);}
+function setCurrentTitle(ch){
+  $('nowTitle').textContent=ch.name;
+  const fallbackCount = Array.isArray(ch.alternatives) ? ch.alternatives.length : 0;
+  $('nowMeta').textContent = `${ch.group} • HLS / M3U8${fallbackCount ? ` • ${fallbackCount} yedek kaynak` : ''}`;
+  updateNowLogo(ch);
+}
 function playChannel(ch){
-  clearError();stopHls();state.current=ch;state.currentUrl=ch.url;setCurrentTitle(ch);renderChannelList();$('playerOverlay').classList.add('hidden');setStatus('Yayın açılıyor…');
-  const alternatives=[ch,...getAlternativeChannels(ch)].filter((item,index,arr)=>arr.findIndex(x=>x.url===item.url)===index), maxAttempts=Math.min(alternatives.length,4);let attemptIndex=0,settled=false;const timers=new Set();
+  clearError();stopHls();state.current=ch;state.currentUrl=ch.url;updateStreamActions();setCurrentTitle(ch);renderChannelList();$('playerOverlay').classList.add('hidden');setStatus('Yayın açılıyor…');
+  const fallbackObjects = (ch.alternatives || []).map(url => ({...ch, url}));
+  const alternatives = [ch, ...fallbackObjects, ...getAlternativeChannels(ch)]
+    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index);
+  const maxAttempts = Math.min(alternatives.length,5);let attemptIndex=0,settled=false;const timers=new Set();
   const clearTimers=()=>{for(const t of timers)clearTimeout(t);timers.clear();};
   const success=(url,sourceIndex)=>{if(settled)return;settled=true;clearTimers();state.currentUrl=url;mark(ch,'ok');setStatus(sourceIndex?'Canlı • alternatif kaynak':'Canlı');};
   const failure=(detail='Yayın açılamadı')=>{if(settled)return;clearTimers();stopHls();if(attemptIndex+1<maxAttempts){attemptIndex++;setStatus(`Alternatif kaynak ${attemptIndex+1}/${maxAttempts} deneniyor…`);trySource(alternatives[attemptIndex],attemptIndex);return;}settled=true;mark(ch,'bad');setStatus('Açılamadı');showError(`${detail}. Web tarayıcısı bu yayını kabul etmiyor olabilir. APTV gibi native bir oynatıcı aynı URL'yi açabilir.`);};
   const trySource=(candidate,sourceIndex)=>{
-    clearError();state.currentUrl=candidate.url;setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);video.pause();video.removeAttribute('src');video.load();let started=false;
+    clearError();state.currentUrl=candidate.url;updateStreamActions();setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);video.pause();video.removeAttribute('src');video.load();let started=false;
     const onPlaying=()=>{started=true;success(candidate.url,sourceIndex);};
     const onLoaded=()=>{setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);video.play().catch(()=>{});};
     const onVideoError=()=>{if(!started)failure('Video kaynağı tarayıcı tarafından reddedildi');};
@@ -124,7 +153,22 @@ $('bytefixList').addEventListener('click',async()=>{$('playlistUrl').value=BYTEF
 $('refreshDefault').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
 $('iptvOrgList').addEventListener('click',async()=>{$('playlistUrl').value=IPTV_ORG_TR;try{await loadUrl(IPTV_ORG_TR,'iptv-org Türkiye');closeSettings();openChannels();}catch(e){showError(`iptv-org listesi yüklenemedi: ${e.message}`);}});
 $('loadFile').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{await loadM3UText(await file.text(),file.name);closeSettings();openChannels();}catch(err){showError(`Dosya okunamadı: ${err.message}`);}e.target.value='';});
-$('copyStream').addEventListener('click',async()=>{if(!state.currentUrl)return;try{await navigator.clipboard.writeText(state.currentUrl);showError('Yayın URL\'si panoya kopyalandı.');setTimeout(clearError,1800);}catch{showError('Panoya erişilemedi.');}});
+function updateStreamActions(){
+  const hasUrl = Boolean(state.currentUrl);
+  $('copyStream').disabled = !hasUrl;
+  $('openStream').disabled = !hasUrl;
+}
+$('copyStream').addEventListener('click',async()=>{
+  if(!state.currentUrl)return;
+  try{
+    await navigator.clipboard.writeText(state.currentUrl);
+    showError('Yayın URL\'si panoya kopyalandı.');
+    setTimeout(clearError,1800);
+  }catch{
+    showError('Panoya erişilemedi.');
+  }
+});
+updateStreamActions();
 $('openStream').addEventListener('click',()=>{if(state.currentUrl)openInExternalPlayer(state.currentUrl);});
 async function loadUpdateStatus(){try{const res=await fetch('./update-status.json',{cache:'no-store'});if(!res.ok)return;const info=await res.json();const el=$('autoUpdateStatus');if(!el||!info.updatedAt)return;const d=new Date(info.updatedAt),count=info.channelCount?` • ${info.channelCount} kanal`:'';el.textContent=info.status==='fetch_failed'?`Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`:`Son otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}`;el.title=`Kaynak: ${info.source||''}`;}catch{}}
 loadUpdateStatus();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
