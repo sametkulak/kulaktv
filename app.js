@@ -11,7 +11,18 @@ const state = {
 
 const $ = id => document.getElementById(id);
 const video = $('video');
-function setStatus(text) { $('statusText').textContent = text; $('topStatus').textContent = text; }
+function setStatus(text) {
+  const statusText = $('statusText');
+  const topStatus = $('topStatus');
+
+  if (statusText) {
+    statusText.textContent = text;
+  }
+
+  if (topStatus) {
+    topStatus.textContent = text;
+  }
+}
 function escapeHtml(s) { return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
 function parseAttrs(line) { const attrs={}; const re=/([\w-]+)="([^"]*)"/g; let m; while((m=re.exec(line))) attrs[m[1]]=m[2]; return attrs; }
 function parseM3U(text) {
