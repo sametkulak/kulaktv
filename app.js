@@ -1,12 +1,13 @@
 const DEFAULT_M3U = './channels.m3u';
 const IPTV_ORG_TR = 'https://iptv-org.github.io/iptv/countries/tr.m3u';
+const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 
 const state = {
   channels: [],
   filtered: [],
   current: null,
   hls: null,
-  sourceName: 'Yerleşik Türkiye listesi'
+  sourceName: 'KulakTV otomatik kaynak listesi'
 };
 
 const $ = (id) => document.getElementById(id);
@@ -224,6 +225,11 @@ $('loadUrl').addEventListener('click', async () => {
 });
 $('playlistUrl').addEventListener('keydown', e => { if (e.key === 'Enter') $('loadUrl').click(); });
 $('defaultList').addEventListener('click', async () => { try { await loadDefault(); } catch(e) { showError(e.message); } });
+$('bytefixList').addEventListener('click', async () => {
+  $('playlistUrl').value = BYTEFIX_LIST;
+  try { await loadUrl(BYTEFIX_LIST, 'ByteFix Repairs kaynak listesi'); }
+  catch(e) { showError(`ByteFix listesi tarayıcıdan doğrudan yüklenemedi: ${e.message}`); }
+});
 $('refreshDefault').addEventListener('click', async () => { try { await loadDefault(); } catch(e) { showError(e.message); } });
 $('iptvOrgList').addEventListener('click', async () => {
   $('playlistUrl').value = IPTV_ORG_TR;
@@ -248,8 +254,14 @@ async function loadUpdateStatus() {
     const el = $('autoUpdateStatus');
     if (!el || !info.updatedAt) return;
     const d = new Date(info.updatedAt);
-    el.textContent = `Otomatik güncelleme: ${d.toLocaleString('tr-TR')}`;
-    el.title = `${info.urlsChanged || 0} yayın adresi güncellendi`;
+    const count = info.channelCount ? ` • ${info.channelCount} kanal` : '';
+    if (info.status === 'fetch_failed') {
+      el.textContent = `Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`;
+      el.title = info.error || '';
+    } else {
+      el.textContent = `Otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}`;
+      el.title = `Kaynak: ${info.source || ''}`;
+    }
   } catch {}
 }
 
