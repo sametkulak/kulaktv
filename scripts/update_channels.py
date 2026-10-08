@@ -1,178 +1,119 @@
 #!/usr/bin/env python3
-"""Conservatively refresh KulakTV's built-in M3U URLs from iptv-org.
+"""Refresh KulakTV's local M3U snapshot from the user-selected public source.
 
-Only existing KulakTV channels are considered. A URL is replaced only when the
-upstream playlist offers the same channel with a host in the allowlist below,
-or with exactly the same hostname as the current KulakTV URL.
-
-This avoids importing arbitrary third-party streams from a large community
-playlist while still letting changed paths/URLs propagate automatically.
+The browser loads ./channels.m3u from the same GitHub Pages origin. GitHub Actions
+fetches the upstream playlist server-side, so the player does not need the upstream
+provider to enable browser CORS. A failed fetch never replaces the last known-good
+playlist.
 """
 from __future__ import annotations
 
+import json
 import re
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 M3U_PATH = ROOT / "channels.m3u"
 STATUS_PATH = ROOT / "update-status.json"
-SOURCE_URL = "https://iptv-org.github.io/iptv/countries/tr.m3u"
-
-# Domains we are comfortable using for the channels already carried by KulakTV.
-# Exact-host matching is also allowed, so an already-known host can keep updating
-# its path even if it is not listed here.
-SAFE_HOST_SUFFIXES = (
-    ".trt.com.tr",
-    ".daioncdn.net",
-    ".ercdn.net",
-    ".tgrthaber.com",
-    ".tjk.org",
-    ".ensonhaber.com",
-    "tele1-live.ercdn.net",
-)
+SOURCE_URL = "https://tinyurl.com/ByteFixRepairs2026"
+USER_AGENT = "KulakTV-AutoUpdater/2.0"
+MIN_CHANNELS = 10
 
 
-def fetch_text(url: str) -> str:
-    req = urllib.request.Request(
-        url,
-        headers={
-            "User-Agent": "KulakTV-AutoUpdater/1.0 (+https://github.com/)"
-        },
-    )
-    with urllib.request.urlopen(req, timeout=30) as response:
-        return response.read().decode("utf-8", errors="replace")
+def fetch_text(url: str) -> tuple[str, str]:
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=45) as response:
+        final_url = response.geturl()
+        raw = response.read()
+    return raw.decode("utf-8-sig", errors="replace"), final_url
 
 
-def parse_m3u(text: str) -> list[tuple[str, str, str, str]]:
-    """Return tuples of (extinf_line, channel_name, tvg_id, url)."""
-    lines = text.replace("\r\n", "\n").split("\n")
-    out: list[tuple[str, str, str, str]] = []
+def parse_count(text: str) -> int:
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    count = 0
     for i, line in enumerate(lines):
-        if not line.startswith("#EXTINF:"):
+        if not line.strip().startswith("#EXTINF:"):
             continue
-        comma = line.find(",")
-        name = line[comma + 1 :].strip() if comma >= 0 else ""
-        tvg = re.search(r'tvg-id="([^"]*)"', line)
-        tvg_id = tvg.group(1).strip() if tvg else ""
-        url = ""
-        for j in range(i + 1, len(lines)):
-            nxt = lines[j].strip()
-            if not nxt or nxt.startswith("#"):
+        for nxt in lines[i + 1:]:
+            stripped = nxt.strip()
+            if not stripped:
                 continue
-            url = nxt
+            if stripped.startswith("#"):
+                # Metadata between EXTINF and URL is allowed.
+                continue
+            if stripped.startswith(("http://", "https://")):
+                count += 1
             break
-        if url.startswith(("http://", "https://")):
-            out.append((line, name, tvg_id, url))
-    return out
+    return count
 
 
-def normalize_name(name: str) -> str:
-    name = re.sub(r"\s*\([^)]*\)", "", name)
-    name = re.sub(r"\s*\[(?:Not 24/7|Geo-blocked)\]\s*$", "", name, flags=re.I)
-    name = re.sub(r"[^\w\u00c0-\u024f\u1e00-\u1eff ]+", " ", name, flags=re.UNICODE)
-    return " ".join(name.casefold().split())
+def normalize_playlist(text: str) -> str:
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    while lines and not lines[-1].strip():
+        lines.pop()
+
+    valid: list[str] = []
+    for i, line in enumerate(lines):
+        valid.append(line.rstrip())
+
+    # Keep #EXTM3U as the first line because some players expect it there.
+    header_line = next((x for x in valid if x.startswith("#EXTM3U")), "#EXTM3U")
+    body = [x for x in valid if not x.startswith("#EXTM3U")]
+    header = [
+        header_line,
+        "# KulakTV Auto-Updated Playlist",
+        f"# Source: {SOURCE_URL}",
+        f"# Last fetched: {datetime.now(timezone.utc).isoformat()}",
+    ]
+    content = "\n".join(body).strip()
+    return "\n".join(header) + "\n" + (content + "\n" if content else "")
 
 
-def allowed_upstream(url: str, current_url: str) -> bool:
-    host = (urlparse(url).hostname or "").lower()
-    current_host = (urlparse(current_url).hostname or "").lower()
-    if not host:
-        return False
-    if host == current_host:
-        return True
-    return any(host == suffix.lstrip(".") or host.endswith(suffix) for suffix in SAFE_HOST_SUFFIXES)
-
-
-def main() -> None:
-    local_text = M3U_PATH.read_text(encoding="utf-8")
-    upstream_text = fetch_text(SOURCE_URL)
-    local = parse_m3u(local_text)
-    upstream = parse_m3u(upstream_text)
-
-    by_tvg: dict[str, list[tuple[str, str, str, str]]] = {}
-    by_name: dict[str, list[tuple[str, str, str, str]]] = {}
-    for item in upstream:
-        _, name, tvg, url = item
-        if tvg:
-            by_tvg.setdefault(tvg.casefold(), []).append(item)
-        by_name.setdefault(normalize_name(name), []).append(item)
-
-    lines = local_text.replace("\r\n", "\n").split("\n")
-    updates = 0
-    retained = 0
-
-    # Replace only URL lines that belong to a local #EXTINF record.
-    for idx, line in enumerate(lines):
-        if not line.startswith("#EXTINF:"):
-            continue
-        comma = line.find(",")
-        name = line[comma + 1 :].strip() if comma >= 0 else ""
-        tvg = re.search(r'tvg-id="([^"]*)"', line)
-        tvg_id = tvg.group(1).strip() if tvg else ""
-
-        url_idx = None
-        current_url = None
-        for j in range(idx + 1, len(lines)):
-            nxt = lines[j].strip()
-            if not nxt or nxt.startswith("#"):
-                continue
-            if nxt.startswith(("http://", "https://")):
-                url_idx = j
-                current_url = nxt
-            break
-        if url_idx is None or current_url is None:
-            continue
-
-        candidates = []
-        if tvg_id:
-            candidates.extend(by_tvg.get(tvg_id.casefold(), []))
-        if not candidates:
-            candidates.extend(by_name.get(normalize_name(name), []))
-
-        # Prefer the first safe candidate that is not an obviously non-24/7/geo-blocked duplicate.
-        selected = None
-        for item in candidates:
-            extinf, up_name, up_tvg, up_url = item
-            if "[Not 24/7]" in extinf or "[Geo-blocked]" in extinf:
-                continue
-            if allowed_upstream(up_url, current_url):
-                selected = up_url
-                break
-        if selected:
-            if selected != current_url:
-                lines[url_idx] = selected
-                updates += 1
-            else:
-                retained += 1
-
-    # Keep all local comments/metadata intact.
-    new_text = "\n".join(lines)
-    if not new_text.endswith("\n"):
-        new_text += "\n"
-    M3U_PATH.write_text(new_text, encoding="utf-8")
-
-    now = datetime.now(timezone.utc).astimezone()
+def write_status(payload: dict) -> None:
     STATUS_PATH.write_text(
-        __import__("json").dumps(
-            {
-                "updatedAt": now.isoformat(),
-                "source": SOURCE_URL,
-                "localChannels": len(local),
-                "upstreamChannels": len(upstream),
-                "urlsChanged": updates,
-                "channelsWithSafeMatch": retained + updates,
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    print(f"KulakTV: {updates} URL updated, {retained} kept, {len(local)} local channels checked.")
+
+
+def main() -> int:
+    now = datetime.now(timezone.utc).astimezone()
+    try:
+        upstream_text, final_url = fetch_text(SOURCE_URL)
+        count = parse_count(upstream_text)
+        if count < MIN_CHANNELS:
+            raise RuntimeError(
+                f"Upstream playlist contains only {count} playable URL entries; refusing to replace the last good list."
+            )
+
+        new_text = normalize_playlist(upstream_text)
+        old_text = M3U_PATH.read_text(encoding="utf-8") if M3U_PATH.exists() else ""
+        changed = new_text != old_text
+        if changed:
+            M3U_PATH.write_text(new_text, encoding="utf-8")
+            write_status(
+                {
+                    "status": "updated",
+                    "updatedAt": now.isoformat(),
+                    "source": SOURCE_URL,
+                    "resolvedSource": final_url,
+                    "channelCount": count,
+                    "changed": True,
+                }
+            )
+        print(
+            f"KulakTV: source fetched successfully; {count} channels found; "
+            f"playlist {'updated' if changed else 'already current'}."
+        )
+        return 0
+    except Exception as exc:
+        # Keep the last known-good channels.m3u and surface the problem in Actions.
+        print(f"::warning::KulakTV source refresh failed: {exc}")
+        print("Last known-good channels.m3u was kept; no repository file was changed.")
+        return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
