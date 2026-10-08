@@ -20,6 +20,7 @@ import unicodedata
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urljoin
 
 ROOT = Path(__file__).resolve().parents[1]
 M3U_PATH = ROOT / "channels.m3u"
@@ -44,6 +45,8 @@ HEALTH_CHECK_TIMEOUT = 8
 HEALTH_CHECK_WORKERS = 12
 HEALTH_MAX_URLS = 900
 HEALTH_BODY_LIMIT = 128 * 1024
+HEALTH_SEGMENT_READ_LIMIT = 4096
+HEALTH_MANIFEST_DEPTH = 2
 
 FAILED_STREAK_TO_REMOVE = 2
 GLOBAL_HEALTH_MIN_RATIO = 0.20
@@ -145,28 +148,117 @@ def save_health_state(state: dict[str, dict[str, object]]) -> None:
     )
 
 
-def check_stream_url(url: str) -> tuple[str, str]:
-    """Check that a public HLS/M3U8 manifest is reachable and looks like HLS."""
-    try:
-        req = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": USER_AGENT,
-                "Accept": "application/vnd.apple.mpegurl,application/x-mpegURL,text/plain,*/*",
-            },
-        )
-        with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
-            status = getattr(response, "status", 200)
-            content_type = str(response.headers.get("Content-Type") or "")
-            body = response.read(HEALTH_BODY_LIMIT).decode(
-                "utf-8-sig", errors="replace"
-            )
-
+def fetch_health_text(url: str, accept: str, read_limit: int) -> tuple[str, str, str]:
+    """Fetch a small amount of text and return body, final URL, and content type."""
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": accept,
+        },
+    )
+    with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
+        status = getattr(response, "status", 200)
         if not (200 <= status < 300):
-            return "bad", f"HTTP {status}"
-        if "#EXTM3U" not in body.upper():
+            raise RuntimeError(f"HTTP {status}")
+        final_url = response.geturl()
+        content_type = str(response.headers.get("Content-Type") or "")
+        body = response.read(read_limit).decode("utf-8-sig", errors="replace")
+    return body, final_url, content_type
+
+
+def find_hls_reference(manifest: str, base_url: str) -> tuple[str | None, str | None]:
+    """Find a child playlist or media segment referenced by an HLS manifest."""
+    lines = [line.strip() for line in manifest.replace("\r", "\n").split("\n")]
+    for index, line in enumerate(lines):
+        if not line or line.startswith("#"):
+            continue
+        if re.match(r"^https?://", line, re.I):
+            return line, "reference"
+        if index > 0 and lines[index - 1].startswith("#EXT-X-STREAM-INF"):
+            return urljoin(base_url, line), "playlist"
+        if index > 0 and lines[index - 1].startswith("#EXTINF:"):
+            return urllib.parse.urljoin(base_url, line), "segment"
+
+    # Some manifests can contain absolute/relative media references without a
+    # directly adjacent EXTINF marker. Return the first safe URI-like line.
+    for line in lines:
+        if line and not line.startswith("#"):
+            candidate = line if re.match(r"^https?://", line, re.I) else urllib.parse.urljoin(base_url, line)
+            if re.match(r"^https?://", candidate, re.I):
+                return candidate, "reference"
+    return None, None
+
+
+def verify_media_segment(segment_url: str) -> tuple[bool, str]:
+    """Verify that one referenced media segment can actually be fetched."""
+    req = urllib.request.Request(
+        segment_url,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "*/*",
+            "Range": f"bytes=0-{HEALTH_SEGMENT_READ_LIMIT - 1}",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
+        status = getattr(response, "status", 200)
+        if not (200 <= status < 300):
+            return False, f"segment HTTP {status}"
+        response.read(HEALTH_SEGMENT_READ_LIMIT)
+    return True, f"segment HTTP {status}"
+
+
+def check_stream_url(url: str) -> tuple[str, str]:
+    """Require a valid manifest and at least one reachable media segment."""
+    try:
+        manifest, final_url, content_type = fetch_health_text(
+            url,
+            "application/vnd.apple.mpegurl,application/x-mpegURL,text/plain,*/*",
+            HEALTH_BODY_LIMIT,
+        )
+        if "#EXTM3U" not in manifest.upper():
             return "bad", "response is not a valid M3U8 manifest"
-        return "ok", f"HTTP {status}" + (f" • {content_type}" if content_type else "")
+
+        current_manifest = manifest
+        current_url = final_url
+        segment_url = None
+        visited = {current_url}
+
+        # Direct media playlist: grab a segment. Master playlist: follow up to
+        # HEALTH_MANIFEST_DEPTH child playlists first, then verify one segment.
+        for depth in range(HEALTH_MANIFEST_DEPTH + 1):
+            reference, kind = find_hls_reference(current_manifest, current_url)
+            if not reference:
+                break
+
+            if kind == "segment":
+                segment_url = reference
+                break
+
+            if not re.match(r"^https?://", reference, re.I) or reference in visited:
+                break
+            visited.add(reference)
+
+            child, child_final_url, child_content_type = fetch_health_text(
+                reference,
+                "application/vnd.apple.mpegurl,application/x-mpegURL,text/plain,*/*",
+                HEALTH_BODY_LIMIT,
+            )
+            if "#EXTM3U" not in child.upper():
+                segment_url = reference
+                break
+            current_manifest = child
+            current_url = child_final_url
+
+        if not segment_url:
+            return "bad", "manifest reachable but no media segment reference was found"
+
+        segment_ok, segment_detail = verify_media_segment(segment_url)
+        if not segment_ok:
+            return "bad", segment_detail
+
+        manifest_detail = f"manifest HTTP 2xx" + (f" • {content_type}" if content_type else "")
+        return "ok", f"{manifest_detail} • {segment_detail}"
     except Exception as exc:
         return "bad", str(exc)
 
