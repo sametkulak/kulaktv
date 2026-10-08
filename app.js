@@ -224,7 +224,7 @@ function playChannel(ch){
     settled = true;
     mark(ch,'bad');
     setStatus('Açılamadı');
-    showError(`${detail}. Diğer kaynakları denemek için "Kaynak değiştir" düğmesini kullanabilirsiniz.`);
+    showError(`${detail}. ${maxAttempts}/${maxAttempts} kaynak denendi. Diğer kaynakları "Kaynak değiştir" düğmesiyle tekrar sırayla deneyebilirsiniz.`);
   };
 
   const trySource = (candidate, sourceIndex) => {
@@ -255,8 +255,8 @@ function playChannel(ch){
     video.onerror = onVideoError;
 
     const timeout = setTimeout(() => {
-      if(!started) failure('Kaynak 12 saniye içinde oynatılmaya başlamadı');
-    },12000);
+      if(!started) failure('Kaynak 14.4 saniye içinde oynatılmaya başlamadı');
+    },14400);
     timers.add(timeout);
 
     if(video.canPlayType('application/vnd.apple.mpegurl')){
@@ -276,8 +276,8 @@ function playChannel(ch){
       lowLatencyMode:true,
       backBufferLength:30,
       maxBufferLength:20,
-      manifestLoadingTimeOut:10000,
-      fragLoadingTimeOut:10000
+      manifestLoadingTimeOut:12000,
+      fragLoadingTimeOut:12000
     });
     state.hls.loadSource(candidate.url);
     state.hls.attachMedia(video);
