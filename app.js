@@ -8,7 +8,14 @@ const state = {
   sourceName: 'KulakTV otomatik kaynak listesi',
   drawerOpen: false, settingsOpen: false,
   showFavorites: false,
-  favorites: new Set(JSON.parse(localStorage.getItem('kulaktv-favorites') || '[]'))
+  activeCategory: 'all',
+  favorites: new Set((() => {
+    try {
+      return JSON.parse(localStorage.getItem('kulaktv-favorites') || '[]');
+    } catch {
+      return [];
+    }
+  })())
 };
 
 const $ = id => document.getElementById(id);
@@ -53,12 +60,6 @@ function parseM3U(text) {
 function dedupeChannels(channels){ const seen=new Set(); return channels.filter(ch=>{const key=`${ch.name.toLowerCase()}|${ch.url}`; if(seen.has(key))return false;seen.add(key);return true;}); }
 function getInitials(name){ const words=name.replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean); if(!words.length)return'TV'; if(words.length===1)return words[0].slice(0,2).toUpperCase(); return(words[0][0]+words[1][0]).toUpperCase(); }
 function renderGroups(){
-  const select=$('groupFilter');
-  if(!select)return;
-  const current=select.value;
-  const groups=[...new Set(state.channels.map(c=>c.group).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr'));
-  select.innerHTML='<option value="all">Tüm kategoriler</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join('');
-  select.value=groups.includes(current)?current:'all';
   renderCategoryChips();
 }
 function groupLabel(group){return String(group||'Diğer').replace(/^ulusal\s*-\s*/i,'').trim();}
@@ -74,9 +75,7 @@ function renderCategoryChips(){
   root.querySelectorAll('.category-chip').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const group=btn.dataset.group||'all';
-      $('groupFilter').value = group==='all'
-        ? 'all'
-        : ([...$('groupFilter').options].find(o=>o.value===group)?.value || group);
+      state.activeCategory = group;
       root.querySelectorAll('.category-chip').forEach(x=>x.classList.toggle('active',x===btn));
       applyFilters();
     });
@@ -102,7 +101,7 @@ function toggleFavorite(ch,event){
 }
 function applyFilters(){
   const q=$('search').value.trim().toLocaleLowerCase('tr-TR');
-  const group=$('groupFilter').value;
+  const group=state.activeCategory;
   state.filtered=state.channels.filter(c=>{
     const matchesSearch=!q||c.name.toLocaleLowerCase('tr-TR').includes(q)||c.group.toLocaleLowerCase('tr-TR').includes(q);
     const matchesGroup=group==='all'||c.group===group||groupLabel(c.group)===group;
@@ -238,13 +237,6 @@ $('fullscreenBtn').addEventListener('click',toggleFullscreen);
 video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});
 video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
 $('search').addEventListener('input',applyFilters);
-$('groupFilter').addEventListener('change',()=>{
-  document.querySelectorAll('.category-chip').forEach(x=>{
-    const active=($('groupFilter').value==='all'&&x.dataset.group==='all') || x.dataset.group===$('groupFilter').value;
-    x.classList.toggle('active',active);
-  });
-  applyFilters();
-});
 $('allChannelsTab').addEventListener('click',()=>{state.showFavorites=false;applyFilters();});
 $('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});
 $('loadUrl').addEventListener('click',async()=>{clearError();try{await loadUrl($('playlistUrl').value,'Özel M3U listesi');closeSettings();openChannels();}catch(e){setStatus('Hata');showError(`Liste yüklenemedi: ${e.message}. Harici M3U sunucusunun CORS izni vermesi gerekebilir.`);}});
