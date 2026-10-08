@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T12:20:59.096191+00:00",
+  "updatedAt": "2026-10-08T12:25:20.374426+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -30,8 +30,8 @@
   "healthCheck": {
     "enabled": true,
     "checkedUrls": 577,
-    "healthyUrls": 382,
-    "failedUrls": 195,
+    "healthyUrls": 384,
+    "failedUrls": 193,
     "failures": [
       {
         "channel": "TRT1",
@@ -64,14 +64,14 @@
         "detail": "<urlopen error timed out>"
       },
       {
-        "channel": "SHOW TV HD",
-        "url": "https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv_1080p.m3u8",
-        "detail": "The read operation timed out"
-      },
-      {
         "channel": "KANAL D",
         "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
         "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "KANAL D",
+        "url": "https://ackaxsqacw.turknet.ercdn.net/ozfkfbbjba/kanald/kanald_1080p.m3u8",
+        "detail": "The read operation timed out"
       },
       {
         "channel": "STAR TV",
