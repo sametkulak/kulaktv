@@ -3,6 +3,11 @@ const LOCAL_M3U = './channels.m3u';
 const IPTV_ORG_TR = 'https://iptv-org.github.io/iptv/countries/tr.m3u';
 const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 
+const SOURCE_START_TIMEOUT_MS = 14400;
+const SOURCE_STABILITY_MS = 3500;
+const SOURCE_STALL_GRACE_MS = 1800;
+const SOURCE_SWITCH_DELAY_MS = 1200;
+
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
   sourceName: 'KulakTV otomatik kaynak listesi',
@@ -198,6 +203,15 @@ function playChannel(ch){
     timers.clear();
   };
 
+  const schedule = (fn, delay) => {
+    const timer = setTimeout(() => {
+      timers.delete(timer);
+      fn();
+    }, delay);
+    timers.add(timer);
+    return timer;
+  };
+
   const success = (url, sourceIndex) => {
     if(settled) return;
     settled = true;
@@ -213,14 +227,23 @@ function playChannel(ch){
     if(settled) return;
     clearTimers();
     stopHls();
+
     if(attemptIndex + 1 < maxAttempts){
       attemptIndex++;
       state.sourceIndex = attemptIndex;
       updateSourceButton();
-      setStatus(`Alternatif kaynak ${attemptIndex+1}/${maxAttempts} deneniyor…`);
-      trySource(alternatives[attemptIndex], attemptIndex);
+      setStatus(`Kaynak ${attemptIndex+1}/${maxAttempts} için hazırlanıyor…`);
+
+      // Kaynaklar arasında kısa bir nefes payı ver. Özellikle tarayıcı/HLS
+      // önceki kaynağı bırakırken yeni kaynağa hemen geçmek bazı yayınlarda
+      // yanlış negatif sonuçlara yol açabiliyor.
+      schedule(() => {
+        if(settled) return;
+        trySource(alternatives[attemptIndex], attemptIndex);
+      }, SOURCE_SWITCH_DELAY_MS);
       return;
     }
+
     settled = true;
     mark(ch,'bad');
     setStatus('Açılamadı');
@@ -228,36 +251,76 @@ function playChannel(ch){
   };
 
   const trySource = (candidate, sourceIndex) => {
+    clearTimers();
     clearError();
     state.sourceIndex = sourceIndex;
     state.currentUrl = candidate.url;
     updateStreamActions();
     setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);
+
     video.pause();
     video.removeAttribute('src');
     video.load();
+
     let started = false;
+    let waitingAfterStart = false;
 
     const onPlaying = () => {
+      if(settled) return;
+
       started = true;
-      success(candidate.url, sourceIndex);
+      waitingAfterStart = false;
+      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} oynatılıyor, doğrulanıyor…`);
+
+      // "playing" tek başına yeterli kabul edilmez. Yayın 1 saniye görünüp
+      // sonra kesilebiliyorsa kaynak yanlış pozitif vermiş olur. Birkaç saniye
+      // kesintisiz oynatmayı bekleyip ancak sonra kaynağı başarılı sayıyoruz.
+      schedule(() => {
+        if(settled || !started || waitingAfterStart || video.paused) {
+          return;
+        }
+        success(candidate.url, sourceIndex);
+      }, SOURCE_STABILITY_MS);
     };
+
     const onLoaded = () => {
-      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);
+      if(settled) return;
+      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
       video.play().catch(()=>{});
     };
+
     const onVideoError = () => {
-      if(!started) failure('Video kaynağı tarayıcı tarafından reddedildi');
+      if(!started) {
+        failure('Video kaynağı tarayıcı tarafından reddedildi');
+      } else {
+        failure('Yayın başladıktan sonra durdu');
+      }
+    };
+
+    const onWaiting = () => {
+      if(!started || settled) return;
+
+      waitingAfterStart = true;
+      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} yeniden tamponlanıyor…`);
+
+      // Kısa buffering kabul edilebilir. Belirli süre boyunca yayın geri
+      // gelmezse kaynak kararsız kabul edilip sıradaki kaynağa geçiyoruz.
+      schedule(() => {
+        if(settled || !started || !waitingAfterStart) return;
+        failure('Yayın başladıktan sonra yeterince uzun süre devam etmedi');
+      }, SOURCE_STALL_GRACE_MS);
     };
 
     video.onplaying = onPlaying;
     video.onloadedmetadata = onLoaded;
     video.onerror = onVideoError;
+    video.onwaiting = onWaiting;
 
-    const timeout = setTimeout(() => {
-      if(!started) failure('Kaynak 14.4 saniye içinde oynatılmaya başlamadı');
-    },14400);
-    timers.add(timeout);
+    schedule(() => {
+      if(!started) {
+        failure(`Kaynak ${SOURCE_START_TIMEOUT_MS / 1000} saniye içinde oynatılmaya başlamadı`);
+      }
+    }, SOURCE_START_TIMEOUT_MS);
 
     if(video.canPlayType('application/vnd.apple.mpegurl')){
       video.src = candidate.url;
@@ -279,25 +342,38 @@ function playChannel(ch){
       manifestLoadingTimeOut:12000,
       fragLoadingTimeOut:12000
     });
+
     state.hls.loadSource(candidate.url);
     state.hls.attachMedia(video);
+
     state.hls.on(Hls.Events.MANIFEST_PARSED,()=>{
-      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);
+      if(settled) return;
+      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
       video.play().catch(()=>{});
     });
+
     state.hls.on(Hls.Events.ERROR,(_e,data)=>{
-      if(data?.fatal) failure(data.details || 'HLS fatal error');
+      if(data?.fatal) {
+        failure(data.details || 'HLS fatal error');
+      }
     });
   };
 
   state._switchSource = (sourceIndex) => {
     if(!alternatives[sourceIndex]) return;
+
     clearTimers();
     stopHls();
     settled = false;
     attemptIndex = sourceIndex;
-    trySource(alternatives[sourceIndex], sourceIndex);
+
+    setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);
+    schedule(() => {
+      if(settled) return;
+      trySource(alternatives[sourceIndex], sourceIndex);
+    }, SOURCE_SWITCH_DELAY_MS);
   };
+
   trySource(alternatives[0],0);
 }
 async function loadM3UText(text,sourceName){
@@ -386,7 +462,7 @@ $('changeSourceBtn').addEventListener('click',()=>{
   state._switchSource(nextIndex);
 });
 video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});
-video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
+video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{updateBarState();});
 $('search').addEventListener('input',applyFilters);
 $('allChannelsTab').addEventListener('click',()=>{state.showFavorites=false;applyFilters();});
 $('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});
