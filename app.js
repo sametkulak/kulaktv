@@ -3,271 +3,99 @@ const IPTV_ORG_TR = 'https://iptv-org.github.io/iptv/countries/tr.m3u';
 const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 
 const state = {
-  channels: [],
-  filtered: [],
-  current: null,
-  hls: null,
-  sourceName: 'KulakTV otomatik kaynak listesi'
+  channels: [], filtered: [], current: null, currentUrl: '', hls: null,
+  sourceName: 'KulakTV otomatik kaynak listesi',
+  drawerOpen: false, settingsOpen: false
 };
 
-const $ = (id) => document.getElementById(id);
+const $ = id => document.getElementById(id);
 const video = $('video');
-
-function setStatus(text) { $('statusText').textContent = text; }
-function escapeHtml(s) {
-  return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-}
-
-function parseAttrs(line) {
-  const attrs = {};
-  const re = /([\w-]+)="([^"]*)"/g;
-  let m;
-  while ((m = re.exec(line))) attrs[m[1]] = m[2];
-  return attrs;
-}
-
+function setStatus(text) { $('statusText').textContent = text; $('topStatus').textContent = text; }
+function escapeHtml(s) { return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+function parseAttrs(line) { const attrs={}; const re=/([\w-]+)="([^"]*)"/g; let m; while((m=re.exec(line))) attrs[m[1]]=m[2]; return attrs; }
 function parseM3U(text) {
-  const lines = text.replace(/^\uFEFF/, '').split(/\r?\n/);
-  const out = [];
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line.startsWith('#EXTINF:')) continue;
-    const comma = line.indexOf(',');
-    const meta = comma >= 0 ? line.slice(0, comma) : line;
-    let name = comma >= 0 ? line.slice(comma + 1).trim() : 'İsimsiz Kanal';
-    const attrs = parseAttrs(meta);
-    let url = '';
-    for (let j = i + 1; j < lines.length; j++) {
-      const next = lines[j].trim();
-      if (!next || next.startsWith('#')) continue;
-      url = next; i = j; break;
-    }
-    if (!url) continue;
-    // Remove a few common status suffixes used by public playlists.
-    name = name.replace(/\s*\[(?:Not 24\/7|Geo-blocked)\]\s*$/i, '').trim();
-    out.push({
-      id: attrs['tvg-id'] || `${name}-${url}`,
-      name,
-      group: attrs['group-title'] || 'Genel',
-      logo: attrs['tvg-logo'] || '',
-      url
-    });
+  const lines=text.replace(/^\uFEFF/,'').split(/\r?\n/), out=[];
+  for(let i=0;i<lines.length;i++){
+    const line=lines[i].trim(); if(!line.startsWith('#EXTINF:')) continue;
+    const comma=line.indexOf(','), meta=comma>=0?line.slice(0,comma):line;
+    let name=comma>=0?line.slice(comma+1).trim():'İsimsiz Kanal'; const attrs=parseAttrs(meta); let url='';
+    for(let j=i+1;j<lines.length;j++){ const next=lines[j].trim(); if(!next||next.startsWith('#')) continue; url=next;i=j;break; }
+    if(!url) continue;
+    name=name.replace(/\s*\[(?:Not 24\/7|Geo-blocked)\]\s*$/i,'').trim();
+    out.push({id:attrs['tvg-id']||`${name}-${url}`,name,group:attrs['group-title']||'Genel',logo:attrs['tvg-logo']||'',url});
   }
   return dedupeChannels(out);
 }
-
-function dedupeChannels(channels) {
-  const seen = new Set();
-  return channels.filter(ch => {
-    const key = `${ch.name.toLowerCase()}|${ch.url}`;
-    if (seen.has(key)) return false;
-    seen.add(key); return true;
-  });
+function dedupeChannels(channels){ const seen=new Set(); return channels.filter(ch=>{const key=`${ch.name.toLowerCase()}|${ch.url}`; if(seen.has(key))return false;seen.add(key);return true;}); }
+function getInitials(name){ const words=name.replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean); if(!words.length)return'TV'; if(words.length===1)return words[0].slice(0,2).toUpperCase(); return(words[0][0]+words[1][0]).toUpperCase(); }
+function renderGroups(){ const select=$('groupFilter'), current=select.value; const groups=[...new Set(state.channels.map(c=>c.group).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr')); select.innerHTML='<option value="all">Tüm kategoriler</option>'+groups.map(g=>`<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join(''); select.value=groups.includes(current)?current:'all'; }
+function applyFilters(){ const q=$('search').value.trim().toLocaleLowerCase('tr-TR'), group=$('groupFilter').value; state.filtered=state.channels.filter(c=>(!q||c.name.toLocaleLowerCase('tr-TR').includes(q)||c.group.toLocaleLowerCase('tr-TR').includes(q))&&(group==='all'||c.group===group)); renderChannelList(); $('channelCount').textContent=`${state.filtered.length} / ${state.channels.length} kanal`; }
+function renderChannelList(){
+  const root=$('channelList'); root.innerHTML='';
+  if(!state.filtered.length){root.innerHTML='<div class="empty">Bu filtreyle kanal bulunamadı.</div>';return;}
+  const frag=document.createDocumentFragment();
+  state.filtered.forEach(ch=>{
+    const div=document.createElement('div'); div.className='channel-item'+(state.current?.id===ch.id?' active':''); div.dataset.id=ch.id;
+    const logo=ch.logo?`<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:getInitials(ch.name);
+    div.innerHTML=`<div class="channel-logo">${logo}</div><div><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
+  }); root.appendChild(frag);
 }
-
-function getInitials(name) {
-  const words = name.replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean);
-  if (!words.length) return 'TV';
-  if (words.length === 1) return words[0].slice(0,2).toUpperCase();
-  return (words[0][0] + words[1][0]).toUpperCase();
+function mark(ch,status){const el=document.getElementById(`dot-${CSS.escape(ch.id)}`);if(!el)return;el.classList.remove('ok','bad');if(status==='ok'){el.classList.add('ok');el.title='Oynatma başarılı';}else if(status==='bad'){el.classList.add('bad');el.title='Oynatma başarısız / erişilemedi';}}
+function stopHls(){if(state.hls){state.hls.destroy();state.hls=null;}}
+function showError(message){$('errorBox').textContent=message;$('errorBox').hidden=false;}
+function clearError(){$('errorBox').hidden=true;$('errorBox').textContent='';}
+function canonicalChannelKey(ch){const base=String(ch.id||'').trim().toLowerCase();if(base)return base;return String(ch.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+/g,' ').trim();}
+function getAlternativeChannels(ch){
+  const key=canonicalChannelKey(ch), sameId=state.channels.filter(x=>x!==ch&&canonicalChannelKey(x)===key); if(sameId.length)return sameId;
+  const normalized=String(ch.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+(live|hd|fhd|sd)$/i,'').replace(/\s+/g,' ').trim();
+  return state.channels.filter(x=>x!==ch&&String(x.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+(live|hd|fhd|sd)$/i,'').replace(/\s+/g,' ').trim()===normalized);
 }
-
-function renderGroups() {
-  const select = $('groupFilter');
-  const current = select.value;
-  const groups = [...new Set(state.channels.map(c => c.group).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'tr'));
-  select.innerHTML = '<option value="all">Tüm kategoriler</option>' + groups.map(g => `<option value="${escapeHtml(g)}">${escapeHtml(g)}</option>`).join('');
-  select.value = groups.includes(current) ? current : 'all';
+async function openInExternalPlayer(url){
+  try { window.location.href=url; } catch { try{await navigator.clipboard.writeText(url);showError('Yayın URL\'si panoya kopyalandı. APTV\'ye yapıştırabilirsiniz.');}catch{showError('Dış oynatıcı açılamadı. Yayın URL\'sini kopyalayın.');} }
 }
-
-function applyFilters() {
-  const q = $('search').value.trim().toLocaleLowerCase('tr-TR');
-  const group = $('groupFilter').value;
-  state.filtered = state.channels.filter(c => {
-    const matchesText = !q || c.name.toLocaleLowerCase('tr-TR').includes(q) || c.group.toLocaleLowerCase('tr-TR').includes(q);
-    const matchesGroup = group === 'all' || c.group === group;
-    return matchesText && matchesGroup;
-  });
-  renderChannelList();
-  $('channelCount').textContent = `${state.filtered.length} / ${state.channels.length} kanal`;
-}
-
-function renderChannelList() {
-  const root = $('channelList');
-  root.innerHTML = '';
-  if (!state.filtered.length) {
-    root.innerHTML = '<div class="empty">Bu filtreyle kanal bulunamadı.</div>';
-    return;
-  }
-  const frag = document.createDocumentFragment();
-  state.filtered.forEach((ch, index) => {
-    const div = document.createElement('div');
-    div.className = 'channel-item' + (state.current?.id === ch.id ? ' active' : '');
-    div.dataset.id = ch.id;
-    const logo = ch.logo ? `<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">` : getInitials(ch.name);
-    div.innerHTML = `
-      <div class="channel-logo">${logo}</div>
-      <div>
-        <div class="channel-name">${escapeHtml(ch.name)}</div>
-        <div class="channel-group">${escapeHtml(ch.group)}</div>
-      </div>
-      <span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
-    div.addEventListener('click', () => playChannel(ch));
-    frag.appendChild(div);
-  });
-  root.appendChild(frag);
-}
-
-function mark(ch, status) {
-  const el = document.getElementById(`dot-${CSS.escape(ch.id)}`);
-  if (!el) return;
-  el.classList.remove('ok','bad');
-  if (status === 'ok') { el.classList.add('ok'); el.title = 'Oynatma başarılı'; }
-  else if (status === 'bad') { el.classList.add('bad'); el.title = 'Oynatma başarısız / erişilemedi'; }
-}
-
-function stopHls() {
-  if (state.hls) { state.hls.destroy(); state.hls = null; }
-}
-
-function showError(message) {
-  $('errorBox').textContent = message;
-  $('errorBox').hidden = false;
-}
-function clearError() { $('errorBox').hidden = true; $('errorBox').textContent = ''; }
-
-function playChannel(ch) {
-  clearError();
-  stopHls();
-  state.current = ch;
-  renderChannelList();
-  $('nowTitle').textContent = ch.name;
-  $('nowMeta').textContent = `${ch.group} • HLS / M3U8`;
-  $('copyStream').disabled = false;
-  $('copyStream').onclick = async () => {
-    try { await navigator.clipboard.writeText(ch.url); $('copyStream').textContent = 'Kopyalandı ✓'; setTimeout(()=> $('copyStream').textContent = "Yayın URL'sini Kopyala", 1400); }
-    catch { showError('Tarayıcı panoya erişimi reddetti.'); }
+function updateNowLogo(ch){const root=$('nowLogo');root.innerHTML=ch.logo?`<img src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:escapeHtml(getInitials(ch.name));}
+function setCurrentTitle(ch){$('nowTitle').textContent=ch.name;$('nowMeta').textContent=`${ch.group} • HLS / M3U8`;updateNowLogo(ch);}
+function playChannel(ch){
+  clearError();stopHls();state.current=ch;state.currentUrl=ch.url;setCurrentTitle(ch);renderChannelList();$('playerOverlay').classList.add('hidden');setStatus('Yayın açılıyor…');
+  const alternatives=[ch,...getAlternativeChannels(ch)].filter((item,index,arr)=>arr.findIndex(x=>x.url===item.url)===index), maxAttempts=Math.min(alternatives.length,4);let attemptIndex=0,settled=false;const timers=new Set();
+  const clearTimers=()=>{for(const t of timers)clearTimeout(t);timers.clear();};
+  const success=(url,sourceIndex)=>{if(settled)return;settled=true;clearTimers();state.currentUrl=url;mark(ch,'ok');setStatus(sourceIndex?'Canlı • alternatif kaynak':'Canlı');};
+  const failure=(detail='Yayın açılamadı')=>{if(settled)return;clearTimers();stopHls();if(attemptIndex+1<maxAttempts){attemptIndex++;setStatus(`Alternatif kaynak ${attemptIndex+1}/${maxAttempts} deneniyor…`);trySource(alternatives[attemptIndex],attemptIndex);return;}settled=true;mark(ch,'bad');setStatus('Açılamadı');showError(`${detail}. Web tarayıcısı bu yayını kabul etmiyor olabilir. APTV gibi native bir oynatıcı aynı URL'yi açabilir.`);};
+  const trySource=(candidate,sourceIndex)=>{
+    clearError();state.currentUrl=candidate.url;setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);video.pause();video.removeAttribute('src');video.load();let started=false;
+    const onPlaying=()=>{started=true;success(candidate.url,sourceIndex);};
+    const onLoaded=()=>{setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);video.play().catch(()=>{});};
+    const onVideoError=()=>{if(!started)failure('Video kaynağı tarayıcı tarafından reddedildi');};
+    video.onplaying=onPlaying;video.onloadedmetadata=onLoaded;video.onerror=onVideoError;
+    const timeout=setTimeout(()=>{if(!started)failure('Kaynak 12 saniye içinde oynatılmaya başlamadı');},12000);timers.add(timeout);
+    if(video.canPlayType('application/vnd.apple.mpegurl')){video.src=candidate.url;video.load();video.play().catch(()=>{});return;}
+    if(!window.Hls||!Hls.isSupported()){failure('Tarayıcınız HLS oynatmayı desteklemiyor');return;}
+    state.hls=new Hls({enableWorker:true,lowLatencyMode:true,backBufferLength:30,maxBufferLength:20,manifestLoadingTimeOut:10000,fragLoadingTimeOut:10000});
+    state.hls.loadSource(candidate.url);state.hls.attachMedia(video);state.hls.on(Hls.Events.MANIFEST_PARSED,()=>{setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır…`);video.play().catch(()=>{});});state.hls.on(Hls.Events.ERROR,(_e,data)=>{if(data?.fatal)failure(data.details||'HLS fatal error');});
   };
-  $('playerOverlay').classList.add('hidden');
-  setStatus('Yayın açılıyor…');
-
-  video.pause();
-  video.removeAttribute('src');
-  video.load();
-
-  const onSuccess = () => { mark(ch, 'ok'); setStatus('Canlı'); clearError(); };
-  const onError = (detail='') => {
-    mark(ch, 'bad');
-    setStatus('Hata');
-    showError(`Yayın açılamadı. Kaynak geçici olarak kapalı, CORS/kısıtlı erişim veya bölgesel engel olabilir.${detail ? ` (${detail})` : ''}`);
-  };
-
-  if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = ch.url;
-    video.addEventListener('loadedmetadata', onSuccess, {once:true});
-    video.addEventListener('error', () => onError(), {once:true});
-    video.play().catch(() => {});
-    return;
-  }
-
-  if (!window.Hls || !Hls.isSupported()) {
-    onError('Tarayıcınız HLS oynatmayı desteklemiyor');
-    return;
-  }
-
-  state.hls = new Hls({ enableWorker:true, lowLatencyMode:true, backBufferLength:30 });
-  state.hls.loadSource(ch.url);
-  state.hls.attachMedia(video);
-  state.hls.on(Hls.Events.MANIFEST_PARSED, () => { onSuccess(); video.play().catch(()=>{}); });
-  state.hls.on(Hls.Events.ERROR, (_event, data) => {
-    if (data?.fatal) {
-      try { state.hls.destroy(); } catch {}
-      state.hls = null;
-      onError(data.details || 'HLS fatal error');
-    }
-  });
+  trySource(ch,0);
 }
-
-async function loadM3UText(text, sourceName) {
-  const channels = parseM3U(text);
-  if (!channels.length) throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');
-  state.channels = channels;
-  state.sourceName = sourceName;
-  $('nowMeta').textContent = `${sourceName} • ${channels.length} kanal`;
-  renderGroups();
-  applyFilters();
-  setStatus('Hazır');
-}
-
-async function loadUrl(url, sourceLabel=url) {
-  const u = url.trim();
-  if (!/^https?:\/\//i.test(u)) throw new Error('Geçerli bir http/https M3U URL gir.');
-  setStatus('Liste indiriliyor…');
-  const res = await fetch(u, { cache:'no-store' });
-  if (!res.ok) throw new Error(`Liste HTTP ${res.status} ile döndü.`);
-  const text = await res.text();
-  await loadM3UText(text, sourceLabel);
-}
-
-async function loadDefault() {
-  setStatus('Yerleşik liste açılıyor…');
-  const res = await fetch(DEFAULT_M3U, { cache:'no-store' });
-  if (!res.ok) throw new Error('Yerleşik M3U dosyasına erişilemedi.');
-  await loadM3UText(await res.text(), 'Yerleşik Türkiye listesi');
-}
-
-$('search').addEventListener('input', applyFilters);
-$('groupFilter').addEventListener('change', applyFilters);
-$('loadUrl').addEventListener('click', async () => {
-  clearError();
-  try { await loadUrl($('playlistUrl').value, 'Özel M3U listesi'); }
-  catch (e) { setStatus('Hata'); showError(`Liste yüklenemedi: ${e.message}. Harici M3U sunucusunun CORS izni vermesi gerekebilir.`); }
-});
-$('playlistUrl').addEventListener('keydown', e => { if (e.key === 'Enter') $('loadUrl').click(); });
-$('defaultList').addEventListener('click', async () => { try { await loadDefault(); } catch(e) { showError(e.message); } });
-$('bytefixList').addEventListener('click', async () => {
-  $('playlistUrl').value = BYTEFIX_LIST;
-  try { await loadUrl(BYTEFIX_LIST, 'ByteFix Repairs kaynak listesi'); }
-  catch(e) { showError(`ByteFix listesi tarayıcıdan doğrudan yüklenemedi: ${e.message}`); }
-});
-$('refreshDefault').addEventListener('click', async () => { try { await loadDefault(); } catch(e) { showError(e.message); } });
-$('iptvOrgList').addEventListener('click', async () => {
-  $('playlistUrl').value = IPTV_ORG_TR;
-  try { await loadUrl(IPTV_ORG_TR, 'iptv-org Türkiye'); }
-  catch(e) { showError(`iptv-org listesi yüklenemedi: ${e.message}`); }
-});
-$('loadFile').addEventListener('click', () => $('fileInput').click());
-$('fileInput').addEventListener('change', async e => {
-  const file = e.target.files?.[0]; if (!file) return;
-  try { await loadM3UText(await file.text(), file.name); } catch(err) { showError(`Dosya okunamadı: ${err.message}`); }
-  e.target.value = '';
-});
-
-video.addEventListener('playing', () => { if (state.current) { mark(state.current,'ok'); setStatus('Canlı'); } });
-video.addEventListener('waiting', () => { if (state.current) setStatus('Yükleniyor…'); });
-
-async function loadUpdateStatus() {
-  try {
-    const res = await fetch('./update-status.json', { cache:'no-store' });
-    if (!res.ok) return;
-    const info = await res.json();
-    const el = $('autoUpdateStatus');
-    if (!el || !info.updatedAt) return;
-    const d = new Date(info.updatedAt);
-    const count = info.channelCount ? ` • ${info.channelCount} kanal` : '';
-    if (info.status === 'fetch_failed') {
-      el.textContent = `Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`;
-      el.title = info.error || '';
-    } else {
-      el.textContent = `Otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}`;
-      el.title = `Kaynak: ${info.source || ''}`;
-    }
-  } catch {}
-}
-
-loadUpdateStatus();
-
-loadDefault().catch(e => {
-  setStatus('Liste yüklenemedi');
-  showError(`Başlangıç listesi yüklenemedi: ${e.message}`);
-});
+async function loadM3UText(text,sourceName){const channels=parseM3U(text);if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');state.channels=channels;state.sourceName=sourceName;$('nowMeta').textContent=`${sourceName} • ${channels.length} kanal`;$('footerSource').textContent=sourceName;renderGroups();applyFilters();setStatus('Hazır');}
+async function loadUrl(url,sourceLabel=url){const u=url.trim();if(!/^https?:\/\//i.test(u))throw new Error('Geçerli bir http/https M3U URL gir.');setStatus('Liste indiriliyor…');const res=await fetch(u,{cache:'no-store'});if(!res.ok)throw new Error(`Liste HTTP ${res.status} ile döndü.`);await loadM3UText(await res.text(),sourceLabel);}
+async function loadDefault(){setStatus('KulakTV listesi açılıyor…');const res=await fetch(DEFAULT_M3U,{cache:'no-store'});if(!res.ok)throw new Error('Yerleşik M3U dosyasına erişilemedi.');await loadM3UText(await res.text(),'KulakTV otomatik listesi');}
+function openChannels(){state.drawerOpen=true;$('channelDrawer').classList.add('open');$('drawerBackdrop').classList.add('open');$('channelDrawer').setAttribute('aria-hidden','false');setTimeout(()=>$('search').focus({preventScroll:true}),150);}
+function closeChannels(){state.drawerOpen=false;$('channelDrawer').classList.remove('open');if(!state.settingsOpen)$('drawerBackdrop').classList.remove('open');$('channelDrawer').setAttribute('aria-hidden','true');}
+function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawer').classList.add('open');$('settingsBackdrop').classList.add('open');$('settingsDrawer').setAttribute('aria-hidden','false');}
+function closeSettings(){state.settingsOpen=false;$('settingsDrawer').classList.remove('open');$('settingsBackdrop').classList.remove('open');$('settingsDrawer').setAttribute('aria-hidden','true');}
+function nextChannel(dir){if(!state.current||!state.filtered.length)return;const i=state.filtered.findIndex(c=>c.id===state.current.id);const next=state.filtered[(i+dir+state.filtered.length)%state.filtered.length];if(next)playChannel(next);}
+$('openChannels').addEventListener('click',openChannels);$('openChannelsFloating').addEventListener('click',openChannels);$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
+$('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{if(video.paused)video.play().catch(()=>{});else video.pause();});
+video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{if(state.current){mark(state.current,'ok');setStatus('Canlı');}});video.addEventListener('waiting',()=>{if(state.current)setStatus('Yükleniyor…');});
+$('search').addEventListener('input',applyFilters);$('groupFilter').addEventListener('change',applyFilters);
+$('loadUrl').addEventListener('click',async()=>{clearError();try{await loadUrl($('playlistUrl').value,'Özel M3U listesi');closeSettings();openChannels();}catch(e){setStatus('Hata');showError(`Liste yüklenemedi: ${e.message}. Harici M3U sunucusunun CORS izni vermesi gerekebilir.`);}});
+$('playlistUrl').addEventListener('keydown',e=>{if(e.key==='Enter')$('loadUrl').click();});
+$('defaultList').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
+$('bytefixList').addEventListener('click',async()=>{$('playlistUrl').value=BYTEFIX_LIST;try{await loadUrl(BYTEFIX_LIST,'ByteFix Repairs kaynak listesi');closeSettings();openChannels();}catch(e){showError(`ByteFix listesi tarayıcıdan doğrudan yüklenemedi: ${e.message}`);}});
+$('refreshDefault').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
+$('iptvOrgList').addEventListener('click',async()=>{$('playlistUrl').value=IPTV_ORG_TR;try{await loadUrl(IPTV_ORG_TR,'iptv-org Türkiye');closeSettings();openChannels();}catch(e){showError(`iptv-org listesi yüklenemedi: ${e.message}`);}});
+$('loadFile').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{await loadM3UText(await file.text(),file.name);closeSettings();openChannels();}catch(err){showError(`Dosya okunamadı: ${err.message}`);}e.target.value='';});
+$('copyStream').addEventListener('click',async()=>{if(!state.currentUrl)return;try{await navigator.clipboard.writeText(state.currentUrl);showError('Yayın URL\'si panoya kopyalandı.');setTimeout(clearError,1800);}catch{showError('Panoya erişilemedi.');}});
+$('openStream').addEventListener('click',()=>{if(state.currentUrl)openInExternalPlayer(state.currentUrl);});
+async function loadUpdateStatus(){try{const res=await fetch('./update-status.json',{cache:'no-store'});if(!res.ok)return;const info=await res.json();const el=$('autoUpdateStatus');if(!el||!info.updatedAt)return;const d=new Date(info.updatedAt),count=info.channelCount?` • ${info.channelCount} kanal`:'';el.textContent=info.status==='fetch_failed'?`Kaynak alınamadı • son liste korunuyor (${d.toLocaleString('tr-TR')})`:`Son otomatik güncelleme: ${d.toLocaleString('tr-TR')}${count}`;el.title=`Kaynak: ${info.source||''}`;}catch{}}
+loadUpdateStatus();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
