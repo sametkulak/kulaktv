@@ -31,6 +31,8 @@ SOURCES = [
     ("iptv-org Türkiye", "https://iptv-org.github.io/iptv/countries/tr.m3u"),
 ]
 
+
+# The workflow is intentionally limited to trusted public playlist sources above.
 USER_AGENT = "KulakTV-AutoUpdater/3.0"
 TIMEOUT = 45
 MIN_CHANNELS = 10
