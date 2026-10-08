@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T12:41:43.836229+00:00",
+  "updatedAt": "2026-10-08T13:11:29.454249+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -31,8 +31,8 @@
   "healthCheck": {
     "enabled": true,
     "checkedUrls": 577,
-    "healthyUrls": 381,
-    "failedUrls": 196,
+    "healthyUrls": 372,
+    "failedUrls": 205,
     "failures": [
       {
         "channel": "TRT1",
@@ -43,6 +43,11 @@
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
         "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "The read operation timed out"
       },
       {
         "channel": "TV 8",
@@ -70,11 +75,6 @@
         "detail": "HTTP Error 404: Not Found"
       },
       {
-        "channel": "KANAL D",
-        "url": "https://ackaxsqacw.turknet.ercdn.net/ozfkfbbjba/kanald/kanald_1080p.m3u8",
-        "detail": "The read operation timed out"
-      },
-      {
         "channel": "STAR TV",
         "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
         "detail": "HTTP Error 403: Forbidden"
@@ -88,6 +88,16 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "HTTP Error 403: Forbidden"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
+        "detail": "HTTP Error 401: Unauthorized"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
+        "detail": "HTTP Error 401: Unauthorized"
       },
       {
         "channel": "KANAL 7",
@@ -155,11 +165,6 @@
         "detail": "<urlopen error timed out>"
       },
       {
-        "channel": "TRT COCUK",
-        "url": "https://helga.iptv2022.com/sh/trt_cocuk/tracks-v4a1/mono.ts.m3u8?filter.tracks=a1v1v2v3v4",
-        "detail": "response is not a valid M3U8 manifest"
-      },
-      {
         "channel": "KANAL 33",
         "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
         "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
@@ -178,11 +183,6 @@
         "channel": "KANAL Z",
         "url": "https://live.artidijitalmedya.com/artidijital_kanalz/kanalz/playlist.m3u8",
         "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "KANAL URFA",
-        "url": "https://edge1.socialsmart.tv/kanalurfa/bant1/playlist.m3u8",
-        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
       }
     ],
     "ordering": "healthy-first, failed-last",
