@@ -192,20 +192,39 @@ def find_hls_reference(manifest: str, base_url: str) -> tuple[str | None, str | 
 
 def verify_media_segment(segment_url: str) -> tuple[bool, str]:
     """Verify that one referenced media segment can actually be fetched."""
-    req = urllib.request.Request(
-        segment_url,
-        headers={
-            "User-Agent": USER_AGENT,
-            "Accept": "*/*",
-            "Range": f"bytes=0-{HEALTH_SEGMENT_READ_LIMIT - 1}",
-        },
-    )
-    with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
-        status = getattr(response, "status", 200)
-        if not (200 <= status < 300):
-            return False, f"segment HTTP {status}"
-        response.read(HEALTH_SEGMENT_READ_LIMIT)
-    return True, f"segment HTTP {status}"
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "*/*",
+        "Range": f"bytes=0-{HEALTH_SEGMENT_READ_LIMIT - 1}",
+    }
+
+    try:
+        req = urllib.request.Request(segment_url, headers=headers)
+        with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
+            status = getattr(response, "status", 200)
+            if not (200 <= status < 300):
+                return False, f"segment HTTP {status}"
+            response.read(HEALTH_SEGMENT_READ_LIMIT)
+        return True, f"segment HTTP {status}"
+    except Exception as first_error:
+        # Some HLS/CDN endpoints reject Range requests even though a normal
+        # GET works. Retry once without Range, still reading only a small prefix.
+        try:
+            req = urllib.request.Request(
+                segment_url,
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "*/*",
+                },
+            )
+            with urllib.request.urlopen(req, timeout=HEALTH_CHECK_TIMEOUT) as response:
+                status = getattr(response, "status", 200)
+                if not (200 <= status < 300):
+                    return False, f"segment HTTP {status}"
+                response.read(HEALTH_SEGMENT_READ_LIMIT)
+            return True, f"segment HTTP {status} (normal GET)"
+        except Exception:
+            return False, f"segment unavailable: {first_error}"
 
 
 def check_stream_url(url: str) -> tuple[str, str]:
@@ -767,6 +786,7 @@ def main() -> int:
             "logosFilled": logos_filled,
             "healthCheck": {
                 "enabled": HEALTH_CHECK_ENABLED,
+                "verification": "M3U8 manifest + at least one media segment",
                 "checkedUrls": health_summary["checked"],
                 "healthyUrls": health_summary["healthy"],
                 "failedUrls": health_summary["failed"],
