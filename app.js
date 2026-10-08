@@ -12,6 +12,7 @@ const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
   sourceName: 'KulakTV otomatik kaynak listesi',
   sourceCandidates: [], sourceIndex: -1,
+  autoStarting: false,
   drawerOpen: false, settingsOpen: false,
   showFavorites: false,
   activeCategory: 'all',
@@ -218,6 +219,7 @@ function playChannel(ch){
     clearTimers();
     state.sourceIndex = sourceIndex;
     state.currentUrl = url;
+    state.autoStarting = false;
     updateSourceButton();
     mark(ch,'ok');
     setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
@@ -283,10 +285,21 @@ function playChannel(ch){
       }, SOURCE_STABILITY_MS);
     };
 
+    const startPlayback = () => {
+      const promise = video.play();
+      if(!promise || typeof promise.catch !== 'function') return;
+      promise.catch(err => {
+        if(state.autoStarting && err?.name === 'NotAllowedError'){
+          video.muted = true;
+          video.play().catch(()=>{});
+        }
+      });
+    };
+
     const onLoaded = () => {
       if(settled) return;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
-      video.play().catch(()=>{});
+      startPlayback();
     };
 
     const onVideoError = () => {
@@ -325,7 +338,7 @@ function playChannel(ch){
     if(video.canPlayType('application/vnd.apple.mpegurl')){
       video.src = candidate.url;
       video.load();
-      video.play().catch(()=>{});
+      startPlayback();
       return;
     }
 
@@ -349,7 +362,7 @@ function playChannel(ch){
     state.hls.on(Hls.Events.MANIFEST_PARSED,()=>{
       if(settled) return;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
-      video.play().catch(()=>{});
+      startPlayback();
     });
 
     state.hls.on(Hls.Events.ERROR,(_e,data)=>{
@@ -376,10 +389,11 @@ function playChannel(ch){
 
   trySource(alternatives[0],0);
 }
-async function loadM3UText(text,sourceName){
+async function loadM3UText(text,sourceName,autoPlayFirst=false){
   const channels=parseM3U(text);
   if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');
 
+  state.autoStarting = Boolean(autoPlayFirst);
   state.channels=channels;
   state.sourceName=sourceName;
   state.showFavorites=false;
@@ -402,6 +416,13 @@ async function loadM3UText(text,sourceName){
   try { updateFavoriteUi(); } catch(err) { console.warn('Favori UI güncellenemedi:',err); }
 
   setStatus('Hazır');
+
+  if(autoPlayFirst && state.channels.length && !state.current){
+    // Sayfa açıldığında ilk kanalı otomatik başlat.
+    // Tarayıcı sesli otomatik oynatmayı engellerse oynatıcıyı sessiz
+    // başlatıp kullanıcı etkileşiminde sesi geri açıyoruz.
+    playChannel(state.channels[0]);
+  }
 }
 async function loadUrl(url,sourceLabel=url){const u=url.trim();if(!/^https?:\/\//i.test(u))throw new Error('Geçerli bir http/https M3U URL gir.');setStatus('Liste indiriliyor…');const res=await fetch(u,{cache:'no-store'});if(!res.ok)throw new Error(`Liste HTTP ${res.status} ile döndü.`);await loadM3UText(await res.text(),sourceLabel);}
 async function loadDefault(){
@@ -414,7 +435,11 @@ async function loadDefault(){
       const res = await fetch(url + bust, { cache: 'no-store' });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const text = await res.text();
-      await loadM3UText(text, url === DEFAULT_M3U ? 'KulakTV otomatik liste' : 'Yerel M3U');
+      await loadM3UText(
+        text,
+        url === DEFAULT_M3U ? 'KulakTV otomatik liste' : 'Yerel M3U',
+        true
+      );
       return;
     } catch (e) {
       lastErr = e;
