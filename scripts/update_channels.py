@@ -238,6 +238,8 @@ def merge_channels(
 ) -> list[dict[str, object]]:
     merged: dict[str, dict[str, object]] = {}
 
+    source_order = 0
+
     for source_name, _source_url, channels in source_results:
         for channel in channels:
             name = str(channel["name"])
@@ -253,6 +255,7 @@ def merge_channels(
             if target is None:
                 target = {
                     "name": name,
+                    "_sourceOrder": source_order,
                     "url": urls[0],
                     "logo": str(channel.get("logo") or ""),
                     "group": str(channel.get("group") or "Diğer"),
@@ -273,6 +276,8 @@ def merge_channels(
                 new_group = str(channel.get("group") or "Diğer")
                 if current_group == "Diğer" and new_group != "Diğer":
                     target["group"] = new_group
+
+            source_order += 1
 
             existing_urls = [str(target["url"])] + [
                 str(item) for item in target["alternatives"]
@@ -352,10 +357,12 @@ def apply_health_policy(
         channel["_healthTier"] = 0 if has_healthy else (2 if has_checked else 1)
         kept.append(channel)
 
+    # Preserve the original playlist order inside each health tier.
+    # OnurEröz is the first source, so its existing order remains the primary
+    # "most important / most visible" channel order.
     kept.sort(key=lambda item: (
         int(item.pop("_healthTier", 1)),
-        str(item.get("group") or "Diğer"),
-        str(item.get("name") or "").casefold(),
+        int(item.pop("_sourceOrder", 10**9)),
     ))
     return kept, next_state, {
         "degraded": int(degraded),
