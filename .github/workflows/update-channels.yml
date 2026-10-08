@@ -37,5 +37,6 @@ jobs:
             echo "Kanal listesinde değişiklik yok."
           else
             git commit -m "chore: multi-source kanal listesi otomatik güncelleme"
+            git pull --rebase origin main
             git push
           fi
