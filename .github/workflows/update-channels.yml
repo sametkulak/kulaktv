@@ -5,6 +5,9 @@ on:
     # Her gün 03:15 UTC = Türkiye saatiyle 06:15
     - cron: "15 3 * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/update_channels.py"
 
 permissions:
   contents: write
@@ -33,6 +36,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Kanal listesinde değişiklik yok."
           else
-            git commit -m "chore: ByteFix kanal listesi otomatik güncelleme"
+            git commit -m "chore: multi-source kanal listesi otomatik güncelleme"
             git push
           fi
