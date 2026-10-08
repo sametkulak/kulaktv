@@ -3,78 +3,109 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#07090d">
+  <meta name="theme-color" content="#080b10">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <title>KulakTV</title>
-  <link rel="stylesheet" href="style.css?v=20261008-2">
+  <link rel="stylesheet" href="style.css?v=20261008-4">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
 </head>
 <body>
   <div class="app-shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-mark">K</div>
-        <div class="brand-copy">
-          <div class="brand-title">KulakTV</div>
-          <div class="brand-subtitle">Canlı TV</div>
+    <aside id="channelDrawer" class="channel-sidebar" aria-hidden="false">
+      <div class="sidebar-head">
+        <div class="brand">
+          <div class="brand-mark">K</div>
+          <div>
+            <div class="brand-title">KulakTV</div>
+            <div class="brand-subtitle">Türk Kanalları</div>
+          </div>
         </div>
+        <div class="sidebar-status" id="topStatus">Hazır</div>
+        <button id="closeChannels" class="close-btn mobile-only" aria-label="Kanal listesini kapat">×</button>
       </div>
-      <div class="top-status" id="topStatus">Hazır</div>
-      <button id="openChannels" class="icon-btn channel-menu-btn" aria-label="Kanal listesini aç">
-        <span class="icon">☰</span><span class="btn-label">Kanallar</span>
-      </button>
-    </header>
 
-    <main class="stage">
-      <section class="video-stage">
-        <video id="video" controls playsinline preload="metadata"></video>
-        <div id="playerOverlay" class="player-overlay">
-          <div class="overlay-card">
-            <div class="play-icon">▶</div>
-            <div class="overlay-title">Kanal seç</div>
-            <div class="overlay-text">Kanallar düğmesine dokun.</div>
-          </div>
-        </div>
-        <div class="video-gradient"></div>
-        <div class="quick-controls">
-          <button id="prevChannel" class="round-btn" aria-label="Önceki kanal">‹</button>
-          <button id="playPause" class="round-btn play-pause" aria-label="Oynat / duraklat">▶</button>
-          <button id="nextChannel" class="round-btn" aria-label="Sonraki kanal">›</button>
-        </div>
-        <div class="channel-info">
-          <div class="channel-now-logo" id="nowLogo">K</div>
-          <div class="channel-info-text">
-            <div class="live-pill"><span></span> CANLI</div>
-            <div id="nowTitle" class="now-title">KulakTV</div>
-            <div id="nowMeta" class="now-meta">Kanal listesini açıp bir yayın seç.</div>
-          </div>
-        </div>
-        <button id="openChannelsFloating" class="floating-channels" aria-label="Kanal listesini aç">☰ <span>Kanal Listesi</span></button>
-      </section>
-    </main>
-
-    <aside id="channelDrawer" class="drawer" aria-hidden="true">
-      <div class="drawer-head">
+      <div class="sidebar-summary">
         <div>
-          <div class="drawer-title">Kanallar</div>
-          <div id="channelCount" class="drawer-subtitle">0 kanal</div>
+          <div class="sidebar-title">Türk Kanalları</div>
+          <div id="channelCount" class="sidebar-count">0 kanal</div>
         </div>
-        <button id="closeChannels" class="close-btn" aria-label="Kanal listesini kapat">×</button>
+        <div class="source-badge"><span></span> Otomatik</div>
       </div>
-      <div class="drawer-tools">
+
+      <div class="sidebar-tools">
         <div class="search-wrap">
           <span>⌕</span>
-          <input id="search" type="search" placeholder="Kanal ara..." autocomplete="off">
+          <input id="search" type="search" placeholder="Kanal ara · dokun ve oynat" autocomplete="off">
         </div>
-        <select id="groupFilter"><option value="all">Tüm kategoriler</option></select>
+        <div class="filter-row">
+          <button class="filter-tab active" id="allChannelsTab" type="button">▦ Tüm kanallar</button>
+          <button class="filter-tab" id="favoritesTab" type="button">♡ Favoriler <span id="favoriteCount">0</span></button>
+        </div>
+        <div id="categoryChips" class="category-chips"></div>
       </div>
-      <div id="channelList" class="channel-list"></div>
-      <div class="drawer-foot">
+
+      <div id="channelList" class="channel-grid"></div>
+
+      <div class="sidebar-foot">
         <button id="openSettings" class="settings-btn">⚙ Ayarlar ve kaynaklar</button>
       </div>
     </aside>
+
     <div id="drawerBackdrop" class="drawer-backdrop"></div>
+
+    <main class="main-stage">
+      <header class="topbar">
+        <div class="mobile-brand">
+          <div class="brand-mark small">K</div>
+          <div>
+            <div class="mobile-title">KulakTV</div>
+            <div class="mobile-subtitle" id="mobileNowTitle">Canlı TV</div>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="openChannels" class="icon-btn mobile-channel-btn" aria-label="Kanal listesini aç">
+            <span class="icon">☰</span><span class="btn-label">Kanallar</span>
+          </button>
+        </div>
+      </header>
+
+      <section id="videoStage" class="video-stage">
+        <video id="video" controls playsinline preload="metadata"></video>
+
+        <div id="playerOverlay" class="player-overlay">
+          <div class="overlay-card">
+            <div class="play-icon">▶</div>
+            <div class="overlay-title">Bir kanal seç</div>
+            <div class="overlay-text">Soldaki listeden bir kanala dokun.</div>
+          </div>
+        </div>
+
+        <div class="video-top-actions">
+          <div class="live-chip"><span></span> CANLI</div>
+        </div>
+
+        <div class="video-info">
+          <div class="channel-now-logo" id="nowLogo">K</div>
+          <div class="channel-info-text">
+            <div id="nowTitle" class="now-title">KulakTV</div>
+            <div id="nowMeta" class="now-meta">Kanal listesinden bir yayın seç.</div>
+          </div>
+        </div>
+
+        <div class="player-bar">
+          <button id="prevChannel" class="bar-btn" aria-label="Önceki kanal">‹</button>
+          <button id="playPause" class="bar-play" aria-label="Oynat / duraklat">▶</button>
+          <button id="nextChannel" class="bar-btn" aria-label="Sonraki kanal">›</button>
+          <div class="bar-divider"></div>
+          <div class="bar-current">
+            <div class="bar-current-label">KANAL</div>
+            <div id="barChannelName">Seçim bekleniyor</div>
+          </div>
+          <button id="fullscreenBtn" class="bar-action" aria-label="Tam ekran">⛶ <span>Ekranı doldur</span></button>
+        </div>
+      </section>
+    </main>
 
     <aside id="settingsDrawer" class="settings-drawer" aria-hidden="true">
       <div class="settings-head">
@@ -87,7 +118,7 @@
       <div class="settings-body">
         <section class="settings-card">
           <div class="settings-title">M3U kaynak URL'si</div>
-          <div class="settings-desc">İstersen farklı bir listeyi geçici olarak yükleyebilirsin.</div>
+          <div class="settings-desc">Farklı bir listeyi geçici olarak yükleyebilirsin.</div>
           <div class="source-row">
             <input id="playlistUrl" type="url" placeholder="https://ornek.com/liste.m3u" autocomplete="off">
             <button id="loadUrl" class="primary-btn">Yükle</button>
@@ -98,6 +129,7 @@
             <button id="iptvOrgList" class="link-btn">iptv-org TR</button>
           </div>
         </section>
+
         <section class="settings-card action-grid">
           <button id="refreshDefault" class="settings-action">↻<span>Listeyi yenile</span></button>
           <button id="loadFile" class="settings-action">▣<span>M3U dosyası aç</span></button>
@@ -105,22 +137,19 @@
           <button id="openStream" class="settings-action" disabled>↗<span>Dış oynatıcıda aç</span></button>
           <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
         </section>
+
         <section class="settings-card info-card">
           <div class="settings-title">Otomatik güncelleme</div>
           <div id="autoUpdateStatus">Kontrol ediliyor...</div>
-          <div class="settings-desc">KulakTV'nin GitHub Actions görevi kaynak listesini otomatik kontrol eder.</div>
+          <div class="settings-desc">GitHub Actions üç kaynağı günlük olarak birleştirir.</div>
         </section>
+
         <div id="errorBox" class="error-box" hidden></div>
       </div>
     </aside>
     <div id="settingsBackdrop" class="drawer-backdrop"></div>
-
-    <footer class="footer">
-      <span>KulakTV</span>
-      <span id="footerSource">Otomatik kaynak</span>
-    </footer>
   </div>
 
-  <script src="app.js?v=20261008-3" defer></script>
+  <script src="app.js?v=20261008-4" defer></script>
 </body>
 </html>
