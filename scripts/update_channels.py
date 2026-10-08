@@ -24,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 M3U_PATH = ROOT / "channels.m3u"
 STATUS_PATH = ROOT / "update-status.json"
+HEALTH_STATE_PATH = ROOT / "health-state.json"
 
 SOURCES = [
     ("OnurEröz Türkiye", "https://onureroz.com/indirmeler/turk/index.m3u"),
@@ -43,6 +44,26 @@ HEALTH_CHECK_TIMEOUT = 8
 HEALTH_CHECK_WORKERS = 12
 HEALTH_MAX_URLS = 900
 HEALTH_BODY_LIMIT = 128 * 1024
+
+FAILED_STREAK_TO_REMOVE = 2
+GLOBAL_HEALTH_MIN_RATIO = 0.20
+
+
+def load_health_state() -> dict[str, dict[str, object]]:
+    if not HEALTH_STATE_PATH.exists():
+        return {}
+    try:
+        data = json.loads(HEALTH_STATE_PATH.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def save_health_state(state: dict[str, dict[str, object]]) -> None:
+    HEALTH_STATE_PATH.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 def check_stream_url(url: str) -> tuple[str, str]:
@@ -102,6 +123,14 @@ def order_urls(urls: list[str], health: dict[str, dict[str, str]]) -> list[str]:
         list(dict.fromkeys(urls)),
         key=lambda url: tiers.get(health.get(url, {}).get("status", "unknown"), 1),
     )
+
+
+def channel_health(channel: dict[str, object]) -> tuple[bool, bool]:
+    """Return (has_healthy_url, has_any_checked_url)."""
+    checked = channel.get("health") or {}
+    if not checked:
+        return False, False
+    return any(item.get("status") == "ok" for item in checked.values()), True
 
 
 def fetch_text(url: str) -> tuple[str, str]:
@@ -277,6 +306,64 @@ def merge_channels(
     return result
 
 
+def apply_health_policy(
+    channels: list[dict[str, object]],
+    previous_state: dict[str, dict[str, object]],
+    checked_at: str,
+    global_health_ratio: float,
+) -> tuple[list[dict[str, object]], dict[str, dict[str, object]], dict[str, int]]:
+    """Keep one-day failures, remove after two consecutive failed runs, and sort healthy first."""
+    degraded = global_health_ratio < GLOBAL_HEALTH_MIN_RATIO
+    next_state: dict[str, dict[str, object]] = {}
+    kept: list[dict[str, object]] = []
+    removed = 0
+    pending = 0
+
+    for channel in channels:
+        key = normalize_name(str(channel["name"])) or str(channel["name"]).strip().upper()
+        has_healthy, has_checked = channel_health(channel)
+        old = previous_state.get(key, {})
+        streak = int(old.get("failedStreak", 0) or 0)
+
+        if has_healthy:
+            streak = 0
+        elif has_checked and not degraded:
+            streak += 1
+        else:
+            # A globally degraded health-check run should not age channels toward deletion.
+            streak = streak
+
+        next_state[key] = {
+            "name": str(channel["name"]),
+            "failedStreak": streak,
+            "lastCheckedAt": checked_at,
+            "lastHealthyAt": checked_at if has_healthy else old.get("lastHealthyAt"),
+            "hasHealthyUrl": has_healthy,
+        }
+
+        if streak >= FAILED_STREAK_TO_REMOVE and has_checked and not has_healthy and not degraded:
+            removed += 1
+            continue
+
+        if streak == 1 and has_checked and not has_healthy:
+            pending += 1
+
+        # Healthy channels first; one-day failures follow; unknowns stay after those.
+        channel["_healthTier"] = 0 if has_healthy else (2 if has_checked else 1)
+        kept.append(channel)
+
+    kept.sort(key=lambda item: (
+        int(item.pop("_healthTier", 1)),
+        str(item.get("group") or "Diğer"),
+        str(item.get("name") or "").casefold(),
+    ))
+    return kept, next_state, {
+        "degraded": int(degraded),
+        "pendingRemoval": pending,
+        "removed": removed,
+    }
+
+
 def render_m3u(channels: list[dict[str, object]], fetched_at: str) -> str:
     lines = [
         "#EXTM3U",
@@ -366,10 +453,25 @@ def main() -> int:
                     })
         channel.pop("health", None)
 
+    previous_health_state = load_health_state()
+    ratio = (
+        health_summary["healthy"] / health_summary["checked"]
+        if health_summary["checked"]
+        else 0.0
+    )
+    merged, next_health_state, removal_summary = apply_health_policy(
+        merged,
+        previous_health_state,
+        fetched_at,
+        ratio,
+    )
+
     if len(merged) < MIN_CHANNELS:
         raise RuntimeError(
-            f"Merged playlist contains only {len(merged)} channels; refusing to replace the last good list."
+            f"Merged playlist contains only {len(merged)} channels after health filtering; refusing to replace the last good list."
         )
+
+    save_health_state(next_health_state)
 
     new_text = render_m3u(merged, fetched_at)
     old_text = M3U_PATH.read_text(encoding="utf-8") if M3U_PATH.exists() else ""
@@ -405,6 +507,9 @@ def main() -> int:
                 "failedUrls": health_summary["failed"],
                 "failures": health_failures,
                 "ordering": "healthy-first, failed-last",
+                "globalHealthDegraded": bool(removal_summary["degraded"]),
+                "pendingRemoval": removal_summary["pendingRemoval"],
+                "removedAfterTwoFailures": removal_summary["removed"],
             },
             "message": (
                 "Multi-source playlist merged successfully."
