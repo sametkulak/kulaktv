@@ -48,6 +48,21 @@ HEALTH_BODY_LIMIT = 128 * 1024
 FAILED_STREAK_TO_REMOVE = 2
 GLOBAL_HEALTH_MIN_RATIO = 0.20
 
+LOGO_REPO_API = "https://api.github.com/repos/tv-logo/tv-logos/contents/countries/turkey"
+LOGO_REPO_RAW = "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey"
+LOGO_FETCH_TIMEOUT = 20
+
+# Common M3U names that use a different filename in the logo repository.
+LOGO_ALIASES = {
+    "NR 1 TURK": "nr1-turk-hd-tr.png",
+    "POWER TURK": "powerturk-tr.png",
+    "POWER TV AKUSTIK": "power-tv-hd-tr.png",
+    "TH TURK HABER TV": "turk-haber-tr.png",
+    "KANAL ON 4 TV": "on4-tv-tr.png",
+    "BURSA LINE TV": "line-tv-tr.png",
+    "EURO D HD SS": "euro-d-tr.png",
+}
+
 # Preferred display order for major Turkish channels. Only channels that
 # actually exist in the merged playlist are included. The order is applied
 # inside each health tier, so healthy channels still stay above failed ones.
@@ -373,6 +388,66 @@ def merge_channels(
     return result
 
 
+
+def fetch_turkey_logo_index() -> dict[str, str]:
+    """Return exact filename matches from the public Turkey logo directory."""
+    from urllib.parse import urlencode
+
+    index: dict[str, str] = {}
+    try:
+        for page in range(1, 8):
+            query = urlencode({"ref": "main", "per_page": 100, "page": page})
+            req = urllib.request.Request(
+                f"{LOGO_REPO_API}?{query}",
+                headers={"User-Agent": USER_AGENT, "Accept": "application/vnd.github+json"},
+            )
+            with urllib.request.urlopen(req, timeout=LOGO_FETCH_TIMEOUT) as response:
+                payload = json.loads(response.read().decode("utf-8", errors="replace"))
+            if not isinstance(payload, list) or not payload:
+                break
+            for item in payload:
+                if item.get("type") == "file" and str(item.get("name", "")).lower().endswith(".png"):
+                    filename = str(item["name"])
+                    key = normalize_name(filename.rsplit(".png", 1)[0].rsplit("-tr", 1)[0])
+                    if key:
+                        index.setdefault(key, filename)
+            if len(payload) < 100:
+                break
+    except Exception as exc:
+        print(f"::warning::Logo index could not be loaded: {exc}")
+    return index
+
+
+def enrich_missing_logos(channels: list[dict[str, object]]) -> int:
+    """Fill missing logo URLs with exact matches from tv-logo/tv-logos."""
+    logo_index = fetch_turkey_logo_index()
+    if not logo_index:
+        return 0
+
+    filled = 0
+    for channel in channels:
+        if str(channel.get("logo") or "").strip():
+            continue
+
+        name = str(channel.get("name") or "").strip()
+        alias_filename = LOGO_ALIASES.get(normalize_name(name))
+        filename = alias_filename
+
+        if not filename:
+            filename = logo_index.get(normalize_name(name))
+
+        if not filename:
+            # Try the common filename pattern only when that exact file exists.
+            slug_key = normalize_name(name)
+            filename = logo_index.get(slug_key)
+
+        if filename:
+            channel["logo"] = f"{LOGO_REPO_RAW}/{filename}"
+            filled += 1
+
+    return filled
+
+
 def apply_health_policy(
     channels: list[dict[str, object]],
     previous_state: dict[str, dict[str, object]],
@@ -521,6 +596,8 @@ def main() -> int:
         return 0
 
     merged = merge_channels(successful)
+    logos_filled = enrich_missing_logos(merged)
+    print(f"Logo enrichment: {logos_filled} missing channel logos filled.")
 
     health_summary = {"checked": 0, "healthy": 0, "failed": 0}
     health_failures: list[dict[str, str]] = []
@@ -586,6 +663,7 @@ def main() -> int:
                 )
             ]
             + failed,
+            "logosFilled": logos_filled,
             "healthCheck": {
                 "enabled": HEALTH_CHECK_ENABLED,
                 "checkedUrls": health_summary["checked"],
