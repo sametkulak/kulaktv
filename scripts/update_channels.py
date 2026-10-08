@@ -55,11 +55,13 @@ LOGO_FETCH_TIMEOUT = 20
 # Common M3U names that use a different filename in the logo repository.
 LOGO_ALIASES = {
     "NR 1 TURK": "nr1-turk-hd-tr.png",
+    "NR 1 TV": "nr1-tr.png",
     "POWER TURK": "powerturk-tr.png",
     "POWER TV AKUSTIK": "power-tv-hd-tr.png",
     "TH TURK HABER TV": "turk-haber-tr.png",
     "KANAL ON 4 TV": "on4-tv-tr.png",
     "BURSA LINE TV": "line-tv-tr.png",
+    "MAVI KARADENIZ TV": "mavi-karadeniz-tr.png",
     "EURO D HD SS": "euro-d-tr.png",
 }
 
