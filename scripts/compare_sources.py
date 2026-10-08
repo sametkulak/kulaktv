@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Test script executed in GitHub Actions
 """Compare candidate Turkish IPTV sources using KulakTV's current health check.
 
 This test never changes the production playlist. It compares candidate URLs against
