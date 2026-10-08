@@ -119,7 +119,10 @@ function renderChannelList(){
   const frag=document.createDocumentFragment();
   state.filtered.forEach(ch=>{
     const div=document.createElement('div'); div.className='channel-item'+(state.current?.id===ch.id?' active':''); div.dataset.id=ch.id;
-    const logo=ch.logo?`<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:getInitials(ch.name);
+    const initials = escapeHtml(getInitials(ch.name));
+    const logo=ch.logo
+      ? `<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.onerror=null;this.parentElement.textContent='${initials}'">`
+      : initials;
     div.innerHTML=`<button class="channel-fav${state.favorites.has(String(ch.id))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(String(ch.id))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
     div.querySelector('.channel-fav').addEventListener('click',e=>toggleFavorite(ch,e));
     div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
@@ -149,7 +152,13 @@ async function openInExternalPlayer(url){
     }
   }
 }
-function updateNowLogo(ch){const root=$('nowLogo');root.innerHTML=ch.logo?`<img src="${escapeHtml(ch.logo)}" alt="" onerror="this.style.display='none'">`:escapeHtml(getInitials(ch.name));}
+function updateNowLogo(ch){
+  const root=$('nowLogo');
+  const initials=escapeHtml(getInitials(ch.name));
+  root.innerHTML=ch.logo
+    ? `<img src="${escapeHtml(ch.logo)}" alt="" onerror="this.onerror=null;this.parentElement.textContent='${initials}'">`
+    : initials;
+}
 function setCurrentTitle(ch){
   $('nowTitle').textContent=ch.name;
   $('mobileNowTitle').textContent=ch.name;
