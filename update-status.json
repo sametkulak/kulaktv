@@ -1,8 +1,8 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T13:13:35.328457+00:00",
-  "channelCount": 446,
-  "sourceCount": 3,
+  "updatedAt": "2026-10-08T13:45:39.034865+00:00",
+  "channelCount": 561,
+  "sourceCount": 5,
   "changed": true,
   "sources": [
     {
@@ -25,15 +25,29 @@
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "channelCount": 174,
       "status": "ok"
+    },
+    {
+      "name": "discevisita",
+      "url": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
+      "channelCount": 107,
+      "status": "ok"
+    },
+    {
+      "name": "iptv-turk-tr",
+      "url": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
+      "channelCount": 181,
+      "status": "ok"
     }
   ],
   "logosFilled": 17,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 577,
-    "healthyUrls": 365,
-    "failedUrls": 212,
+    "checkedUrls": 733,
+    "healthyUrls": 459,
+    "failedUrls": 274,
     "failures": [
       {
         "channel": "TRT1",
@@ -46,9 +60,9 @@
         "detail": "<urlopen error timed out>"
       },
       {
-        "channel": "TRT 4K",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
-        "detail": "manifest reachable but no media segment reference was found"
+        "channel": "NOW TV",
+        "url": "http://116.202.238.88/FOXTV_TR/index.m3u8",
+        "detail": "<urlopen error [Errno 111] Connection refused>"
       },
       {
         "channel": "TV 8",
@@ -66,19 +80,39 @@
         "detail": "<urlopen error [Errno 111] Connection refused>"
       },
       {
+        "channel": "TV 8",
+        "url": "https://bcovlive-a.akamaihd.net/ccee7091e86040d18e14cd0efef2a51b/eu-central-1/6415845530001/profile_0/chunklist.m3u8",
+        "detail": "HTTP Error 503: Service Unavailable"
+      },
+      {
+        "channel": "TV 8",
+        "url": "https://goldvod.org/tv/uyanik?id=8&extension=m3u8",
+        "detail": "<urlopen error [Errno -2] Name or service not known>"
+      },
+      {
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
         "detail": "<urlopen error timed out>"
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
-        "detail": "manifest reachable but no media segment reference was found"
+        "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
+        "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "https://goldvod.org/live/hpgdiscoo/123456/521.m3u8",
+        "detail": "<urlopen error [Errno -2] Name or service not known>"
       },
       {
         "channel": "KANAL D",
         "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
         "detail": "HTTP Error 404: Not Found"
+      },
+      {
+        "channel": "KANAL D",
+        "url": "http://176.65.146.171:9981/stream/channelid/23410162?profile=htsp",
+        "detail": "<urlopen error timed out>"
       },
       {
         "channel": "STAR TV",
@@ -94,6 +128,11 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "HTTP Error 403: Forbidden"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "<urlopen error [Errno -3] Temporary failure in name resolution>"
       },
       {
         "channel": "KANAL 7",
@@ -158,31 +197,6 @@
       {
         "channel": "A SPOR",
         "url": "http://195.142.1.211:4022/udp/224.2.2.21:10001",
-        "detail": "<urlopen error timed out>"
-      },
-      {
-        "channel": "TRT COCUK",
-        "url": "https://trn03.tulix.tv/gt-trtcocuk/index.m3u8",
-        "detail": "HTTP Error 403: Forbidden"
-      },
-      {
-        "channel": "TRT COCUK",
-        "url": "http://185.234.111.229:8000/play/a00b",
-        "detail": "<urlopen error timed out>"
-      },
-      {
-        "channel": "KANAL 33",
-        "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
-        "detail": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>"
-      },
-      {
-        "channel": "KANAL 68",
-        "url": "https://live.artidijitalmedya.com/artidijital_kanal68/kanal68/playlist.m3u8",
-        "detail": "HTTP Error 404: Not Found"
-      },
-      {
-        "channel": "KANAL B",
-        "url": "https://baskentaudiovideo.xyz/ULUSALApp/streams/mUE22idl26lA1683879097431.m3u8",
         "detail": "<urlopen error timed out>"
       }
     ],
