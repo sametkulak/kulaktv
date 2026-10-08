@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T13:11:29.454249+00:00",
+  "updatedAt": "2026-10-08T13:13:35.328457+00:00",
   "channelCount": 446,
   "sourceCount": 3,
   "changed": true,
@@ -30,9 +30,10 @@
   "logosFilled": 17,
   "healthCheck": {
     "enabled": true,
+    "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 577,
-    "healthyUrls": 372,
-    "failedUrls": 205,
+    "healthyUrls": 365,
+    "failedUrls": 212,
     "failures": [
       {
         "channel": "TRT1",
@@ -45,9 +46,9 @@
         "detail": "<urlopen error timed out>"
       },
       {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "The read operation timed out"
+        "channel": "TRT 4K",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
+        "detail": "manifest reachable but no media segment reference was found"
       },
       {
         "channel": "TV 8",
@@ -68,6 +69,11 @@
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
         "detail": "<urlopen error timed out>"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
+        "detail": "manifest reachable but no media segment reference was found"
       },
       {
         "channel": "KANAL D",
@@ -92,12 +98,12 @@
       {
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
-        "detail": "HTTP Error 401: Unauthorized"
+        "detail": "segment unavailable: HTTP Error 401: Unauthorized"
       },
       {
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
-        "detail": "HTTP Error 401: Unauthorized"
+        "detail": "segment unavailable: HTTP Error 401: Unauthorized"
       },
       {
         "channel": "KANAL 7",
@@ -178,11 +184,6 @@
         "channel": "KANAL B",
         "url": "https://baskentaudiovideo.xyz/ULUSALApp/streams/mUE22idl26lA1683879097431.m3u8",
         "detail": "<urlopen error timed out>"
-      },
-      {
-        "channel": "KANAL Z",
-        "url": "https://live.artidijitalmedya.com/artidijital_kanalz/kanalz/playlist.m3u8",
-        "detail": "HTTP Error 404: Not Found"
       }
     ],
     "ordering": "healthy-first, failed-last",
