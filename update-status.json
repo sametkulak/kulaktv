@@ -1,8 +1,31 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T10:37:29.091872+00:00",
-  "source": "https://tinyurl.com/ByteFixRepairs2026",
-  "resolvedSource": "https://gist.githubusercontent.com/ByteFixRepairs/194e9e3a08075befa1703f02d4af82ad/raw/ByteFixRepairsTurkIPTV.m3u",
-  "channelCount": 172,
-  "changed": true
+  "updatedAt": "2026-10-08T11:27:15.784231+00:00",
+  "channelCount": 446,
+  "sourceCount": 3,
+  "changed": true,
+  "sources": [
+    {
+      "name": "OnurEröz Türkiye",
+      "url": "https://onureroz.com/indirmeler/turk/index.m3u",
+      "resolvedUrl": "https://onureroz.com/indirmeler/turk/index.m3u",
+      "channelCount": 414,
+      "status": "ok"
+    },
+    {
+      "name": "ByteFix Repairs",
+      "url": "https://tinyurl.com/ByteFixRepairs2026",
+      "resolvedUrl": "https://gist.githubusercontent.com/ByteFixRepairs/194e9e3a08075befa1703f02d4af82ad/raw/ByteFixRepairsTurkIPTV.m3u",
+      "channelCount": 172,
+      "status": "ok"
+    },
+    {
+      "name": "iptv-org Türkiye",
+      "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
+      "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
+      "channelCount": 174,
+      "status": "ok"
+    }
+  ],
+  "message": "Multi-source playlist merged successfully."
 }
