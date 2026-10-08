@@ -34,7 +34,7 @@ SOURCES = [
 
 
 # The workflow is intentionally limited to trusted public playlist sources above.
-USER_AGENT = "KulakTV-AutoUpdater/3.0"
+USER_AGENT = "KulakTV-AutoUpdater/3.1"
 TIMEOUT = 45
 MIN_CHANNELS = 10
 MAX_ALTERNATIVES = 4
