@@ -617,9 +617,20 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
 
             # Some lists place attributes after the title portion as well.
             if title:
-                match_name = re.search(r'^(.*?)(?:\s+)(?:tvg-name|group-title)=', title, re.I)
+                # Some upstream lists accidentally append attributes after the
+                # channel title using malformed single quotes. Keep only the
+                # actual title portion.
+                match_name = re.search(
+                    r'^(.*?)(?:\s+)(?:tvg-name|group-title|tvg-logo)=',
+                    title,
+                    re.I,
+                )
                 if match_name:
-                    title = match_name.group(1).strip()
+                    title = match_name.group(1).strip().strip("'\"")
+
+            # Known malformed upstream spelling of TV 8.5.
+            if re.match(r"^5\s*HD\.?tr'?$", title, re.I):
+                title = "TV 8.5"
 
             current_meta["_name"] = title
             continue
