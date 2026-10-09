@@ -102,12 +102,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add channels.m3u update-status.json health-state.json source-quality.json epg.json epg-status.json update-history.json
+          git add channels.m3u update-status.json health-state.json source-quality.json epg.json epg-status.json discovered-sources.json update-history.json
 
           if git diff --cached --quiet; then
             echo "Kanal listesinde değişiklik yok."
           else
             git commit -m "chore: multi-source kanal listesi otomatik güncelleme"
-            git pull --rebase origin main
+            git pull --rebase --autostash origin main
             git push
           fi
