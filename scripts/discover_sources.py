@@ -23,7 +23,9 @@ SEARCH_QUERIES = [
     "extension:m3u filename:tr.m3u",
     "\"turk kanalları\" m3u",
 ]
-MAX_RESULTS_PER_QUERY = 30
+MAX_RESULTS_PER_QUERY = 20
+MAX_REPOSITORIES = 30
+MAX_PLAYLISTS_PER_REPO = 3
 MAX_CANDIDATES = 4
 MIN_CHANNELS = 10
 MIN_UNIQUE_URLS = 5
@@ -105,103 +107,197 @@ def load_previous() -> dict:
         return {"version": 1, "candidates": []}
 
 
+def search_repositories(query: str) -> list[dict]:
+    params = urllib.parse.urlencode({
+        "q": query,
+        "sort": "updated",
+        "order": "desc",
+        "per_page": MAX_RESULTS_PER_QUERY,
+    })
+    data = api_request(f"https://api.github.com/search/repositories?{params}")
+    items = data.get("items", [])
+    return items if isinstance(items, list) else []
+
+
+def repository_tree(repo_name: str, branch: str) -> dict:
+    return api_request(
+        "https://api.github.com/repos/"
+        f"{repo_name}/git/trees/{urllib.parse.quote(branch or 'main', safe='')}?recursive=1"
+    )
+
+
+def candidate_paths(tree: dict) -> list[str]:
+    entries = tree.get("tree", []) if isinstance(tree, dict) else []
+    if not isinstance(entries, list):
+        return []
+
+    ranked: list[tuple[float, str]] = []
+    for item in entries:
+        if not isinstance(item, dict) or item.get("type") != "blob":
+            continue
+        path = str(item.get("path") or "")
+        lower = path.lower()
+        if not lower.endswith((".m3u", ".m3u8", ".txt")):
+            continue
+        if any(part in lower for part in (
+            "node_modules/", "vendor/", "tests/", "test/",
+            "example/", "examples/",
+        )):
+            continue
+        size = int(item.get("size") or 0)
+        if size > MAX_BODY:
+            continue
+
+        filename = lower.rsplit("/", 1)[-1]
+        rank = 50
+        if filename == "tr.m3u":
+            rank = 0
+        elif filename in {"turkey.m3u", "turkiye.m3u", "turk.m3u"}:
+            rank = 1
+        elif any(hint in lower for hint in (
+            "turk", "turkey", "turkiye", "iptv", "kanal", "channel",
+        )):
+            rank = 10
+        ranked.append((rank + lower.count("/") * 0.1, path))
+
+    ranked.sort()
+    return [path for _rank, path in ranked[:MAX_PLAYLISTS_PER_REPO]]
+
+
 def main() -> int:
     current_urls = set()
     if PLAYLIST_PATH.exists():
-        for line in PLAYLIST_PATH.read_text(encoding="utf-8").splitlines():
-            if re.match(r"^https?://", line.strip(), re.I):
-                current_urls.add(line.strip())
+        current_urls = {
+            line.strip()
+            for line in PLAYLIST_PATH.read_text(encoding="utf-8").splitlines()
+            if re.match(r"^https?://", line.strip(), re.I)
+        }
 
     known_urls = {url for _name, url in SOURCES}
-    results_by_url: dict[str, dict[str, object]] = {}
+    known_repos = set()
+    for _name, url in SOURCES:
+        match = re.match(
+            r"^https?://raw\.githubusercontent\.com/([^/]+/[^/]+)/.+$",
+            url,
+            re.I,
+        )
+        if match:
+            known_repos.add(match.group(1).lower())
 
+    repo_pool: dict[str, dict] = {}
     query_count = 0
+
     for query in SEARCH_QUERIES:
-        params = urllib.parse.urlencode({"q": query, "per_page": MAX_RESULTS_PER_QUERY})
         try:
-            data = api_request(f"https://api.github.com/search/code?{params}")
+            results = search_repositories(query)
+            query_count += 1
         except Exception as exc:
-            print(f"::warning::GitHub kaynak araması başarısız ({query}): {exc}")
+            print(f"::warning::Repo araması başarısız ({query}): {exc}")
             continue
-        query_count += 1
 
-        for item in data.get("items", []):
-            repo = item.get("repository") or {}
+        for repo in results:
             full_name = str(repo.get("full_name") or "")
-            path = str(item.get("path") or "")
-            default_branch = str(repo.get("default_branch") or "main")
-            if not full_name or not path:
+            key = full_name.lower()
+            if not full_name or key in known_repos or key in repo_pool:
                 continue
+            if repo.get("archived") or repo.get("disabled") or repo.get("fork"):
+                continue
+            repo_pool[key] = repo
+
+        if len(repo_pool) >= MAX_REPOSITORIES:
+            break
+
+    ranked_repos = sorted(
+        repo_pool.values(),
+        key=lambda item: (
+            -int(item.get("stargazers_count") or 0),
+            str(item.get("updated_at") or ""),
+        ),
+    )[:MAX_REPOSITORIES]
+
+    results_by_url: dict[str, dict[str, object]] = {}
+    for repo in ranked_repos:
+        full_name = str(repo.get("full_name") or "")
+        branch = str(repo.get("default_branch") or "main")
+        if not full_name:
+            continue
+
+        try:
+            tree = repository_tree(full_name, branch)
+        except Exception as exc:
+            print(f"::notice::{full_name} tree alınamadı: {exc}")
+            continue
+
+        for path in candidate_paths(tree):
+            source_url = (
+                f"https://raw.githubusercontent.com/{full_name}/"
+                f"{urllib.parse.quote(branch, safe='')}/"
+                f"{urllib.parse.quote(path, safe='/')}"
+            )
+            if source_url in known_urls or source_url in results_by_url:
+                continue
+
             try:
-                meta = repo_meta(full_name)
-            except Exception:
-                meta = repo
-            if meta.get("fork") or meta.get("archived") or meta.get("disabled"):
-                continue
-            if not meta.get("default_branch"):
-                meta["default_branch"] = default_branch
-            raw_url = f"https://raw.githubusercontent.com/{full_name}/{quote(path)}?ref={quote(str(meta.get('default_branch') or default_branch))}"
-            raw_url = raw_url.replace("?ref=", "/").replace("%2F", "/")
-            if raw_url in known_urls or raw_url in results_by_url:
-                continue
-            try:
-                payload = fetch_bytes(raw_url)
-                if len(payload) > MAX_BODY:
-                    continue
-                text = payload.decode("utf-8-sig", errors="replace")
-                channels = parse_m3u(text)
+                payload = fetch_bytes(source_url)
+                playlist_text = payload.decode("utf-8-sig", errors="replace")
+                channels = parse_m3u(playlist_text)
             except Exception:
                 continue
 
-            urls = []
-            hosts = set()
+            urls: list[str] = []
+            hosts: set[str] = []
             for channel in channels:
                 primary = str(channel.get("url") or "")
                 if re.match(r"^https?://", primary, re.I):
                     urls.append(primary)
-                    try:
-                        hosts.add(urllib.parse.urlsplit(primary).hostname or "")
-                    except Exception:
-                        pass
+                    host = urllib.parse.urlsplit(primary).hostname or ""
+                    if host:
+                        hosts.add(host)
                 for alt in channel.get("alternatives", []):
-                    alt = str(alt)
-                    if re.match(r"^https?://", alt, re.I):
-                        urls.append(alt)
-                        try:
-                            hosts.add(urllib.parse.urlsplit(alt).hostname or "")
-                        except Exception:
-                            pass
+                    alt_url = str(alt)
+                    if re.match(r"^https?://", alt_url, re.I):
+                        urls.append(alt_url)
+                        host = urllib.parse.urlsplit(alt_url).hostname or ""
+                        if host:
+                            hosts.add(host)
 
             unique_urls = list(dict.fromkeys(urls))
             if len(channels) < MIN_CHANNELS or len(unique_urls) < MIN_UNIQUE_URLS:
                 continue
+
             new_urls = [url for url in unique_urls if url not in current_urls]
             new_ratio = len(new_urls) / max(1, len(unique_urls))
             if new_ratio < MIN_NEW_URL_RATIO:
                 continue
 
-            pushed_at = str(meta.get("pushed_at") or repo.get("pushed_at") or "")
-            score = static_score(len(channels), len(unique_urls), new_ratio, len(hosts), pushed_at)
+            pushed_at = str(repo.get("pushed_at") or repo.get("updated_at") or "")
+            score = static_score(
+                len(channels),
+                len(unique_urls),
+                new_ratio,
+                len(hosts),
+                pushed_at,
+            )
             if score < 55:
                 continue
 
-            candidate = {
+            results_by_url[source_url] = {
                 "name": f"auto:{full_name}:{path}",
-                "url": raw_url,
+                "url": source_url,
                 "repo": full_name,
                 "path": path,
                 "channelCount": len(channels),
                 "uniqueUrls": len(unique_urls),
-                "uniqueHosts": len([host for host in hosts if host]),
+                "uniqueHosts": len(hosts),
                 "newUrls": len(new_urls),
                 "newUrlRatio": round(new_ratio, 3),
                 "staticScore": score,
+                "stars": int(repo.get("stargazers_count") or 0),
                 "pushedAt": pushed_at,
                 "status": "trial" if score >= MIN_AUTO_SCORE else "candidate",
-                "urls": unique_urls[:160],
+                "urls": unique_urls[:180],
                 "lastDiscoveredAt": datetime.now(timezone.utc).isoformat(),
             }
-            results_by_url[raw_url] = candidate
 
     previous = load_previous()
     old = {
@@ -213,44 +309,67 @@ def main() -> int:
     merged = []
     for url, candidate in results_by_url.items():
         previous_item = old.get(url, {})
-        candidate["status"] = (
-            "active"
-            if previous_item.get("status") == "active"
-            else "trial"
-            if candidate["staticScore"] >= MIN_AUTO_SCORE
-            else "candidate"
-        )
-        candidate["healthScore"] = previous_item.get("healthScore")
-        candidate["lastHealthAt"] = previous_item.get("lastHealthAt")
-        candidate["healthyUrls"] = previous_item.get("healthyUrls", 0)
-        candidate["checkedUrls"] = previous_item.get("checkedUrls", 0)
-        candidate["lastError"] = previous_item.get("lastError", "")
+        if previous_item.get("status") == "active":
+            candidate["status"] = "active"
+        elif int(candidate.get("staticScore") or 0) >= MIN_AUTO_SCORE:
+            candidate["status"] = "trial"
+
+        for key in (
+            "healthScore", "lastHealthAt", "healthyUrls",
+            "checkedUrls", "lastError",
+        ):
+            if key in previous_item:
+                candidate[key] = previous_item[key]
         merged.append(candidate)
 
     for url, previous_item in old.items():
-        if url not in results_by_url:
-            last_seen = str(previous_item.get("lastDiscoveredAt") or "")
-            try:
-                days = (datetime.now(timezone.utc) - datetime.fromisoformat(last_seen.replace("Z", "+00:00"))).total_seconds() / 86400
-            except Exception:
-                days = 999
-            if previous_item.get("status") == "active" and days <= 7:
-                merged.append(previous_item)
+        if url in results_by_url:
+            continue
+        last_seen = str(previous_item.get("lastDiscoveredAt") or "")
+        try:
+            days = (
+                datetime.now(timezone.utc)
+                - datetime.fromisoformat(last_seen.replace("Z", "+00:00"))
+            ).total_seconds() / 86400
+        except Exception:
+            days = 999
+        if previous_item.get("status") == "active" and days <= 7:
+            merged.append(previous_item)
 
-    merged.sort(key=lambda item: (item.get("status") not in {"active", "trial"}, -int(item.get("staticScore", 0))))
-    active_count = sum(1 for item in merged if item.get("status") == "active")
+    merged.sort(
+        key=lambda item: (
+            item.get("status") not in {"active", "trial"},
+            -int(item.get("healthScore") or 0),
+            -int(item.get("staticScore") or 0),
+            -int(item.get("stars") or 0),
+        )
+    )
+    trimmed = merged[:MAX_CANDIDATES]
 
-    payload = {
-        "version": 1,
-        "updatedAt": datetime.now(timezone.utc).isoformat(),
-        "queryCount": query_count,
-        "candidates": merged[:MAX_CANDIDATES],
-        "activeAutoSources": active_count,
-        "message": "Aday kaynaklar günlük GitHub taraması ve KulakTV sağlık kontrolüyle değerlendirilir.",
-    }
-    STATE_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"Kaynak keşfi: {len(merged[:MAX_CANDIDATES])} aday, {active_count} aktif otomatik kaynak")
+    STATE_PATH.write_text(
+        json.dumps({
+            "version": 2,
+            "updatedAt": datetime.now(timezone.utc).isoformat(),
+            "queryCount": query_count,
+            "repositoryCount": len(ranked_repos),
+            "candidates": trimmed,
+            "activeAutoSources": sum(
+                1 for item in trimmed if item.get("status") == "active"
+            ),
+            "message": (
+                "Aday kaynaklar günlük GitHub repo taraması ve KulakTV "
+                "yayın sağlık kontrolüyle değerlendirilir."
+            ),
+        }, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    print(
+        f"Kaynak keşfi: {len(trimmed)} aday / "
+        f"{sum(1 for item in trimmed if item.get('status') == 'active')} aktif / "
+        f"{len(ranked_repos)} repo incelendi"
+    )
     return 0
+
 
 
 if __name__ == "__main__":
