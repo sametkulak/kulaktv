@@ -5,6 +5,9 @@ on:
     # Her gün 03:00 UTC = Türkiye saatiyle 06:00
     - cron: "0 3 * * *"
   workflow_dispatch:
+  push:
+    paths:
+      - "scripts/discover_sources.py"
 
 permissions:
   contents: write
