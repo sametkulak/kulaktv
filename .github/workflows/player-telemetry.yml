@@ -1,0 +1,57 @@
+name: KulakTV oynatma deneyimlerini işle
+
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: kulaktv-data-writes
+  cancel-in-progress: false
+
+jobs:
+  process:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.issue.number == 1 &&
+        startsWith(github.event.comment.body, 'KULAKTV-TELEMETRY v1')
+      )
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository'yi al
+        uses: actions/checkout@v4
+
+      - name: Güncel main ile hizala
+        run: git pull --rebase origin main
+
+      - name: Telemetry verisini işle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/process_telemetry.py
+
+      - name: Ortak kaynak kalite puanını yenile
+        run: python scripts/rebuild_source_quality.py
+
+      - name: Değişiklikleri kontrol et
+        run: git status --short
+
+      - name: Değişiklik varsa kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add player-telemetry.json source-quality.json
+
+          if git diff --cached --quiet; then
+            echo "Yeni telemetry verisi yok."
+          else
+            git commit -m "chore: player telemetry ile kaynak kalitesini güncelle"
+            git pull --rebase origin main
+            git push
+          fi
