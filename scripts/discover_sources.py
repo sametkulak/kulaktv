@@ -279,7 +279,7 @@ def main() -> int:
                 continue
 
             urls: list[str] = []
-            hosts: set[str] = []
+            hosts = set()
             for channel in channels:
                 primary = str(channel.get("url") or "")
                 if re.match(r"^https?://", primary, re.I):
@@ -295,6 +295,8 @@ def main() -> int:
                         if host:
                             hosts.add(host)
 
+            # Discovery kaynağının her koşulda gerçek bir set ile değerlendirilmesini garanti et.
+            hosts = set(hosts)
             unique_urls = list(dict.fromkeys(urls))
             if len(channels) < MIN_CHANNELS or len(unique_urls) < MIN_UNIQUE_URLS:
                 continue
