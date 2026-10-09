@@ -34,6 +34,17 @@ MIN_AUTO_SCORE = 70
 FETCH_TIMEOUT = 18
 MAX_BODY = 3 * 1024 * 1024
 
+DISCOVERY_SEEDS = [
+    {
+        "repo": "sayatsirinoglu/IPTV-List",
+        "path": "tr.m3u",
+        "branch": "main",
+        "stargazers_count": 0,
+        "pushed_at": "2024-02-23T00:00:00Z",
+        "updated_at": "2024-02-23T00:00:00Z",
+    },
+]
+
 
 def api_request(url: str) -> dict:
     headers = {
@@ -214,6 +225,27 @@ def main() -> int:
             str(item.get("updated_at") or ""),
         ),
     )[:MAX_REPOSITORIES]
+
+    # Bootstrap a small vetted seed catalog so discovery still has something
+    # to evaluate when GitHub repository search is temporarily empty.
+    existing_repo_keys = {
+        str(item.get("full_name") or "").lower()
+        for item in ranked_repos
+        if isinstance(item, dict)
+    }
+    for seed in DISCOVERY_SEEDS:
+        key = str(seed.get("repo") or "").lower()
+        if key and key not in existing_repo_keys:
+            ranked_repos.append(
+                {
+                    "full_name": seed["repo"],
+                    "default_branch": seed.get("branch", "main"),
+                    "stargazers_count": seed.get("stargazers_count", 0),
+                    "pushed_at": seed.get("pushed_at", ""),
+                    "updated_at": seed.get("updated_at", ""),
+                }
+            )
+            existing_repo_keys.add(key)
 
     results_by_url: dict[str, dict[str, object]] = {}
     for repo in ranked_repos:
