@@ -8,6 +8,7 @@ from update_channels import (
     load_player_telemetry,
     load_source_quality,
     save_source_quality,
+    source_quality_score,
 )
 
 
@@ -18,6 +19,20 @@ def main() -> int:
         quality = {}
 
     telemetry = load_player_telemetry()
+
+    # Recompute the pure server score first so previously blended player
+    # telemetry cannot linger when the telemetry store is reset/cleaned.
+    for record in quality.values():
+        if not isinstance(record, dict):
+            continue
+        record["score"] = source_quality_score(record)
+        for key in (
+            "healthScore", "playerScore", "playerEvents",
+            "playerSuccesses", "playerFailures", "playerStalls",
+            "playerWeight", "lastPlayerEventAt"
+        ):
+            record.pop(key, None)
+
     updated = apply_player_quality(
         quality,
         telemetry,
