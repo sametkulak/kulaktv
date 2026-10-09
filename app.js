@@ -542,7 +542,12 @@ async function loadHistoryAndDiscovery(){
         else root.innerHTML=runs.map(run=>{
           const d=run.updatedAt?new Date(run.updatedAt):null;
           const health=run.health||{};
-          return '<div class="history-item"><div><b>'+(d&&!Number.isNaN(d.getTime())?d.toLocaleDateString('tr-TR'):'')+'</b><span>'+(run.status==='fetch_failed'?'Kaynak hatası':'Güncelleme')+'</span></div><div class="history-value">'+Number(run.channelCount||0)+' kanal</div><div class="history-sub">'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak • '+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL</div></div>';
+          const changes=run.changes||{};
+          const dateText=d&&!Number.isNaN(d.getTime())?d.toLocaleDateString('tr-TR'):'';
+          const timeText=d&&!Number.isNaN(d.getTime())?d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):'';
+          const delta=Number(changes.channelDelta||0);
+          const deltaText=delta>0 ? `+${delta}` : delta<0 ? `-${Math.abs(delta)}` : '±0';
+          return '<div class="history-item"><div><b>'+dateText+'</b><span>'+timeText+' • '+(run.status==='fetch_failed'?'Kaynak hatası':'Güncelleme')+'</span></div><div class="history-value">'+Number(run.channelCount||0)+' kanal <small>'+deltaText+'</small></div><div class="history-sub">'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak • '+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL • '+Number(changes.addedCount||0)+' eklendi / '+Number(changes.removedCount||0)+' çıkarıldı</div></div>';
         }).join('');
       }
     }
@@ -728,7 +733,8 @@ function playChannel(ch){
     state.currentUrl = url;
     state.autoStarting = false;
     updateSourceButton();
-    setConnectionStatus('online',sourceIndex ? 'Bağlı • alternatif' : 'Bağlı');
+    const latencyText = latencyMs > 0 ? ` • ${(latencyMs / 1000).toFixed(1)} sn` : '';
+    setConnectionStatus('online',`Bağlı • Kaynak ${sourceIndex + 1}/${maxAttempts}${latencyText}`);
     mark(ch,'ok');
     setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
   };
@@ -797,6 +803,7 @@ function playChannel(ch){
       // izleme sırasındaki gerçek deneyimi de ölçeriz.
       if(settled){
         runtimeStallRecorded=false;
+        setConnectionStatus('online',`Bağlı • Kaynak ${state.sourceIndex + 1}/${state.sourceCandidates.length}`);
         return;
       }
 
@@ -844,6 +851,7 @@ function playChannel(ch){
       if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
 
       if(settled){
+        setConnectionStatus('buffering','Tamponlanıyor');
         if(!runtimeStallRecorded){
           runtimeStallRecorded=true;
           recordSourceEvent(candidate.url,'stall');
