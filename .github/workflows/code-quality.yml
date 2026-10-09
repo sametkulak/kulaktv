@@ -46,7 +46,7 @@ jobs:
           html = Path("index.html").read_text(encoding="utf-8")
           js = Path("app.js").read_text(encoding="utf-8")
           ids = set(re.findall(r'id="([^"]+)"', html))
-          refs = set(re.findall(r"\$\(['"]([^'"]+)['"]\)", js))
+          refs = set(re.findall(r'''\$\(['"]([^'"]+)['"]\)''', js))
           missing = sorted(refs - ids)
           if missing:
               raise SystemExit(f"Eksik DOM id referansı: {missing}")
