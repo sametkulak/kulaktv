@@ -25,6 +25,12 @@ kulaktv-player/
 ├── channels.m3u
 ├── .nojekyll
 ├── _headers
+├── logo.png
+├── source-quality.json
+├── player-telemetry.json
+├── telemetry-config.js
+├── .github/workflows/
+├── scripts/
 └── README.md
 ```
 
@@ -81,9 +87,9 @@ Aynı durum bazı canlı HLS/M3U8 yayınlarında da geçerlidir. Playlist açıl
 
 ## Otomatik günlük kanal güncellemesi
 
-Projede `.github/workflows/update-channels.yml` ve `scripts/update_channels.py` bulunur. GitHub Actions her gün **06:15 Türkiye saati** civarında çalışır ve iptv-org Türkiye listesini kontrol eder. KulakTV'de zaten bulunan kanallar için yalnızca izin verilen/güvenilir yayın alan adlarındaki URL değişiklikleri uygulanır; kaynakta kaybolan bir kanalın son bilinen URL'si otomatik olarak silinmez. Böylece tek bir upstream hatası yüzünden listenin boşalması engellenir.
+Projede `.github/workflows/update-channels.yml` ve `scripts/update_channels.py` bulunur. GitHub Actions her gün **06:15 Türkiye saati** civarında çalışır ve 5 public M3U kaynağını birleştirir. KulakTV'de zaten bulunan kanallar için yalnızca izin verilen/güvenilir yayın alan adlarındaki URL değişiklikleri uygulanır; kaynakta kaybolan bir kanalın son bilinen URL'si otomatik olarak silinmez. Böylece tek bir upstream hatası yüzünden listenin boşalması engellenir.
 
-İlk yüklemeden sonra ayrıca GitHub'da `Actions → KulakTV kanal listesini güncelle` ekranından `Run workflow` ile elle çalıştırabilirsin. Güncelleme gerçekleştiğinde `channels.m3u` ve `update-status.json` commit edilir. GitHub Pages ana dalı yayın kaynağı olarak kullanıyorsa bu commit siteyi de yeniden yayınlatır. GitHub Pages, bir branch'ten yayın yapacak şekilde yapılandırıldığında source branch'e yapılan değişiklikleri otomatik olarak yayınlar.
+İlk yüklemeden sonra ayrıca GitHub'da `Actions → KulakTV kanal listesini güncelle` ekranından `Run workflow` ile elle çalıştırabilirsin. Güncelleme gerçekleştiğinde `channels.m3u`, `update-status.json`, `health-state.json` ve `source-quality.json` güncellenebilir. GitHub Pages ana dalı yayın kaynağı olarak kullanıyorsa bu commit siteyi de yeniden yayınlatır. GitHub Pages, bir branch'ten yayın yapacak şekilde yapılandırıldığında source branch'e yapılan değişiklikleri otomatik olarak yayınlar.
 
 Not: GitHub Actions üzerinden yapılan HTTP kontrolü, Türkiye dışındaki GitHub runner konumu nedeniyle coğrafi kısıtlı yayınları güvenilir şekilde "çalışıyor" diye değerlendiremez. Player, kanalı gerçekten tarayıcıda açarken son durumu ayrıca gösterir.
 
@@ -102,3 +108,12 @@ https://github.com/iptv-org/iptv
 ## Lisans / içerik sorumluluğu
 
 Bu repository yalnızca player yazılımını ve herkese açık yayın uçlarından oluşturulmuş örnek bir M3U listesini içerir. Telifli veya abonelik gerektiren yayınların izinsiz yeniden dağıtımından kullanıcı sorumludur.
+
+
+## Oynatma deneyimi ve ortak kaynak kalitesi
+
+KulakTV tarayıcıdaki oynatma sonuçlarını (başarı, başarısızlık, buffering ve başlama gecikmesi) GitHub Issue tabanlı bir telemetry akışıyla toplar. GitHub Actions bu veriyi `player-telemetry.json` içinde biriktirir ve `source-quality.json` içindeki ortak kaynak puanına kademeli olarak dahil eder. Böylece farklı cihazlar aynı kaynak kalite sıralamasını kullanır.
+
+Bu model GitHub Pages üzerinde çalıştığı için tarayıcıdan GitHub API'ye doğrudan yazma yetkisi gerekir. Bu amaçla `telemetry-config.js` içinde repository'ye özel bir Fine-grained token kullanılmaktadır. Bu dosya public olduğundan token gizli kabul edilmemelidir.
+
+Kaynak oynatma tarafında HLS.js ile Chrome/Edge/Firefox, Safari tarafında native HLS desteklenir. Kanal değişimlerinde eski HLS instance'ı, timer'lar ve callback'ler iptal edilir; böylece önceki kanalın gecikmiş olaylarının yeni kanala karışması engellenir.
