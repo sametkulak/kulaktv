@@ -363,6 +363,14 @@ function updateFavoriteUi(){
   if(count)count.textContent=state.favorites.size;
   $('favoritesTab')?.classList.toggle('active',state.showFavorites);
   $('allChannelsTab')?.classList.toggle('active',!state.showFavorites);
+  const clearBtn=$('clearFavoritesBtn');
+  if(clearBtn)clearBtn.hidden=!state.showFavorites;
+}
+function clearFavorites(){
+  state.favorites.clear();
+  localStorage.setItem('kulaktv-favorites','[]');
+  updateFavoriteUi();
+  applyFilters();
 }
 function toggleFavorite(ch,event){
   event?.stopPropagation();
@@ -1181,7 +1189,7 @@ video.addEventListener('play',()=>{$('playPause').textContent='❚❚';});
 video.addEventListener('pause',()=>{$('playPause').textContent='▶';});video.addEventListener('playing',()=>{updateBarState();});
 $('search').addEventListener('input',applyFilters);
 $('allChannelsTab').addEventListener('click',()=>{state.showFavorites=false;applyFilters();});
-$('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});
+$('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});$('clearFavoritesBtn').addEventListener('click',clearFavorites);
 $('loadUrl').addEventListener('click',async()=>{clearError();try{await loadUrl($('playlistUrl').value,'Özel M3U listesi');closeSettings();openChannels();}catch(e){setStatus('Hata');showError(`Liste yüklenemedi: ${e.message}. Harici M3U sunucusunun CORS izni vermesi gerekebilir.`);}});
 $('playlistUrl').addEventListener('keydown',e=>{if(e.key==='Enter')$('loadUrl').click();});
 $('defaultList').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
