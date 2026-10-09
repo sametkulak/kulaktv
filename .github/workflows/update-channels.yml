@@ -52,6 +52,14 @@ jobs:
 
           PY
 
+      - name: Otomatik yeni kaynak keşfi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/discover_sources.py
+
+      - name: EPG güncellemesini çalıştır
+        run: python scripts/update_epg.py
+
       - name: Python kanal güncellemesini çalıştır
         run: python scripts/update_channels.py
 
@@ -63,7 +71,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add channels.m3u update-status.json health-state.json source-quality.json
+          git add channels.m3u update-status.json health-state.json source-quality.json epg.json epg-status.json discovered-sources.json update-history.json
 
           if git diff --cached --quiet; then
             echo "Kanal listesinde değişiklik yok."
