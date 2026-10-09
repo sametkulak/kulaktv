@@ -27,6 +27,7 @@ M3U_PATH = ROOT / "channels.m3u"
 STATUS_PATH = ROOT / "update-status.json"
 HEALTH_STATE_PATH = ROOT / "health-state.json"
 SOURCE_QUALITY_PATH = ROOT / "source-quality.json"
+PLAYER_TELEMETRY_PATH = ROOT / "player-telemetry.json"
 
 SOURCES = [
     ("OnurEröz Türkiye", "https://onureroz.com/indirmeler/turk/index.m3u"),
@@ -171,6 +172,83 @@ def load_source_quality() -> dict[str, object]:
         return {}
 
 
+def load_player_telemetry() -> dict[str, object]:
+    if not PLAYER_TELEMETRY_PATH.exists():
+        return {}
+    try:
+        data = json.loads(PLAYER_TELEMETRY_PATH.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def player_quality_score(record: dict[str, object]) -> int:
+    successes = int(record.get("successes", 0) or 0)
+    failures = int(record.get("failures", 0) or 0)
+    stalls = int(record.get("stalls", 0) or 0)
+    bad = failures + stalls * 0.75
+    total = successes + bad
+    if total <= 0:
+        return 50
+
+    score = ((successes + 3) / (total + 6)) * 100
+    latency_count = int(record.get("latencyCount", 0) or 0)
+    if latency_count:
+        average = float(record.get("latencySumMs", 0) or 0) / latency_count
+        if average < 3000:
+            score += 5
+        elif average > 10000:
+            score -= 10
+
+    return max(0, min(100, round(score)))
+
+
+def apply_player_quality(
+    quality: dict[str, dict[str, object]],
+    telemetry: dict[str, object],
+    checked_at: str | None = None,
+) -> dict[str, dict[str, object]]:
+    player_sources = telemetry.get("sources", {}) if isinstance(telemetry, dict) else {}
+    if not isinstance(player_sources, dict):
+        player_sources = {}
+
+    for url, record in quality.items():
+        player = player_sources.get(url)
+        if not isinstance(player, dict):
+            continue
+
+        player_events = int(player.get("events", 0) or 0)
+        if player_events <= 0:
+            continue
+
+        health_score = int(record.get("score", 50) or 50)
+        player_score = player_quality_score(player)
+
+        # Client data becomes influential gradually so a handful of browsers
+        # cannot immediately overturn the server-side health history.
+        weight = min(0.35, 0.10 + (min(player_events, 500) / 500) * 0.25)
+        combined = round(health_score * (1 - weight) + player_score * weight)
+
+        record["healthScore"] = health_score
+        record["playerScore"] = player_score
+        record["playerEvents"] = player_events
+        record["playerSuccesses"] = int(player.get("successes", 0) or 0)
+        record["playerFailures"] = int(player.get("failures", 0) or 0)
+        record["playerStalls"] = int(player.get("stalls", 0) or 0)
+        record["playerWeight"] = round(weight, 3)
+        record["score"] = max(0, min(100, combined))
+        record["label"] = (
+            "Çok iyi" if record["score"] >= 85 else
+            "İyi" if record["score"] >= 70 else
+            "Orta" if record["score"] >= 50 else
+            "Zayıf"
+        )
+        if player.get("lastEventAt"):
+            record["lastPlayerEventAt"] = player["lastEventAt"]
+
+    return quality
+
+
 def source_quality_score(record: dict[str, object]) -> int:
     successes = int(record.get("successes", 0) or 0)
     failures = int(record.get("failures", 0) or 0)
@@ -234,6 +312,13 @@ def update_source_quality(
         )
         next_quality[url] = record
 
+    # Shared client playback telemetry is blended into the same score that
+    # every player downloads from GitHub Pages.
+    next_quality = apply_player_quality(
+        next_quality,
+        load_player_telemetry(),
+        checked_at,
+    )
     return next_quality
 
 
@@ -244,7 +329,7 @@ def save_source_quality(
     payload = {
         "version": 1,
         "updatedAt": checked_at,
-        "algorithm": "server-health-bayesian-v2",
+        "algorithm": "server-health-plus-player-v1",
         "sourceCount": len(quality),
         "sources": quality,
     }
@@ -284,13 +369,13 @@ def find_hls_reference(manifest: str, base_url: str) -> tuple[str | None, str | 
         if index > 0 and lines[index - 1].startswith("#EXT-X-STREAM-INF"):
             return urljoin(base_url, line), "playlist"
         if index > 0 and lines[index - 1].startswith("#EXTINF:"):
-            return urllib.parse.urljoin(base_url, line), "segment"
+            return urljoin(base_url, line), "segment"
 
     # Some manifests can contain absolute/relative media references without a
     # directly adjacent EXTINF marker. Return the first safe URI-like line.
     for line in lines:
         if line and not line.startswith("#"):
-            candidate = line if re.match(r"^https?://", line, re.I) else urllib.parse.urljoin(base_url, line)
+            candidate = line if re.match(r"^https?://", line, re.I) else urljoin(base_url, line)
             if re.match(r"^https?://", candidate, re.I):
                 return candidate, "reference"
     return None, None
