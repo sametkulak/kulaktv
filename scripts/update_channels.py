@@ -852,7 +852,6 @@ def merge_channels(
             url: health.get(url, {"status": "unknown", "detail": "not checked"})
             for url in ordered
         }
-        item.pop("sources", None)
 
     return result
 
@@ -1072,7 +1071,10 @@ def update_discovered_source_health(
             updated_entries.append(item)
             continue
         urls = [str(value) for value in item.get("urls", []) if str(value).startswith(("http://", "https://"))]
-        checked = [value for value in urls if value in health_by_url]
+        checked = [
+            value for value in urls
+            if health_by_url.get(value, {}).get("status") in {"ok", "bad"}
+        ]
         healthy = [value for value in checked if health_by_url[value].get("status") == "ok"]
         failed = [value for value in checked if health_by_url[value].get("status") == "bad"]
         if len(checked) >= 5:
@@ -1193,12 +1195,75 @@ def main() -> int:
         print("No source succeeded. Keeping last known-good channels.m3u.")
         return 0
 
+    discovery_document = load_json_object(DISCOVERY_PATH, {})
+    discovery_candidates = discovery_document.get("candidates", [])
+    active_auto_names = {
+        str(item.get("name"))
+        for item in discovery_candidates
+        if isinstance(item, dict) and item.get("status") == "active"
+    } if isinstance(discovery_candidates, list) else set()
+
+    # Automatic sources are quarantined until their own URLs pass a dedicated
+    # health probe. Trial sources can be promoted to active in this same run,
+    # but they are not merged while unverified.
+    auto_successful = [
+        item for item in successful if item[0].startswith("auto:")
+    ]
+    manual_successful = [
+        item for item in successful if not item[0].startswith("auto:")
+    ]
+
+    if auto_successful:
+        trial_urls: list[str] = []
+        for _source_name, _resolved_url, channels in auto_successful:
+            for channel in channels:
+                trial_urls.append(str(channel.get("url") or ""))
+                trial_urls.extend(str(value) for value in channel.get("alternatives", []))
+
+        trial_urls = [
+            url for url in trial_urls
+            if url.startswith(("http://", "https://"))
+            and not is_blocked_stream_url(url)
+        ]
+        trial_health = health_check_urls(trial_urls)
+        trial_health_by_url = {
+            url: result
+            for url, result in trial_health.items()
+            if result.get("status") in {"ok", "bad"}
+        }
+
+        if trial_health_by_url:
+            discovery_document = update_discovered_source_health(
+                {
+                    str(item.get("url")): item
+                    for item in discovery_candidates
+                    if isinstance(item, dict) and item.get("url")
+                },
+                trial_health_by_url,
+                fetched_at,
+            )
+            refreshed_candidates = discovery_document.get("candidates", [])
+            active_auto_names = {
+                str(item.get("name"))
+                for item in refreshed_candidates
+                if isinstance(item, dict) and item.get("status") == "active"
+            } if isinstance(refreshed_candidates, list) else set()
+
+    selected_auto_successful = [
+        item for item in auto_successful
+        if item[0] in active_auto_names
+    ]
+    selected_successful = manual_successful + selected_auto_successful
+    configured_sources = selected_successful
+
     provider_urls: dict[str, set[str]] = {}
     provider_names_by_url: dict[str, list[str]] = {}
-    for source_name, _resolved_url, channels in successful:
+    for source_name, _resolved_url, channels in selected_successful:
         bucket = provider_urls.setdefault(source_name, set())
         for channel in channels:
-            urls = [str(channel.get("url") or "")] + [str(value) for value in channel.get("alternatives", [])]
+            urls = [str(channel.get("url") or "")] + [
+                str(value) for value in channel.get("alternatives", [])
+            ]
             for url in urls:
                 if url.startswith(("http://", "https://")):
                     bucket.add(url)
@@ -1206,7 +1271,7 @@ def main() -> int:
                     if source_name not in provider_names_by_url[url]:
                         provider_names_by_url[url].append(source_name)
 
-    merged = merge_channels(successful)
+    merged = merge_channels(selected_successful)
     logos_filled = enrich_missing_logos(merged)
     print(f"Logo enrichment: {logos_filled} missing channel logos filled.")
 
@@ -1267,12 +1332,7 @@ def main() -> int:
         fetched_at,
         provider_names_by_url,
     )
-    discovery_candidates = load_json_object(DISCOVERY_PATH, {}).get("candidates", [])
-    auto_url_map = {
-        str(item.get("url")): item for item in discovery_candidates
-        if isinstance(item, dict) and item.get("url")
-    } if isinstance(discovery_candidates, list) else {}
-    discovery_document = update_discovered_source_health(auto_url_map, health_by_url, fetched_at)
+    # Discovery status was already updated from the dedicated trial probe.
     provider_scores = build_provider_trust(
         provider_urls,
         health_by_url,
