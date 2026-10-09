@@ -5,12 +5,15 @@ on:
     # Her gün 03:15 UTC = Türkiye saatiyle 06:15
     - cron: "15 3 * * *"
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "KulakTV kaynak keşfi"
+    types:
+      - completed
   push:
     paths:
       - "scripts/update_channels.py"
-      - "scripts/discover_sources.py"
       - "scripts/update_epg.py"
-      - "discovered-sources.json"
 
 permissions:
   contents: write
@@ -21,11 +24,16 @@ concurrency:
 
 jobs:
   update:
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     steps:
       - name: Repository'yi al
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Güncel main ile hizala
         run: git pull --rebase origin main
