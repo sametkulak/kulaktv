@@ -44,7 +44,7 @@
           <button class="filter-tab active" id="allChannelsTab" type="button">▦ Tüm kanallar</button>
           <button class="filter-tab" id="favoritesTab" type="button">♡ Favoriler <span id="favoriteCount">0</span></button>
         </div>
-        <div id="categoryChips" class="category-chips"></div>
+
       </div>
 
       <div id="channelList" class="channel-grid"></div>
@@ -115,6 +115,24 @@
       </section>
     </main>
 
+
+    <div id="adminLogin" class="admin-login" hidden>
+      <div class="admin-login-card" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitle">
+        <div class="admin-login-head">
+          <div>
+            <div id="adminLoginTitle" class="drawer-title">Admin Girişi</div>
+            <div class="drawer-subtitle">Ayarlar ve bilgiler yalnızca yöneticiye açıktır.</div>
+          </div>
+          <button id="closeAdminLogin" class="close-btn" type="button" aria-label="Girişi kapat">×</button>
+        </div>
+        <form id="adminLoginForm" class="admin-login-form">
+          <label>Kullanıcı adı<input id="adminUsername" type="text" autocomplete="username" required></label>
+          <label>Şifre<input id="adminPassword" type="password" autocomplete="current-password" required></label>
+          <div id="adminLoginError" class="admin-login-error" hidden>Hatalı kullanıcı adı veya şifre.</div>
+          <button class="primary-btn" type="submit">Giriş yap</button>
+        </form>
+      </div>
+    </div>
     <aside id="settingsDrawer" class="settings-drawer" aria-hidden="true">
       <div class="settings-head">
         <div>
