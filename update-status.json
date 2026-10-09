@@ -1,11 +1,11 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T14:23:02.244629+00:00",
-  "channelCount": 410,
-  "sourceCount": 8,
+  "updatedAt": "2026-10-09T14:32:53.995346+00:00",
+  "channelCount": 1751,
+  "sourceCount": 11,
   "changed": true,
-  "configuredSourceCount": 8,
-  "autoSourceCount": 0,
+  "configuredSourceCount": 11,
+  "autoSourceCount": 3,
   "sources": [
     {
       "name": "OnurEröz Türkiye",
@@ -73,7 +73,7 @@
       "resolvedUrl": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
       "channelCount": 27,
       "status": "ok",
-      "trustScore": 88,
+      "trustScore": 89,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -83,18 +83,48 @@
       "resolvedUrl": "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u",
       "channelCount": 39,
       "status": "ok",
-      "trustScore": 91,
+      "trustScore": 92,
       "trustLabel": "Çok güvenilir",
       "automatic": false
+    },
+    {
+      "name": "auto:doms9/iptv:M3U8/TV.m3u8",
+      "url": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8",
+      "resolvedUrl": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/TV.m3u8",
+      "channelCount": 491,
+      "status": "ok",
+      "trustScore": 42,
+      "trustLabel": "Zayıf",
+      "automatic": true
+    },
+    {
+      "name": "auto:IvanStoilov2/iptv:bg.m3u",
+      "url": "https://raw.githubusercontent.com/IvanStoilov2/iptv/main/bg.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/IvanStoilov2/iptv/main/bg.m3u",
+      "channelCount": 72,
+      "status": "ok",
+      "trustScore": 36,
+      "trustLabel": "Zayıf",
+      "automatic": true
+    },
+    {
+      "name": "auto:Yusufdkci/iptv:liste.m3u",
+      "url": "https://raw.githubusercontent.com/Yusufdkci/iptv/main/liste.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/Yusufdkci/iptv/main/liste.m3u",
+      "channelCount": 981,
+      "status": "ok",
+      "trustScore": 29,
+      "trustLabel": "Zayıf",
+      "automatic": true
     }
   ],
-  "logosFilled": 15,
+  "logosFilled": 20,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 675,
-    "healthyUrls": 390,
-    "failedUrls": 285,
+    "checkedUrls": 2138,
+    "healthyUrls": 566,
+    "failedUrls": 385,
     "failures": [
       {
         "channel": "TRT1",
@@ -115,6 +145,16 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "TRT 4K",
+        "url": "http://euroturkpars6.live:8080/play/live.php?mac=00:1A:79:54:FC:B1&stream=1842&extension=ts",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "TRT 4K",
+        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuf0VbbCYUyd_hUcaxw_iOtp84-aGKdfkvog&s",
+        "detail": "('İki testte de başarısız • response is not a valid M3U8 manifest',)"
       },
       {
         "channel": "NOW TV",
@@ -235,16 +275,6 @@
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
         "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
-        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
@@ -255,52 +285,52 @@
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-09T14:23:01.722147+00:00",
+    "updatedAt": "2026-10-09T14:32:53.673494+00:00",
     "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 117,
-    "programmeCount": 1347
+    "matchedChannels": 93,
+    "programmeCount": 844
   },
   "discovery": {
     "candidateCount": 4,
-    "activeAutoSources": 0
+    "activeAutoSources": 3
   },
   "changes": {
-    "channelDelta": -10965,
-    "addedCount": 0,
-    "removedCount": 10965,
-    "addedChannels": [],
-    "removedChannels": [
-      "TV5 (1080p)",
-      "Real America's Voice",
-      "10 Bold",
-      "A&E",
-      "ABC Kids",
+    "channelDelta": 1341,
+    "addedCount": 1335,
+    "removedCount": 0,
+    "addedChannels": [
+      "A&E TV",
       "ABC",
+      "ACC Digital Network",
       "ACC Network",
-      "Accuweather Now",
+      "AccuWeather NOW",
       "Adult Swim",
       "Altitude Sports",
-      "Always Funny",
       "AMC",
       "Animal Planet",
-      "Antena 3 Internacional",
-      "AWE",
-      "Axs Tv",
-      "BBC Alba",
-      "Bbc America",
-      "BBC Four",
+      "AXS TV",
+      "BBC America",
       "BBC One",
-      "BBC Parliament",
-      "BBC Scotland",
-      "BBC Three",
-      "BBC Two",
       "BBC World News",
-      "BBC",
-      "beIN Sports 1",
-      "beIN SPORTS 2",
-      "beIN SPORTS 3",
-      "Bein Sports"
-    ]
+      "beIN Sports 1 France",
+      "beIN Sports en Español",
+      "beIN Sports USA",
+      "beIN Sports XTRA",
+      "BET",
+      "Big Ten Network",
+      "Bloomberg TV",
+      "Boomerang",
+      "Bounce",
+      "Bravo TV",
+      "Buzzr",
+      "Cartoon Network",
+      "CBC News Network",
+      "CBS",
+      "CBS News 24/7",
+      "CBS Sports Golazo Network",
+      "CBS Sports Network"
+    ],
+    "removedChannels": []
   },
   "message": "Multi-source playlist merged successfully."
 }

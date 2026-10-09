@@ -258,6 +258,81 @@
           "Bein Sports"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-09T14:32:53.995346+00:00",
+      "status": "updated",
+      "sourceCount": 11,
+      "configuredSourceCount": 11,
+      "autoSourceCount": 3,
+      "channelCount": 1751,
+      "logosFilled": 20,
+      "health": {
+        "checked": 2138,
+        "healthy": 566,
+        "failed": 385,
+        "ratio": 0.265
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "auto:doms9/iptv:M3U8/TV.m3u8": 42,
+        "auto:IvanStoilov2/iptv:bg.m3u": 36,
+        "auto:Yusufdkci/iptv:liste.m3u": 29
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 844
+      },
+      "discovery": {
+        "candidateCount": 4,
+        "activeAutoSources": 3
+      },
+      "changes": {
+        "channelDelta": 1341,
+        "addedCount": 1335,
+        "removedCount": 0,
+        "addedChannels": [
+          "A&E TV",
+          "ABC",
+          "ACC Digital Network",
+          "ACC Network",
+          "AccuWeather NOW",
+          "Adult Swim",
+          "Altitude Sports",
+          "AMC",
+          "Animal Planet",
+          "AXS TV",
+          "BBC America",
+          "BBC One",
+          "BBC World News",
+          "beIN Sports 1 France",
+          "beIN Sports en Español",
+          "beIN Sports USA",
+          "beIN Sports XTRA",
+          "BET",
+          "Big Ten Network",
+          "Bloomberg TV",
+          "Boomerang",
+          "Bounce",
+          "Bravo TV",
+          "Buzzr",
+          "Cartoon Network",
+          "CBC News Network",
+          "CBS",
+          "CBS News 24/7",
+          "CBS Sports Golazo Network",
+          "CBS Sports Network"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
