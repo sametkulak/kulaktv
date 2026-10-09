@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "updatedAt": null,
+  "algorithm": "server-health-bayesian-v1",
+  "sourceCount": 0,
+  "sources": {}
+}
