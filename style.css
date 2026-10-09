@@ -143,9 +143,12 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 }
 @media (max-width:600px){
   .channel-sidebar{width:92vw;flex-basis:92vw}
-  .channel-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;padding-left:9px;padding-right:9px}
-  .channel-item{min-height:120px}
-  .channel-logo{height:68px}
+  .channel-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-left:7px;padding-right:7px}
+  .channel-item{min-height:96px;padding:6px}
+  .channel-logo{height:50px}
+  .channel-name{font-size:10px;margin-top:4px}
+  .channel-group{font-size:7px;margin-top:2px}
+  .channel-fav{right:4px;top:4px;width:21px;height:21px;font-size:12px}
   .sidebar-title{font-size:18px}
   .player-bar{gap:4px}
   .bar-btn{width:36px}.bar-play{width:46px;height:46px}.bar-current{padding:0 5px}
