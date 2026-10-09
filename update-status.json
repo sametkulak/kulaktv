@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T08:29:56.558528+00:00",
-  "channelCount": 559,
+  "updatedAt": "2026-10-09T08:44:34.735516+00:00",
+  "channelCount": 400,
   "sourceCount": 5,
   "changed": true,
   "sources": [
@@ -41,13 +41,13 @@
       "status": "ok"
     }
   ],
-  "logosFilled": 18,
+  "logosFilled": 16,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 744,
-    "healthyUrls": 475,
-    "failedUrls": 269,
+    "checkedUrls": 610,
+    "healthyUrls": 375,
+    "failedUrls": 235,
     "failures": [
       {
         "channel": "TRT1",
@@ -150,11 +150,6 @@
         "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       },
       {
-        "channel": "STAR TV",
-        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
         "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
@@ -168,6 +163,11 @@
         "channel": "KANAL 7",
         "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
         "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7.blutv.com/blutv_kanal7_live/live.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7.blutv.com'. (_ssl.c:1000)>\",)"
       },
       {
         "channel": "TV100",
@@ -185,6 +185,11 @@
         "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
+        "channel": "BEYAZ TV",
+        "url": "https://mn-nl.mncdn.com/blutv_beyaztv2/live.m3u8",
+        "detail": "('İki testte de başarısız • Remote end closed connection without response',)"
+      },
+      {
         "channel": "TRT HABER",
         "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1636",
         "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
@@ -192,11 +197,6 @@
       {
         "channel": "HABERTURK",
         "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       }
     ],
