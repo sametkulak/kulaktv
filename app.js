@@ -366,8 +366,8 @@ function updateFavoriteUi(){
 }
 function toggleFavorite(ch,event){
   event?.stopPropagation();
-  const id=channelFavoriteKey(ch);
-  if(state.favorites.has(id))state.favorites.delete(id);else state.favorites.add(id);
+  if(isFavorite(ch)) removeFavoriteVariants(ch);
+  else state.favorites.add(channelFavoriteKey(ch));
   localStorage.setItem('kulaktv-favorites',JSON.stringify([...state.favorites]));
   updateFavoriteUi();
   applyFilters();
@@ -534,11 +534,24 @@ async function loadHistory(){
   }
 }
 function channelFavoriteKey(ch){
-  // Favoriler kaynak URL'sine bağlı olmamalı. Günlük güncellemede URL
-  // değişse bile aynı kanal favori olarak kalır.
+  // Favoriler kaynak URL'sine veya kategori adına bağlı olmamalı.
+  // Böylece günlük listede grup/URL değişse bile aynı kanal korunur.
+  const tvg=String(ch?.id||'').trim();
+  if(tvg && !/^ext$/i.test(tvg)) return 'tvg:'+normalizeSearchText(tvg);
+  return 'name:'+normalizeChannelName(ch?.name||'');
+}
+function legacyFavoriteKey(ch){
   return `${normalizeChannelName(ch?.name)}|${normalizeSearchText(ch?.group||'')}`;
 }
-
+function isFavorite(ch){
+  const modern=channelFavoriteKey(ch);
+  const legacy=legacyFavoriteKey(ch);
+  return state.favorites.has(modern)||state.favorites.has(legacy);
+}
+function removeFavoriteVariants(ch){
+  state.favorites.delete(channelFavoriteKey(ch));
+  state.favorites.delete(legacyFavoriteKey(ch));
+}
 function applyFilters(){
   const q=normalizeSearchText($('search').value.trim());
   state.filtered=state.channels.filter(c=>{
@@ -547,7 +560,7 @@ function applyFilters(){
     const aliasKey=nameKey.replace(/hd|fhd|sd|live|canli/g,'');
     const aliases=CHANNEL_SEARCH_ALIASES[aliasKey]||[];
     const matchesSearch=!q||nameKey.includes(q)||groupKey.includes(q)||aliases.some(a=>normalizeSearchText(a).includes(q));
-    const matchesFavorites=!state.showFavorites||state.favorites.has(channelFavoriteKey(c));
+    const matchesFavorites=!state.showFavorites||isFavorite(c);
     return matchesSearch&&matchesFavorites;
   });
   renderChannelList();
@@ -566,7 +579,7 @@ function renderChannelList(){
       ? `<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.onerror=null;this.parentElement.textContent='${initials}'">`
       : initials;
     const currentProgram=getCurrentProgramme(ch); const programmeText=currentProgram ? escapeHtml(currentProgram.title) : '';
-    div.innerHTML=`<button class="channel-fav${state.favorites.has(channelFavoriteKey(ch))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(channelFavoriteKey(ch))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div>${programmeText?`<div class="channel-program" title="${programmeText}">▶ ${programmeText}</div>`:''}</div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    div.innerHTML=`<button class="channel-fav${isFavorite(ch)?' active':''}" type="button" aria-label="Favoriye ekle">${isFavorite(ch)?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div>${programmeText?`<div class="channel-program" title="${programmeText}">▶ ${programmeText}</div>`:''}</div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
     div.querySelector('.channel-fav').addEventListener('click',e=>toggleFavorite(ch,e));
     div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
   }); root.appendChild(frag);
