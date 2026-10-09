@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T14:53:16.331032+00:00",
+  "updatedAt": "2026-10-09T15:14:42.645144+00:00",
   "channelCount": 410,
   "sourceCount": 8,
   "changed": true,
@@ -12,7 +12,7 @@
       "resolvedUrl": "https://onureroz.com/indirmeler/turk/index.m3u",
       "channelCount": 413,
       "status": "ok",
-      "trustScore": 59,
+      "trustScore": 58,
       "trustLabel": "Orta",
       "automatic": false
     },
@@ -92,8 +92,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 675,
-    "healthyUrls": 388,
-    "failedUrls": 287,
+    "healthyUrls": 378,
+    "failedUrls": 297,
     "failures": [
       {
         "channel": "TRT1",
@@ -107,6 +107,11 @@
       },
       {
         "channel": "TRT1",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "TRT1",
         "url": "http://87.246.54.249:8080/TRT1/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -114,6 +119,11 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "TRT 4K",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "NOW TV",
@@ -167,6 +177,11 @@
       },
       {
         "channel": "SHOW TV HD",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "SHOW TV HD",
         "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
@@ -197,6 +212,11 @@
       },
       {
         "channel": "KANAL D",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "KANAL D",
         "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -222,28 +242,8 @@
       },
       {
         "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
-        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
-        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
@@ -254,10 +254,10 @@
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-09T14:53:16.061998+00:00",
+    "updatedAt": "2026-10-09T15:14:42.374371+00:00",
     "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
     "matchedChannels": 93,
-    "programmeCount": 830
+    "programmeCount": 795
   },
   "changes": {
     "channelDelta": 0,
