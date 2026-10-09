@@ -1,8 +1,8 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T09:10:28.625993+00:00",
-  "channelCount": 398,
-  "sourceCount": 5,
+  "updatedAt": "2026-10-09T09:32:24.089869+00:00",
+  "channelCount": 410,
+  "sourceCount": 8,
   "changed": true,
   "sources": [
     {
@@ -39,15 +39,36 @@
       "resolvedUrl": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
       "channelCount": 181,
       "status": "ok"
+    },
+    {
+      "name": "rideordie16/tv",
+      "url": "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u",
+      "channelCount": 87,
+      "status": "ok"
+    },
+    {
+      "name": "qazim/IPTV",
+      "url": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
+      "channelCount": 27,
+      "status": "ok"
+    },
+    {
+      "name": "ilyswch/IPTV-TR",
+      "url": "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u",
+      "resolvedUrl": "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u",
+      "channelCount": 39,
+      "status": "ok"
     }
   ],
-  "logosFilled": 16,
+  "logosFilled": 15,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 608,
-    "healthyUrls": 359,
-    "failedUrls": 249,
+    "checkedUrls": 675,
+    "healthyUrls": 392,
+    "failedUrls": 283,
     "failures": [
       {
         "channel": "TRT1",
@@ -61,18 +82,23 @@
       },
       {
         "channel": "TRT1",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "http://87.246.54.249:8080/TRT1/index.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
-        "channel": "TRT 4K",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "channel": "TRT1",
+        "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "NOW TV",
         "url": "http://116.202.238.88/FOXTV_TR/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://c.fulltvizle.com/fox/tracks-v1a1/mono.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
         "channel": "TV 8",
@@ -105,14 +131,14 @@
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
-        "channel": "SHOW TV HD",
-        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
+        "channel": "TV 8",
+        "url": "http://95.174.71.114/TR-TV8/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -130,6 +156,11 @@
         "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       },
       {
+        "channel": "SHOW TV HD",
+        "url": "https://ciner-live.daioncdn.net/showtv/showtv_1080p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
         "channel": "KANAL D",
         "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
@@ -141,13 +172,13 @@
       },
       {
         "channel": "KANAL D",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "KANAL D",
-        "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+        "url": "https://demiroren-live.daioncdn.net/kanald/kanald_1080p.m3u8?app=kanald_web&ce=3",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
       {
         "channel": "STAR TV",
@@ -166,13 +197,13 @@
       },
       {
         "channel": "STAR TV",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       },
       {
         "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "KANAL 7",
@@ -188,16 +219,6 @@
         "channel": "KANAL 7",
         "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
         "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7.blutv.com/blutv_kanal7_live/live.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7.blutv.com'. (_ssl.c:1000)>\",)"
-      },
-      {
-        "channel": "TV100",
-        "url": "https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
