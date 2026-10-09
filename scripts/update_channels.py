@@ -228,7 +228,10 @@ def apply_player_quality(
         if player_events <= 0:
             continue
 
-        health_score = int(record.get("score", 50) or 50)
+        # Always recompute the pure server-health score from its raw
+        # history. Do not feed a previously blended score back into the
+        # weighting step, otherwise the client signal compounds every run.
+        health_score = source_quality_score(record)
         player_score = player_quality_score(player)
 
         # Client data becomes influential gradually so a handful of browsers
@@ -666,11 +669,20 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
 
 
 def normalize_name(name: str) -> str:
-    """Create a conservative key for matching channel variants."""
+    """Create a canonical key for matching channel variants."""
     value = unicodedata.normalize("NFKD", name)
     value = "".join(char for char in value if not unicodedata.combining(char))
     value = value.upper().replace("&", " AND ")
-    value = re.sub(r"\b(FHD|HD|SD|LIVE|CANLI)\b", " ", value)
+
+    # Remove quality/resolution decorations commonly appended by IPTV lists.
+    value = re.sub(
+        r"\b(?:2160P|1440P|1080P|720P|576P|480P|360P|240P|4K|8K|FHD|HD|SD|LIVE|CANLI)\b",
+        " ",
+        value,
+    )
+    # Country decorations such as "(Turkiye)" should not create a second channel.
+    value = re.sub(r"\b(?:TURKIYE|TURKEY)\b", " ", value)
+
     value = re.sub(r"[^A-Z0-9]+", "", value)
 
     # Known aliases that are the same broadcaster/channel under different
