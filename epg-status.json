@@ -1,8 +1,8 @@
 {
   "version": 1,
   "status": "updated",
-  "updatedAt": "2026-10-09T14:12:42.262491+00:00",
+  "updatedAt": "2026-10-09T14:23:01.722147+00:00",
   "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-  "matchedChannels": 93,
-  "programmeCount": 910
+  "matchedChannels": 117,
+  "programmeCount": 1347
 }

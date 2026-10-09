@@ -186,6 +186,78 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-09T14:23:02.244629+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 390,
+        "failed": 285,
+        "ratio": 0.578
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 117,
+        "programmeCount": 1347
+      },
+      "discovery": {
+        "candidateCount": 4,
+        "activeAutoSources": 0
+      },
+      "changes": {
+        "channelDelta": -10965,
+        "addedCount": 0,
+        "removedCount": 10965,
+        "addedChannels": [],
+        "removedChannels": [
+          "TV5 (1080p)",
+          "Real America's Voice",
+          "10 Bold",
+          "A&E",
+          "ABC Kids",
+          "ABC",
+          "ACC Network",
+          "Accuweather Now",
+          "Adult Swim",
+          "Altitude Sports",
+          "Always Funny",
+          "AMC",
+          "Animal Planet",
+          "Antena 3 Internacional",
+          "AWE",
+          "Axs Tv",
+          "BBC Alba",
+          "Bbc America",
+          "BBC Four",
+          "BBC One",
+          "BBC Parliament",
+          "BBC Scotland",
+          "BBC Three",
+          "BBC Two",
+          "BBC World News",
+          "BBC",
+          "beIN Sports 1",
+          "beIN SPORTS 2",
+          "beIN SPORTS 3",
+          "Bein Sports"
+        ]
+      }
     }
   ]
 }

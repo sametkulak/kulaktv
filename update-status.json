@@ -1,11 +1,11 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T14:12:42.571729+00:00",
-  "channelCount": 11375,
-  "sourceCount": 12,
+  "updatedAt": "2026-10-09T14:23:02.244629+00:00",
+  "channelCount": 410,
+  "sourceCount": 8,
   "changed": true,
-  "configuredSourceCount": 12,
-  "autoSourceCount": 4,
+  "configuredSourceCount": 8,
+  "autoSourceCount": 0,
   "sources": [
     {
       "name": "OnurEröz Türkiye",
@@ -19,7 +19,7 @@
     },
     {
       "name": "ByteFix Repairs",
-      "url": "https://tinyurl.com/ByteFixRepairs2026",
+      "url": "https://gist.githubusercontent.com/ByteFixRepairs/194e9e3a08075befa1703f02d4af82ad/raw/ByteFixRepairsTurkIPTV.m3u",
       "resolvedUrl": "https://gist.githubusercontent.com/ByteFixRepairs/194e9e3a08075befa1703f02d4af82ad/raw/ByteFixRepairsTurkIPTV.m3u",
       "channelCount": 172,
       "status": "ok",
@@ -73,7 +73,7 @@
       "resolvedUrl": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
       "channelCount": 27,
       "status": "ok",
-      "trustScore": 87,
+      "trustScore": 88,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -86,55 +86,15 @@
       "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
-    },
-    {
-      "name": "auto:chapkazi25-web/iptv-m3u:playlists/all.m3u",
-      "url": "https://raw.githubusercontent.com/chapkazi25-web/iptv-m3u/main/playlists/all.m3u",
-      "resolvedUrl": "https://raw.githubusercontent.com/chapkazi25-web/iptv-m3u/main/playlists/all.m3u",
-      "channelCount": 285,
-      "status": "ok",
-      "trustScore": 40,
-      "trustLabel": "Zayıf",
-      "automatic": true
-    },
-    {
-      "name": "auto:chapkazi25-web/iptv-m3u:playlists/sources/iptv-org.m3u",
-      "url": "https://raw.githubusercontent.com/chapkazi25-web/iptv-m3u/main/playlists/sources/iptv-org.m3u",
-      "resolvedUrl": "https://raw.githubusercontent.com/chapkazi25-web/iptv-m3u/main/playlists/sources/iptv-org.m3u",
-      "channelCount": 11200,
-      "status": "ok",
-      "trustScore": 26,
-      "trustLabel": "Zayıf",
-      "automatic": true
-    },
-    {
-      "name": "auto:doms9/iptv:M3U8/base.m3u8",
-      "url": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/base.m3u8",
-      "resolvedUrl": "https://raw.githubusercontent.com/doms9/iptv/default/M3U8/base.m3u8",
-      "channelCount": 225,
-      "status": "ok",
-      "trustScore": 43,
-      "trustLabel": "Zayıf",
-      "automatic": true
-    },
-    {
-      "name": "auto:hujingguang/ChinaIPTV:Global.m3u8",
-      "url": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/Global.m3u8",
-      "resolvedUrl": "https://raw.githubusercontent.com/hujingguang/ChinaIPTV/main/Global.m3u8",
-      "channelCount": 60,
-      "status": "ok",
-      "trustScore": 25,
-      "trustLabel": "Zayıf",
-      "automatic": true
     }
   ],
   "logosFilled": 15,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 12108,
-    "healthyUrls": 554,
-    "failedUrls": 441,
+    "checkedUrls": 675,
+    "healthyUrls": 390,
+    "failedUrls": 285,
     "failures": [
       {
         "channel": "TRT1",
@@ -288,27 +248,28 @@
       }
     ],
     "ordering": "healthy-first, failed-last",
-    "globalHealthDegraded": true,
+    "globalHealthDegraded": false,
     "pendingRemoval": 0,
     "removedAfterTwoFailures": 0
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-09T14:12:42.262491+00:00",
+    "updatedAt": "2026-10-09T14:23:01.722147+00:00",
     "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 93,
-    "programmeCount": 910
+    "matchedChannels": 117,
+    "programmeCount": 1347
   },
   "discovery": {
     "candidateCount": 4,
     "activeAutoSources": 0
   },
   "changes": {
-    "channelDelta": 10965,
-    "addedCount": 10965,
-    "removedCount": 0,
-    "addedChannels": [
+    "channelDelta": -10965,
+    "addedCount": 0,
+    "removedCount": 10965,
+    "addedChannels": [],
+    "removedChannels": [
       "TV5 (1080p)",
       "Real America's Voice",
       "10 Bold",
@@ -339,8 +300,7 @@
       "beIN SPORTS 2",
       "beIN SPORTS 3",
       "Bein Sports"
-    ],
-    "removedChannels": []
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }
