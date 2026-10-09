@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T06:50:44.013124+00:00",
-  "channelCount": 560,
+  "updatedAt": "2026-10-09T08:03:08.934276+00:00",
+  "channelCount": 559,
   "sourceCount": 5,
   "changed": true,
   "sources": [
@@ -45,9 +45,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 746,
-    "healthyUrls": 477,
-    "failedUrls": 269,
+    "checkedUrls": 744,
+    "healthyUrls": 462,
+    "failedUrls": 282,
     "failures": [
       {
         "channel": "TRT1",
@@ -58,6 +58,16 @@
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "TRT1",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "TRT 4K",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "NOW TV",
@@ -101,6 +111,11 @@
       },
       {
         "channel": "SHOW TV HD",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "SHOW TV HD",
         "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
@@ -126,6 +141,11 @@
       },
       {
         "channel": "KANAL D",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "KANAL D",
         "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -143,6 +163,11 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "STAR TV",
@@ -173,31 +198,6 @@
         "channel": "TV100",
         "url": "https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "TV100",
-        "url": "https://tv100.daioncdn.net/tv100/tv100_1080p.m3u8?app=web",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "BEYAZ TV",
-        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1632",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
-      },
-      {
-        "channel": "TRT HABER",
-        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1636",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
-      },
-      {
-        "channel": "HABERTURK",
-        "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "A SPOR",
-        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
