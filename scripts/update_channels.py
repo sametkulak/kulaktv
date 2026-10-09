@@ -141,6 +141,7 @@ PRIORITY_CHANNELS = [
 # Small name aliases for common variants found in M3U sources.
 PRIORITY_ALIASES = {
     "NOW TV": "NOW",
+    "NOWTV": "NOW",
     "KANAL24": "KANAL 24",
 }
 
@@ -659,13 +660,20 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
 
 
 def normalize_name(name: str) -> str:
-    """Create a conservative key for matching variants such as TV 8 / TV8 HD."""
+    """Create a conservative key for matching channel variants."""
     value = unicodedata.normalize("NFKD", name)
     value = "".join(char for char in value if not unicodedata.combining(char))
     value = value.upper().replace("&", " AND ")
     value = re.sub(r"\b(FHD|HD|SD|LIVE|CANLI)\b", " ", value)
     value = re.sub(r"[^A-Z0-9]+", "", value)
-    return value
+
+    # Known aliases that are the same broadcaster/channel under different
+    # labels in public M3U lists.
+    aliases = {
+        "NOWTV": "NOW",
+        "NOW": "NOW",
+    }
+    return aliases.get(value, value)
 
 
 def merge_channels(
@@ -711,8 +719,22 @@ def merge_channels(
                 if source_name not in existing_sources:
                     existing_sources.append(source_name)
 
-                if not target.get("logo") and channel.get("logo"):
-                    target["logo"] = str(channel["logo"])
+                incoming_logo = str(channel.get("logo") or "")
+                incoming_name = str(channel.get("name") or "")
+                if incoming_logo and (
+                    not target.get("logo")
+                    or (
+                        normalize_name(target.get("name", "")) == "NOW"
+                        and incoming_name.strip().upper() in {"NOW TV", "NOW TV HD"}
+                    )
+                ):
+                    target["logo"] = incoming_logo
+
+                if (
+                    normalize_name(target.get("name", "")) == "NOW"
+                    and incoming_name.strip().upper() in {"NOW TV", "NOW TV HD"}
+                ):
+                    target["name"] = "NOW TV"
 
                 current_group = str(target.get("group") or "Diğer")
                 new_group = str(channel.get("group") or "Diğer")
