@@ -300,7 +300,7 @@ const state = {
   autoStarting: false,
   playbackGeneration: 0,
   cancelPlayback: null,
-  drawerOpen: false, settingsOpen: false,
+  drawerOpen: false, settingsOpen: false, adminAuthenticated: false,
   showFavorites: false,
   activeCategory: 'all',
   favorites: new Set((() => {
@@ -359,24 +359,6 @@ function renderGroups(){
   renderCategoryChips();
 }
 function groupLabel(group){return String(group||'Diğer').replace(/^ulusal\s*-\s*/i,'').trim();}
-function renderCategoryChips(){
-  const root=$('categoryChips');
-  if(!root)return;
-  const groups=[...new Set(state.channels.map(c=>groupLabel(c.group)).filter(Boolean))];
-  const counts=new Map(groups.map(g=>[g,state.channels.filter(c=>groupLabel(c.group)===g).length]));
-  root.innerHTML=[
-    `<button type="button" class="category-chip active" data-group="all">Tümü ${state.channels.length}</button>`,
-    ...groups.map(g=>`<button type="button" class="category-chip" data-group="${escapeHtml(g)}">${escapeHtml(g)} ${counts.get(g)}</button>`)
-  ].join('');
-  root.querySelectorAll('.category-chip').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      const group=btn.dataset.group||'all';
-      state.activeCategory = group;
-      root.querySelectorAll('.category-chip').forEach(x=>x.classList.toggle('active',x===btn));
-      applyFilters();
-    });
-  });
-}
 function updateBarState(){
   const active = Boolean(state.current && !video.paused);
   $('playPause').textContent = active ? '❚❚' : '▶';
@@ -564,16 +546,14 @@ function channelFavoriteKey(ch){
 
 function applyFilters(){
   const q=normalizeSearchText($('search').value.trim());
-  const group=state.activeCategory;
   state.filtered=state.channels.filter(c=>{
     const nameKey=normalizeSearchText(c.name);
     const groupKey=normalizeSearchText(c.group);
     const aliasKey=nameKey.replace(/hd|fhd|sd|live|canli/g,'');
     const aliases=CHANNEL_SEARCH_ALIASES[aliasKey]||[];
     const matchesSearch=!q||nameKey.includes(q)||groupKey.includes(q)||aliases.some(a=>normalizeSearchText(a).includes(q));
-    const matchesGroup=group==='all'||c.group===group||groupLabel(c.group)===group;
     const matchesFavorites=!state.showFavorites||state.favorites.has(channelFavoriteKey(c));
-    return matchesSearch&&matchesGroup&&matchesFavorites;
+    return matchesSearch&&matchesFavorites;
   });
   renderChannelList();
   const prefix=state.showFavorites?'Favoriler':'Tüm kanallar';
@@ -974,8 +954,6 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
   const nowMeta=$('nowMeta');
   if(nowMeta) nowMeta.textContent=`${sourceName} • ${channels.length} kanal`;
   // Açılışta kanal listesi doğrudan tüm kanallarla doldurulsun.
-  try { renderCategoryChips(); } catch(err) { console.warn('Kategori çipleri oluşturulamadı:',err); }
-
   state.filtered=[...state.channels];
   renderChannelList();
 
@@ -1042,6 +1020,55 @@ function closeChannels(){
   $('channelDrawer').setAttribute('aria-hidden','true');
   updateChannelButton();
 }
+const ADMIN_USERNAME='admin';
+const ADMIN_PASSWORD_SHA256='be3ec230d6910afcc0308544f872c26972829c4f8888706f70e615e548a8a406';
+const ADMIN_SESSION_KEY='kulaktv-admin-auth-v1';
+
+async function sha256Hex(value){
+  const data=new TextEncoder().encode(value);
+  const digest=await crypto.subtle.digest('SHA-256',data);
+  return Array.from(new Uint8Array(digest)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function isAdminAuthenticated(){
+  try{return sessionStorage.getItem(ADMIN_SESSION_KEY)==='1';}catch{return false;}
+}
+function setAdminAuthenticated(value){
+  try{if(value)sessionStorage.setItem(ADMIN_SESSION_KEY,'1');else sessionStorage.removeItem(ADMIN_SESSION_KEY);}catch{}
+  state.adminAuthenticated=Boolean(value);
+}
+function closeAdminLogin(){
+  const modal=$('adminLogin');
+  if(modal)modal.hidden=true;
+  const err=$('adminLoginError');
+  if(err)err.hidden=true;
+}
+function showAdminLogin(){
+  const modal=$('adminLogin');
+  if(!modal)return;
+  modal.hidden=false;
+  const form=$('adminLoginForm');
+  form?.reset();
+  const err=$('adminLoginError');
+  if(err)err.hidden=true;
+  setTimeout(()=>$('adminUsername')?.focus(),50);
+}
+async function handleAdminLogin(event){
+  event.preventDefault();
+  const username=String($('adminUsername')?.value||'').trim();
+  const password=String($('adminPassword')?.value||'');
+  const digest=await sha256Hex(password);
+  const ok=username===ADMIN_USERNAME && digest===ADMIN_PASSWORD_SHA256;
+  const err=$('adminLoginError');
+  if(!ok){
+    if(err)err.hidden=false;
+    $('adminPassword')?.focus();
+    return;
+  }
+  setAdminAuthenticated(true);
+  closeAdminLogin();
+  openSettings();
+}
+
 function openSettings(){
   if(state.epgOpen)closeEpg();
   state.settingsOpen=true;
@@ -1051,6 +1078,7 @@ function openSettings(){
   $('settingsDrawer').setAttribute('aria-hidden','false');
 }
 function closeSettings(){
+  if(!state.adminAuthenticated && !isAdminAuthenticated()) return;
   state.settingsOpen=false;
   $('settingsDrawer').classList.remove('open');
   $('settingsBackdrop').classList.remove('open');
@@ -1090,7 +1118,7 @@ function nextChannel(dir){
   const next = state.filtered[(i + dir + state.filtered.length) % state.filtered.length];
   if(next) playChannel(next);
 }
-$('openChannels').addEventListener('click',openChannels);$('barChannelsBtn').addEventListener('click',()=>state.drawerOpen?closeChannels():openChannels());$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);$('epgBtn').addEventListener('click',openEpg);$('closeEpg').addEventListener('click',closeEpg);$('epgBackdrop').addEventListener('click',closeEpg);
+$('openChannels').addEventListener('click',openChannels);$('barChannelsBtn').addEventListener('click',()=>state.drawerOpen?closeChannels():openChannels());$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',()=>{state.adminAuthenticated=isAdminAuthenticated();if(state.adminAuthenticated)openSettings();else showAdminLogin();});$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);$('closeAdminLogin').addEventListener('click',closeAdminLogin);$('adminLogin').addEventListener('click',e=>{if(e.target.id==='adminLogin')closeAdminLogin();});$('adminLoginForm').addEventListener('submit',handleAdminLogin);$('epgBtn').addEventListener('click',openEpg);$('closeEpg').addEventListener('click',closeEpg);$('epgBackdrop').addEventListener('click',closeEpg);
 $('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{
   if(video.muted){
     video.muted=false;
