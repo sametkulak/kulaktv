@@ -1006,7 +1006,7 @@ async function loadDefault(){
       const text = await res.text();
       await loadM3UText(
         text,
-        url === DEFAULT_M3U ? 'KulakTV otomatik liste' : 'Yerel M3U',
+        url === DEFAULT_M3U ? 'KulakTV kaynak listesi' : 'Yerel M3U',
         true
       );
       return;
