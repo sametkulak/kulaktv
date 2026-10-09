@@ -29,6 +29,9 @@ STATUS_PATH = ROOT / "update-status.json"
 HEALTH_STATE_PATH = ROOT / "health-state.json"
 SOURCE_QUALITY_PATH = ROOT / "source-quality.json"
 PLAYER_TELEMETRY_PATH = ROOT / "player-telemetry.json"
+EPG_STATUS_PATH = ROOT / "epg-status.json"
+DISCOVERY_PATH = ROOT / "discovered-sources.json"
+HISTORY_PATH = ROOT / "update-history.json"
 
 SOURCES = [
     ("OnurEröz Türkiye", "https://onureroz.com/indirmeler/turk/index.m3u"),
@@ -42,13 +45,51 @@ SOURCES = [
 ]
 
 
-# The workflow is intentionally limited to trusted public playlist sources above.
+# The workflow starts with the fixed trusted sources above and may add a very small
+# trial pool discovered by the separate GitHub source-discovery job.
 USER_AGENT = "KulakTV-AutoUpdater/3.1"
+
+
+def load_json_object(path: Path, default: dict[str, object] | None = None) -> dict[str, object]:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else (default or {})
+    except Exception:
+        return default or {}
+
+
+def get_configured_sources() -> list[tuple[str, str]]:
+    """Return the fixed sources plus a tiny automatically discovered trial/active pool."""
+    configured = list(SOURCES)
+    document = load_json_object(DISCOVERY_PATH, {})
+    existing = {url for _name, url in configured}
+    candidates = document.get("candidates", [])
+    if not isinstance(candidates, list):
+        return configured
+
+    eligible = [
+        item for item in candidates
+        if isinstance(item, dict)
+        and item.get("status") in {"active", "trial"}
+        and str(item.get("url") or "").startswith(("http://", "https://"))
+        and str(item.get("url")) not in existing
+    ]
+    eligible.sort(
+        key=lambda item: (
+            item.get("status") != "active",
+            -int(item.get("healthScore") or 0),
+            -int(item.get("staticScore") or 0),
+        )
+    )
+    for item in eligible[:AUTO_SOURCE_MAX]:
+        configured.append((str(item.get("name")), str(item.get("url"))))
+    return configured
 TIMEOUT = 45
 MIN_CHANNELS = 10
 MAX_ALTERNATIVES = 9
 # Kalite algoritması kanal başına en fazla 12 adayı test eder; oynatıcıya en iyi 10 (ana + 9 yedek) yazılır.
 MAX_QUALITY_CANDIDATES = 12
+AUTO_SOURCE_MAX = 4
 # Güvenilmez yayın sunucuları
 BLOCKED_STREAM_HOSTS = {
     "helga.iptv2022.com",
@@ -288,6 +329,7 @@ def update_source_quality(
     previous: dict[str, object],
     snapshot: list[tuple[str, str, dict[str, str]]],
     checked_at: str,
+    provider_map: dict[str, list[str]] | None = None,
 ) -> dict[str, dict[str, object]]:
     next_quality: dict[str, dict[str, object]] = {}
 
@@ -308,6 +350,7 @@ def update_source_quality(
             "lastCheckedAt": checked_at,
             "lastSuccessAt": old.get("lastSuccessAt"),
             "lastFailureAt": old.get("lastFailureAt"),
+            "providers": list(provider_map.get(url, old.get("providers", []))) if provider_map else list(old.get("providers", [])),
         }
 
         if status == "ok":
@@ -341,12 +384,15 @@ def update_source_quality(
 def save_source_quality(
     quality: dict[str, dict[str, object]],
     checked_at: str,
+    providers: dict[str, dict[str, object]] | None = None,
 ) -> None:
+    previous = load_source_quality()
     payload = {
-        "version": 1,
+        "version": 2,
         "updatedAt": checked_at,
-        "algorithm": "server-health-plus-player-v1",
+        "algorithm": "server-health-plus-player-v2",
         "sourceCount": len(quality),
+        "providers": providers if providers is not None else previous.get("providers", {}),
         "sources": quality,
     }
     SOURCE_QUALITY_PATH.write_text(
@@ -958,6 +1004,113 @@ def apply_health_policy(
     }
 
 
+def build_provider_trust(
+    provider_urls: dict[str, set[str]],
+    health_by_url: dict[str, dict[str, str]],
+    quality: dict[str, dict[str, object]],
+    previous: dict[str, object],
+    checked_at: str,
+) -> dict[str, dict[str, object]]:
+    previous_providers = previous.get("providers", {}) if isinstance(previous, dict) else {}
+    if not isinstance(previous_providers, dict):
+        previous_providers = {}
+
+    providers: dict[str, dict[str, object]] = {}
+    for provider, urls in provider_urls.items():
+        checked = [url for url in urls if url in health_by_url]
+        healthy = [url for url in checked if health_by_url[url].get("status") == "ok"]
+        failed = [url for url in checked if health_by_url[url].get("status") == "bad"]
+        health_ratio = len(healthy) / max(1, len(checked))
+        scores = [float(quality[url].get("score", 50) or 50) for url in checked if url in quality]
+        avg_score = sum(scores) / len(scores) if scores else 50.0
+        coverage = min(1.0, len(checked) / max(1, min(len(urls), 30)))
+        current_score = round((health_ratio * 100) * 0.60 + avg_score * 0.30 + coverage * 100 * 0.10)
+
+        old = previous_providers.get(provider, {}) if isinstance(previous_providers, dict) else {}
+        old_score = float(old.get("score", 0) or 0) if isinstance(old, dict) else 0
+        score = round(old_score * 0.65 + current_score * 0.35) if old_score else current_score
+        label = (
+            "Çok güvenilir" if score >= 85 else
+            "Güvenilir" if score >= 70 else
+            "Orta" if score >= 50 else
+            "Zayıf"
+        )
+        providers[provider] = {
+            "score": max(0, min(100, score)),
+            "label": label,
+            "checkedUrls": len(checked),
+            "healthyUrls": len(healthy),
+            "failedUrls": len(failed),
+            "healthRatio": round(health_ratio, 3),
+            "averageUrlScore": round(avg_score, 1),
+            "coverage": round(coverage, 3),
+            "urlCount": len(urls),
+            "lastCheckedAt": checked_at,
+            "active": bool(len(healthy) > 0 or not checked),
+            "automatic": provider.startswith("auto:"),
+        }
+    return providers
+
+
+def update_discovered_source_health(
+    candidates: dict[str, object],
+    health_by_url: dict[str, dict[str, str]],
+    checked_at: str,
+) -> dict[str, object]:
+    document = load_json_object(DISCOVERY_PATH, {})
+    entries = document.get("candidates", [])
+    if not isinstance(entries, list):
+        return document
+
+    updated_entries = []
+    for item in entries:
+        if not isinstance(item, dict):
+            continue
+        url = str(item.get("url") or "")
+        if url not in candidates:
+            updated_entries.append(item)
+            continue
+        urls = [str(value) for value in item.get("urls", []) if str(value).startswith(("http://", "https://"))]
+        checked = [value for value in urls if value in health_by_url]
+        healthy = [value for value in checked if health_by_url[value].get("status") == "ok"]
+        failed = [value for value in checked if health_by_url[value].get("status") == "bad"]
+        if len(checked) >= 5:
+            health_score = round(len(healthy) / len(checked) * 100)
+            item["healthScore"] = health_score
+            item["healthyUrls"] = len(healthy)
+            item["checkedUrls"] = len(checked)
+            item["lastHealthAt"] = checked_at
+            item["status"] = "active" if len(healthy) >= 3 and health_score >= 50 else "rejected"
+            item["lastError"] = "" if item["status"] == "active" else f"Sağlık oranı düşük: {health_score}% ({len(healthy)}/{len(checked)})"
+        updated_entries.append(item)
+
+    updated_entries.sort(
+        key=lambda item: (
+            item.get("status") not in {"active", "trial"},
+            -int(item.get("healthScore") or 0),
+            -int(item.get("staticScore") or 0),
+        )
+    )
+    document["updatedAt"] = checked_at
+    document["candidates"] = updated_entries[:AUTO_SOURCE_MAX]
+    document["activeAutoSources"] = sum(1 for item in document["candidates"] if item.get("status") == "active")
+    DISCOVERY_PATH.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return document
+
+
+def append_update_history(entry: dict[str, object]) -> None:
+    document = load_json_object(HISTORY_PATH, {"version": 1, "retentionRuns": 180, "runs": []})
+    runs = document.get("runs", [])
+    if not isinstance(runs, list):
+        runs = []
+    runs.append(entry)
+    retention = max(30, int(document.get("retentionRuns", 180) or 180))
+    document["version"] = 1
+    document["retentionRuns"] = retention
+    document["runs"] = runs[-retention:]
+    HISTORY_PATH.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def render_m3u(channels: list[dict[str, object]], fetched_at: str) -> str:
     lines = [
         "#EXTM3U",
@@ -996,11 +1149,12 @@ def write_status(payload: dict[str, object]) -> None:
 def main() -> int:
     now = datetime.now(timezone.utc)
     fetched_at = now.isoformat()
+    configured_sources = get_configured_sources()
 
     successful: list[tuple[str, str, list[dict[str, object]]]] = []
     failed: list[dict[str, str]] = []
 
-    for source_name, source_url in SOURCES:
+    for source_name, source_url in configured_sources:
         try:
             text, final_url = fetch_text(source_url)
             channels = parse_m3u(text)
@@ -1020,13 +1174,36 @@ def main() -> int:
                 "status": "fetch_failed",
                 "updatedAt": fetched_at,
                 "sourceCount": 0,
+                "configuredSourceCount": len(configured_sources),
                 "channelCount": 0,
                 "sources": failed,
                 "message": "No upstream source was available; last known-good playlist was kept.",
             }
         )
+        append_update_history({
+            "updatedAt": fetched_at,
+            "status": "fetch_failed",
+            "sourceCount": 0,
+            "configuredSourceCount": len(configured_sources),
+            "channelCount": 0,
+            "health": {"checked": 0, "healthy": 0, "failed": 0},
+            "message": "No upstream source was available; last known-good playlist was kept.",
+        })
         print("No source succeeded. Keeping last known-good channels.m3u.")
         return 0
+
+    provider_urls: dict[str, set[str]] = {}
+    provider_names_by_url: dict[str, list[str]] = {}
+    for source_name, _resolved_url, channels in successful:
+        bucket = provider_urls.setdefault(source_name, set())
+        for channel in channels:
+            urls = [str(channel.get("url") or "")] + [str(value) for value in channel.get("alternatives", [])]
+            for url in urls:
+                if url.startswith(("http://", "https://")):
+                    bucket.add(url)
+                    provider_names_by_url.setdefault(url, [])
+                    if source_name not in provider_names_by_url[url]:
+                        provider_names_by_url[url].append(source_name)
 
     merged = merge_channels(successful)
     logos_filled = enrich_missing_logos(merged)
@@ -1079,12 +1256,30 @@ def main() -> int:
     save_health_state(next_health_state)
 
     previous_source_quality = load_source_quality()
+    health_by_url = {
+        url: result
+        for _channel, url, result in source_quality_snapshot
+    }
     next_source_quality = update_source_quality(
         previous_source_quality.get("sources", previous_source_quality),
         source_quality_snapshot,
         fetched_at,
+        provider_names_by_url,
     )
-    save_source_quality(next_source_quality, fetched_at)
+    discovery_candidates = load_json_object(DISCOVERY_PATH, {}).get("candidates", [])
+    auto_url_map = {
+        str(item.get("url")): item for item in discovery_candidates
+        if isinstance(item, dict) and item.get("url")
+    } if isinstance(discovery_candidates, list) else {}
+    discovery_document = update_discovered_source_health(auto_url_map, health_by_url, fetched_at)
+    provider_scores = build_provider_trust(
+        provider_urls,
+        health_by_url,
+        next_source_quality,
+        previous_source_quality,
+        fetched_at,
+    )
+    save_source_quality(next_source_quality, fetched_at, provider_scores)
 
     new_text = render_m3u(merged, fetched_at)
     old_text = M3U_PATH.read_text(encoding="utf-8") if M3U_PATH.exists() else ""
@@ -1100,6 +1295,8 @@ def main() -> int:
             "channelCount": len(merged),
             "sourceCount": len(successful),
             "changed": changed,
+            "configuredSourceCount": len(configured_sources),
+            "autoSourceCount": sum(1 for name, _url in configured_sources if name.startswith("auto:")),
             "sources": [
                 {
                     "name": name,
@@ -1107,10 +1304,13 @@ def main() -> int:
                     "resolvedUrl": final_url,
                     "channelCount": len(channels),
                     "status": "ok",
+                    "trustScore": provider_scores.get(name, {}).get("score"),
+                    "trustLabel": provider_scores.get(name, {}).get("label"),
+                    "automatic": provider_scores.get(name, {}).get("automatic", name.startswith("auto:")),
                 }
-                for (name, final_url, channels), (_configured_name, configured_url) in zip(
-                    successful, [item for item in SOURCES if any(item[0] == s[0] for s in successful)]
-                )
+                for (name, final_url, channels) in successful
+                for configured_name, configured_url in configured_sources
+                if configured_name == name
             ]
             + failed,
             "logosFilled": logos_filled,
@@ -1126,6 +1326,11 @@ def main() -> int:
                 "pendingRemoval": removal_summary["pendingRemoval"],
                 "removedAfterTwoFailures": removal_summary["removed"],
             },
+            "epg": load_json_object(EPG_STATUS_PATH, {}),
+            "discovery": {
+                "candidateCount": len(discovery_document.get("candidates", [])) if isinstance(discovery_document.get("candidates", []), list) else 0,
+                "activeAutoSources": int(discovery_document.get("activeAutoSources", 0) or 0),
+            },
             "message": (
                 "Multi-source playlist merged successfully."
                 if changed
@@ -1134,9 +1339,38 @@ def main() -> int:
         }
     )
 
+    append_update_history({
+        "updatedAt": fetched_at,
+        "status": "updated" if changed else "current",
+        "sourceCount": len(successful),
+        "configuredSourceCount": len(configured_sources),
+        "autoSourceCount": sum(1 for name, _url in configured_sources if name.startswith("auto:")),
+        "channelCount": len(merged),
+        "logosFilled": logos_filled,
+        "health": {
+            "checked": health_summary["checked"],
+            "healthy": health_summary["healthy"],
+            "failed": health_summary["failed"],
+            "ratio": round(ratio, 3),
+        },
+        "providers": {
+            name: int(data.get("score", 0) or 0)
+            for name, data in provider_scores.items()
+        },
+        "epg": {
+            "status": load_json_object(EPG_STATUS_PATH, {}).get("status"),
+            "matchedChannels": load_json_object(EPG_STATUS_PATH, {}).get("matchedChannels", 0),
+            "programmeCount": load_json_object(EPG_STATUS_PATH, {}).get("programmeCount", 0),
+        },
+        "discovery": {
+            "candidateCount": len(discovery_document.get("candidates", [])) if isinstance(discovery_document.get("candidates", []), list) else 0,
+            "activeAutoSources": int(discovery_document.get("activeAutoSources", 0) or 0),
+        },
+    })
+
     print(
         f"KulakTV: {len(merged)} unique channels merged from "
-        f"{len(successful)}/{len(SOURCES)} sources; "
+        f"{len(successful)}/{len(configured_sources)} sources; "
         f"playlist {'updated' if changed else 'already current'}."
     )
     return 0
