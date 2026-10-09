@@ -27,6 +27,31 @@ jobs:
       - name: Güncel main ile hizala
         run: git pull --rebase origin main
 
+      - name: Kod ve yapı doğrulaması
+        run: |
+          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py
+          node --check app.js
+          node --check telemetry-config.js
+
+      - name: M3U yapısını doğrula
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          lines = Path("channels.m3u").read_text(encoding="utf-8").splitlines()
+          ext = [i for i, line in enumerate(lines) if line.startswith("#EXTINF:")]
+          bad = []
+          for i in ext:
+              if not (i + 1 < len(lines) and re.match(r"^https?://", lines[i + 1].strip(), re.I)):
+                  bad.append(i + 1)
+
+          if bad:
+              raise SystemExit(f"Geçersiz M3U kayıtları: {bad[:10]}")
+          print(f"M3U doğrulandı: {len(ext)} kanal")
+
+          PY
+
       - name: Python kanal güncellemesini çalıştır
         run: python scripts/update_channels.py
 
