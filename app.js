@@ -297,16 +297,8 @@ const state = {
 const $ = id => document.getElementById(id);
 const video = $('video');
 function setStatus(text) {
-  const statusText = $('statusText');
   const topStatus = $('topStatus');
-
-  if (statusText) {
-    statusText.textContent = text;
-  }
-
-  if (topStatus) {
-    topStatus.textContent = text;
-  }
+  if (topStatus) topStatus.textContent = text;
 }
 function escapeHtml(s) { return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
 function parseAttrs(line) { const attrs={}; const re=/([\w-]+)="([^"]*)"/g; let m; while((m=re.exec(line))) attrs[m[1]]=m[2]; return attrs; }
@@ -785,9 +777,6 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
 
   const nowMeta=$('nowMeta');
   if(nowMeta) nowMeta.textContent=`${sourceName} • ${channels.length} kanal`;
-  const footerSource=$('footerSource');
-  if(footerSource) footerSource.textContent=sourceName;
-
   // Açılışta kanal listesi doğrudan tüm kanallarla doldurulsun.
   try { renderCategoryChips(); } catch(err) { console.warn('Kategori çipleri oluşturulamadı:',err); }
 
