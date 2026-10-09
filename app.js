@@ -158,6 +158,18 @@ async function flushPlaybackTelemetry(keepalive=false){
     console.warn('KulakTV telemetry gönderilemedi:',err);
   }finally{
     telemetrySending=false;
+    if(telemetryQueue.length){
+      const flushEvery=Math.max(1,Number(TELEMETRY_CONFIG.flushEvery||6));
+      clearTimeout(telemetryFlushTimer);
+      if(telemetryQueue.length>=flushEvery){
+        void flushPlaybackTelemetry();
+      }else{
+        telemetryFlushTimer=setTimeout(
+          ()=>flushPlaybackTelemetry(),
+          Math.max(3000,Number(TELEMETRY_CONFIG.flushIntervalMs||15000))
+        );
+      }
+    }
   }
 }
 
@@ -375,7 +387,9 @@ function normalizeChannelName(value){
 }
 
 function channelFavoriteKey(ch){
-  return `${normalizeChannelName(ch?.name)}|${String(ch?.url||'')}`;
+  // Favoriler kaynak URL'sine bağlı olmamalı. Günlük güncellemede URL
+  // değişse bile aynı kanal favori olarak kalır.
+  return `${normalizeChannelName(ch?.name)}|${normalizeSearchText(ch?.group||'')}`;
 }
 
 function applyFilters(){
