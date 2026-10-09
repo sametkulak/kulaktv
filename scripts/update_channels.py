@@ -1,4 +1,5 @@
-# MANUAL-HEALTH-SCAN-2026-10-09
+# AUTOMATED-FEATURES-SCAN-2026-10-09
+# EPG + source discovery + trust + history pipeline
 #!/usr/bin/env python3
 """Build KulakTV's playlist by merging several public M3U sources.
 
