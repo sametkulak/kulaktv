@@ -47,7 +47,7 @@ SOURCES = [
 
 # The workflow starts with the fixed trusted sources above and may add a very small
 # trial pool discovered by the separate GitHub source-discovery job.
-USER_AGENT = "KulakTV-AutoUpdater/3.1"
+USER_AGENT = "KulakTV-AutoUpdater/3.2"
 
 
 def load_json_object(path: Path, default: dict[str, object] | None = None) -> dict[str, object]:
