@@ -1,13 +1,21 @@
 {
   "version": 1,
-  "updatedAt": null,
+  "updatedAt": "2026-10-09T08:51:45.941Z",
   "totalEvents": 0,
   "sessions": 0,
   "sources": {},
   "clients": {
-    "devices": {},
-    "browsers": {},
-    "connections": {}
+    "devices": {
+      "system": 1
+    },
+    "browsers": {
+      "cleanup": 1
+    },
+    "connections": {
+      "cleanup": 1
+    }
   },
-  "processedCommentIds": []
+  "processedCommentIds": [
+    "6077663257"
+  ]
 }
