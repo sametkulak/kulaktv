@@ -1,4 +1,5 @@
 # EPG + source health + trust + history pipeline
+# Günlük güncelleme pipelineı canlı test tetikleyicisi.
 #!/usr/bin/env python3
 """Build KulakTV's playlist by merging several public M3U sources.
 
