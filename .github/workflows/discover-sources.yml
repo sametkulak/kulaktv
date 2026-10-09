@@ -1,0 +1,68 @@
+name: KulakTV kaynak keşfi
+
+on:
+  schedule:
+    # Her gün 03:00 UTC = Türkiye saatiyle 06:00
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kulaktv-source-discovery
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository'yi al
+        uses: actions/checkout@v4
+
+      - name: Discovery kodunu doğrula
+        run: |
+          python --version
+          python -m py_compile scripts/discover_sources.py scripts/update_channels.py
+
+      - name: Otomatik yeni kaynak keşfi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/discover_sources.py
+
+      - name: Discovery çıktısını doğrula
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("discovered-sources.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+
+          if not isinstance(data, dict):
+              raise SystemExit("discovered-sources.json JSON nesnesi değil.")
+
+          if not isinstance(data.get("candidates"), list):
+              raise SystemExit("discovered-sources.json candidates alanı geçersiz.")
+
+          print(
+              "Discovery doğrulandı: "
+              f"{len(data['candidates'])} aday, "
+              f"{data.get('activeAutoSources', 0)} aktif otomatik kaynak"
+          )
+          PY
+
+      - name: Değişiklik varsa kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add discovered-sources.json
+
+          if git diff --cached --quiet; then
+            echo "Yeni discovery değişikliği yok."
+          else
+            git commit -m "chore: update discovered IPTV sources"
+            git push
+          fi
