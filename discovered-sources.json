@@ -1,8 +1,9 @@
 {
-  "version": 1,
-  "updatedAt": "2026-10-09T10:59:27.684433+00:00",
-  "queryCount": 0,
+  "version": 2,
+  "updatedAt": "2026-10-09T13:29:35.703844+00:00",
+  "queryCount": 4,
+  "repositoryCount": 0,
   "candidates": [],
   "activeAutoSources": 0,
-  "message": "Aday kaynaklar günlük GitHub taraması ve KulakTV sağlık kontrolüyle değerlendirilir."
+  "message": "Aday kaynaklar günlük GitHub repo taraması ve KulakTV yayın sağlık kontrolüyle değerlendirilir."
 }
