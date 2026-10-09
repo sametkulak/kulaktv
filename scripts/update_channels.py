@@ -70,6 +70,12 @@ LOGO_REPO_RAW = "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countri
 LOGO_FETCH_TIMEOUT = 20
 
 # Common M3U names that use a different filename in the logo repository.
+# Explicit logos for channels where a public M3U source has a reliable
+# branded image that should win over placeholder/initial logos.
+PREFERRED_CHANNEL_LOGOS = {
+    "NOW": "https://i.imgur.com/5EYjWK7.png",
+}
+
 LOGO_ALIASES = {
     "NR 1 TURK": "nr1-turk-hd-tr.png",
     "NR 1 TV": "nr1-tr.png",
@@ -806,17 +812,21 @@ def fetch_turkey_logo_index() -> dict[str, str]:
 
 
 def enrich_missing_logos(channels: list[dict[str, object]]) -> int:
-    """Fill missing logo URLs with exact matches from tv-logo/tv-logos."""
+    """Fill logos and apply explicit preferred logos for key channels."""
     logo_index = fetch_turkey_logo_index()
-    if not logo_index:
-        return 0
 
     filled = 0
     for channel in channels:
-        if str(channel.get("logo") or "").strip():
+        name = str(channel.get("name") or "").strip()
+        preferred_logo = PREFERRED_CHANNEL_LOGOS.get(normalize_name(name))
+        if preferred_logo:
+            if channel.get("logo") != preferred_logo:
+                channel["logo"] = preferred_logo
+                filled += 1
             continue
 
-        name = str(channel.get("name") or "").strip()
+        if str(channel.get("logo") or "").strip():
+            continue
         alias_filename = next(
             (
                 candidate
