@@ -1,65 +1,91 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T10:28:01.550864+00:00",
+  "updatedAt": "2026-10-09T10:53:54.451151+00:00",
   "channelCount": 410,
   "sourceCount": 8,
   "changed": true,
+  "configuredSourceCount": 8,
+  "autoSourceCount": 0,
   "sources": [
     {
       "name": "OnurEröz Türkiye",
       "url": "https://onureroz.com/indirmeler/turk/index.m3u",
       "resolvedUrl": "https://onureroz.com/indirmeler/turk/index.m3u",
       "channelCount": 413,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 59,
+      "trustLabel": "Orta",
+      "automatic": false
     },
     {
       "name": "ByteFix Repairs",
       "url": "https://tinyurl.com/ByteFixRepairs2026",
       "resolvedUrl": "https://gist.githubusercontent.com/ByteFixRepairs/194e9e3a08075befa1703f02d4af82ad/raw/ByteFixRepairsTurkIPTV.m3u",
       "channelCount": 172,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 79,
+      "trustLabel": "Güvenilir",
+      "automatic": false
     },
     {
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "channelCount": 174,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 66,
+      "trustLabel": "Orta",
+      "automatic": false
     },
     {
       "name": "discevisita",
       "url": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
       "channelCount": 107,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 87,
+      "trustLabel": "Çok güvenilir",
+      "automatic": false
     },
     {
       "name": "iptv-turk-tr",
       "url": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
       "channelCount": 181,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 67,
+      "trustLabel": "Orta",
+      "automatic": false
     },
     {
       "name": "rideordie16/tv",
       "url": "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u",
       "channelCount": 87,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 42,
+      "trustLabel": "Zayıf",
+      "automatic": false
     },
     {
       "name": "qazim/IPTV",
       "url": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
       "channelCount": 27,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 88,
+      "trustLabel": "Çok güvenilir",
+      "automatic": false
     },
     {
       "name": "ilyswch/IPTV-TR",
       "url": "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u",
       "channelCount": 39,
-      "status": "ok"
+      "status": "ok",
+      "trustScore": 91,
+      "trustLabel": "Çok güvenilir",
+      "automatic": false
     }
   ],
   "logosFilled": 15,
@@ -67,8 +93,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 675,
-    "healthyUrls": 388,
-    "failedUrls": 287,
+    "healthyUrls": 395,
+    "failedUrls": 280,
     "failures": [
       {
         "channel": "TRT1",
@@ -129,11 +155,6 @@
         "channel": "TV 8",
         "url": "http://tv.smartglwiz.workers.dev/?ID=Now_HD",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://89.187.191.41/TV8-HD-TR/tracks-v1a1/mono.ts.m3u8",
-        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 404: Not Found',)"
       },
       {
         "channel": "TV 8",
@@ -219,12 +240,30 @@
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
         "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
     "pendingRemoval": 0,
     "removedAfterTwoFailures": 0
+  },
+  "epg": {
+    "version": 1,
+    "status": "error",
+    "updatedAt": "2026-10-09T10:53:54.201395+00:00",
+    "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 0,
+    "programmeCount": 0,
+    "message": "'xml.etree.ElementTree.Element' object has no attribute 'strip'"
+  },
+  "discovery": {
+    "candidateCount": 0,
+    "activeAutoSources": 0
   },
   "message": "Multi-source playlist merged successfully."
 }

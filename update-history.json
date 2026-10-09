@@ -1,5 +1,40 @@
 {
   "version": 1,
   "retentionRuns": 180,
-  "runs": []
+  "runs": [
+    {
+      "updatedAt": "2026-10-09T10:53:54.451151+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 395,
+        "failed": 280,
+        "ratio": 0.585
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "error",
+        "matchedChannels": 0,
+        "programmeCount": 0
+      },
+      "discovery": {
+        "candidateCount": 0,
+        "activeAutoSources": 0
+      }
+    }
+  ]
 }
