@@ -302,7 +302,6 @@ const state = {
   cancelPlayback: null,
   drawerOpen: false, settingsOpen: false, adminAuthenticated: false,
   showFavorites: false,
-  activeCategory: 'all',
   favorites: new Set((() => {
     try {
       return JSON.parse(localStorage.getItem('kulaktv-favorites') || '[]');
@@ -355,10 +354,6 @@ function parseM3U(text) {
 }
 function dedupeChannels(channels){ const seen=new Set(); return channels.filter(ch=>{const key=`${ch.name.toLowerCase()}|${ch.url}`; if(seen.has(key))return false;seen.add(key);return true;}); }
 function getInitials(name){ const words=name.replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean); if(!words.length)return'TV'; if(words.length===1)return words[0].slice(0,2).toUpperCase(); return(words[0][0]+words[1][0]).toUpperCase(); }
-function renderGroups(){
-  renderCategoryChips();
-}
-function groupLabel(group){return String(group||'Diğer').replace(/^ulusal\s*-\s*/i,'').trim();}
 function updateBarState(){
   const active = Boolean(state.current && !video.paused);
   $('playPause').textContent = active ? '❚❚' : '▶';
@@ -949,7 +944,6 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
   state.channels=channels;
   state.sourceName=sourceName;
   state.showFavorites=false;
-  state.activeCategory='all';
 
   const nowMeta=$('nowMeta');
   if(nowMeta) nowMeta.textContent=`${sourceName} • ${channels.length} kanal`;
