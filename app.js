@@ -369,12 +369,23 @@ function updateFavoriteUi(){
 }
 function toggleFavorite(ch,event){
   event?.stopPropagation();
-  const id=String(ch.id);
+  const id=channelFavoriteKey(ch);
   if(state.favorites.has(id))state.favorites.delete(id);else state.favorites.add(id);
   localStorage.setItem('kulaktv-favorites',JSON.stringify([...state.favorites]));
   updateFavoriteUi();
   applyFilters();
 }
+function normalizeChannelName(value){
+  return normalizeSearchText(value)
+    .replace(/(?:2160p|1440p|1080p|720p|576p|480p|360p|240p|4k|8k)$/,'')
+    .replace(/(?:fhd|hd|sd|live|canli)$/,'')
+    .replace(/(?:turkiye|turkey)$/,'');
+}
+
+function channelFavoriteKey(ch){
+  return `${normalizeChannelName(ch?.name)}|${String(ch?.url||'')}`;
+}
+
 function applyFilters(){
   const q=normalizeSearchText($('search').value.trim());
   const group=state.activeCategory;
@@ -385,7 +396,7 @@ function applyFilters(){
     const aliases=CHANNEL_SEARCH_ALIASES[aliasKey]||[];
     const matchesSearch=!q||nameKey.includes(q)||groupKey.includes(q)||aliases.some(a=>normalizeSearchText(a).includes(q));
     const matchesGroup=group==='all'||c.group===group||groupLabel(c.group)===group;
-    const matchesFavorites=!state.showFavorites||state.favorites.has(String(c.id));
+    const matchesFavorites=!state.showFavorites||state.favorites.has(channelFavoriteKey(c));
     return matchesSearch&&matchesGroup&&matchesFavorites;
   });
   renderChannelList();
@@ -403,7 +414,7 @@ function renderChannelList(){
     const logo=ch.logo
       ? `<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.onerror=null;this.parentElement.textContent='${initials}'">`
       : initials;
-    div.innerHTML=`<button class="channel-fav${state.favorites.has(String(ch.id))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(String(ch.id))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    div.innerHTML=`<button class="channel-fav${state.favorites.has(channelFavoriteKey(ch))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(String(ch.id))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
     div.querySelector('.channel-fav').addEventListener('click',e=>toggleFavorite(ch,e));
     div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
   }); root.appendChild(frag);
@@ -412,11 +423,13 @@ function mark(ch,status){const el=document.getElementById(`dot-${CSS.escape(ch.i
 function stopHls(){if(state.hls){state.hls.destroy();state.hls=null;}}
 function showError(message){$('errorBox').textContent=message;$('errorBox').hidden=false;}
 function clearError(){$('errorBox').hidden=true;$('errorBox').textContent='';}
-function canonicalChannelKey(ch){const base=String(ch.id||'').trim().toLowerCase();if(base)return base;return String(ch.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+/g,' ').trim();}
+function canonicalChannelKey(ch){
+  return normalizeChannelName(ch?.name||'');
+}
 function getAlternativeChannels(ch){
-  const key=canonicalChannelKey(ch), sameId=state.channels.filter(x=>x!==ch&&canonicalChannelKey(x)===key); if(sameId.length)return sameId;
-  const normalized=String(ch.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+(live|hd|fhd|sd)$/i,'').replace(/\s+/g,' ').trim();
-  return state.channels.filter(x=>x!==ch&&String(x.name||'').toLocaleLowerCase('tr-TR').replace(/\s*\([^)]*\)\s*$/g,'').replace(/\s+(live|hd|fhd|sd)$/i,'').replace(/\s+/g,' ').trim()===normalized);
+  const normalized=canonicalChannelKey(ch);
+  if(!normalized)return [];
+  return state.channels.filter(x=>x!==ch&&canonicalChannelKey(x)===normalized);
 }
 async function openInExternalPlayer(url){
   try {
@@ -487,6 +500,7 @@ function playChannel(ch){
   const timers = new Set();
   let sourceStartedAt = 0;
   let sourceStallRecorded = false;
+  let activeSourceToken = 0;
 
   const clearTimers = () => {
     for(const t of timers) clearTimeout(t);
@@ -553,7 +567,7 @@ function playChannel(ch){
       setStatus(`Kaynak ${attemptIndex+1}/${maxAttempts} için hazırlanıyor…`);
 
       schedule(() => {
-        if(!isCurrentRun() || settled) return;
+        if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
         trySource(alternatives[attemptIndex], attemptIndex);
       }, SOURCE_SWITCH_DELAY_MS);
       return;
@@ -573,6 +587,7 @@ function playChannel(ch){
     detachVideoHandlers();
     clearError();
 
+    const sourceToken=++activeSourceToken;
     sourceStartedAt=performance.now();
     sourceStallRecorded=false;
     state.sourceIndex = sourceIndex;
@@ -595,7 +610,7 @@ function playChannel(ch){
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} oynatılıyor, doğrulanıyor…`);
 
       schedule(() => {
-        if(!isCurrentRun() || settled || !started || waitingAfterStart || video.paused) {
+        if(!isCurrentRun() || settled || sourceToken!==activeSourceToken || !started || waitingAfterStart || video.paused) {
           return;
         }
         success(candidate.url, sourceIndex);
@@ -615,13 +630,13 @@ function playChannel(ch){
     };
 
     const onLoaded = () => {
-      if(!isCurrentRun() || settled) return;
+      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
       startPlayback();
     };
 
     const onVideoError = () => {
-      if(!isCurrentRun() || settled) return;
+      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
       if(!started) {
         failure('Video kaynağı tarayıcı tarafından reddedildi');
       } else {
@@ -630,7 +645,7 @@ function playChannel(ch){
     };
 
     const onWaiting = () => {
-      if(!isCurrentRun() || !started || settled) return;
+      if(!isCurrentRun() || sourceToken!==activeSourceToken || !started || settled) return;
 
       waitingAfterStart = true;
       if(!sourceStallRecorded){
@@ -652,7 +667,7 @@ function playChannel(ch){
     video.onwaiting = onWaiting;
 
     schedule(() => {
-      if(!isCurrentRun() || settled) return;
+      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
       if(!started) {
         failure(`Kaynak ${SOURCE_START_TIMEOUT_MS / 1000} saniye içinde oynatılmaya başlamadı`);
       }
@@ -685,13 +700,13 @@ function playChannel(ch){
     hlsInstance.attachMedia(video);
 
     hlsInstance.on(Hls.Events.MANIFEST_PARSED,()=>{
-      if(!isCurrentRun() || settled) return;
+      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
       startPlayback();
     });
 
     hlsInstance.on(Hls.Events.ERROR,(_e,data)=>{
-      if(!isCurrentRun() || settled) return;
+      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
       if(data?.fatal) {
         failure(data.details || 'HLS fatal error');
       }
@@ -729,6 +744,17 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
   const channels=parseM3U(text);
   if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');
 
+  const previousName=state.current?.name||'';
+  if(state.cancelPlayback) state.cancelPlayback();
+  stopHls();
+  video.pause();
+  video.removeAttribute('src');
+  video.load();
+  state.current=null;
+  state.currentUrl='';
+  state.sourceCandidates=[];
+  state.sourceIndex=-1;
+
   if(!sharedSourceQualityLoaded){
     await loadSharedSourceQuality();
   }
@@ -757,14 +783,14 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
 
   setStatus('Hazır');
 
-  if(autoPlayFirst && state.channels.length && !state.current){
-    // Açılış kanalı listedeki konumuna değil kanal adına göre seçilir.
-    // Böylece kaynak listesi sırası değişse bile TRT 1 açılışta başlar.
-    const startupChannel = state.channels.find(channel => {
-      const key = normalizeSearchText(channel.name)
-        .replace(/hd|fhd|sd|live|canli/g,'');
-      return key === 'trt1';
-    }) || state.channels.find(channel => normalizeSearchText(channel.name).includes('trt1'));
+  if(autoPlayFirst && state.channels.length){
+    // İlk açılışta TRT 1 başlar. Liste yenileniyorsa mümkünse daha önce
+    // izlenen kanal korunur. Liste sırası değişse bile seçim isim üzerinden yapılır.
+    const previousChannel = previousName
+      ? state.channels.find(channel => normalizeChannelName(channel.name) === normalizeChannelName(previousName))
+      : null;
+    const startupChannel = previousChannel || state.channels.find(channel => normalizeChannelName(channel.name) === 'trt1')
+      || state.channels.find(channel => normalizeChannelName(channel.name).includes('trt1'));
     playChannel(startupChannel || state.channels[0]);
   }
 }
