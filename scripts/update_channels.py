@@ -1283,6 +1283,32 @@ def main() -> int:
 
     new_text = render_m3u(merged, fetched_at)
     old_text = M3U_PATH.read_text(encoding="utf-8") if M3U_PATH.exists() else ""
+    previous_channels = parse_m3u(old_text) if old_text else []
+    previous_names = {
+        normalize_name(str(item.get("name") or ""))
+        for item in previous_channels
+        if normalize_name(str(item.get("name") or ""))
+    }
+    current_names = {
+        normalize_name(str(item.get("name") or ""))
+        for item in merged
+        if normalize_name(str(item.get("name") or ""))
+    }
+    added_channel_keys = current_names - previous_names
+    removed_channel_keys = previous_names - current_names
+    change_summary = {
+        "channelDelta": len(merged) - len(previous_channels),
+        "addedCount": len(added_channel_keys),
+        "removedCount": len(removed_channel_keys),
+        "addedChannels": [
+            str(item["name"]) for item in merged
+            if normalize_name(str(item.get("name") or "")) in added_channel_keys
+        ][:30],
+        "removedChannels": [
+            str(item["name"]) for item in previous_channels
+            if normalize_name(str(item.get("name") or "")) in removed_channel_keys
+        ][:30],
+    }
     changed = new_text != old_text
 
     if changed:
@@ -1331,6 +1357,7 @@ def main() -> int:
                 "candidateCount": len(discovery_document.get("candidates", [])) if isinstance(discovery_document.get("candidates", []), list) else 0,
                 "activeAutoSources": int(discovery_document.get("activeAutoSources", 0) or 0),
             },
+            "changes": change_summary,
             "message": (
                 "Multi-source playlist merged successfully."
                 if changed
@@ -1366,6 +1393,7 @@ def main() -> int:
             "candidateCount": len(discovery_document.get("candidates", [])) if isinstance(discovery_document.get("candidates", []), list) else 0,
             "activeAutoSources": int(discovery_document.get("activeAutoSources", 0) or 0),
         },
+        "changes": change_summary,
     })
 
     print(
