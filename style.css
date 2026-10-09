@@ -233,5 +233,5 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 }
 
 /* Aksiyon simgeleri */
-.bar-action-icon{font-size:28px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.bar-action-icon{font-size:21px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
 .bar-action-label{font-size:11px;line-height:1}
