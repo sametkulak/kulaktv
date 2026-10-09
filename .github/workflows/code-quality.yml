@@ -31,7 +31,7 @@ jobs:
 
       - name: Python syntax
         run: |
-          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py
+          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py scripts/update_epg.py scripts/discover_sources.py
 
       - name: JavaScript syntax
         run: |
@@ -52,6 +52,26 @@ jobs:
               raise SystemExit(f"Eksik DOM id referansı: {missing}")
           print(f"DOM doğrulandı: {len(ids)} id, {len(refs)} JS referansı")
 
+          PY
+
+      - name: Veri dosyalarının temel yapısını doğrula
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          checks = {
+              "epg.json": ("channels",),
+              "epg-status.json": ("status",),
+              "discovered-sources.json": ("candidates",),
+              "update-history.json": ("runs",),
+              "source-quality.json": ("sources", "providers"),
+          }
+          for name, keys in checks.items():
+              data = json.loads(Path(name).read_text(encoding="utf-8"))
+              missing = [key for key in keys if key not in data]
+              if missing:
+                  raise SystemExit(f"{name} eksik alanlar: {missing}")
+          print("Veri dosyaları doğrulandı.")
           PY
 
       - name: M3U yapısı
