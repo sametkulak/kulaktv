@@ -409,12 +409,12 @@ function renderChannelList(){
   if(!state.filtered.length){root.innerHTML='<div class="empty">Bu filtreyle kanal bulunamadı.</div>';return;}
   const frag=document.createDocumentFragment();
   state.filtered.forEach(ch=>{
-    const div=document.createElement('div'); div.className='channel-item'+(state.current?.id===ch.id?' active':''); div.dataset.id=ch.id;
+    const div=document.createElement('div'); div.className='channel-item'+(state.current===ch?' active':''); div.dataset.id=ch.id;
     const initials = escapeHtml(getInitials(ch.name));
     const logo=ch.logo
       ? `<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.onerror=null;this.parentElement.textContent='${initials}'">`
       : initials;
-    div.innerHTML=`<button class="channel-fav${state.favorites.has(channelFavoriteKey(ch))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(String(ch.id))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    div.innerHTML=`<button class="channel-fav${state.favorites.has(channelFavoriteKey(ch))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(channelFavoriteKey(ch))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
     div.querySelector('.channel-fav').addEventListener('click',e=>toggleFavorite(ch,e));
     div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
   }); root.appendChild(frag);
@@ -567,7 +567,7 @@ function playChannel(ch){
       setStatus(`Kaynak ${attemptIndex+1}/${maxAttempts} için hazırlanıyor…`);
 
       schedule(() => {
-        if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
+        if(!isCurrentRun() || settled) return;
         trySource(alternatives[attemptIndex], attemptIndex);
       }, SOURCE_SWITCH_DELAY_MS);
       return;
@@ -603,7 +603,7 @@ function playChannel(ch){
     let waitingAfterStart = false;
 
     const onPlaying = () => {
-      if(!isCurrentRun() || settled) return;
+      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
 
       started = true;
       waitingAfterStart = false;
@@ -656,7 +656,7 @@ function playChannel(ch){
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} yeniden tamponlanıyor…`);
 
       schedule(() => {
-        if(!isCurrentRun() || settled || !started || !waitingAfterStart) return;
+        if(!isCurrentRun() || settled || sourceToken!==activeSourceToken || !started || !waitingAfterStart) return;
         failure('Yayın başladıktan sonra yeterince uzun süre devam etmedi');
       }, SOURCE_STALL_GRACE_MS);
     };
