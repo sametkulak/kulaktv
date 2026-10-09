@@ -154,7 +154,7 @@ def map_epg_channels(root: ET.Element, playlist_by_name: dict[str, dict[str, str
     channel_map: dict[str, str] = {}
     for node in root.findall("channel"):
         epg_id = str(node.attrib.get("id") or "")
-        names = [name.strip() for name in node.findall("display-name") if (name.text or "").strip() for name in [name]]
+        names = [str(node.text or "").strip() for node in node.findall("display-name") if (node.text or "").strip()]
         mapped = None
         for display_name in names:
             key = normalize(display_name)
