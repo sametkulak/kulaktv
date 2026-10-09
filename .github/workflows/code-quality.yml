@@ -31,7 +31,7 @@ jobs:
 
       - name: Python syntax
         run: |
-          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py scripts/update_epg.py scripts/discover_sources.py
+          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py scripts/update_epg.py
 
       - name: JavaScript syntax
         run: |
@@ -62,7 +62,6 @@ jobs:
           checks = {
               "epg.json": ("channels",),
               "epg-status.json": ("status",),
-              "discovered-sources.json": ("candidates",),
               "update-history.json": ("runs",),
               "source-quality.json": ("sources", "providers"),
           }
