@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-08T14:56:25.562517+00:00",
+  "updatedAt": "2026-10-09T06:50:44.013124+00:00",
   "channelCount": 560,
   "sourceCount": 5,
   "changed": true,
@@ -46,8 +46,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 746,
-    "healthyUrls": 470,
-    "failedUrls": 276,
+    "healthyUrls": 477,
+    "failedUrls": 269,
     "failures": [
       {
         "channel": "TRT1",
@@ -151,11 +151,6 @@
       },
       {
         "channel": "STAR TV",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=272055669263af9be64671",
-        "detail": "('İki testte de başarısız • timed out',)"
-      },
-      {
-        "channel": "STAR TV",
         "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
@@ -197,6 +192,11 @@
       {
         "channel": "HABERTURK",
         "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       }
     ],
