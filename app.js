@@ -546,7 +546,18 @@ function legacyFavoriteKey(ch){
 function isFavorite(ch){
   const modern=channelFavoriteKey(ch);
   const legacy=legacyFavoriteKey(ch);
-  return state.favorites.has(modern)||state.favorites.has(legacy);
+  if(state.favorites.has(modern)||state.favorites.has(legacy)) return true;
+
+  // Önceki sürümlerde favori anahtarı "kanal|kategori" şeklindeydi.
+  // Kategori değişmiş olsa bile kanal adı üzerinden eski favoriyi koru.
+  const name=normalizeChannelName(ch?.name||'');
+  if(!name)return false;
+  for(const saved of state.favorites){
+    const raw=String(saved||'');
+    const legacyName=raw.includes('|') ? raw.split('|',1)[0] : '';
+    if(legacyName && legacyName===name) return true;
+  }
+  return false;
 }
 function removeFavoriteVariants(ch){
   state.favorites.delete(channelFavoriteKey(ch));
