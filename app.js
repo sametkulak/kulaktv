@@ -12,10 +12,61 @@ function loadSourceQuality(){
   }catch{return {};}
 }
 const sourceQuality=loadSourceQuality();
+let sharedSourceQuality = {};
+let sharedSourceQualityLoaded = false;
+const SHARED_SOURCE_QUALITY_URL = './source-quality.json';
 
 function saveSourceQuality(){
   try{localStorage.setItem(SOURCE_QUALITY_KEY,JSON.stringify(sourceQuality));}catch{}
 }
+
+
+async function loadSharedSourceQuality(){
+  try{
+    const bust=(SHARED_SOURCE_QUALITY_URL.includes('?')?'&':'?')+'_='+Date.now();
+    const res=await fetch(SHARED_SOURCE_QUALITY_URL+bust,{cache:'no-store'});
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const data=await res.json();
+    sharedSourceQuality=(data && data.sources && typeof data.sources==='object') ? data.sources : {};
+    sharedSourceQualityLoaded=true;
+  }catch(err){
+    sharedSourceQualityLoaded=false;
+    console.warn('Ortak kaynak kalite verisi yüklenemedi:',err);
+  }
+}
+
+function getSharedSourceQuality(url){
+  return sharedSourceQuality && sharedSourceQuality[url]
+    ? sharedSourceQuality[url]
+    : null;
+}
+
+function sortSourceCandidatesByQuality(items){
+  return items
+    .map((item,index)=>({item,index,quality:getSharedSourceQuality(item.url)}))
+    .sort((a,b)=>{
+      const aq=a.quality,bq=b.quality;
+      if(aq && !bq)return -1;
+      if(!aq && bq)return 1;
+      if(!aq && !bq)return a.index-b.index;
+
+      const aOk=aq.lastStatus==='ok';
+      const bOk=bq.lastStatus==='ok';
+      if(aOk!==bOk)return aOk?-1:1;
+
+      const scoreA=Number(aq.score ?? 50);
+      const scoreB=Number(bq.score ?? 50);
+      if(scoreA!==scoreB)return scoreB-scoreA;
+
+      const checksA=Number(aq.checks||0);
+      const checksB=Number(bq.checks||0);
+      if(checksA!==checksB)return checksB-checksA;
+
+      return a.index-b.index;
+    })
+    .map(x=>x.item);
+}
+
 
 function normalizeSearchText(value){
   return String(value||'')
@@ -237,13 +288,20 @@ function playChannel(ch){
   clearError();
   stopHls();
   state.current = ch;
-  state.sourceCandidates = [
+  const originalCandidates = [
     ch,
     ...(ch.alternatives || []).map(url => ({...ch, url})),
     ...getAlternativeChannels(ch)
   ]
-    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index)
-    .slice(0,9);
+    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index);
+
+  // Shared GitHub quality history now decides the initial source order.
+  // Unknown URLs retain their original M3U order.
+  const orderedCandidates = sharedSourceQualityLoaded
+    ? sortSourceCandidatesByQuality(originalCandidates)
+    : originalCandidates;
+
+  state.sourceCandidates = orderedCandidates.slice(0,9);
   state.sourceIndex = 0;
   state.currentUrl = state.sourceCandidates[0]?.url || ch.url;
   updateStreamActions();
@@ -465,6 +523,10 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
   const channels=parseM3U(text);
   if(!channels.length)throw new Error('Geçerli #EXTINF kayıtları bulunamadı.');
 
+  if(!sharedSourceQualityLoaded){
+    await loadSharedSourceQuality();
+  }
+
   state.autoStarting = Boolean(autoPlayFirst);
   state.channels=channels;
   state.sourceName=sourceName;
@@ -615,7 +677,7 @@ $('refreshDefault').addEventListener('click',async()=>{try{await loadDefault();c
 $('iptvOrgList').addEventListener('click',async()=>{$('playlistUrl').value=IPTV_ORG_TR;try{await loadUrl(IPTV_ORG_TR,'iptv-org Türkiye');closeSettings();openChannels();}catch(e){showError(`iptv-org listesi yüklenemedi: ${e.message}`);}});
 $('loadFile').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{await loadM3UText(await file.text(),file.name);closeSettings();openChannels();}catch(err){showError(`Dosya okunamadı: ${err.message}`);}e.target.value='';});
 function getSourceQuality(url){
-  const m=sourceQuality[url];
+  const m=getSharedSourceQuality(url)||sourceQuality[url];
   if(!m)return {score:50,label:'Yeni'};
   const success=Number(m.successes||0);
   const failures=Number(m.failures||0);
