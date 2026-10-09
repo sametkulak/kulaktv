@@ -758,10 +758,14 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
   setStatus('Hazır');
 
   if(autoPlayFirst && state.channels.length && !state.current){
-    // Sayfa açıldığında ilk kanalı otomatik başlat.
-    // Tarayıcı sesli otomatik oynatmayı engellerse oynatıcıyı sessiz
-    // başlatıp kullanıcı etkileşiminde sesi geri açıyoruz.
-    playChannel(state.channels[0]);
+    // Açılış kanalı listedeki konumuna değil kanal adına göre seçilir.
+    // Böylece kaynak listesi sırası değişse bile TRT 1 açılışta başlar.
+    const startupChannel = state.channels.find(channel => {
+      const key = normalizeSearchText(channel.name)
+        .replace(/hd|fhd|sd|live|canli/g,'');
+      return key === 'trt1';
+    }) || state.channels.find(channel => normalizeSearchText(channel.name).includes('trt1'));
+    playChannel(startupChannel || state.channels[0]);
   }
 }
 async function loadUrl(url,sourceLabel=url){const u=url.trim();if(!/^https?:\/\//i.test(u))throw new Error('Geçerli bir http/https M3U URL gir.');setStatus('Liste indiriliyor…');const res=await fetch(u,{cache:'no-store'});if(!res.ok)throw new Error(`Liste HTTP ${res.status} ile döndü.`);await loadM3UText(await res.text(),sourceLabel);}
