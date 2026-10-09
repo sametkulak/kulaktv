@@ -1194,7 +1194,7 @@ function updateSourceButton(){
     qualityEl.className='source-quality '+normalizeSearchText(q.label).replace(/[^a-z0-9]+/g,'-');
     qualityEl.title=`Kaynak kalite puanı: ${q.score}/100`;
   }
-  const label=btn.querySelector('span');
+  const label=btn.querySelector('.bar-action-label, span:not(.bar-action-icon)');
   if(total>=2){
     const next=(state.sourceIndex+1)%total;
     btn.title=`Sonraki kaynak: ${next+1}/${total} • mevcut: ${q.label} ${q.score}/100`;
