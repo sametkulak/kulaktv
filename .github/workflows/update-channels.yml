@@ -55,11 +55,11 @@ jobs:
           print(f"M3U doğrulandı: {len(ext)} kanal")
           PY
 
-      - name: EPG güncellemesini çalıştır
-        run: python scripts/update_epg.py
-
       - name: Python kanal ve sağlık güncellemesini çalıştır
         run: python scripts/update_channels.py
+
+      - name: Yeni kanal listesine göre EPG güncellemesini çalıştır
+        run: python scripts/update_epg.py
 
       - name: Çıktı JSON'larını doğrula
         run: |
