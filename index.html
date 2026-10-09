@@ -9,7 +9,7 @@
   <title>KulakTV</title>
   <link rel="icon" href="logo.png?v=20261009-1-1" type="image/png">
   <link rel="apple-touch-icon" href="logo.png?v=20261009-1-1">
-  <link rel="stylesheet" href="style.css?v=20261009-3">
+  <link rel="stylesheet" href="style.css?v=20261009-4">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
 </head>
 <body>
@@ -85,6 +85,7 @@
 
         <div class="video-top-actions">
           <div class="live-chip"><span></span> CANLI</div>
+          <div id="connectionStatus" class="connection-status connecting" aria-live="polite"><span></span><b>Bağlanıyor</b></div>
         </div>
 
         <div class="video-info">
@@ -92,6 +93,8 @@
           <div class="channel-info-text">
             <div id="nowTitle" class="now-title">KulakTV</div>
             <div id="nowMeta" class="now-meta">Kanal listesinden bir yayın seç.</div>
+            <div id="nowProgramme" class="now-programme">Program bilgisi yükleniyor…</div>
+            <div id="nextProgramme" class="next-programme"></div>
           </div>
         </div>
 
@@ -107,6 +110,7 @@
           </div>
           <button id="changeSourceBtn" class="bar-action source-change-btn" aria-label="Kaynak değiştir" disabled>↻ <span>Kaynak</span></button>
           <span id="sourceQuality" class="source-quality yeni" title="Kaynak kalite puanı: 50/100">Yeni</span>
+          <button id="epgBtn" class="bar-action" aria-label="Program rehberini aç">▤ <span>EPG</span></button>
           <button id="fullscreenBtn" class="bar-action" aria-label="Tam ekran">⛶ <span>Ekranı doldur</span></button>
         </div>
       </section>
@@ -148,19 +152,59 @@
           <div class="settings-desc">Kanal açma, kaynak düşmesi ve yeniden tamponlama sonuçları anonim toplu istatistik olarak kaynak kalite hesabına katkı verir. Ham cihaz kimliği veya IP bilgisi gönderilmez.</div>
         </section>
 
-        <section class="settings-card info-card">
+        <section class="settings-card">
+          <div class="settings-title">Kaynak güven puanları</div>
+          <div id="sourceTrustList" class="trust-list"><div class="mini-muted">Kaynak puanları yükleniyor…</div></div>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-title">Elektronik Program Rehberi</div>
+          <div id="epgStatus" class="mini-muted">EPG kontrol ediliyor…</div>
+          <div class="settings-desc">Mevcut kanallar için program başlıkları ve saatleri gösterilir.</div>
+        </section>
+
+        <section class="settings-card">
           <div class="settings-title">Otomatik güncelleme</div>
           <div id="autoUpdateStatus">Kontrol ediliyor...</div>
-          <div class="settings-desc">GitHub Actions 5 kaynağı günlük olarak birleştirir.</div>
+          <div class="settings-desc">GitHub Actions 8 sabit kaynağı ve uygun otomatik keşfedilen adayları günlük olarak değerlendirir.</div>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-title">Güncelleme geçmişi</div>
+          <div id="updateHistoryList" class="history-list"><div class="mini-muted">Geçmiş yükleniyor…</div></div>
+        </section>
+
+        <section class="settings-card">
+          <div class="settings-title">Kaynak keşfi</div>
+          <div id="discoveryStatus" class="mini-muted">Aday kaynaklar kontrol ediliyor…</div>
         </section>
 
         <div id="errorBox" class="error-box" hidden></div>
       </div>
     </aside>
     <div id="settingsBackdrop" class="drawer-backdrop"></div>
+
+    <aside id="epgDrawer" class="epg-drawer" aria-hidden="true">
+      <div class="settings-head">
+        <div>
+          <div class="drawer-title">Program Rehberi</div>
+          <div id="epgDrawerSubtitle" class="drawer-subtitle">Kanal seçin</div>
+        </div>
+        <button id="closeEpg" class="close-btn" aria-label="EPG'yi kapat">×</button>
+      </div>
+      <div class="epg-body">
+        <div id="epgCurrentCard" class="epg-current-card">
+          <div class="epg-label">ŞİMDİ</div>
+          <div id="epgCurrentTitle" class="epg-current-title">Program bilgisi yok</div>
+          <div id="epgCurrentTime" class="epg-current-time">--:--</div>
+        </div>
+        <div id="epgList" class="epg-list"></div>
+      </div>
+    </aside>
+    <div id="epgBackdrop" class="drawer-backdrop"></div>
   </div>
 
-  <script src="telemetry-config.js?v=20261009-3"></script>
-  <script src="app.js?v=20261009-3" defer></script>
+  <script src="telemetry-config.js?v=20261009-4"></script>
+  <script src="app.js?v=20261009-4" defer></script>
 </body>
 </html>
