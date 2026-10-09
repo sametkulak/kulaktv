@@ -55,8 +55,16 @@ def extract_event() -> tuple[str, dict[str, Any]] | None:
     if not comment_id or not body.startswith(MARKER):
         return None
 
-    _, payload_text = body.split("\n", 1)
-    payload = json.loads(payload_text)
+    parts = body.split("\n", 1)
+    if len(parts) != 2:
+        return None
+
+    try:
+        payload = json.loads(parts[1])
+    except (TypeError, ValueError, json.JSONDecodeError):
+        print(f"Geçersiz telemetry JSON'u: comment={comment_id}")
+        return None
+
     if not isinstance(payload, dict):
         return None
 
@@ -149,6 +157,10 @@ def main() -> int:
         print("Telemetry events list değil; işlem yok.")
         return 0
 
+    # Client tarafındaki paket boyutunu sınırlı tut. Bozuk bir istemci veya
+    # yanlışlıkla gönderilen devasa payload repository verisini şişirmesin.
+    events = events[:24]
+
     doc.setdefault("sources", {})
     doc.setdefault("clients", {"devices": {}, "browsers": {}, "connections": {}})
     clients = doc["clients"]
@@ -170,13 +182,15 @@ def main() -> int:
         if not isinstance(event, dict):
             continue
 
-        url = str(event.get("url") or "").strip()
+        url = str(event.get("url") or "").strip()[:2048]
         if not (url.startswith("http://") or url.startswith("https://")):
             continue
 
-        channel = str(event.get("channel") or "unknown")
-        host = str(event.get("host") or "")
+        channel = str(event.get("channel") or "unknown")[:120]
+        host = str(event.get("host") or "")[:255]
         event_type = str(event.get("type") or "unknown").lower()
+        if event_type not in {"success", "failure", "stall"}:
+            continue
         source = doc["sources"].setdefault(
             url,
             source_default(url, channel, host),
@@ -195,7 +209,7 @@ def main() -> int:
             source["stalls"] = int(source.get("stalls", 0) or 0) + 1
 
         latency = event.get("latencyMs")
-        if event_type == "success" and isinstance(latency, (int, float)) and latency > 0:
+        if event_type == "success" and isinstance(latency, (int, float)) and 0 < latency < 600000:
             source["latencySumMs"] = int(source.get("latencySumMs", 0) or 0) + int(latency)
             source["latencyCount"] = int(source.get("latencyCount", 0) or 0) + 1
 
