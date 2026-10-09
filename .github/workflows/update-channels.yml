@@ -2,8 +2,8 @@ name: KulakTV kanal listesini güncelle
 
 on:
   schedule:
-    # TEST: geçici olarak her 5 dakikada bir çalıştırılır. Test sonrası günlük 06:15 TR cronuna döndürülecek.
-    - cron: "*/5 * * * *"
+    # Her gün 03:15 UTC = Türkiye saatiyle 06:15
+    - cron: "15 3 * * *"
   workflow_dispatch:
   push:
     paths:
@@ -62,6 +62,32 @@ jobs:
 
       - name: Python kanal güncellemesini çalıştır
         run: python scripts/update_channels.py
+
+      - name: Çıktı JSON'larını doğrula
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          required = [
+              "update-status.json", "source-quality.json", "health-state.json",
+              "epg.json", "epg-status.json", "discovered-sources.json",
+              "update-history.json",
+          ]
+          for filename in required:
+              payload = json.loads(Path(filename).read_text(encoding="utf-8"))
+              if not isinstance(payload, dict):
+                  raise SystemExit(f"{filename} JSON nesnesi değil.")
+          epg = json.loads(Path("epg.json").read_text(encoding="utf-8"))
+          discovery = json.loads(Path("discovered-sources.json").read_text(encoding="utf-8"))
+          history = json.loads(Path("update-history.json").read_text(encoding="utf-8"))
+          if not isinstance(epg.get("channels"), dict):
+              raise SystemExit("epg.json channels alanı geçersiz.")
+          if not isinstance(discovery.get("candidates"), list):
+              raise SystemExit("discovered-sources.json candidates alanı geçersiz.")
+          if not isinstance(history.get("runs"), list):
+              raise SystemExit("update-history.json runs alanı geçersiz.")
+          print("JSON çıktıları doğrulandı.")
+          PY
 
       - name: Değişiklikleri kontrol et
         run: git status --short
