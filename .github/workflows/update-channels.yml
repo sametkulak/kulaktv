@@ -5,11 +5,6 @@ on:
     # Her gün 03:15 UTC = Türkiye saatiyle 06:15
     - cron: "15 3 * * *"
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - "KulakTV kaynak keşfi"
-    types:
-      - completed
   push:
     paths:
       - "scripts/update_channels.py"
@@ -102,7 +97,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add channels.m3u update-status.json health-state.json source-quality.json epg.json epg-status.json discovered-sources.json update-history.json
+          git add channels.m3u update-status.json health-state.json source-quality.json epg.json epg-status.json update-history.json
 
           if git diff --cached --quiet; then
             echo "Kanal listesinde değişiklik yok."
