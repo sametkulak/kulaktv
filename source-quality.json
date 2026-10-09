@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-09T06:50:44.013124+00:00",
-  "algorithm": "server-health-bayesian-v2",
+  "updatedAt": "2026-10-09T06:58:34.492544+00:00",
+  "algorithm": "server-health-plus-player-v1",
   "sourceCount": 570,
   "sources": {
     "https://tv-trt1.medya.trt.com.tr/master_720.m3u8": {
@@ -17,7 +17,15 @@
       "lastSuccessAt": "2026-10-09T06:50:44.013124+00:00",
       "lastFailureAt": null,
       "score": 58,
-      "label": "Orta"
+      "label": "Orta",
+      "healthScore": 58,
+      "playerScore": 57,
+      "playerEvents": 2,
+      "playerSuccesses": 1,
+      "playerFailures": 0,
+      "playerStalls": 1,
+      "playerWeight": 0.101,
+      "lastPlayerEventAt": "2026-10-09T06:58:22.910Z"
     },
     "https://tv-trt1.medya.trt.com.tr/master.m3u8": {
       "url": "https://tv-trt1.medya.trt.com.tr/master.m3u8",
@@ -31,8 +39,16 @@
       "lastCheckedAt": "2026-10-09T06:50:44.013124+00:00",
       "lastSuccessAt": "2026-10-09T06:50:44.013124+00:00",
       "lastFailureAt": null,
-      "score": 58,
-      "label": "Orta"
+      "score": 56,
+      "label": "Orta",
+      "healthScore": 58,
+      "playerScore": 43,
+      "playerEvents": 1,
+      "playerSuccesses": 0,
+      "playerFailures": 1,
+      "playerStalls": 0,
+      "playerWeight": 0.101,
+      "lastPlayerEventAt": "2026-10-09T06:58:22.910Z"
     },
     "https://tv-trt1.medya.trt.com.tr/master_1440.m3u8": {
       "url": "https://tv-trt1.medya.trt.com.tr/master_1440.m3u8",

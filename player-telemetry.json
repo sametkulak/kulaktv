@@ -1,13 +1,67 @@
 {
   "version": 1,
-  "updatedAt": null,
-  "totalEvents": 0,
-  "sessions": 0,
-  "sources": {},
-  "clients": {
-    "devices": {},
-    "browsers": {},
-    "connections": {}
+  "updatedAt": "2026-10-09T06:58:22.907Z",
+  "totalEvents": 3,
+  "sessions": 1,
+  "sources": {
+    "https://tv-trt1.medya.trt.com.tr/master_720.m3u8": {
+      "url": "https://tv-trt1.medya.trt.com.tr/master_720.m3u8",
+      "channel": "TRT 1",
+      "host": "tv-trt1.medya.trt.com.tr",
+      "events": 2,
+      "successes": 1,
+      "failures": 0,
+      "stalls": 1,
+      "latencySumMs": 1800,
+      "latencyCount": 1,
+      "lastEventAt": "2026-10-09T06:58:22.910Z",
+      "devices": {
+        "desktop": 2
+      },
+      "browsers": {
+        "Test": 2
+      },
+      "connections": {
+        "test": 2
+      }
+    },
+    "https://tv-trt1.medya.trt.com.tr/master.m3u8": {
+      "url": "https://tv-trt1.medya.trt.com.tr/master.m3u8",
+      "channel": "TRT 1",
+      "host": "tv-trt1.medya.trt.com.tr",
+      "events": 1,
+      "successes": 0,
+      "failures": 1,
+      "stalls": 0,
+      "latencySumMs": 0,
+      "latencyCount": 0,
+      "lastEventAt": "2026-10-09T06:58:22.910Z",
+      "devices": {
+        "desktop": 1
+      },
+      "browsers": {
+        "Test": 1
+      },
+      "connections": {
+        "test": 1
+      }
+    }
   },
-  "processedCommentIds": []
+  "clients": {
+    "devices": {
+      "desktop": 1
+    },
+    "browsers": {
+      "Test": 1
+    },
+    "connections": {
+      "test": 1
+    }
+  },
+  "processedCommentIds": [
+    "6076064109"
+  ],
+  "_knownSessionIds": [
+    "test-session-20261009"
+  ]
 }
