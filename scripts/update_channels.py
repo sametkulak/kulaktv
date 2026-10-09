@@ -43,9 +43,6 @@ SOURCES = [
     ("ilyswch/IPTV-TR", "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u"),
 ]
 
-
-# The workflow starts with the fixed trusted sources above and may add a very small
-# trial pool discovered by the separate GitHub source-discovery job.
 USER_AGENT = "KulakTV-AutoUpdater/3.3"
 
 
@@ -1241,7 +1238,6 @@ def main() -> int:
             "sourceCount": len(successful),
             "changed": changed,
             "configuredSourceCount": len(configured_sources),
-            "autoSourceCount": sum(1 for name, _url in configured_sources if name.startswith("auto:")),
             "sources": [
                 {
                     "name": name,
@@ -1286,7 +1282,6 @@ def main() -> int:
         "status": "updated" if changed else "current",
         "sourceCount": len(successful),
         "configuredSourceCount": len(configured_sources),
-        "autoSourceCount": sum(1 for name, _url in configured_sources if name.startswith("auto:")),
         "channelCount": len(merged),
         "logosFilled": logos_filled,
         "health": {
