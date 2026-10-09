@@ -3,6 +3,61 @@ const LOCAL_M3U = './channels.m3u';
 const IPTV_ORG_TR = 'https://iptv-org.github.io/iptv/countries/tr.m3u';
 const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 
+const SOURCE_QUALITY_KEY = 'kulaktv-source-quality-v1';
+
+function loadSourceQuality(){
+  try{
+    const data=JSON.parse(localStorage.getItem(SOURCE_QUALITY_KEY)||'{}');
+    return data && typeof data==='object' ? data : {};
+  }catch{return {};}
+}
+const sourceQuality=loadSourceQuality();
+
+function saveSourceQuality(){
+  try{localStorage.setItem(SOURCE_QUALITY_KEY,JSON.stringify(sourceQuality));}catch{}
+}
+
+function normalizeSearchText(value){
+  return String(value||'')
+    .toLocaleLowerCase('tr-TR')
+    .replace(/ı/g,'i').replace(/ş/g,'s').replace(/ç/g,'c')
+    .replace(/ö/g,'o').replace(/ü/g,'u').replace(/ğ/g,'g')
+    .replace(/[^a-z0-9]+/g,'');
+}
+
+const CHANNEL_SEARCH_ALIASES={
+  'trt1':['trt1','trt one'],
+  'trtspor':['trtspor','spor'],
+  'trthaber':['trthaber'],
+  'trtbelgesel':['trtbelgesel','belgesel'],
+  'trtcocuk':['trtcocuk','cocuk'],
+  'kanald':['kanald'],
+  'showtv':['show','showtv','showhd'],
+  'startv':['star','startv'],
+  'now':['nowtv'],
+  'cnnturk':['cnn','cnnturk'],
+  'ahaber':['ahaber'],
+  'aspor':['aspor'],
+  'tv8':['tv8','tvsekiz'],
+  'beyaztv':['beyaz','beyaztv'],
+  'ntv':['ntvhd'],
+  'haberturk':['ht','haberturk'],
+  'haberglobal':['haberglobal','hglobal'],
+  'tgrthaber':['tgrt','tgrthaber'],
+  'sozcutv':['sozcu','sozcutv'],
+  'halktv':['halk','halktv'],
+  'kanal7':['kanal7','kanalyedi'],
+  'tivibuspor':['tivibuspor'],
+  'fbtv':['fbtv','fenerbahce'],
+  'gstv':['gstv','galatasaray'],
+  'htspor':['htspor'],
+  'kralpoptv':['kralpop','kralpoptv'],
+  'dreamturk':['dreamturk'],
+  'powerturktv':['powerturk','powerturktv'],
+  'number1tv':['number1','numberonetv'],
+  'nr1turk':['nr1','nr1turk']
+};
+
 const SOURCE_START_TIMEOUT_MS = 14400;
 const SOURCE_STABILITY_MS = 3500;
 const SOURCE_STALL_GRACE_MS = 1800;
@@ -107,10 +162,14 @@ function toggleFavorite(ch,event){
   applyFilters();
 }
 function applyFilters(){
-  const q=$('search').value.trim().toLocaleLowerCase('tr-TR');
+  const q=normalizeSearchText($('search').value.trim());
   const group=state.activeCategory;
   state.filtered=state.channels.filter(c=>{
-    const matchesSearch=!q||c.name.toLocaleLowerCase('tr-TR').includes(q)||c.group.toLocaleLowerCase('tr-TR').includes(q);
+    const nameKey=normalizeSearchText(c.name);
+    const groupKey=normalizeSearchText(c.group);
+    const aliasKey=nameKey.replace(/hd|fhd|sd|live|canli/g,'');
+    const aliases=CHANNEL_SEARCH_ALIASES[aliasKey]||[];
+    const matchesSearch=!q||nameKey.includes(q)||groupKey.includes(q)||aliases.some(a=>normalizeSearchText(a).includes(q));
     const matchesGroup=group==='all'||c.group===group||groupLabel(c.group)===group;
     const matchesFavorites=!state.showFavorites||state.favorites.has(String(c.id));
     return matchesSearch&&matchesGroup&&matchesFavorites;
@@ -198,6 +257,8 @@ function playChannel(ch){
   let attemptIndex = 0;
   let settled = false;
   const timers = new Set();
+  let sourceStartedAt = 0;
+  let sourceStallRecorded = false;
 
   const clearTimers = () => {
     for(const t of timers) clearTimeout(t);
@@ -217,17 +278,21 @@ function playChannel(ch){
     if(settled) return;
     settled = true;
     clearTimers();
+    const latencyMs=sourceStartedAt ? performance.now()-sourceStartedAt : 0;
+    recordSourceEvent(url,'success',latencyMs);
     state.sourceIndex = sourceIndex;
     state.currentUrl = url;
     state.autoStarting = false;
     updateSourceButton();
     mark(ch,'ok');
+    updateSourceButton();
     setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
   };
 
   const failure = (detail='Yayın açılamadı') => {
     if(settled) return;
     clearTimers();
+    if(alternatives[attemptIndex]?.url) recordSourceEvent(alternatives[attemptIndex].url,'failure');
     stopHls();
 
     if(attemptIndex + 1 < maxAttempts){
@@ -255,6 +320,8 @@ function playChannel(ch){
   const trySource = (candidate, sourceIndex) => {
     clearTimers();
     clearError();
+    sourceStartedAt=performance.now();
+    sourceStallRecorded=false;
     state.sourceIndex = sourceIndex;
     state.currentUrl = candidate.url;
     updateStreamActions();
@@ -314,6 +381,11 @@ function playChannel(ch){
       if(!started || settled) return;
 
       waitingAfterStart = true;
+      if(!sourceStallRecorded){
+        sourceStallRecorded=true;
+        recordSourceEvent(candidate.url,'stall');
+        updateSourceButton();
+      }
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} yeniden tamponlanıyor…`);
 
       // Kısa buffering kabul edilebilir. Belirli süre boyunca yayın geri
@@ -542,19 +614,57 @@ $('bytefixList').addEventListener('click',async()=>{$('playlistUrl').value=BYTEF
 $('refreshDefault').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
 $('iptvOrgList').addEventListener('click',async()=>{$('playlistUrl').value=IPTV_ORG_TR;try{await loadUrl(IPTV_ORG_TR,'iptv-org Türkiye');closeSettings();openChannels();}catch(e){showError(`iptv-org listesi yüklenemedi: ${e.message}`);}});
 $('loadFile').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{await loadM3UText(await file.text(),file.name);closeSettings();openChannels();}catch(err){showError(`Dosya okunamadı: ${err.message}`);}e.target.value='';});
+function getSourceQuality(url){
+  const m=sourceQuality[url];
+  if(!m)return {score:50,label:'Yeni'};
+  const success=Number(m.successes||0);
+  const failures=Number(m.failures||0);
+  const stalls=Number(m.stalls||0);
+  const bad=failures+stalls*1.5;
+  let score=((success+3)/(success+bad+6))*100;
+  const lc=Number(m.latencyCount||0);
+  if(lc){
+    const avg=Number(m.latencySum||0)/lc;
+    if(avg<3000)score+=5;
+    else if(avg>10000)score-=10;
+  }
+  score=Math.max(0,Math.min(100,Math.round(score)));
+  return {score,label:score>=85?'Çok iyi':score>=70?'İyi':score>=50?'Orta':'Zayıf'};
+}
+function recordSourceEvent(url,type,latencyMs=0){
+  if(!url)return;
+  const m=sourceQuality[url]||(sourceQuality[url]={successes:0,failures:0,stalls:0,latencySum:0,latencyCount:0});
+  if(type==='success')m.successes++;
+  if(type==='failure')m.failures++;
+  if(type==='stall')m.stalls++;
+  if(type==='success'&&latencyMs>0){m.latencySum+=latencyMs;m.latencyCount++;}
+  m.lastChecked=Date.now();
+  saveSourceQuality();
+}
 function updateSourceButton(){
-  const btn = $('changeSourceBtn');
-  if(!btn) return;
-  const total = state.sourceCandidates.length;
-  btn.disabled = total < 2;
-  btn.classList.toggle('source-switching', total >= 2);
-  if(total >= 2){
-    const next = (state.sourceIndex + 1) % total;
-    btn.title = `Sonraki kaynak: ${next + 1}/${total}`;
-    btn.setAttribute('aria-label', `Kaynak değiştir, sonraki kaynak ${next + 1}/${total}`);
+  const btn=$('changeSourceBtn');
+  const qualityEl=$('sourceQuality');
+  if(!btn)return;
+  const total=state.sourceCandidates.length;
+  btn.disabled=total<2;
+  btn.classList.toggle('source-switching',total>=2);
+  const current=state.sourceCandidates[state.sourceIndex];
+  const q=current?getSourceQuality(current.url):{score:50,label:'Yeni'};
+  if(qualityEl){
+    qualityEl.textContent=q.label;
+    qualityEl.className='source-quality '+q.label.toLocaleLowerCase('tr-TR').replace(/\s+/g,'-');
+    qualityEl.title=`Kaynak kalite puanı: ${q.score}/100`;
+  }
+  const label=btn.querySelector('span');
+  if(total>=2){
+    const next=(state.sourceIndex+1)%total;
+    btn.title=`Sonraki kaynak: ${next+1}/${total} • mevcut: ${q.label} ${q.score}/100`;
+    btn.setAttribute('aria-label',`Kaynak değiştir, sonraki kaynak ${next+1}/${total}`);
+    if(label)label.textContent=`Kaynak ${state.sourceIndex+1}/${total}`;
   }else{
-    btn.title = 'Bu kanal için başka kaynak yok';
-    btn.setAttribute('aria-label', 'Bu kanal için başka kaynak yok');
+    btn.title='Bu kanal için başka kaynak yok';
+    btn.setAttribute('aria-label','Bu kanal için başka kaynak yok');
+    if(label)label.textContent='Kaynak';
   }
 }
 function updateStreamActions(){
