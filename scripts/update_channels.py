@@ -244,7 +244,7 @@ def save_source_quality(
     payload = {
         "version": 1,
         "updatedAt": checked_at,
-        "algorithm": "server-health-bayesian-v1",
+        "algorithm": "server-health-bayesian-v2",
         "sourceCount": len(quality),
         "sources": quality,
     }
