@@ -7,7 +7,6 @@ const SOURCE_QUALITY_KEY = 'kulaktv-source-quality-v1';
 const EPG_URL = './epg.json';
 const EPG_STATUS_URL = './epg-status.json';
 const UPDATE_HISTORY_URL = './update-history.json';
-const DISCOVERY_STATUS_URL = './discovered-sources.json';
 
 const TELEMETRY_CONFIG = window.KULAKTV_TELEMETRY_CONFIG || {};
 const TELEMETRY_API_BASE = 'https://api.github.com/repos/sametkulak/kulaktv/issues';
@@ -296,7 +295,7 @@ const SOURCE_SWITCH_DELAY_MS = 1200;
 
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
-  sourceName: 'KulakTV otomatik kaynak listesi',
+  sourceName: 'KulakTV kaynak listesi',
   sourceCandidates: [], sourceIndex: -1,
   autoStarting: false,
   playbackGeneration: 0,
@@ -527,42 +526,30 @@ function renderSourceTrustList(){
     return '<div class="trust-item"><div class="trust-main"><span class="trust-dot '+level+'"></span><div class="trust-name">'+escapeHtml(friendlyProviderName(name))+'</div><div class="trust-score">'+score+'</div></div><div class="trust-meta">'+escapeHtml(data.label||'')+' • '+Number(data.healthyUrls||0)+'/'+Number(data.checkedUrls||0)+' URL sağlıklı</div><div class="trust-track"><span class="'+level+'" style="width:'+score+'%"></span></div></div>';
   }).join('');
 }
-async function loadHistoryAndDiscovery(){
+async function loadHistory(){
   try{
-    const [historyRes,discoveryRes]=await Promise.all([
-      fetch(UPDATE_HISTORY_URL+'?_='+Date.now(),{cache:'no-store'}),
-      fetch(DISCOVERY_STATUS_URL+'?_='+Date.now(),{cache:'no-store'})
-    ]);
-    if(historyRes.ok){
-      const history=await historyRes.json();
-      const runs=Array.isArray(history?.runs)?history.runs.slice(-10).reverse():[];
-      const root=$('updateHistoryList');
-      if(root){
-        if(!runs.length)root.innerHTML='<div class="mini-muted">Henüz güncelleme geçmişi yok.</div>';
-        else root.innerHTML=runs.map(run=>{
-          const d=run.updatedAt?new Date(run.updatedAt):null;
-          const health=run.health||{};
-          const changes=run.changes||{};
-          const dateText=d&&!Number.isNaN(d.getTime())?d.toLocaleDateString('tr-TR'):'';
-          const timeText=d&&!Number.isNaN(d.getTime())?d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):'';
-          const delta=Number(changes.channelDelta||0);
-          const deltaText=delta>0 ? `+${delta}` : delta<0 ? `-${Math.abs(delta)}` : '±0';
-          return '<div class="history-item"><div><b>'+dateText+'</b><span>'+timeText+' • '+(run.status==='fetch_failed'?'Kaynak hatası':'Güncelleme')+'</span></div><div class="history-value">'+Number(run.channelCount||0)+' kanal <small>'+deltaText+'</small></div><div class="history-sub">'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak • '+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL • '+Number(changes.addedCount||0)+' eklendi / '+Number(changes.removedCount||0)+' çıkarıldı</div></div>';
-        }).join('');
-      }
+    const historyRes=await fetch(UPDATE_HISTORY_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!historyRes.ok)return;
+    const history=await historyRes.json();
+    const runs=Array.isArray(history?.runs)?history.runs.slice(-10).reverse():[];
+    const root=$('updateHistoryList');
+    if(!root)return;
+    if(!runs.length){
+      root.innerHTML='<div class="mini-muted">Henüz güncelleme geçmişi yok.</div>';
+      return;
     }
-    if(discoveryRes.ok){
-      const discovery=await discoveryRes.json();
-      const root=$('discoveryStatus');
-      if(root){
-        const candidates=Array.isArray(discovery?.candidates)?discovery.candidates:[];
-        const active=Number(discovery?.activeAutoSources||0);
-        const top=candidates.filter(x=>x.status==='active'||x.status==='trial').slice(0,4);
-        root.innerHTML='<div><b>'+active+'</b> otomatik kaynak aktif • <b>'+top.length+'</b> aday havuzda</div>'+(top.length ? '<div class="discovery-list">'+top.map(x=>'<div>🔎 '+escapeHtml(friendlyProviderName(x.name))+' • '+Number(x.healthScore??x.staticScore??0)+'/100</div>').join('')+'</div>' : '');
-      }
-    }
+    root.innerHTML=runs.map(run=>{
+      const d=run.updatedAt?new Date(run.updatedAt):null;
+      const health=run.health||{};
+      const changes=run.changes||{};
+      const dateText=d&&!Number.isNaN(d.getTime())?d.toLocaleDateString('tr-TR'):'';
+      const timeText=d&&!Number.isNaN(d.getTime())?d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):'';
+      const delta=Number(changes.channelDelta||0);
+      const deltaText=delta>0 ? `+${delta}` : delta<0 ? `-${Math.abs(delta)}` : '±0';
+      return '<div class="history-item"><div><b>'+dateText+'</b><span>'+timeText+' • '+(run.status==='fetch_failed'?'Kaynak hatası':'Güncelleme')+'</span></div><div class="history-value">'+Number(run.channelCount||0)+' kanal <small>'+deltaText+'</small></div><div class="history-sub">'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak • '+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL • '+Number(changes.addedCount||0)+' eklendi / '+Number(changes.removedCount||0)+' çıkarıldı</div></div>';
+    }).join('');
   }catch(err){
-    console.warn('Geçmiş/kaynak keşfi yüklenemedi:',err);
+    console.warn('Güncelleme geçmişi yüklenemedi:',err);
   }
 }
 function channelFavoriteKey(ch){
@@ -1258,7 +1245,7 @@ async function loadUpdateStatus(){
     }
   }catch{}
 }
-loadUpdateStatus();loadHistoryAndDiscovery();loadEpg();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
+loadUpdateStatus();loadHistory();loadEpg();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
 
 window.addEventListener('online',()=>{if(state.current)setConnectionStatus('connecting','Bağlantı geri geldi');});
 window.addEventListener('offline',()=>setConnectionStatus('error','İnternet yok'));
