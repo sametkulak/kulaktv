@@ -100,7 +100,12 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .bar-channels{min-width:92px;height:50px;border-radius:12px;padding:0 14px;background:var(--accent);font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 6px 22px rgba(255,102,87,.22)}
 .bar-channels:hover{background:var(--accent2)}
 .bar-channels.active{background:#fff;color:#17202a}
-.source-change-btn{min-width:132px}.source-change-btn:disabled{opacity:.42;cursor:not-allowed}.source-change-btn.source-switching{color:var(--accent2)}
+.source-change-btn{min-width:118px}.source-change-btn:disabled{opacity:.42;cursor:not-allowed}.source-change-btn.source-switching{color:var(--accent2)}
+.source-quality{height:28px;min-width:48px;padding:0 8px;border:1px solid var(--line);border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#aeb8c7;background:#10161e;white-space:nowrap}
+.source-quality.cok-iyi{color:#62e2ae;border-color:rgba(98,226,174,.32);background:rgba(98,226,174,.08)}
+.source-quality.iyi{color:#90dcae;border-color:rgba(144,220,174,.28);background:rgba(144,220,174,.07)}
+.source-quality.orta{color:#ffd37a;border-color:rgba(255,211,122,.28);background:rgba(255,211,122,.07)}
+.source-quality.zayif{color:#ff8998;border-color:rgba(255,137,152,.28);background:rgba(255,137,152,.07)}
 .drawer-backdrop{position:absolute;inset:0;z-index:50;background:rgba(0,0,0,.48);opacity:0;pointer-events:none;transition:.2s ease;backdrop-filter:blur(2px)}
 .drawer-backdrop.open{opacity:1;pointer-events:auto}
 .settings-drawer{position:absolute;z-index:60;top:0;right:0;bottom:0;width:min(440px,94vw);background:#0c1117;border-left:1px solid var(--line);box-shadow:-20px 0 60px rgba(0,0,0,.5);transform:translateX(102%);transition:transform .22s ease;display:flex;flex-direction:column}
@@ -132,6 +137,7 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
   .bar-channels span{display:inline}
   .bar-channel-icon{font-size:15px}
   .source-change-btn{min-width:42px;width:42px;padding:0;justify-content:center}
+  .source-quality{display:none}
   .video-info{left:14px;bottom:83px;max-width:64%}
   .video-top-actions{top:68px;right:14px}
 }
