@@ -652,7 +652,7 @@ function updateSourceButton(){
   const q=current?getSourceQuality(current.url):{score:50,label:'Yeni'};
   if(qualityEl){
     qualityEl.textContent=q.label;
-    qualityEl.className='source-quality '+q.label.toLocaleLowerCase('tr-TR').replace(/\s+/g,'-');
+    qualityEl.className='source-quality '+normalizeSearchText(q.label).replace(/[^a-z0-9]+/g,'-');
     qualityEl.title=`Kaynak kalite puanı: ${q.score}/100`;
   }
   const label=btn.querySelector('span');
