@@ -490,7 +490,7 @@ function playChannel(ch){
     ? sortSourceCandidatesByQuality(originalCandidates)
     : originalCandidates;
 
-  state.sourceCandidates = orderedCandidates.slice(0,9);
+  state.sourceCandidates = orderedCandidates.slice(0,10);
   state.sourceIndex = 0;
   state.currentUrl = state.sourceCandidates[0]?.url || ch.url;
   updateStreamActions();
