@@ -28,7 +28,7 @@ SEARCH_QUERIES = [
 MAX_RESULTS_PER_QUERY = 20
 MAX_REPOSITORIES = 30
 MAX_PLAYLISTS_PER_REPO = 3
-MAX_CANDIDATES = 4
+MAX_CANDIDATES = 12
 MIN_CHANNELS = 10
 MIN_UNIQUE_URLS = 5
 MIN_NEW_URL_RATIO = 0.15
@@ -369,12 +369,21 @@ def main() -> int:
             ).total_seconds() / 86400
         except Exception:
             days = 999
-        if previous_item.get("status") == "active" and days <= 7:
+
+        # Keep active and trial entries persistent even when GitHub search no
+        # longer ranks their repository. A trial source must remain in the
+        # quarantine queue until health testing promotes or rejects it.
+        if previous_item.get("status") in {"active", "trial"} and days <= 30:
             merged.append(previous_item)
 
+    # Prefer active sources first, then untested trials, then previously
+    # measured trials. This prevents a fresh trial from waiting indefinitely
+    # behind older candidates just because its static score is lower.
     merged.sort(
         key=lambda item: (
             item.get("status") not in {"active", "trial"},
+            item.get("status") == "trial" and bool(item.get("healthScore")),
+            item.get("healthScore") is None,
             -int(item.get("healthScore") or 0),
             -int(item.get("staticScore") or 0),
             -int(item.get("stars") or 0),
