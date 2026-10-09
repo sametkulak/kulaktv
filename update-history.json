@@ -333,6 +333,27 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-09T14:47:43.368Z",
+      "status": "rollback",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "health": {
+        "checked": 0,
+        "healthy": 0,
+        "failed": 0
+      },
+      "changes": {
+        "channelDelta": -1341,
+        "addedCount": 0,
+        "removedCount": 1341,
+        "addedChannels": [],
+        "removedChannels": []
+      },
+      "message": "Otomatik kaynak keşfi kaldırıldı; son otomatik kaynak değişiklikleri geri alındı."
     }
   ]
 }
