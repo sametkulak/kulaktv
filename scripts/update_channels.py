@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 M3U_PATH = ROOT / "channels.m3u"
 STATUS_PATH = ROOT / "update-status.json"
 HEALTH_STATE_PATH = ROOT / "health-state.json"
+SOURCE_QUALITY_PATH = ROOT / "source-quality.json"
 
 SOURCES = [
     ("OnurEröz Türkiye", "https://onureroz.com/indirmeler/turk/index.m3u"),
@@ -156,6 +157,99 @@ def load_health_state() -> dict[str, dict[str, object]]:
 def save_health_state(state: dict[str, dict[str, object]]) -> None:
     HEALTH_STATE_PATH.write_text(
         json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+
+def load_source_quality() -> dict[str, object]:
+    if not SOURCE_QUALITY_PATH.exists():
+        return {}
+    try:
+        data = json.loads(SOURCE_QUALITY_PATH.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def source_quality_score(record: dict[str, object]) -> int:
+    successes = int(record.get("successes", 0) or 0)
+    failures = int(record.get("failures", 0) or 0)
+    recovered = int(record.get("retryRecovered", 0) or 0)
+    total = successes + failures
+    if total <= 0:
+        return 50
+
+    score = ((successes + 4) / (total + 8)) * 100
+    score -= min(12, recovered * 0.6)
+
+    if record.get("lastStatus") == "ok":
+        score += 2
+    elif record.get("lastStatus") == "bad":
+        score -= 7
+
+    return max(0, min(100, round(score)))
+
+
+def update_source_quality(
+    previous: dict[str, object],
+    snapshot: list[tuple[str, str, dict[str, str]]],
+    checked_at: str,
+) -> dict[str, dict[str, object]]:
+    next_quality: dict[str, dict[str, object]] = {}
+
+    for channel_name, url, result in snapshot:
+        status = str(result.get("status") or "unknown")
+        detail = str(result.get("detail") or "")
+        old = previous.get(url, {}) if isinstance(previous, dict) else {}
+
+        record = {
+            "url": url,
+            "channel": channel_name,
+            "host": urlsplit(url).hostname or "",
+            "checks": int(old.get("checks", 0) or 0) + 1,
+            "successes": int(old.get("successes", 0) or 0),
+            "failures": int(old.get("failures", 0) or 0),
+            "retryRecovered": int(old.get("retryRecovered", 0) or 0),
+            "lastStatus": status,
+            "lastCheckedAt": checked_at,
+            "lastSuccessAt": old.get("lastSuccessAt"),
+            "lastFailureAt": old.get("lastFailureAt"),
+        }
+
+        if status == "ok":
+            record["successes"] += 1
+            record["lastSuccessAt"] = checked_at
+            if "ikinci test başarılı" in detail.lower():
+                record["retryRecovered"] += 1
+        elif status == "bad":
+            record["failures"] += 1
+            record["lastFailureAt"] = checked_at
+
+        record["score"] = source_quality_score(record)
+        record["label"] = (
+            "Çok iyi" if record["score"] >= 85 else
+            "İyi" if record["score"] >= 70 else
+            "Orta" if record["score"] >= 50 else
+            "Zayıf"
+        )
+        next_quality[url] = record
+
+    return next_quality
+
+
+def save_source_quality(
+    quality: dict[str, dict[str, object]],
+    checked_at: str,
+) -> None:
+    payload = {
+        "version": 1,
+        "updatedAt": checked_at,
+        "algorithm": "server-health-bayesian-v1",
+        "sourceCount": len(quality),
+        "sources": quality,
+    }
+    SOURCE_QUALITY_PATH.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
 
@@ -794,8 +888,17 @@ def main() -> int:
 
     health_summary = {"checked": 0, "healthy": 0, "failed": 0}
     health_failures: list[dict[str, str]] = []
+    source_quality_snapshot: list[tuple[str, str, dict[str, str]]] = []
     for channel in merged:
         for url, result in (channel.get("health") or {}).items():
+            source_quality_snapshot.append((
+                str(channel["name"]),
+                str(url),
+                {
+                    "status": str(result.get("status") or "unknown"),
+                    "detail": str(result.get("detail") or ""),
+                },
+            ))
             health_summary["checked"] += 1
             if result.get("status") == "ok":
                 health_summary["healthy"] += 1
@@ -828,6 +931,14 @@ def main() -> int:
         )
 
     save_health_state(next_health_state)
+
+    previous_source_quality = load_source_quality()
+    next_source_quality = update_source_quality(
+        previous_source_quality.get("sources", previous_source_quality),
+        source_quality_snapshot,
+        fetched_at,
+    )
+    save_source_quality(next_source_quality, fetched_at)
 
     new_text = render_m3u(merged, fetched_at)
     old_text = M3U_PATH.read_text(encoding="utf-8") if M3U_PATH.exists() else ""
