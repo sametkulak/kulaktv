@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T08:49:55.058382+00:00",
+  "updatedAt": "2026-10-09T09:10:28.625993+00:00",
   "channelCount": 398,
   "sourceCount": 5,
   "changed": true,
@@ -46,8 +46,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 608,
-    "healthyUrls": 365,
-    "failedUrls": 243,
+    "healthyUrls": 359,
+    "failedUrls": 249,
     "failures": [
       {
         "channel": "TRT1",
