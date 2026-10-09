@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-10-09T13:58:03.411296+00:00",
+  "updatedAt": "2026-10-09T13:58:49.995520+00:00",
   "queryCount": 2,
   "repositoryCount": 31,
   "candidates": [
@@ -200,7 +200,7 @@
         "https://cache0.wonvt.st/live/18onfhu0tcnd770f8j724/master.m3u8",
         "https://cache0.wonvt.st/live/0vczpii0ydyb4i1t922r4/master.m3u8"
       ],
-      "lastDiscoveredAt": "2026-10-09T13:58:00.964173+00:00"
+      "lastDiscoveredAt": "2026-10-09T13:58:47.947672+00:00"
     },
     {
       "name": "auto:time2shine/Rokon-IPTV:playlist.m3u",
@@ -398,7 +398,7 @@
         "http://awaazindia.livebox.co.in/AwaazIndaTVhls/Live.m3u8",
         "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/2774c390ad884e06a7b0257c8489e23d/index.m3u8"
       ],
-      "lastDiscoveredAt": "2026-10-09T13:57:52.740579+00:00"
+      "lastDiscoveredAt": "2026-10-09T13:58:41.559943+00:00"
     },
     {
       "name": "auto:chapkazi25-web/iptv-m3u:playlists/sources/iptv-org.m3u",
@@ -596,7 +596,7 @@
         "https://9now-livestreams.akamaized.net/hls/live/2008311/gem-syd/master.m3u8",
         "https://9now-livestreams.akamaized.net/hls/live/2008312/go-syd/master.m3u8"
       ],
-      "lastDiscoveredAt": "2026-10-09T13:58:00.536748+00:00"
+      "lastDiscoveredAt": "2026-10-09T13:58:47.747687+00:00"
     },
     {
       "name": "auto:doms9/iptv:M3U8/base.m3u8",
@@ -794,7 +794,7 @@
         "https://cache0.wonvt.st/live/16fgsju1pnic1t0n4pa9a/master.m3u8",
         "http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8"
       ],
-      "lastDiscoveredAt": "2026-10-09T13:57:48.311307+00:00"
+      "lastDiscoveredAt": "2026-10-09T13:58:38.177597+00:00"
     }
   ],
   "activeAutoSources": 0,
