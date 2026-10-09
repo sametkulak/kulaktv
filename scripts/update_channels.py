@@ -36,6 +36,9 @@ SOURCES = [
     ("iptv-org Türkiye", "https://iptv-org.github.io/iptv/countries/tr.m3u"),
     ("discevisita", "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u"),
     ("iptv-turk-tr", "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u"),
+    ("rideordie16/tv", "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u"),
+    ("qazim/IPTV", "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u"),
+    ("ilyswch/IPTV-TR", "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u"),
 ]
 
 
@@ -43,7 +46,9 @@ SOURCES = [
 USER_AGENT = "KulakTV-AutoUpdater/3.1"
 TIMEOUT = 45
 MIN_CHANNELS = 10
-MAX_ALTERNATIVES = 8
+MAX_ALTERNATIVES = 9
+# Kalite algoritması kanal başına en fazla 12 adayı test eder; oynatıcıya en iyi 10 (ana + 9 yedek) yazılır.
+MAX_QUALITY_CANDIDATES = 12
 # Güvenilmez yayın sunucuları
 BLOCKED_STREAM_HOSTS = {
     "helga.iptv2022.com",
@@ -670,7 +675,7 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
                     or current_meta.get("group")
                     or "Diğer",
                     "tvg_id": current_meta.get("tvg-id") or "",
-                    "alternatives": alternatives[:MAX_ALTERNATIVES],
+                    "alternatives": alternatives[:MAX_QUALITY_CANDIDATES - 1],
                 }
             )
 
@@ -778,7 +783,7 @@ def merge_channels(
             ]
 
             for url in urls:
-                if url not in existing_urls and len(target["alternatives"]) < MAX_ALTERNATIVES:
+                if url not in existing_urls and len(target["alternatives"]) < MAX_QUALITY_CANDIDATES - 1:
                     target["alternatives"].append(url)
                     existing_urls.append(url)
 
@@ -957,7 +962,7 @@ def render_m3u(channels: list[dict[str, object]], fetched_at: str) -> str:
     lines = [
         "#EXTM3U",
         "# KulakTV multi-source playlist",
-        "# Sources: OnurEröz Türkiye + ByteFix Repairs + iptv-org Türkiye + discevisita + iptv-turk-tr",
+        "# Sources: OnurEröz Türkiye + ByteFix Repairs + iptv-org Türkiye + discevisita + iptv-turk-tr + rideordie16/tv + qazim/IPTV + ilyswch/IPTV-TR",
         f"# Last merged: {fetched_at}",
     ]
 
