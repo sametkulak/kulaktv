@@ -1,0 +1,68 @@
+name: KulakTV kod doğrulama
+
+on:
+  push:
+    paths:
+      - "app.js"
+      - "index.html"
+      - "style.css"
+      - "telemetry-config.js"
+      - "scripts/*.py"
+      - ".github/workflows/*.yml"
+  pull_request:
+    paths:
+      - "app.js"
+      - "index.html"
+      - "style.css"
+      - "telemetry-config.js"
+      - "scripts/*.py"
+      - ".github/workflows/*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository'yi al
+        uses: actions/checkout@v4
+
+      - name: Python syntax
+        run: |
+          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py
+
+      - name: JavaScript syntax
+        run: |
+          node --check app.js
+          node --check telemetry-config.js
+
+      - name: HTML ile JavaScript DOM referanslarını doğrula
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path("index.html").read_text(encoding="utf-8")
+          js = Path("app.js").read_text(encoding="utf-8")
+          ids = set(re.findall(r'id="([^"]+)"', html))
+          refs = set(re.findall(r"\$\(['"]([^'"]+)['"]\)", js))
+          missing = sorted(refs - ids)
+          if missing:
+              raise SystemExit(f"Eksik DOM id referansı: {missing}")
+          print(f"DOM doğrulandı: {len(ids)} id, {len(refs)} JS referansı")
+
+          PY
+
+      - name: M3U yapısı
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          lines = Path("channels.m3u").read_text(encoding="utf-8").splitlines()
+          ext = [i for i, line in enumerate(lines) if line.startswith("#EXTINF:")]
+          bad = [i + 1 for i in ext if i + 1 >= len(lines) or not re.match(r"^https?://", lines[i + 1].strip(), re.I)]
+          if bad:
+              raise SystemExit(f"Geçersiz M3U kayıtları: {bad[:10]}")
+          print(f"M3U doğrulandı: {len(ext)} kanal")
+          PY
