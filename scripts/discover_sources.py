@@ -18,10 +18,12 @@ PLAYLIST_PATH = ROOT / "channels.m3u"
 STATE_PATH = ROOT / "discovered-sources.json"
 
 SEARCH_QUERIES = [
-    "extension:m3u turkey iptv",
-    "extension:m3u turk iptv",
-    "extension:m3u filename:tr.m3u",
-    "\"turk kanalları\" m3u",
+    "iptv m3u",
+    "turk iptv",
+    "turkey iptv",
+    "turkish tv",
+    "m3u turkey",
+    "tr.m3u",
 ]
 MAX_RESULTS_PER_QUERY = 20
 MAX_REPOSITORIES = 30
@@ -48,7 +50,7 @@ DISCOVERY_SEEDS = [
 
 def api_request(url: str) -> dict:
     headers = {
-        "User-Agent": "KulakTV-Source-Discovery/1.0",
+        "User-Agent": "KulakTV-Source-Discovery/2.0",
         "Accept": "application/vnd.github+json",
     }
     token = str(__import__("os").environ.get("GITHUB_TOKEN") or "").strip()
