@@ -132,9 +132,9 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
   .sidebar-head .brand,.sidebar-head .sidebar-status{display:none}
   .sidebar-head{justify-content:flex-end}
   .player-bar{min-width:calc(100% - 24px);bottom:12px;height:62px;border-radius:15px}
-  .bar-action span{display:none}
+  .bar-action > span:not(.bar-action-icon){display:none}.bar-action .bar-action-icon{display:inline-flex!important}
   .bar-channels{min-width:84px;width:84px;padding:0 8px}
-  .bar-channels span{display:inline}
+  .bar-channels > span:not(.bar-action-icon){display:inline}
   .bar-channel-icon{font-size:15px}
   .source-change-btn{min-width:42px;width:42px;padding:0;justify-content:center}
   .source-quality{display:none}
