@@ -4,6 +4,10 @@ const IPTV_ORG_TR = 'https://iptv-org.github.io/iptv/countries/tr.m3u';
 const BYTEFIX_LIST = 'https://tinyurl.com/ByteFixRepairs2026';
 
 const SOURCE_QUALITY_KEY = 'kulaktv-source-quality-v1';
+const EPG_URL = './epg.json';
+const EPG_STATUS_URL = './epg-status.json';
+const UPDATE_HISTORY_URL = './update-history.json';
+const DISCOVERY_STATUS_URL = './discovered-sources.json';
 
 const TELEMETRY_CONFIG = window.KULAKTV_TELEMETRY_CONFIG || {};
 const TELEMETRY_API_BASE = 'https://api.github.com/repos/sametkulak/kulaktv/issues';
@@ -186,6 +190,7 @@ function loadSourceQuality(){
 }
 const sourceQuality=loadSourceQuality();
 let sharedSourceQuality = {};
+let sharedSourceProviders = {};
 let sharedSourceQualityLoaded = false;
 const SHARED_SOURCE_QUALITY_URL = './source-quality.json';
 
@@ -201,7 +206,9 @@ async function loadSharedSourceQuality(){
     if(!res.ok)throw new Error(`HTTP ${res.status}`);
     const data=await res.json();
     sharedSourceQuality=(data && data.sources && typeof data.sources==='object') ? data.sources : {};
+    sharedSourceProviders=(data && data.providers && typeof data.providers==='object') ? data.providers : {};
     sharedSourceQualityLoaded=true;
+    renderSourceTrustList();
   }catch(err){
     sharedSourceQualityLoaded=false;
     console.warn('Ortak kaynak kalite verisi yüklenemedi:',err);
@@ -303,7 +310,10 @@ const state = {
     } catch {
       return [];
     }
-  })())
+  })()),
+  epg: { updatedAt:null, channels:{} },
+  epgLoaded: false,
+  epgOpen: false
 };
 
 const $ = id => document.getElementById(id);
@@ -311,6 +321,13 @@ const video = $('video');
 function setStatus(text) {
   const topStatus = $('topStatus');
   if (topStatus) topStatus.textContent = text;
+}
+function setConnectionStatus(kind,text){
+  const root=$('connectionStatus');
+  if(!root)return;
+  root.className='connection-status '+(kind||'connecting');
+  const label=root.querySelector('b');
+  if(label)label.textContent=text||'Bağlanıyor';
 }
 function escapeHtml(s) { return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
 function parseAttrs(line) { const attrs={}; const re=/([\w-]+)="([^"]*)"/g; let m; while((m=re.exec(line))) attrs[m[1]]=m[2]; return attrs; }
@@ -386,6 +403,163 @@ function normalizeChannelName(value){
     .replace(/(?:turkiye|turkey)$/,'');
 }
 
+
+function getEpgChannel(ch){
+  const key=normalizeChannelName(ch?.name||'');
+  return state.epg?.channels?.[key] || null;
+}
+function getCurrentProgramme(ch,at=Date.now()){
+  const data=getEpgChannel(ch);
+  if(!data||!Array.isArray(data.programs))return null;
+  return data.programs.find(p=>{
+    const start=Date.parse(p.start||'');
+    const stop=Date.parse(p.stop||'');
+    return Number.isFinite(start)&&Number.isFinite(stop)&&start<=at&&at<stop;
+  }) || null;
+}
+function getNextProgrammes(ch,limit=10,at=Date.now()){
+  const data=getEpgChannel(ch);
+  if(!data||!Array.isArray(data.programs))return [];
+  return data.programs
+    .filter(p=>Date.parse(p.stop||'')>at)
+    .sort((a,b)=>Date.parse(a.start||'')-Date.parse(b.start||''))
+    .slice(0,limit);
+}
+function formatEpgTime(iso){
+  const d=new Date(iso);
+  if(Number.isNaN(d.getTime()))return '--:--';
+  return d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+}
+function formatEpgDate(iso){
+  const d=new Date(iso);
+  if(Number.isNaN(d.getTime()))return '';
+  return d.toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit'});
+}
+function renderCurrentEpg(ch){
+  const current=getCurrentProgramme(ch);
+  const next=getNextProgrammes(ch,2);
+  const nowEl=$('nowProgramme');
+  const nextEl=$('nextProgramme');
+  if(nowEl){
+    nowEl.textContent=current ? '▶ '+current.title+' • '+formatEpgTime(current.start)+'-'+formatEpgTime(current.stop) : 'Program bilgisi bulunamadı';
+  }
+  if(nextEl){
+    const nxt=next.find(p=>!current||p.start!==current.start);
+    nextEl.textContent=nxt ? 'Sonraki: '+nxt.title+' • '+formatEpgTime(nxt.start) : '';
+  }
+  if(state.epgOpen)renderEpgDrawer(ch);
+}
+function renderEpgDrawer(ch=state.current){
+  const title=$('epgDrawerSubtitle');
+  const currentTitle=$('epgCurrentTitle');
+  const currentTime=$('epgCurrentTime');
+  const list=$('epgList');
+  if(!title||!currentTitle||!currentTime||!list)return;
+  if(!ch){
+    title.textContent='Kanal seçin';
+    currentTitle.textContent='Program bilgisi yok';
+    currentTime.textContent='--:--';
+    list.innerHTML='<div class="mini-muted">Önce bir kanal seçin.</div>';
+    return;
+  }
+  title.textContent=ch.name;
+  const current=getCurrentProgramme(ch);
+  currentTitle.textContent=current?.title||'Şu anda program bilgisi yok';
+  currentTime.textContent=current ? formatEpgTime(current.start)+' - '+formatEpgTime(current.stop) : '--:--';
+  const programs=getNextProgrammes(ch,16);
+  if(!programs.length){
+    list.innerHTML='<div class="mini-muted">Bu kanal için EPG verisi bulunamadı.</div>';
+    return;
+  }
+  list.innerHTML=programs.map(program=>{
+    const active=current && current.start===program.start;
+    const desc=program.desc ? '<div class="epg-item-desc">'+escapeHtml(program.desc)+'</div>' : '';
+    return '<div class="epg-item'+(active?' current':'')+'"><div class="epg-item-time">'+formatEpgDate(program.start)+' • '+formatEpgTime(program.start)+'-'+formatEpgTime(program.stop)+'</div><div class="epg-item-title">'+escapeHtml(program.title)+'</div>'+desc+'</div>';
+  }).join('');
+}
+function setEpgStatusText(text,kind=''){
+  const el=$('epgStatus');
+  if(!el)return;
+  el.textContent=text;
+  el.className='mini-muted'+(kind ? ' epg-status-'+kind : '');
+}
+async function loadEpg(){
+  try{
+    const res=await fetch(EPG_URL+'?_='+Date.now(),{cache:'no-store'});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(!data||!data.channels||typeof data.channels!=='object')throw new Error('EPG biçimi geçersiz');
+    state.epg={updatedAt:data.updatedAt||null,channels:data.channels};
+    state.epgLoaded=true;
+    const count=Object.keys(data.channels).length;
+    const dateText=data.updatedAt ? new Date(data.updatedAt).toLocaleString('tr-TR') : '';
+    setEpgStatusText('Hazır • '+count+' kanal için program verisi • '+dateText,'ok');
+    renderChannelList();
+    if(state.current)renderCurrentEpg(state.current);
+    if(state.epgOpen)renderEpgDrawer();
+  }catch(err){
+    state.epgLoaded=false;
+    setEpgStatusText('EPG kullanılamıyor: '+err.message,'error');
+  }
+}
+function friendlyProviderName(name){
+  const raw=String(name||'');
+  if(raw.startsWith('auto:')){
+    const parts=raw.slice(5).split(':');
+    return 'Otomatik • '+parts.slice(0,2).join('/');
+  }
+  return raw;
+}
+function renderSourceTrustList(){
+  const root=$('sourceTrustList');
+  if(!root)return;
+  const entries=Object.entries(sharedSourceProviders||{})
+    .map(([name,data])=>({name:name,data:data||{}}))
+    .sort((a,b)=>Number(b.data.score||0)-Number(a.data.score||0));
+  if(!entries.length){
+    root.innerHTML='<div class="mini-muted">Henüz kaynak güven puanı oluşturulmadı.</div>';
+    return;
+  }
+  root.innerHTML=entries.slice(0,12).map(entry=>{
+    const name=entry.name, data=entry.data;
+    const score=Math.max(0,Math.min(100,Number(data.score||0)));
+    const level=score>=85?'strong':score>=70?'good':score>=50?'medium':'weak';
+    return '<div class="trust-item"><div class="trust-main"><span class="trust-dot '+level+'"></span><div class="trust-name">'+escapeHtml(friendlyProviderName(name))+'</div><div class="trust-score">'+score+'</div></div><div class="trust-meta">'+escapeHtml(data.label||'')+' • '+Number(data.healthyUrls||0)+'/'+Number(data.checkedUrls||0)+' URL sağlıklı</div><div class="trust-track"><span class="'+level+'" style="width:'+score+'%"></span></div></div>';
+  }).join('');
+}
+async function loadHistoryAndDiscovery(){
+  try{
+    const [historyRes,discoveryRes]=await Promise.all([
+      fetch(UPDATE_HISTORY_URL+'?_='+Date.now(),{cache:'no-store'}),
+      fetch(DISCOVERY_STATUS_URL+'?_='+Date.now(),{cache:'no-store'})
+    ]);
+    if(historyRes.ok){
+      const history=await historyRes.json();
+      const runs=Array.isArray(history?.runs)?history.runs.slice(-10).reverse():[];
+      const root=$('updateHistoryList');
+      if(root){
+        if(!runs.length)root.innerHTML='<div class="mini-muted">Henüz güncelleme geçmişi yok.</div>';
+        else root.innerHTML=runs.map(run=>{
+          const d=run.updatedAt?new Date(run.updatedAt):null;
+          const health=run.health||{};
+          return '<div class="history-item"><div><b>'+(d&&!Number.isNaN(d.getTime())?d.toLocaleDateString('tr-TR'):'')+'</b><span>'+(run.status==='fetch_failed'?'Kaynak hatası':'Güncelleme')+'</span></div><div class="history-value">'+Number(run.channelCount||0)+' kanal</div><div class="history-sub">'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak • '+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL</div></div>';
+        }).join('');
+      }
+    }
+    if(discoveryRes.ok){
+      const discovery=await discoveryRes.json();
+      const root=$('discoveryStatus');
+      if(root){
+        const candidates=Array.isArray(discovery?.candidates)?discovery.candidates:[];
+        const active=Number(discovery?.activeAutoSources||0);
+        const top=candidates.filter(x=>x.status==='active'||x.status==='trial').slice(0,4);
+        root.innerHTML='<div><b>'+active+'</b> otomatik kaynak aktif • <b>'+top.length+'</b> aday havuzda</div>'+(top.length ? '<div class="discovery-list">'+top.map(x=>'<div>🔎 '+escapeHtml(friendlyProviderName(x.name))+' • '+Number(x.healthScore??x.staticScore??0)+'/100</div>').join('')+'</div>' : '');
+      }
+    }
+  }catch(err){
+    console.warn('Geçmiş/kaynak keşfi yüklenemedi:',err);
+  }
+}
 function channelFavoriteKey(ch){
   // Favoriler kaynak URL'sine bağlı olmamalı. Günlük güncellemede URL
   // değişse bile aynı kanal favori olarak kalır.
@@ -420,7 +594,8 @@ function renderChannelList(){
     const logo=ch.logo
       ? `<img loading="lazy" src="${escapeHtml(ch.logo)}" alt="" onerror="this.onerror=null;this.parentElement.textContent='${initials}'">`
       : initials;
-    div.innerHTML=`<button class="channel-fav${state.favorites.has(channelFavoriteKey(ch))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(channelFavoriteKey(ch))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div></div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
+    const currentProgram=getCurrentProgramme(ch); const programmeText=currentProgram ? escapeHtml(currentProgram.title) : '';
+    div.innerHTML=`<button class="channel-fav${state.favorites.has(channelFavoriteKey(ch))?' active':''}" type="button" aria-label="Favoriye ekle">${state.favorites.has(channelFavoriteKey(ch))?'★':'☆'}</button><div class="channel-logo">${logo}</div><div class="channel-name-wrap"><div class="channel-name">${escapeHtml(ch.name)}</div><div class="channel-group">${escapeHtml(ch.group)}</div>${programmeText?`<div class="channel-program" title="${programmeText}">▶ ${programmeText}</div>`:''}</div><span class="state-dot" id="dot-${CSS.escape(ch.id)}" title="Henüz test edilmedi"></span>`;
     div.querySelector('.channel-fav').addEventListener('click',e=>toggleFavorite(ch,e));
     div.addEventListener('click',()=>{playChannel(ch);closeChannels();}); frag.appendChild(div);
   }); root.appendChild(frag);
@@ -465,6 +640,7 @@ function setCurrentTitle(ch){
   const fallbackCount = Array.isArray(ch.alternatives) ? ch.alternatives.length : 0;
   $('nowMeta').textContent = `${ch.group} • HLS / M3U8${fallbackCount ? ` • ${fallbackCount} yedek kaynak` : ''}`;
   updateNowLogo(ch);
+  renderCurrentEpg(ch);
 }
 function playChannel(ch){
   // Eski kanalın tüm timer/callback/event zincirini kesin olarak geçersiz kıl.
@@ -497,6 +673,7 @@ function playChannel(ch){
   setCurrentTitle(ch);
   renderChannelList();
   $('playerOverlay').classList.add('hidden');
+  setConnectionStatus('connecting','Bağlanıyor');
   setStatus('Yayın açılıyor…');
 
   const alternatives = state.sourceCandidates;
@@ -551,6 +728,7 @@ function playChannel(ch){
     state.currentUrl = url;
     state.autoStarting = false;
     updateSourceButton();
+    setConnectionStatus('online',sourceIndex ? 'Bağlı • alternatif' : 'Bağlı');
     mark(ch,'ok');
     setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
   };
@@ -570,6 +748,7 @@ function playChannel(ch){
       attemptIndex++;
       state.sourceIndex = attemptIndex;
       updateSourceButton();
+      setConnectionStatus('connecting','Yeni kaynak deneniyor');
       setStatus(`Kaynak ${attemptIndex+1}/${maxAttempts} için hazırlanıyor…`);
 
       schedule(() => {
@@ -581,6 +760,7 @@ function playChannel(ch){
 
     settled = true;
     mark(ch,'bad');
+    setConnectionStatus('error','Bağlantı yok');
     setStatus('Açılamadı');
     state.cancelPlayback = null;
     showError(`${detail}. ${maxAttempts}/${maxAttempts} kaynak denendi. Diğer kaynakları "Kaynak Listesi" düğmesiyle tekrar seçebilirsiniz.`);
@@ -599,6 +779,7 @@ function playChannel(ch){
     state.sourceIndex = sourceIndex;
     state.currentUrl = candidate.url;
     updateStreamActions();
+    setConnectionStatus('connecting','Bağlanıyor • '+(sourceIndex+1)+'/'+maxAttempts);
     setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);
 
     video.pause();
@@ -619,6 +800,7 @@ function playChannel(ch){
         return;
       }
 
+      setConnectionStatus('online','Bağlı');
       started = true;
       waitingAfterStart = false;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} oynatılıyor, doğrulanıyor…`);
@@ -672,6 +854,7 @@ function playChannel(ch){
       if(!started) return;
 
       waitingAfterStart = true;
+      setConnectionStatus('buffering','Tamponlanıyor');
       if(!sourceStallRecorded){
         sourceStallRecorded=true;
         recordSourceEvent(candidate.url,'stall');
@@ -845,6 +1028,7 @@ function updateChannelButton(){
   btn.setAttribute('aria-label',state.drawerOpen?'Kanal listesini kapat':'Kanal listesini aç');
 }
 function openChannels(){
+  if(state.epgOpen)closeEpg();
   state.drawerOpen=true;
   $('channelDrawer').classList.add('open');
   $('drawerBackdrop').classList.add('open');
@@ -859,8 +1043,35 @@ function closeChannels(){
   $('channelDrawer').setAttribute('aria-hidden','true');
   updateChannelButton();
 }
-function openSettings(){state.settingsOpen=true;closeChannels();$('settingsDrawer').classList.add('open');$('settingsBackdrop').classList.add('open');$('settingsDrawer').setAttribute('aria-hidden','false');}
-function closeSettings(){state.settingsOpen=false;$('settingsDrawer').classList.remove('open');$('settingsBackdrop').classList.remove('open');$('settingsDrawer').setAttribute('aria-hidden','true');}
+function openSettings(){
+  if(state.epgOpen)closeEpg();
+  state.settingsOpen=true;
+  closeChannels();
+  $('settingsDrawer').classList.add('open');
+  $('settingsBackdrop').classList.add('open');
+  $('settingsDrawer').setAttribute('aria-hidden','false');
+}
+function closeSettings(){
+  state.settingsOpen=false;
+  $('settingsDrawer').classList.remove('open');
+  $('settingsBackdrop').classList.remove('open');
+  $('settingsDrawer').setAttribute('aria-hidden','true');
+}
+function openEpg(){
+  if(state.settingsOpen)closeSettings();
+  if(state.drawerOpen)closeChannels();
+  state.epgOpen=true;
+  $('epgDrawer').classList.add('open');
+  $('epgBackdrop').classList.add('open');
+  $('epgDrawer').setAttribute('aria-hidden','false');
+  renderEpgDrawer();
+}
+function closeEpg(){
+  state.epgOpen=false;
+  $('epgDrawer').classList.remove('open');
+  $('epgBackdrop').classList.remove('open');
+  $('epgDrawer').setAttribute('aria-hidden','true');
+}
 function nextChannel(dir){
   if(!state.current||!state.filtered.length)return;
 
@@ -880,7 +1091,7 @@ function nextChannel(dir){
   const next = state.filtered[(i + dir + state.filtered.length) % state.filtered.length];
   if(next) playChannel(next);
 }
-$('openChannels').addEventListener('click',openChannels);$('barChannelsBtn').addEventListener('click',()=>state.drawerOpen?closeChannels():openChannels());$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);
+$('openChannels').addEventListener('click',openChannels);$('barChannelsBtn').addEventListener('click',()=>state.drawerOpen?closeChannels():openChannels());$('closeChannels').addEventListener('click',closeChannels);$('drawerBackdrop').addEventListener('click',closeChannels);$('openSettings').addEventListener('click',openSettings);$('closeSettings').addEventListener('click',closeSettings);$('settingsBackdrop').addEventListener('click',closeSettings);$('epgBtn').addEventListener('click',openEpg);$('closeEpg').addEventListener('click',closeEpg);$('epgBackdrop').addEventListener('click',closeEpg);
 $('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').addEventListener('click',()=>nextChannel(1));$('playPause').addEventListener('click',()=>{
   if(video.muted){
     video.muted=false;
@@ -1039,7 +1250,11 @@ async function loadUpdateStatus(){
     }
   }catch{}
 }
-loadUpdateStatus();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
+loadUpdateStatus();loadHistoryAndDiscovery();loadEpg();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
+
+window.addEventListener('online',()=>{if(state.current)setConnectionStatus('connecting','Bağlantı geri geldi');});
+window.addEventListener('offline',()=>setConnectionStatus('error','İnternet yok'));
 
 // Initial UI state
 updateFavoriteUi();
+renderSourceTrustList();
