@@ -1,3 +1,4 @@
+# MANUAL-HEALTH-SCAN-2026-10-09
 #!/usr/bin/env python3
 """Build KulakTV's playlist by merging several public M3U sources.
 
