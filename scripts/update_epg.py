@@ -227,6 +227,61 @@ def build_epg(xml_bytes: bytes, now: datetime) -> tuple[dict[str, dict[str, obje
     return result, programme_count
 
 
+def sync_pipeline_epg_status(status: str, matched_channels: int, programme_count: int, message: str = "") -> None:
+    """After EPG finishes, sync its result into the latest pipeline status/history."""
+    status_path = ROOT / "update-status.json"
+    history_path = ROOT / "update-history.json"
+
+    if status_path.exists():
+        try:
+            payload = json.loads(status_path.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                epg = payload.get("epg")
+                if not isinstance(epg, dict):
+                    epg = {}
+                epg.update({
+                    "version": 1,
+                    "status": status,
+                    "updatedAt": payload.get("updatedAt") or datetime.now(timezone.utc).isoformat(),
+                    "matchedChannels": matched_channels,
+                    "programmeCount": programme_count,
+                })
+                if message:
+                    epg["message"] = message
+                payload["epg"] = epg
+                status_path.write_text(
+                    json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+                    encoding="utf-8",
+                )
+        except Exception as exc:
+            print(f"::warning::update-status.json EPG alanı senkronize edilemedi: {exc}")
+
+    if history_path.exists():
+        try:
+            history = json.loads(history_path.read_text(encoding="utf-8"))
+            runs = history.get("runs")
+            if isinstance(runs, list) and runs:
+                latest = runs[-1]
+                if isinstance(latest, dict):
+                    epg = latest.get("epg")
+                    if not isinstance(epg, dict):
+                        epg = {}
+                    epg.update({
+                        "status": status,
+                        "matchedChannels": matched_channels,
+                        "programmeCount": programme_count,
+                    })
+                    if message:
+                        epg["message"] = message
+                    latest["epg"] = epg
+                    history_path.write_text(
+                        json.dumps(history, ensure_ascii=False, indent=2) + "\n",
+                        encoding="utf-8",
+                    )
+        except Exception as exc:
+            print(f"::warning::update-history.json EPG alanı senkronize edilemedi: {exc}")
+
+
 def save_status(status: str, fetched_at: str, matched_channels: int, programme_count: int, source: str, message: str = "") -> None:
     payload = {
         "version": 1,
@@ -264,6 +319,7 @@ def main() -> int:
         }
         EPG_PATH.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         save_status("updated", fetched_at, len(channels), programme_count, source)
+        sync_pipeline_epg_status("updated", len(channels), programme_count)
         print(f"EPG güncellendi: {len(channels)} kanal / {programme_count} program")
         return 0
     except Exception as exc:
@@ -278,7 +334,9 @@ def main() -> int:
                 json.dumps({"version": 1, "updatedAt": None, "source": EPG_SOURCE_GZIP, "channels": {}}, ensure_ascii=False) + "\n",
                 encoding="utf-8",
             )
-        save_status("error", fetched_at, len((previous or {}).get("channels", {})), 0, EPG_SOURCE_GZIP, str(exc))
+        previous_channels = len((previous or {}).get("channels", {}))
+        save_status("error", fetched_at, previous_channels, 0, EPG_SOURCE_GZIP, str(exc))
+        sync_pipeline_epg_status("error", previous_channels, 0, str(exc))
         print(f"::warning::EPG güncellenemedi, son geçerli veri korunuyor: {exc}")
         return 0
 
