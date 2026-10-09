@@ -945,7 +945,7 @@ def render_m3u(channels: list[dict[str, object]], fetched_at: str) -> str:
     lines = [
         "#EXTM3U",
         "# KulakTV multi-source playlist",
-        "# Sources: OnurEröz Türkiye + ByteFix Repairs + iptv-org Türkiye",
+        "# Sources: OnurEröz Türkiye + ByteFix Repairs + iptv-org Türkiye + discevisita + iptv-turk-tr",
         f"# Last merged: {fetched_at}",
     ]
 
