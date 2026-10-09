@@ -280,6 +280,8 @@ const state = {
   sourceName: 'KulakTV otomatik kaynak listesi',
   sourceCandidates: [], sourceIndex: -1,
   autoStarting: false,
+  playbackGeneration: 0,
+  cancelPlayback: null,
   drawerOpen: false, settingsOpen: false,
   showFavorites: false,
   activeCategory: 'all',
@@ -446,9 +448,17 @@ function setCurrentTitle(ch){
   updateNowLogo(ch);
 }
 function playChannel(ch){
-  clearError();
+  // Eski kanalın tüm timer/callback/event zincirini kesin olarak geçersiz kıl.
+  if(typeof state.cancelPlayback==='function') state.cancelPlayback();
   stopHls();
+  state.playbackGeneration += 1;
+  const generation = state.playbackGeneration;
+  const isCurrentRun = () =>
+    generation === state.playbackGeneration && state.current === ch;
+
+  clearError();
   state.current = ch;
+
   const originalCandidates = [
     ch,
     ...(ch.alternatives || []).map(url => ({...ch, url})),
@@ -457,7 +467,6 @@ function playChannel(ch){
     .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index);
 
   // Shared GitHub quality history now decides the initial source order.
-  // Unknown URLs retain their original M3U order.
   const orderedCandidates = sharedSourceQualityLoaded
     ? sortSourceCandidatesByQuality(originalCandidates)
     : originalCandidates;
@@ -484,9 +493,27 @@ function playChannel(ch){
     timers.clear();
   };
 
+  const detachVideoHandlers = () => {
+    video.onplaying = null;
+    video.onloadedmetadata = null;
+    video.onerror = null;
+    video.onwaiting = null;
+  };
+
+  const cancelPlayback = () => {
+    clearTimers();
+    detachVideoHandlers();
+    if(state.hls){
+      try{ state.hls.destroy(); }catch{}
+      state.hls=null;
+    }
+  };
+  state.cancelPlayback = cancelPlayback;
+
   const schedule = (fn, delay) => {
     const timer = setTimeout(() => {
       timers.delete(timer);
+      if(!isCurrentRun()) return;
       fn();
     }, delay);
     timers.add(timer);
@@ -494,9 +521,10 @@ function playChannel(ch){
   };
 
   const success = (url, sourceIndex) => {
-    if(settled) return;
+    if(!isCurrentRun() || settled) return;
     settled = true;
     clearTimers();
+    detachVideoHandlers();
     const latencyMs=sourceStartedAt ? performance.now()-sourceStartedAt : 0;
     recordSourceEvent(url,'success',latencyMs);
     state.sourceIndex = sourceIndex;
@@ -504,14 +532,18 @@ function playChannel(ch){
     state.autoStarting = false;
     updateSourceButton();
     mark(ch,'ok');
-    updateSourceButton();
     setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
   };
 
   const failure = (detail='Yayın açılamadı') => {
-    if(settled) return;
+    if(!isCurrentRun() || settled) return;
     clearTimers();
-    if(alternatives[attemptIndex]?.url) recordSourceEvent(alternatives[attemptIndex].url,'failure');
+    detachVideoHandlers();
+
+    if(alternatives[attemptIndex]?.url) {
+      recordSourceEvent(alternatives[attemptIndex].url,'failure');
+    }
+
     stopHls();
 
     if(attemptIndex + 1 < maxAttempts){
@@ -520,11 +552,8 @@ function playChannel(ch){
       updateSourceButton();
       setStatus(`Kaynak ${attemptIndex+1}/${maxAttempts} için hazırlanıyor…`);
 
-      // Kaynaklar arasında kısa bir nefes payı ver. Özellikle tarayıcı/HLS
-      // önceki kaynağı bırakırken yeni kaynağa hemen geçmek bazı yayınlarda
-      // yanlış negatif sonuçlara yol açabiliyor.
       schedule(() => {
-        if(settled) return;
+        if(!isCurrentRun() || settled) return;
         trySource(alternatives[attemptIndex], attemptIndex);
       }, SOURCE_SWITCH_DELAY_MS);
       return;
@@ -533,12 +562,17 @@ function playChannel(ch){
     settled = true;
     mark(ch,'bad');
     setStatus('Açılamadı');
-    showError(`${detail}. ${maxAttempts}/${maxAttempts} kaynak denendi. Diğer kaynakları "Kaynak değiştir" düğmesiyle tekrar sırayla deneyebilirsiniz.`);
+    state.cancelPlayback = null;
+    showError(`${detail}. ${maxAttempts}/${maxAttempts} kaynak denendi. Diğer kaynakları "Kaynak Listesi" düğmesiyle tekrar seçebilirsiniz.`);
   };
 
   const trySource = (candidate, sourceIndex) => {
+    if(!isCurrentRun() || settled) return;
+
     clearTimers();
+    detachVideoHandlers();
     clearError();
+
     sourceStartedAt=performance.now();
     sourceStallRecorded=false;
     state.sourceIndex = sourceIndex;
@@ -554,17 +588,14 @@ function playChannel(ch){
     let waitingAfterStart = false;
 
     const onPlaying = () => {
-      if(settled) return;
+      if(!isCurrentRun() || settled) return;
 
       started = true;
       waitingAfterStart = false;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} oynatılıyor, doğrulanıyor…`);
 
-      // "playing" tek başına yeterli kabul edilmez. Yayın 1 saniye görünüp
-      // sonra kesilebiliyorsa kaynak yanlış pozitif vermiş olur. Birkaç saniye
-      // kesintisiz oynatmayı bekleyip ancak sonra kaynağı başarılı sayıyoruz.
       schedule(() => {
-        if(settled || !started || waitingAfterStart || video.paused) {
+        if(!isCurrentRun() || settled || !started || waitingAfterStart || video.paused) {
           return;
         }
         success(candidate.url, sourceIndex);
@@ -572,10 +603,11 @@ function playChannel(ch){
     };
 
     const startPlayback = () => {
+      if(!isCurrentRun() || settled) return;
       const promise = video.play();
       if(!promise || typeof promise.catch !== 'function') return;
       promise.catch(err => {
-        if(state.autoStarting && err?.name === 'NotAllowedError'){
+        if(isCurrentRun() && state.autoStarting && err?.name === 'NotAllowedError'){
           video.muted = true;
           video.play().catch(()=>{});
         }
@@ -583,12 +615,13 @@ function playChannel(ch){
     };
 
     const onLoaded = () => {
-      if(settled) return;
+      if(!isCurrentRun() || settled) return;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
       startPlayback();
     };
 
     const onVideoError = () => {
+      if(!isCurrentRun() || settled) return;
       if(!started) {
         failure('Video kaynağı tarayıcı tarafından reddedildi');
       } else {
@@ -597,7 +630,7 @@ function playChannel(ch){
     };
 
     const onWaiting = () => {
-      if(!started || settled) return;
+      if(!isCurrentRun() || !started || settled) return;
 
       waitingAfterStart = true;
       if(!sourceStallRecorded){
@@ -607,10 +640,8 @@ function playChannel(ch){
       }
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} yeniden tamponlanıyor…`);
 
-      // Kısa buffering kabul edilebilir. Belirli süre boyunca yayın geri
-      // gelmezse kaynak kararsız kabul edilip sıradaki kaynağa geçiyoruz.
       schedule(() => {
-        if(settled || !started || !waitingAfterStart) return;
+        if(!isCurrentRun() || settled || !started || !waitingAfterStart) return;
         failure('Yayın başladıktan sonra yeterince uzun süre devam etmedi');
       }, SOURCE_STALL_GRACE_MS);
     };
@@ -621,6 +652,7 @@ function playChannel(ch){
     video.onwaiting = onWaiting;
 
     schedule(() => {
+      if(!isCurrentRun() || settled) return;
       if(!started) {
         failure(`Kaynak ${SOURCE_START_TIMEOUT_MS / 1000} saniye içinde oynatılmaya başlamadı`);
       }
@@ -647,16 +679,19 @@ function playChannel(ch){
       fragLoadingTimeOut:12000
     });
 
-    state.hls.loadSource(candidate.url);
-    state.hls.attachMedia(video);
+    const hlsInstance = state.hls;
 
-    state.hls.on(Hls.Events.MANIFEST_PARSED,()=>{
-      if(settled) return;
+    hlsInstance.loadSource(candidate.url);
+    hlsInstance.attachMedia(video);
+
+    hlsInstance.on(Hls.Events.MANIFEST_PARSED,()=>{
+      if(!isCurrentRun() || settled) return;
       setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazır, oynatılıyor…`);
       startPlayback();
     });
 
-    state.hls.on(Hls.Events.ERROR,(_e,data)=>{
+    hlsInstance.on(Hls.Events.ERROR,(_e,data)=>{
+      if(!isCurrentRun() || settled) return;
       if(data?.fatal) {
         failure(data.details || 'HLS fatal error');
       }
@@ -664,16 +699,26 @@ function playChannel(ch){
   };
 
   state._switchSource = (sourceIndex) => {
-    if(!alternatives[sourceIndex]) return;
+    if(!isCurrentRun() || !alternatives[sourceIndex]) return;
 
     clearTimers();
+    detachVideoHandlers();
     stopHls();
     settled = false;
     attemptIndex = sourceIndex;
 
-    setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} deneniyor…`);
+    // Eski kaynağın geç gelen video event'leri yeni kaynağa karışmasın.
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+
+    state.sourceIndex = sourceIndex;
+    state.currentUrl = alternatives[sourceIndex].url;
+    updateStreamActions();
+    setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} hazırlanıyor…`);
+
     schedule(() => {
-      if(settled) return;
+      if(!isCurrentRun() || settled) return;
       trySource(alternatives[sourceIndex], sourceIndex);
     }, SOURCE_SWITCH_DELAY_MS);
   };
