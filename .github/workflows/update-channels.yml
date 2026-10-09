@@ -20,6 +20,9 @@ jobs:
       - name: Repository'yi al
         uses: actions/checkout@v4
 
+      - name: Güncel main ile hizala
+        run: git pull --rebase origin main
+
       - name: Python kanal güncellemesini çalıştır
         run: python scripts/update_channels.py
 
