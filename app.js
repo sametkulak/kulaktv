@@ -405,7 +405,11 @@ function normalizeChannelName(value){
 
 function getEpgChannel(ch){
   const key=normalizeChannelName(ch?.name||'');
-  return state.epg?.channels?.[key] || null;
+  const channels=state.epg?.channels||{};
+  return channels[key]
+    || channels[key.toUpperCase()]
+    || Object.entries(channels).find(([channelKey])=>normalizeChannelName(channelKey)===key)?.[1]
+    || null;
 }
 function getCurrentProgramme(ch,at=Date.now()){
   const data=getEpgChannel(ch);
