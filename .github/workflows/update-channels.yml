@@ -8,6 +8,8 @@ on:
   push:
     paths:
       - "scripts/update_channels.py"
+      - "scripts/discover_sources.py"
+      - "scripts/update_epg.py"
 
 permissions:
   contents: write
