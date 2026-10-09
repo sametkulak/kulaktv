@@ -500,6 +500,7 @@ function playChannel(ch){
   const timers = new Set();
   let sourceStartedAt = 0;
   let sourceStallRecorded = false;
+  let runtimeStallRecorded = false;
   let activeSourceToken = 0;
 
   const clearTimers = () => {
@@ -538,7 +539,6 @@ function playChannel(ch){
     if(!isCurrentRun() || settled) return;
     settled = true;
     clearTimers();
-    detachVideoHandlers();
     const latencyMs=sourceStartedAt ? performance.now()-sourceStartedAt : 0;
     recordSourceEvent(url,'success',latencyMs);
     state.sourceIndex = sourceIndex;
@@ -603,7 +603,15 @@ function playChannel(ch){
     let waitingAfterStart = false;
 
     const onPlaying = () => {
-      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
+      if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
+
+      // Yayın başarıyla açıldıktan sonra da runtime buffering olaylarını
+      // telemetry'ye kaydet. Böylece sadece ilk 3.5 saniyeyi değil,
+      // izleme sırasındaki gerçek deneyimi de ölçeriz.
+      if(settled){
+        runtimeStallRecorded=false;
+        return;
+      }
 
       started = true;
       waitingAfterStart = false;
@@ -645,7 +653,17 @@ function playChannel(ch){
     };
 
     const onWaiting = () => {
-      if(!isCurrentRun() || sourceToken!==activeSourceToken || !started || settled) return;
+      if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
+
+      if(settled){
+        if(!runtimeStallRecorded){
+          runtimeStallRecorded=true;
+          recordSourceEvent(candidate.url,'stall');
+        }
+        return;
+      }
+
+      if(!started) return;
 
       waitingAfterStart = true;
       if(!sourceStallRecorded){
