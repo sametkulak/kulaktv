@@ -21,7 +21,7 @@ SEARCH_QUERIES = [
     "extension:m3u turkey iptv",
     "extension:m3u turk iptv",
     "extension:m3u filename:tr.m3u",
-    ""turk kanalları" m3u",
+    "\"turk kanalları\" m3u",
 ]
 MAX_RESULTS_PER_QUERY = 30
 MAX_CANDIDATES = 4
