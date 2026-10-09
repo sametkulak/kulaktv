@@ -1,4 +1,5 @@
 name: KulakTV kanal listesini güncelle
+# Günlük güncelleme pipeline testi için zararsız push tetikleyicisi.
 
 on:
   schedule:
