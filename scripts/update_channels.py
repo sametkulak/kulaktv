@@ -1254,7 +1254,13 @@ def main() -> int:
         if item[0] in active_auto_names
     ]
     selected_successful = manual_successful + selected_auto_successful
-    configured_sources = selected_successful
+    # Keep configured_sources as (name, url) pairs for status/reporting,
+    # while selected_successful retains the parsed channel payloads.
+    configured_sources = [
+        (name, resolved_url)
+        for name, resolved_url, _channels in selected_successful
+    ]
+    successful = selected_successful
 
     provider_urls: dict[str, set[str]] = {}
     provider_names_by_url: dict[str, list[str]] = {}
