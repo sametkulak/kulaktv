@@ -19,9 +19,6 @@ concurrency:
 
 jobs:
   update:
-    if: >
-      github.event_name != 'workflow_run' ||
-      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
 
     steps:
@@ -70,20 +67,16 @@ jobs:
           from pathlib import Path
           required = [
               "update-status.json", "source-quality.json", "health-state.json",
-              "epg.json", "epg-status.json", "discovered-sources.json",
-              "update-history.json",
+              "epg.json", "epg-status.json", "update-history.json",
           ]
           for filename in required:
               payload = json.loads(Path(filename).read_text(encoding="utf-8"))
               if not isinstance(payload, dict):
                   raise SystemExit(f"{filename} JSON nesnesi değil.")
           epg = json.loads(Path("epg.json").read_text(encoding="utf-8"))
-          discovery = json.loads(Path("discovered-sources.json").read_text(encoding="utf-8"))
           history = json.loads(Path("update-history.json").read_text(encoding="utf-8"))
           if not isinstance(epg.get("channels"), dict):
               raise SystemExit("epg.json channels alanı geçersiz.")
-          if not isinstance(discovery.get("candidates"), list):
-              raise SystemExit("discovered-sources.json candidates alanı geçersiz.")
           if not isinstance(history.get("runs"), list):
               raise SystemExit("update-history.json runs alanı geçersiz.")
           print("JSON çıktıları doğrulandı.")
@@ -102,7 +95,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Kanal listesinde değişiklik yok."
           else
-            git commit -m "chore: multi-source kanal listesi otomatik güncelleme"
+            git commit -m "chore: stable fixed-source kanal listesi güncelleme"
             git pull --rebase --autostash origin main
             git push
           fi
