@@ -1,17 +1,10 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T08:44:34.735516+00:00",
-  "channelCount": 400,
-  "sourceCount": 5,
+  "updatedAt": "2026-10-09T08:47:53.315411+00:00",
+  "channelCount": 310,
+  "sourceCount": 4,
   "changed": true,
   "sources": [
-    {
-      "name": "OnurEröz Türkiye",
-      "url": "https://onureroz.com/indirmeler/turk/index.m3u",
-      "resolvedUrl": "https://onureroz.com/indirmeler/turk/index.m3u",
-      "channelCount": 413,
-      "status": "ok"
-    },
     {
       "name": "ByteFix Repairs",
       "url": "https://tinyurl.com/ByteFixRepairs2026",
@@ -39,25 +32,30 @@
       "resolvedUrl": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
       "channelCount": 181,
       "status": "ok"
+    },
+    {
+      "name": "OnurEröz Türkiye",
+      "url": "https://onureroz.com/indirmeler/turk/index.m3u",
+      "error": "HTTP Error 415: Unsupported Media Type"
     }
   ],
-  "logosFilled": 16,
+  "logosFilled": 6,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 610,
-    "healthyUrls": 375,
-    "failedUrls": 235,
+    "checkedUrls": 384,
+    "healthyUrls": 271,
+    "failedUrls": 113,
     "failures": [
       {
-        "channel": "TRT1",
-        "url": "http://176.65.146.171:9981/stream/channelid/838617424?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+        "channel": "ATV",
+        "url": "http://116.202.238.88/ATV_TR/tracks-v1a1/index.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
-        "channel": "TRT1",
-        "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+        "channel": "Star TV",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "NOW TV",
@@ -65,139 +63,139 @@
         "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
-        "channel": "TV 8",
-        "url": "https://x.canlitvapp.com/kanal8/index.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+        "channel": "TV8 5",
+        "url": "https://tv8.daioncdn.net/tv8bucuk/tv8bucuk.m3u8?app=tv8bucuk_web",
+        "detail": "('İki testte de başarısız • HTTP Error 401: Unauthorized',)"
       },
       {
-        "channel": "TV 8",
-        "url": "https://trn03.tulix.tv/gt-tv8-tv/tracks-v1a1/mono.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1633",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "https://bcovlive-a.akamaihd.net/ccee7091e86040d18e14cd0efef2a51b/eu-central-1/6415845530001/profile_0/chunklist.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 503: Service Unavailable',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "https://goldvod.org/tv/uyanik?id=8&extension=m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://tv.smartglwiz.workers.dev/?ID=Now_HD",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "https://goldvod.org/live/hpgdiscoo/123456/521.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=3",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
-      },
-      {
-        "channel": "KANAL D",
-        "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "KANAL D",
-        "url": "http://176.65.146.171:9981/stream/channelid/23410162?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "KANAL D",
-        "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "http://176.65.146.104:9981/stream/channelid/518299962",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
-        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
+        "channel": "Kanal 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
         "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
       },
       {
-        "channel": "KANAL 7",
-        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
-      },
-      {
-        "channel": "KANAL 7",
+        "channel": "Kanal 7",
         "url": "https://kanal7.blutv.com/blutv_kanal7_live/live.m3u8",
         "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7.blutv.com'. (_ssl.c:1000)>\",)"
       },
       {
-        "channel": "TV100",
-        "url": "https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+        "channel": "TGRT Haber",
+        "url": "https://b01c02nl.mediatriple.net/videoonlylive/mtsxxkzwwuqtglive/broadcast_5fe4598be8e5d.smil/playlist.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
-        "channel": "TV100",
-        "url": "https://tv100.daioncdn.net/tv100/tv100_1080p.m3u8?app=web",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "BEYAZ TV",
-        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1632",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
-      },
-      {
-        "channel": "BEYAZ TV",
+        "channel": "Beyaz TV",
         "url": "https://mn-nl.mncdn.com/blutv_beyaztv2/live.m3u8",
         "detail": "('İki testte de başarısız • Remote end closed connection without response',)"
       },
       {
-        "channel": "TRT HABER",
-        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1636",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
+        "channel": "ULKE TV",
+        "url": "http://217.174.229.138:8000/play/a0el",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
       {
-        "channel": "HABERTURK",
-        "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
+        "channel": "TVNET",
+        "url": "https://tvnet-live.lg.mncdn.com/tvnet/tvnet/playlist.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "TVNET",
+        "url": "https://mn-nl.mncdn.com/tvnet/tvnet/playlist.m3u8",
+        "detail": "('İki testte de başarısız • Remote end closed connection without response',)"
+      },
+      {
+        "channel": "CNBC-E",
+        "url": "https://raw.githubusercontent.com/tecotv2025/tecotv/refs/heads/main/playlist/CNBC_E.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "Benguturk TV",
+        "url": "http://185.234.111.229:8000/play/a05u",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "Bloomberg HT",
+        "url": "https://ciner-live.daioncdn.net/bloomberght/bloomberght.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "Guneydogu TV",
+        "url": "https://edge1.socialsmart.tv/gtv/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "TürkHaber",
+        "url": "https://edge1.socialsmart.tv/turkhaber/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "TRT Belgesel",
+        "url": "https://tv-trtbelgesel.medya.trt.com.tr/master.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "TRT Belgesel",
+        "url": "http://hls127.freeott.top:8080/TRT_BELGESEL_TR/video.m3u8",
+        "detail": "('İki testte de başarısız • timed out',)"
+      },
+      {
+        "channel": "TRT Belgesel",
+        "url": "http://tv-trtbelgesel.medya.trt.com.tr/master.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "GZT",
+        "url": "https://gzttv-live.lg.mncdn.com/gzttv/gzttv/playlist.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "GZT",
+        "url": "https://mn-nl.mncdn.com/gzttv/gzttv/playlist.m3u8",
+        "detail": "('İki testte de başarısız • Remote end closed connection without response',)"
+      },
+      {
+        "channel": "TRT 2",
+        "url": "https://tv-trt2.medya.trt.com.tr/master.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "TRT 2",
+        "url": "https://tv-trt2.medya.trt.com.tr/master_720.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "Meltem TV",
+        "url": "https://vhxyrsly.rocketcdn.com/meltemtv/playlist.m3u8",
+        "detail": "('İki testte de başarısız • response is not a valid M3U8 manifest',)"
+      },
+      {
+        "channel": "Kanal Urfa",
+        "url": "https://edge1.socialsmart.tv/kanalurfa/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "Metropol TV",
+        "url": "https://edge1.socialsmart.tv/metropoltv/smil/metropoltv/bant1/chunks.m3u8?app=supersatforum",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "Fortuna TV",
+        "url": "https://edge1.socialsmart.tv/ftvturk/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "ETV Manisa",
+        "url": "https://edge1.socialsmart.tv/manisaetv/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
+      },
+      {
+        "channel": "Hunat TV",
+        "url": "https://59cba4d34b678.streamlock.net/canlitv/hunattv/playlist.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "Icel TV",
+        "url": "https://edge1.socialsmart.tv/iceltv/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1000)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
