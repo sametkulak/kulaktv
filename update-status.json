@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-09T15:22:18.097820+00:00",
+  "updatedAt": "2026-10-10T09:54:56.850306+00:00",
   "channelCount": 410,
   "sourceCount": 8,
   "changed": true,
@@ -92,8 +92,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 675,
-    "healthyUrls": 377,
-    "failedUrls": 298,
+    "healthyUrls": 374,
+    "failedUrls": 301,
     "failures": [
       {
         "channel": "TRT1",
@@ -254,10 +254,10 @@
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-09T15:22:18.097820+00:00",
+    "updatedAt": "2026-10-10T09:54:56.850306+00:00",
     "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
     "matchedChannels": 93,
-    "programmeCount": 775
+    "programmeCount": 1393
   },
   "changes": {
     "channelDelta": 0,
