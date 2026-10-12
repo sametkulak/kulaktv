@@ -305,6 +305,7 @@ const state = {
   sourceName: 'KulakTV kaynak listesi',
   sourceCandidates: [], sourceIndex: -1,
   autoStarting: false,
+  autoplayMuted: false,
   playbackGeneration: 0,
   cancelPlayback: null,
   drawerOpen: false, settingsOpen: false, adminAuthenticated: false,
@@ -365,6 +366,31 @@ function dedupeChannels(channels){ const seen=new Set(); return channels.filter(
 function updateBarState(){
   const active = Boolean(state.current && !video.paused);
   $('playPause').textContent = active ? '❚❚' : '▶';
+}
+function updateVolumeButton(){
+  const btn=$('volumeToggle');
+  if(!btn)return;
+  const muted=Boolean(video.muted);
+  btn.textContent=muted?'🔇':'🔊';
+  btn.setAttribute('aria-label',muted?'Sesi aç':'Sesi kapat');
+  btn.title=muted?'Sesi aç':'Sesi kapat';
+  btn.classList.toggle('volume-on',!muted);
+}
+function unmuteFromUserGesture(){
+  video.muted=false;
+  video.volume=1;
+  state.autoplayMuted=false;
+  updateVolumeButton();
+  const promise=video.play();
+  if(promise&&typeof promise.catch==='function'){
+    promise.catch(()=>{
+      video.muted=true;
+      state.autoplayMuted=true;
+      updateVolumeButton();
+      showError('Tarayıcı sesi açmaya izin vermedi. Bir kez daha Ses düğmesine basmayı deneyin.');
+      setTimeout(clearError,3200);
+    });
+  }
 }
 function updateMediaSession(ch){
   if(!('mediaSession' in navigator) || !navigator.mediaSession) return;
@@ -899,6 +925,14 @@ function playChannel(ch){
     video.removeAttribute('src');
     video.load();
 
+    // Normal niyet: yayın sesli başlasın. Tarayıcı otomatik ses politikasını
+    // engellerse startPlayback() güvenli biçimde sessize düşürür ve Ses düğmesi
+    // kullanıcı etkileşimiyle tekrar açılabilir.
+    video.muted=false;
+    video.volume=1;
+    state.autoplayMuted=false;
+    updateVolumeButton();
+
     let started = false;
     let waitingAfterStart = false;
 
@@ -935,7 +969,13 @@ function playChannel(ch){
       if(!promise || typeof promise.catch !== 'function') return;
       promise.catch(err => {
         if(isCurrentRun() && state.autoStarting && err?.name === 'NotAllowedError'){
+          // Chrome/Edge gibi tarayıcılar kullanıcı etkileşimi olmadan sesli
+          // autoplay'i engelleyebilir. Görüntüyü sessiz oynat, fakat kullanıcıya
+          // görünür Ses düğmesi bırak.
           video.muted = true;
+          state.autoplayMuted = true;
+          updateVolumeButton();
+          setStatus('Canlı • Sesi açmak için 🔊');
           video.play().catch(()=>{});
         }
       });
@@ -1351,11 +1391,19 @@ $('prevChannel').addEventListener('click',()=>nextChannel(-1));$('nextChannel').
 
 $('playPause').addEventListener('click',()=>{
   if(video.muted){
-    video.muted=false;
-    video.play().catch(()=>{});
+    unmuteFromUserGesture();
     return;
   }
   if(video.paused)video.play().catch(()=>{});else video.pause();
+});
+$('volumeToggle').addEventListener('click',()=>{
+  if(video.muted){
+    unmuteFromUserGesture();
+  }else{
+    video.muted=true;
+    state.autoplayMuted=false;
+    updateVolumeButton();
+  }
 });
 let fullscreenControlsTimer=null;
 function isDesktopFullscreen(){
@@ -1496,6 +1544,8 @@ video.addEventListener('pause',()=>{
   setMediaSessionPlaybackState('paused');
   updateBarState();
 });
+video.addEventListener('volumechange',updateVolumeButton);
+updateVolumeButton();
 $('search').addEventListener('input',applyFilters);
 $('allChannelsTab').addEventListener('click',()=>{state.showFavorites=false;applyFilters();});
 $('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});$('clearFavoritesBtn').addEventListener('click',clearFavorites);
