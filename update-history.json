@@ -1187,6 +1187,44 @@
         "addedChannels": [],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-12T10:56:34.430995+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 10,
+      "channelCount": 287,
+      "logosFilled": 5,
+      "health": {
+        "checked": 509,
+        "healthy": 341,
+        "failed": 168,
+        "ratio": 0.67
+      },
+      "providers": {
+        "ByteFix Repairs": 80,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 72
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 1028
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 1,
+        "removedCount": 0,
+        "addedChannels": [
+          "TRT Cocuk"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
