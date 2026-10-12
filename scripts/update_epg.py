@@ -52,6 +52,23 @@ EPG_TIMEOUT = 30
 EPG_WINDOW_HOURS = 72
 EPG_PAST_GRACE_MINUTES = 90
 
+# EPG guardrails: a temporary upstream failure must not replace a healthy guide
+# with a nearly empty or structurally broken dataset.
+EPG_MIN_CHANNEL_RETENTION_RATIO = 0.50
+EPG_MIN_PROGRAM_RETENTION_RATIO = 0.40
+EPG_REQUIRED_CHANNELS = (
+    "TRT 1",
+    "ATV",
+    "KANAL D",
+    "STAR TV",
+    "SHOW TV",
+    "NOW",
+    "TV8",
+    "A HABER",
+)
+
+
+
 
 # Türksat'ın resmi EPG JSON uç noktası GitHub-hosted runner üzerinde sertifika
 # zinciri doğrulama hatası verebiliyor. TLS doğrulaması varsayılan olarak açık
@@ -527,6 +544,68 @@ def build_epg(xml_bytes: bytes, now: datetime) -> tuple[dict[str, dict[str, obje
     return result, programme_count
 
 
+def validate_epg_guardrails(
+    current_channels: dict[str, dict[str, object]],
+    previous_payload: dict[str, object] | None,
+) -> None:
+    previous_channels = {}
+    if isinstance(previous_payload, dict):
+        raw = previous_payload.get("channels")
+        if isinstance(raw, dict):
+            previous_channels = raw
+
+    if not previous_channels:
+        return
+
+    current_count = len(current_channels)
+    previous_count = len(previous_channels)
+
+    current_program_count = sum(
+        len(value.get("programs", []))
+        for value in current_channels.values()
+        if isinstance(value, dict) and isinstance(value.get("programs"), list)
+    )
+    previous_program_count = sum(
+        len(value.get("programs", []))
+        for value in previous_channels.values()
+        if isinstance(value, dict) and isinstance(value.get("programs"), list)
+    )
+
+    if previous_count >= 10 and current_count < previous_count * EPG_MIN_CHANNEL_RETENTION_RATIO:
+        raise RuntimeError(
+            f"EPG kanal sayısı anormal düştü: {previous_count} -> {current_count}. "
+            "Son geçerli EPG korunuyor."
+        )
+
+    if previous_program_count >= 50 and current_program_count < previous_program_count * EPG_MIN_PROGRAM_RETENTION_RATIO:
+        raise RuntimeError(
+            f"EPG program sayısı anormal düştü: {previous_program_count} -> {current_program_count}. "
+            "Son geçerli EPG korunuyor."
+        )
+
+    def normalize_names(names: object) -> set[str]:
+        if not isinstance(names, dict):
+            return set()
+        return {normalize(str(value.get("name") or key)) for key, value in names.items() if isinstance(value, dict)}
+
+    required_present = sum(
+        1
+        for name in EPG_REQUIRED_CHANNELS
+        if normalize(name) in normalize_names(current_channels)
+    )
+    required_previous = sum(
+        1
+        for name in EPG_REQUIRED_CHANNELS
+        if normalize(name) in normalize_names(previous_channels)
+    )
+
+    if required_previous >= 5 and required_present < 5:
+        raise RuntimeError(
+            f"EPG ana kanal koruma kontrolü başarısız: {required_present}/"
+            f"{len(EPG_REQUIRED_CHANNELS)} ana kanal mevcut. Son geçerli EPG korunuyor."
+        )
+
+
 def sync_pipeline_epg_status(status: str, matched_channels: int, programme_count: int, message: str = "") -> None:
     """After EPG finishes, sync its result into the latest pipeline status/history."""
     status_path = ROOT / "update-status.json"
@@ -673,6 +752,15 @@ def main() -> int:
                 f"EPG verisi geçerli görünmüyor: {len(merged_channels)} eşleşen kanal, "
                 f"{merged_programme_count} program."
             )
+
+        previous_payload = None
+        if EPG_PATH.exists():
+            try:
+                previous_payload = json.loads(EPG_PATH.read_text(encoding="utf-8"))
+            except Exception:
+                previous_payload = None
+
+        validate_epg_guardrails(merged_channels, previous_payload)
 
         payload = {
             "version": 1,
