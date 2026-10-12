@@ -42,15 +42,13 @@ SOURCES = [
     ("rideordie16/tv", "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u"),
     ("qazim/IPTV", "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u"),
     ("ilyswch/IPTV-TR", "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u"),
-    ("UzunMuhalefet Türkiye", "https://streams.uzunmuhalefet.com/lists/tr.m3u"),
     ("dearbulut Türkiye", "https://dearbulut.github.io/iptv/playlists/language/tur.m3u"),
 ]
 
-# Bu iki ek kaynak ülke bazlı büyük listeler olduğu için yalnızca TV yayınları
+# Bu ek kaynak ülke bazlı büyük bir liste olduğu için yalnızca TV yayınları
 # içeri alınır. Radyo, podcast, webcam/kamera ve yetişkin içerikleri elenir;
 # ardından normal health-check + kalite sıralaması uygulanır.
 FILTERED_TURKISH_SOURCES = {
-    "UzunMuhalefet Türkiye",
     "dearbulut Türkiye",
 }
 
