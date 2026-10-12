@@ -566,10 +566,15 @@ def main() -> int:
         total_programme_count = 0
 
         try:
-            for data, actual_date, source in fetch_turksat_json():
+            turksat_items = fetch_turksat_json()
+            for data, actual_date, source in turksat_items:
                 channels, programme_count = build_epg_from_turksat(data, actual_date)
                 source_names.append(source)
                 total_programme_count += programme_count
+                print(
+                    f"Türksat EPG alındı: {source} / "
+                    f"{len(channels)} kanal / {programme_count} program"
+                )
                 for key, bucket in channels.items():
                     target = merged_channels.setdefault(
                         key, {"name": bucket.get("name", key), "programs": []}
