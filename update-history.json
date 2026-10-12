@@ -1405,6 +1405,50 @@
           "TOKAT TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-12T14:33:42.595629+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 289,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 386,
+        "failed": 300,
+        "ratio": 0.563
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 80,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 64,
+        "programmeCount": 2061
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 3,
+        "removedCount": 2,
+        "addedChannels": [
+          "TRT 2",
+          "TELE 1",
+          "TV Den"
+        ],
+        "removedChannels": [
+          "CNN TURK",
+          "TVNET"
+        ]
+      }
     }
   ]
 }
