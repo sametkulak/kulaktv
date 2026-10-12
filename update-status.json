@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-12T11:01:40.374713+00:00",
-  "channelCount": 330,
+  "updatedAt": "2026-10-12T11:41:29.055533+00:00",
+  "channelCount": 289,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 10,
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 89,
+      "trustScore": 90,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 92,
+      "trustScore": 93,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -224,6 +224,11 @@
       },
       {
         "channel": "SHOW TV HD",
+        "url": "https://vavoo.ahkm.workers.dev/?ID=3537232978db7b25368a4b",
+        "detail": "('İki testte de başarısız • timed out',)"
+      },
+      {
+        "channel": "SHOW TV HD",
         "url": "https://ciner-live.daioncdn.net/showtv/showtv_1080p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
@@ -281,32 +286,27 @@
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
         "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 44,
-    "removedAfterTwoFailures": 83
+    "pendingRemoval": 3,
+    "removedAfterTwoFailures": 124
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-12T11:01:40.374713+00:00",
-    "sourceUrl": "https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 77,
-    "programmeCount": 2401
+    "updatedAt": "2026-10-12T11:41:29.055533+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/12.json,https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 65,
+    "programmeCount": 2084
   },
   "changes": {
-    "channelDelta": 43,
-    "addedCount": 43,
-    "removedCount": 0,
-    "addedChannels": [
-      "TELE 1",
+    "channelDelta": -41,
+    "addedCount": 0,
+    "removedCount": 41,
+    "addedChannels": [],
+    "removedChannels": [
       "KANAL B",
       "MUGLA TÜRK TV",
       "TARIM TV",
@@ -319,9 +319,7 @@
       "VTV TÜRK",
       "PAZARCIK TV",
       "FiNEST TV",
-      "SAGLIK CHANEL",
       "5 OCAK TV",
-      "BRÜKSEL TÜRK",
       "ÖNDE TV",
       "ANADOLUM TV",
       "SiNEMA TV",
@@ -335,9 +333,11 @@
       "SiNEMA Aksiyon",
       "SiNEMA Aksiyon 2",
       "SiNEMA 1001",
-      "SiNEMA 1002"
-    ],
-    "removedChannels": []
+      "SiNEMA 1002",
+      "TH TURK HABER TV",
+      "SLOW KARADENIZ TV",
+      "TiViTURK"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }

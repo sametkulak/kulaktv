@@ -1293,6 +1293,74 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-12T11:41:29.055533+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 289,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 398,
+        "failed": 288,
+        "ratio": 0.58
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 80,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 72
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 2084
+      },
+      "changes": {
+        "channelDelta": -41,
+        "addedCount": 0,
+        "removedCount": 41,
+        "addedChannels": [],
+        "removedChannels": [
+          "KANAL B",
+          "MUGLA TÜRK TV",
+          "TARIM TV",
+          "TÜRK KLİNİKLERİ TV",
+          "TV 25",
+          "TV 48",
+          "TV A",
+          "VAN GOLU TV",
+          "VRT",
+          "VTV TÜRK",
+          "PAZARCIK TV",
+          "FiNEST TV",
+          "5 OCAK TV",
+          "ÖNDE TV",
+          "ANADOLUM TV",
+          "SiNEMA TV",
+          "SiNEMA TV 2",
+          "SiNEMA Yerli",
+          "SiNEMA Yerli 2",
+          "SiNEMA Aile",
+          "SiNEMA Aile 2",
+          "SiNEMA Komedi",
+          "SiNEMA Komedi 2",
+          "SiNEMA Aksiyon",
+          "SiNEMA Aksiyon 2",
+          "SiNEMA 1001",
+          "SiNEMA 1002",
+          "TH TURK HABER TV",
+          "SLOW KARADENIZ TV",
+          "TiViTURK"
+        ]
+      }
     }
   ]
 }
