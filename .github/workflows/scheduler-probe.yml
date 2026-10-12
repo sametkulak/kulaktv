@@ -1,0 +1,22 @@
+name: KulakTV scheduler test
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+      timezone: "Europe/Istanbul"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scheduler bilgisini yaz
+        run: |
+          echo "Scheduler çalıştı."
+          echo "event_name=${{ github.event_name }}"
+          echo "schedule=${{ github.event.schedule }}"
+          echo "ref=${{ github.ref }}"
+          echo "sha=${{ github.sha }}"
