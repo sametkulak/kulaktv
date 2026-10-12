@@ -1361,6 +1361,50 @@
           "TiViTURK"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-12T11:52:51.724929+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 288,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 391,
+        "failed": 295,
+        "ratio": 0.57
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 80,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 91,
+        "ilyswch/IPTV-TR": 94,
+        "dearbulut Türkiye": 72
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 64,
+        "programmeCount": 2044
+      },
+      "changes": {
+        "channelDelta": -1,
+        "addedCount": 2,
+        "removedCount": 3,
+        "addedChannels": [
+          "Number 1 Turk",
+          "TRT Genc (1440p)"
+        ],
+        "removedChannels": [
+          "TRT 2",
+          "TELE 1",
+          "TOKAT TV"
+        ]
+      }
     }
   ]
 }
