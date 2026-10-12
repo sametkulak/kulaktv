@@ -67,6 +67,11 @@ EPG_REQUIRED_CHANNELS = (
     "A HABER",
 )
 
+class EPGGuardrailError(RuntimeError):
+    """Raised when a fresh EPG dataset is suspicious and must not be published."""
+
+
+
 
 
 
@@ -572,13 +577,13 @@ def validate_epg_guardrails(
     )
 
     if previous_count >= 10 and current_count < previous_count * EPG_MIN_CHANNEL_RETENTION_RATIO:
-        raise RuntimeError(
+        raise EPGGuardrailError(
             f"EPG kanal sayısı anormal düştü: {previous_count} -> {current_count}. "
             "Son geçerli EPG korunuyor."
         )
 
     if previous_program_count >= 50 and current_program_count < previous_program_count * EPG_MIN_PROGRAM_RETENTION_RATIO:
-        raise RuntimeError(
+        raise EPGGuardrailError(
             f"EPG program sayısı anormal düştü: {previous_program_count} -> {current_program_count}. "
             "Son geçerli EPG korunuyor."
         )
@@ -600,7 +605,7 @@ def validate_epg_guardrails(
     )
 
     if required_previous >= 5 and required_present < 5:
-        raise RuntimeError(
+        raise EPGGuardrailError(
             f"EPG ana kanal koruma kontrolü başarısız: {required_present}/"
             f"{len(EPG_REQUIRED_CHANNELS)} ana kanal mevcut. Son geçerli EPG korunuyor."
         )
@@ -790,6 +795,29 @@ def main() -> int:
             f"{merged_programme_count} program / {len(source_names)} kaynak"
         )
         return 0
+    except EPGGuardrailError as exc:
+        save_status(
+            "guardrail_blocked",
+            fetched_at,
+            len(
+                (json.loads(EPG_PATH.read_text(encoding="utf-8")).get("channels", {}))
+                if EPG_PATH.exists()
+                else {}
+            ),
+            0,
+            ",".join(
+                json.loads(EPG_PATH.read_text(encoding="utf-8")).get("source", [])
+                if EPG_PATH.exists()
+                and isinstance(json.loads(EPG_PATH.read_text(encoding="utf-8")).get("source", []), list)
+                else []
+            )
+            if EPG_PATH.exists()
+            else "",
+            str(exc),
+        )
+        print(f"::error::EPG güvenlik koruması devreye girdi: {exc}")
+        return 1
+
     except Exception as exc:
         previous = None
         if EPG_PATH.exists():
