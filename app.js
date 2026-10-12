@@ -1523,9 +1523,13 @@ document.addEventListener('keydown',()=>{
   if(document.fullscreenElement && isDesktopFullscreen()) scheduleFullscreenControlsHide();
 });
 updateFullscreenButton();
+resetTransientDrawers();
 window.addEventListener('pageshow',resetTransientDrawers);
 window.addEventListener('resize',()=>{
+  // Masaüstü <-> mobil/rotasyon geçişinde açık drawer'ları kapat.
   if(state.epgOpen) closeEpg();
+  if(state.settingsOpen) closeSettings();
+  if(state.drawerOpen) closeChannels();
 });
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape' && state.epgOpen) closeEpg();
