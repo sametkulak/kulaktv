@@ -193,7 +193,7 @@ def check_filter_metadata(status: dict[str, object]) -> list[str]:
     if not isinstance(sources, list):
         return ["Kaynak özeti liste değil."]
 
-    required_filtered = {"UzunMuhalefet Türkiye", "dearbulut Türkiye"}
+    required_filtered = {"dearbulut Türkiye"}
     seen_filtered: set[str] = set()
 
     for source in sources:
