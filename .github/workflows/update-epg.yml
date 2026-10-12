@@ -1,10 +1,8 @@
 name: KulakTV EPG yenileme
 
 on:
-  schedule:
-    # EPG'yi günde 4 kez yenile: Türkiye saatiyle yaklaşık 00:15, 06:15, 12:15, 18:15.
-    # GitHub Actions cron UTC kullandığı için saatler 21:15, 03:15, 09:15, 15:15 UTC'dir.
-    - cron: "15 21,3,9,15 * * *"
+  # Daily EPG is produced by update-channels.yml.
+  # Keep this workflow manual for on-demand EPG refreshes.
   workflow_dispatch:
   push:
     paths:
