@@ -627,15 +627,10 @@ def main() -> int:
                     if not isinstance(target_programs, list) or not isinstance(source_programs, list):
                         continue
                     for item in source_programs:
-                        if any(
-                            isinstance(existing, dict)
-                            and existing.get("start") == item.get("start")
-                            and existing.get("title") == item.get("title")
-                            for existing in target_programs
-                        ):
+                        if not isinstance(item, dict):
                             continue
                         if len(target_programs) < 40:
-                            target_programs.append(item)
+                            append_epg_program(target_programs, item)
         except Exception as exc:
             print(f"::warning::Doğrudan Türksat EPG alınamadı, XMLTV kaynaklarına geçiliyor: {exc}")
 
