@@ -753,7 +753,19 @@ function playChannel(ch){
     ...(ch.alternatives || []).map(url => ({...ch, url})),
     ...getAlternativeChannels(ch)
   ]
-    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index);
+    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index)
+    // GitHub Pages is HTTPS. Browsers block HTTP media as mixed content, so
+    // there is no value in spending retry time on candidates the browser
+    // cannot legally load. Keep HTTP sources for non-HTTPS deployments.
+    .filter(item => {
+      try{
+        const pageProtocol = window.location.protocol;
+        const sourceProtocol = new URL(item.url, window.location.href).protocol;
+        return !(pageProtocol === 'https:' && sourceProtocol === 'http:');
+      }catch{
+        return false;
+      }
+    });
 
   // Shared GitHub quality history now decides the initial source order.
   const orderedCandidates = sharedSourceQualityLoaded
