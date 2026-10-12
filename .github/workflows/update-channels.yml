@@ -3,9 +3,10 @@ name: KulakTV kanal listesini güncelle
 
 on:
   schedule:
-    # GEÇİCİ TEST: bugün 15:45 Türkiye saati.
-    # Europe/Istanbul ile doğrudan Türkiye saatini kullanıyoruz.
-    - cron: "45 15 * * *"
+    # GEÇİCİ SCHEDULER TESTİ: her 5 dakikada bir çalışır.
+    # GitHub'ın timezone destekli cron'u ile Europe/Istanbul kullanıyoruz.
+    # Test başarılı olduktan sonra tekrar günlük 15:15'e döndürülecek.
+    - cron: "*/5 * * * *"
       timezone: "Europe/Istanbul"
   workflow_dispatch:
   push:
