@@ -1491,6 +1491,45 @@
           "Number 1 Turk"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-12T14:50:51.327984+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 286,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 386,
+        "failed": 300,
+        "ratio": 0.563
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 80,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 62,
+        "programmeCount": 1981
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 1,
+        "removedCount": 0,
+        "addedChannels": [
+          "Number 1 Turk"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
