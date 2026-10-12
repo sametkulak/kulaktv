@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-12T14:33:42.595629+00:00",
-  "channelCount": 289,
+  "updatedAt": "2026-10-12T14:45:28.030640+00:00",
+  "channelCount": 285,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 89,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 93,
+      "trustScore": 92,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -129,8 +129,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 686,
-    "healthyUrls": 386,
-    "failedUrls": 300,
+    "healthyUrls": 382,
+    "failedUrls": 304,
     "failures": [
       {
         "channel": "TRT1",
@@ -234,11 +234,6 @@
       },
       {
         "channel": "SHOW TV HD",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=3537232978db7b25368a4b",
-        "detail": "('İki testte de başarısız • timed out',)"
-      },
-      {
-        "channel": "SHOW TV HD",
         "url": "https://ciner-live.daioncdn.net/showtv/showtv_1080p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
@@ -281,33 +276,36 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 4,
-    "removedAfterTwoFailures": 124
+    "pendingRemoval": 1,
+    "removedAfterTwoFailures": 128
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-12T14:33:42.595629+00:00",
+    "updatedAt": "2026-10-12T14:45:28.030640+00:00",
     "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/12.json,https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 64,
-    "programmeCount": 2061
+    "matchedChannels": 62,
+    "programmeCount": 1981
   },
   "changes": {
-    "channelDelta": 1,
-    "addedCount": 3,
-    "removedCount": 2,
-    "addedChannels": [
-      "TRT 2",
-      "TELE 1",
-      "TV Den"
-    ],
+    "channelDelta": -4,
+    "addedCount": 0,
+    "removedCount": 4,
+    "addedChannels": [],
     "removedChannels": [
-      "CNN TURK",
-      "TVNET"
+      "TRT SPOR YILDIZ",
+      "TRT COCUK",
+      "TRT 4K",
+      "Number 1 Turk"
     ]
   },
   "message": "Multi-source playlist merged successfully."

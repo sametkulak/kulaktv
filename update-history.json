@@ -1449,6 +1449,48 @@
           "TVNET"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-12T14:45:28.030640+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 285,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 382,
+        "failed": 304,
+        "ratio": 0.557
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 80,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 62,
+        "programmeCount": 1981
+      },
+      "changes": {
+        "channelDelta": -4,
+        "addedCount": 0,
+        "removedCount": 4,
+        "addedChannels": [],
+        "removedChannels": [
+          "TRT SPOR YILDIZ",
+          "TRT COCUK",
+          "TRT 4K",
+          "Number 1 Turk"
+        ]
+      }
     }
   ]
 }
