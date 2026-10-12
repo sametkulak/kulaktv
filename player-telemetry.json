@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "updatedAt": null,
+  "totalEvents": 0,
+  "sessions": 0,
+  "sources": {},
+  "clients": {
+    "devices": {},
+    "browsers": {},
+    "connections": {}
+  },
+  "processedCommentIds": []
+}

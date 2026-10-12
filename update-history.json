@@ -1,0 +1,1155 @@
+{
+  "version": 1,
+  "retentionRuns": 180,
+  "runs": [
+    {
+      "updatedAt": "2026-10-09T10:53:54.451151+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 395,
+        "failed": 280,
+        "ratio": 0.585
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "error",
+        "matchedChannels": 0,
+        "programmeCount": 0
+      },
+      "discovery": {
+        "candidateCount": 0,
+        "activeAutoSources": 0
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T10:59:27.684433+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 391,
+        "failed": 284,
+        "ratio": 0.579
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 1281
+      },
+      "discovery": {
+        "candidateCount": 0,
+        "activeAutoSources": 0
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T13:29:35.703844+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 392,
+        "failed": 283,
+        "ratio": 0.581
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 996
+      },
+      "discovery": {
+        "candidateCount": 0,
+        "activeAutoSources": 0
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T14:12:42.571729+00:00",
+      "status": "updated",
+      "sourceCount": 12,
+      "configuredSourceCount": 12,
+      "autoSourceCount": 4,
+      "channelCount": 11375,
+      "logosFilled": 15,
+      "health": {
+        "checked": 12108,
+        "healthy": 554,
+        "failed": 441,
+        "ratio": 0.046
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 87,
+        "ilyswch/IPTV-TR": 91,
+        "auto:chapkazi25-web/iptv-m3u:playlists/all.m3u": 40,
+        "auto:chapkazi25-web/iptv-m3u:playlists/sources/iptv-org.m3u": 26,
+        "auto:doms9/iptv:M3U8/base.m3u8": 43,
+        "auto:hujingguang/ChinaIPTV:Global.m3u8": 25
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 910
+      },
+      "discovery": {
+        "candidateCount": 4,
+        "activeAutoSources": 0
+      },
+      "changes": {
+        "channelDelta": 10965,
+        "addedCount": 10965,
+        "removedCount": 0,
+        "addedChannels": [
+          "TV5 (1080p)",
+          "Real America's Voice",
+          "10 Bold",
+          "A&E",
+          "ABC Kids",
+          "ABC",
+          "ACC Network",
+          "Accuweather Now",
+          "Adult Swim",
+          "Altitude Sports",
+          "Always Funny",
+          "AMC",
+          "Animal Planet",
+          "Antena 3 Internacional",
+          "AWE",
+          "Axs Tv",
+          "BBC Alba",
+          "Bbc America",
+          "BBC Four",
+          "BBC One",
+          "BBC Parliament",
+          "BBC Scotland",
+          "BBC Three",
+          "BBC Two",
+          "BBC World News",
+          "BBC",
+          "beIN Sports 1",
+          "beIN SPORTS 2",
+          "beIN SPORTS 3",
+          "Bein Sports"
+        ],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T14:23:02.244629+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 390,
+        "failed": 285,
+        "ratio": 0.578
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 117,
+        "programmeCount": 1347
+      },
+      "discovery": {
+        "candidateCount": 4,
+        "activeAutoSources": 0
+      },
+      "changes": {
+        "channelDelta": -10965,
+        "addedCount": 0,
+        "removedCount": 10965,
+        "addedChannels": [],
+        "removedChannels": [
+          "TV5 (1080p)",
+          "Real America's Voice",
+          "10 Bold",
+          "A&E",
+          "ABC Kids",
+          "ABC",
+          "ACC Network",
+          "Accuweather Now",
+          "Adult Swim",
+          "Altitude Sports",
+          "Always Funny",
+          "AMC",
+          "Animal Planet",
+          "Antena 3 Internacional",
+          "AWE",
+          "Axs Tv",
+          "BBC Alba",
+          "Bbc America",
+          "BBC Four",
+          "BBC One",
+          "BBC Parliament",
+          "BBC Scotland",
+          "BBC Three",
+          "BBC Two",
+          "BBC World News",
+          "BBC",
+          "beIN Sports 1",
+          "beIN SPORTS 2",
+          "beIN SPORTS 3",
+          "Bein Sports"
+        ]
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T14:32:53.995346+00:00",
+      "status": "updated",
+      "sourceCount": 11,
+      "configuredSourceCount": 11,
+      "autoSourceCount": 3,
+      "channelCount": 1751,
+      "logosFilled": 20,
+      "health": {
+        "checked": 2138,
+        "healthy": 566,
+        "failed": 385,
+        "ratio": 0.265
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "auto:doms9/iptv:M3U8/TV.m3u8": 42,
+        "auto:IvanStoilov2/iptv:bg.m3u": 36,
+        "auto:Yusufdkci/iptv:liste.m3u": 29
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 844
+      },
+      "discovery": {
+        "candidateCount": 4,
+        "activeAutoSources": 3
+      },
+      "changes": {
+        "channelDelta": 1341,
+        "addedCount": 1335,
+        "removedCount": 0,
+        "addedChannels": [
+          "A&E TV",
+          "ABC",
+          "ACC Digital Network",
+          "ACC Network",
+          "AccuWeather NOW",
+          "Adult Swim",
+          "Altitude Sports",
+          "AMC",
+          "Animal Planet",
+          "AXS TV",
+          "BBC America",
+          "BBC One",
+          "BBC World News",
+          "beIN Sports 1 France",
+          "beIN Sports en Español",
+          "beIN Sports USA",
+          "beIN Sports XTRA",
+          "BET",
+          "Big Ten Network",
+          "Bloomberg TV",
+          "Boomerang",
+          "Bounce",
+          "Bravo TV",
+          "Buzzr",
+          "Cartoon Network",
+          "CBC News Network",
+          "CBS",
+          "CBS News 24/7",
+          "CBS Sports Golazo Network",
+          "CBS Sports Network"
+        ],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T14:47:43.368Z",
+      "status": "rollback",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "autoSourceCount": 0,
+      "channelCount": 410,
+      "health": {
+        "checked": 0,
+        "healthy": 0,
+        "failed": 0
+      },
+      "changes": {
+        "channelDelta": -1341,
+        "addedCount": 0,
+        "removedCount": 1341,
+        "addedChannels": [],
+        "removedChannels": []
+      },
+      "message": "Otomatik kaynak keşfi kaldırıldı; son otomatik kaynak değişiklikleri geri alındı."
+    },
+    {
+      "updatedAt": "2026-10-09T14:53:16.331032+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 388,
+        "failed": 287,
+        "ratio": 0.575
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 830
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T15:14:42.645144+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 378,
+        "failed": 297,
+        "ratio": 0.56
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 91
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 795
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-09T15:22:18.097820+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 377,
+        "failed": 298,
+        "ratio": 0.559
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 775
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-10T09:54:56.850306+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 410,
+      "logosFilled": 15,
+      "health": {
+        "checked": 675,
+        "healthy": 374,
+        "failed": 301,
+        "ratio": 0.554
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 93,
+        "programmeCount": 1393
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T10:04:32.139949+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 387,
+        "failed": 289,
+        "ratio": 0.572
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 42,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 95,
+        "programmeCount": 1368
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 2,
+        "removedCount": 1,
+        "addedChannels": [
+          "Eurosport 1 Turkiye",
+          "Eurosport 2 Turkiye"
+        ],
+        "removedChannels": [
+          "like Gecko) Chrome/120.0.0.0 Safari/537.36 VLC/3.0.21 LibVLC/3.0.21"
+        ]
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T22:36:05.424649+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 383,
+        "failed": 293,
+        "ratio": 0.567
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 66,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92
+      },
+      "epg": {
+        "status": "error",
+        "matchedChannels": 95,
+        "programmeCount": 0,
+        "message": "EPG verisi geçerli görünmüyor: 0 eşleşen kanal, 0 program."
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T22:42:17.079225+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 387,
+        "failed": 289,
+        "ratio": 0.572
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 92
+      },
+      "epg": {
+        "status": "error",
+        "matchedChannels": 95,
+        "programmeCount": 0,
+        "message": "EPG verisi geçerli görünmüyor: 0 eşleşen kanal, 0 program."
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T22:47:08.041442+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 383,
+        "failed": 293,
+        "ratio": 0.567
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 87,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93
+      },
+      "epg": {
+        "status": "error",
+        "matchedChannels": 95,
+        "programmeCount": 0,
+        "message": "EPG verisi geçerli görünmüyor: 0 eşleşen kanal, 0 program."
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T22:52:59.070167+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 386,
+        "failed": 290,
+        "ratio": 0.571
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93
+      },
+      "epg": {
+        "status": "error",
+        "matchedChannels": 95,
+        "programmeCount": 0,
+        "message": "EPG verisi geçerli görünmüyor: 0 eşleşen kanal, 0 program."
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T22:56:20.845137+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 384,
+        "failed": 292,
+        "ratio": 0.568
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 92,
+        "programmeCount": 2176
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-11T23:01:54.140068+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 8,
+      "channelCount": 411,
+      "logosFilled": 15,
+      "health": {
+        "checked": 676,
+        "healthy": 387,
+        "failed": 289,
+        "ratio": 0.572
+      },
+      "providers": {
+        "OnurEröz Türkiye": 57,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 96,
+        "programmeCount": 2265
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T06:47:51.560387+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 441,
+      "logosFilled": 15,
+      "health": {
+        "checked": 716,
+        "healthy": 370,
+        "failed": 346,
+        "ratio": 0.517
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 62
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 98,
+        "programmeCount": 2322
+      },
+      "changes": {
+        "channelDelta": 30,
+        "addedCount": 30,
+        "removedCount": 0,
+        "addedChannels": [
+          "AS TV (1080p)",
+          "beIN Box Office 1",
+          "beIN Box Office 2",
+          "beIN Box Office 3",
+          "beIN Movies Stars",
+          "beIN Movies Turk",
+          "GEM 24B",
+          "GEM Bollywood",
+          "GEM Classic",
+          "GEM Comedy",
+          "GEM Drama",
+          "GEM Entertainment",
+          "GEM Film",
+          "GEM Fit",
+          "GEM Food",
+          "GEM Junior",
+          "GEM Kids",
+          "GEM Life",
+          "GEM Mifa",
+          "GEM Nature",
+          "GEM Onyx",
+          "GEM Pixel",
+          "GEM River",
+          "GEM Rubix",
+          "GEM Series +",
+          "GEM Sport",
+          "GEM TV",
+          "Grand Cinema",
+          "National Geographic (1080p)",
+          "Viasat History (720p)"
+        ],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T06:52:56.612072+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 433,
+      "logosFilled": 15,
+      "health": {
+        "checked": 707,
+        "healthy": 384,
+        "failed": 323,
+        "ratio": 0.543
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 64
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 101,
+        "programmeCount": 2412
+      },
+      "changes": {
+        "channelDelta": -8,
+        "addedCount": 14,
+        "removedCount": 22,
+        "addedChannels": [
+          "24Kitchen (1080p)",
+          "Ada TV (1080p)",
+          "BabyFirst (1080p)",
+          "Epic Drama",
+          "Finest TV (288p)",
+          "Kurdistan TV (720p)",
+          "Love Nature (1080p)",
+          "Manas TV (1080p)",
+          "MyZen TV (1080p)",
+          "RTG TV (1080p)",
+          "Stingray Naturescape (1080p)",
+          "Timeless Dizi Channel (1080p)",
+          "Viasat Epic Drama (576p)",
+          "West Azerbaijan TV (576p)"
+        ],
+        "removedChannels": [
+          "GEM 24B",
+          "GEM Bollywood",
+          "GEM Classic",
+          "GEM Comedy",
+          "GEM Drama",
+          "GEM Entertainment",
+          "GEM Film",
+          "GEM Fit",
+          "GEM Food",
+          "GEM Junior",
+          "GEM Kids",
+          "GEM Life",
+          "GEM Mifa",
+          "GEM Nature",
+          "GEM Onyx",
+          "GEM Pixel",
+          "GEM River",
+          "GEM Rubix",
+          "GEM Series +",
+          "GEM Sport",
+          "GEM TV",
+          "Grand Cinema"
+        ]
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T06:57:07.459891+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 413,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 374,
+        "failed": 312,
+        "ratio": 0.545
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 66
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 96,
+        "programmeCount": 2264
+      },
+      "changes": {
+        "channelDelta": -20,
+        "addedCount": 0,
+        "removedCount": 20,
+        "addedChannels": [],
+        "removedChannels": [
+          "24Kitchen (1080p)",
+          "BabyFirst (1080p)",
+          "beIN Box Office 1",
+          "beIN Box Office 2",
+          "beIN Box Office 3",
+          "beIN Movies Stars",
+          "beIN Movies Turk",
+          "Epic Drama",
+          "Finest TV (288p)",
+          "Kurdistan TV (720p)",
+          "Love Nature (1080p)",
+          "Manas TV (1080p)",
+          "MyZen TV (1080p)",
+          "National Geographic (1080p)",
+          "RTG TV (1080p)",
+          "Stingray Naturescape (1080p)",
+          "Timeless Dizi Channel (1080p)",
+          "Viasat Epic Drama (576p)",
+          "Viasat History (720p)",
+          "West Azerbaijan TV (576p)"
+        ]
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T08:49:52.012720+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 413,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 379,
+        "failed": 307,
+        "ratio": 0.552
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 68
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 96,
+        "programmeCount": 2259
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T09:32:39.694559+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 286,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 389,
+        "failed": 297,
+        "ratio": 0.567
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 88,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 69
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 1635
+      },
+      "changes": {
+        "channelDelta": -127,
+        "addedCount": 0,
+        "removedCount": 127,
+        "addedChannels": [],
+        "removedChannels": [
+          "SÖZCÜ TV",
+          "TRT SPOR",
+          "KANAL 7",
+          "TRT Belgesel",
+          "A PARA HD",
+          "SPORTS TV",
+          "FB TV",
+          "GS TV HD",
+          "KANAL 33",
+          "KANAL 34",
+          "KANAL 68",
+          "KANAL B",
+          "KANAL Z",
+          "KANAL URFA",
+          "METROPOL TV",
+          "MUGLA TÜRK TV",
+          "TARIM TV",
+          "TRAKYA TÜRK TV",
+          "TÜRK KLİNİKLERİ TV",
+          "TV 25",
+          "TV 48",
+          "TV 52",
+          "TV A",
+          "VAN GOLU TV",
+          "VRT",
+          "VTV TÜRK",
+          "PAZARCIK TV",
+          "FiNEST TV",
+          "SAGLIK CHANEL",
+          "5 OCAK TV"
+        ]
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T09:36:19.006497+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 283,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 387,
+        "failed": 299,
+        "ratio": 0.564
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 70
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 62,
+        "programmeCount": 943
+      },
+      "changes": {
+        "channelDelta": -3,
+        "addedCount": 0,
+        "removedCount": 3,
+        "addedChannels": [],
+        "removedChannels": [
+          "TRT COCUK",
+          "BIR TV",
+          "TRT Genc (1440p)"
+        ]
+      }
+    },
+    {
+      "updatedAt": "2026-10-12T10:36:06.998627+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 10,
+      "channelCount": 286,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 382,
+        "failed": 304,
+        "ratio": 0.557
+      },
+      "providers": {
+        "OnurEröz Türkiye": 56,
+        "ByteFix Repairs": 79,
+        "iptv-org Türkiye": 67,
+        "discevisita": 89,
+        "iptv-turk-tr": 67,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 88,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 71
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 62,
+        "programmeCount": 895
+      },
+      "changes": {
+        "channelDelta": 3,
+        "addedCount": 4,
+        "removedCount": 1,
+        "addedChannels": [
+          "KANAL 34",
+          "HÜR TV",
+          "BIR TV",
+          "TOKAT TV"
+        ],
+        "removedChannels": [
+          "TELE 1"
+        ]
+      }
+    }
+  ]
+}

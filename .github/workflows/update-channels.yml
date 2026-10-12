@@ -1,0 +1,101 @@
+name: KulakTV kanal listesini güncelle
+# Günlük güncelleme pipeline testi için zararsız push tetikleyicisi.
+
+on:
+  schedule:
+    # Her gün 03:15 UTC = Türkiye saatiyle 06:15
+    - cron: "15 3 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/update_channels.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kulaktv-data-writes
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository'yi al
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Güncel main ile hizala
+        run: git pull --rebase origin main
+
+      - name: Kod ve yapı doğrulaması
+        run: |
+          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py
+          node --check app.js
+          node --check telemetry-config.js
+
+      - name: M3U yapısını doğrula
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          lines = Path("channels.m3u").read_text(encoding="utf-8").splitlines()
+          ext = [i for i, line in enumerate(lines) if line.startswith("#EXTINF:")]
+          bad = []
+          for i in ext:
+              if not (i + 1 < len(lines) and re.match(r"^https?://", lines[i + 1].strip(), re.I)):
+                  bad.append(i + 1)
+
+          if bad:
+              raise SystemExit(f"Geçersiz M3U kayıtları: {bad[:10]}")
+          print(f"M3U doğrulandı: {len(ext)} kanal")
+          PY
+
+      - name: Python kanal ve sağlık güncellemesini çalıştır
+        run: python scripts/update_channels.py
+
+      - name: Yeni kanal listesine göre EPG güncellemesini çalıştır
+        run: python scripts/update_epg.py
+
+      - name: Çıktı JSON'larını doğrula
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          required = [
+              "update-status.json", "source-quality.json", "health-state.json",
+              "epg.json", "epg-status.json", "update-history.json",
+          ]
+          for filename in required:
+              payload = json.loads(Path(filename).read_text(encoding="utf-8"))
+              if not isinstance(payload, dict):
+                  raise SystemExit(f"{filename} JSON nesnesi değil.")
+          epg = json.loads(Path("epg.json").read_text(encoding="utf-8"))
+          history = json.loads(Path("update-history.json").read_text(encoding="utf-8"))
+          if not isinstance(epg.get("channels"), dict):
+              raise SystemExit("epg.json channels alanı geçersiz.")
+          if not isinstance(history.get("runs"), list):
+              raise SystemExit("update-history.json runs alanı geçersiz.")
+          print("JSON çıktıları doğrulandı.")
+          PY
+
+      - name: Değişiklikleri kontrol et
+        run: git status --short
+
+      - name: Değişiklik varsa kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add channels.m3u update-status.json health-state.json source-quality.json epg.json epg-status.json update-history.json
+
+          if git diff --cached --quiet; then
+            echo "Kanal listesinde değişiklik yok."
+          else
+            git commit -m "chore: stable fixed-source kanal listesi güncelleme"
+            git pull --rebase --autostash origin main
+            git push
+          fi

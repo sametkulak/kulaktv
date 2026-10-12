@@ -1,0 +1,120 @@
+name: KulakTV kod doğrulama
+
+on:
+  push:
+    paths:
+      - "app.js"
+      - "index.html"
+      - "style.css"
+      - "telemetry-config.js"
+      - "scripts/*.py"
+      - ".github/workflows/*.yml"
+  pull_request:
+    paths:
+      - "app.js"
+      - "index.html"
+      - "style.css"
+      - "telemetry-config.js"
+      - "scripts/*.py"
+      - ".github/workflows/*.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository'yi al
+        uses: actions/checkout@v4
+
+      - name: Python syntax
+        run: |
+          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py scripts/update_epg.py
+
+      - name: JavaScript syntax
+        run: |
+          node --check app.js
+          node --check telemetry-config.js
+
+      - name: HTML ile JavaScript DOM referanslarını doğrula
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path("index.html").read_text(encoding="utf-8")
+          js = Path("app.js").read_text(encoding="utf-8")
+          ids = set(re.findall(r'id="([^"]+)"', html))
+          refs = set(re.findall(r'''\$\(['"]([^'"]+)['"]\)''', js))
+          missing = sorted(refs - ids)
+          if missing:
+              raise SystemExit(f"Eksik DOM id referansı: {missing}")
+          print(f"DOM doğrulandı: {len(ids)} id, {len(refs)} JS referansı")
+
+          PY
+
+      - name: Statik güvenlik ve DOM kontrolleri
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          app = Path("app.js").read_text(encoding="utf-8")
+          telemetry = Path("telemetry-config.js").read_text(encoding="utf-8")
+
+          ids = re.findall(r'id="([^"]+)"', html)
+          duplicates = sorted({item for item in ids if ids.count(item) > 1})
+          if duplicates:
+              raise SystemExit(f"Tekrarlanan DOM id'leri: {duplicates}")
+
+          refs = set(re.findall(r'''\b(?:\$|document\.getElementById)\(['"]([^'"]+)['"]\)''', app))
+          missing = sorted(refs - set(ids))
+          if missing:
+              raise SystemExit(f"Eksik DOM id referansı: {missing}")
+
+          secret_pattern = re.compile(r"(?:github_pat_|ghp_|gho_|ghs_|ghr_)[A-Za-z0-9_]+")
+          for path in ("app.js", "index.html", "telemetry-config.js", ".github/workflows", "scripts"):
+              base = Path(path)
+              files = [base] if base.is_file() else [p for p in base.rglob("*") if p.is_file()]
+              for file in files:
+                  content = file.read_text(encoding="utf-8", errors="ignore")
+                  if secret_pattern.search(content):
+                      raise SystemExit(f"Kaynak kodda GitHub token benzeri gizli değer bulundu: {file}")
+
+          print(f"Statik kontroller OK: {len(ids)} DOM id, {len(refs)} JS id referansı")
+          print("Hard-coded GitHub token bulunamadı.")
+          PY
+
+      - name: Veri dosyalarının temel yapısını doğrula
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          checks = {
+              "epg.json": ("channels",),
+              "epg-status.json": ("status",),
+              "update-history.json": ("runs",),
+              "source-quality.json": ("sources", "providers"),
+          }
+          for name, keys in checks.items():
+              data = json.loads(Path(name).read_text(encoding="utf-8"))
+              missing = [key for key in keys if key not in data]
+              if missing:
+                  raise SystemExit(f"{name} eksik alanlar: {missing}")
+          print("Veri dosyaları doğrulandı.")
+          PY
+
+      - name: M3U yapısı
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          lines = Path("channels.m3u").read_text(encoding="utf-8").splitlines()
+          ext = [i for i, line in enumerate(lines) if line.startswith("#EXTINF:")]
+          bad = [i + 1 for i in ext if i + 1 >= len(lines) or not re.match(r"^https?://", lines[i + 1].strip(), re.I)]
+          if bad:
+              raise SystemExit(f"Geçersiz M3U kayıtları: {bad[:10]}")
+          print(f"M3U doğrulandı: {len(ext)} kanal")
+          PY
