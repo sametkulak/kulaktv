@@ -430,12 +430,28 @@ function normalizeChannelName(value){
 }
 
 
+const EPG_KEY_ALIASES={
+  'startv':'star',
+  'star':'star',
+  'showtv':'showtv',
+  'now':'now',
+  'ahaber':'ahaber',
+  'sozcutv':'sozcutv',
+  'trtspor':'trtspor',
+  'kanal7':'kanal7'
+};
 function getEpgChannel(ch){
   const key=normalizeChannelName(ch?.name||'');
   const channels=state.epg?.channels||{};
+  const alias=EPG_KEY_ALIASES[key]||key;
   return channels[key]
+    || channels[alias]
     || channels[key.toUpperCase()]
-    || Object.entries(channels).find(([channelKey])=>normalizeChannelName(channelKey)===key)?.[1]
+    || channels[alias.toUpperCase()]
+    || Object.entries(channels).find(([channelKey])=>{
+      const normalized=normalizeChannelName(channelKey);
+      return normalized===key || normalized===alias;
+    })?.[1]
     || null;
 }
 function getCurrentProgramme(ch,at=Date.now()){
