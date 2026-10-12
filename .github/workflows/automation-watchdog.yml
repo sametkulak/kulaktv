@@ -1,0 +1,32 @@
+name: KulakTV otomasyon watchdog
+
+on:
+  schedule:
+    # Kanal güncellemesinden birkaç saat sonra ve gün içinde tekrar kontrol et.
+    - cron: "0 1,7,13,19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kulaktv-watchdog
+  cancel-in-progress: true
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository'yi al
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Watchdog çalıştır
+        run: python scripts/automation_watchdog.py
+
+      - name: Sonuç özeti
+        if: always()
+        run: |
+          echo "Watchdog tamamlandı."
+          echo "Başarısızlık varsa bu workflow kırmızı olarak görünür ve otomasyon verisinin yayınlanması güvenli değildir."
