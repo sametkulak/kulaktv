@@ -6,7 +6,10 @@ from __future__ import annotations
 import gzip
 import json
 import re
+import ssl
+import urllib.error
 import urllib.request
+from urllib.parse import urlsplit
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from io import BytesIO
@@ -50,6 +53,28 @@ EPG_WINDOW_HOURS = 72
 EPG_PAST_GRACE_MINUTES = 90
 
 
+# Türksat'ın resmi EPG JSON uç noktası GitHub-hosted runner üzerinde sertifika
+# zinciri doğrulama hatası verebiliyor. TLS doğrulaması varsayılan olarak açık
+# kalır; yalnızca bu resmi host/path için, yanıt yapısı ayrıca doğrulanarak
+# dar kapsamlı bir ikinci deneme yapılır.
+TURKSAT_INSECURE_FALLBACK = True
+
+
+def is_turksat_json_url(url: str) -> bool:
+    try:
+        parsed = urlsplit(url)
+        host = (parsed.hostname or "").lower()
+        return (
+            host == "www.turksatkablo.com.tr"
+            and parsed.path.startswith("/userUpload/EPG/")
+            and parsed.path.endswith(".json")
+            and parsed.query == ""
+        )
+    except Exception:
+        return False
+
+
+
 def normalize(value: str) -> str:
     value = str(value or "").strip().upper()
     value = value.replace("İ", "I").replace("Ş", "S").replace("Ğ", "G")
@@ -64,8 +89,18 @@ def normalize(value: str) -> str:
     aliases = {
         "NOWTV": "NOW",
         "NOW": "NOW",
+        "FOX": "NOW",
+        "FOXTV": "NOW",
+        "FOXTURKIYE": "NOW",
+        "SHOW": "SHOWTV",
+        "SHOWTV": "SHOWTV",
+        "SHOWTVHD": "SHOWTV",
+        "SHOWTVHDTR": "SHOWTV",
         "360TV": "360",
         "24TV": "24",
+        "AHABERHD": "AHABER",
+        "SOZCU": "SOZCUTV",
+        "SOZCUTV": "SOZCUTV",
         "HABERTURK": "HABERTURKTV",
         "HABERTURKTV": "HABERTURKTV",
         "STARTV": "STAR",
@@ -151,26 +186,75 @@ def fetch_turksat_json() -> list[tuple[dict[str, object], datetime, str]]:
     results: list[tuple[dict[str, object], datetime, str]] = []
     errors: list[str] = []
 
-    for day_offset in (0,):
-        target = today_tr - timedelta(days=day_offset)
+    # Bugün ve yarının resmi Türksat JSON'unu dene. Yarının dosyası yoksa
+    # mevcut günün verisi yine kullanılabilir.
+    for day_offset in (0, 1):
+        target = today_tr + timedelta(days=day_offset)
         day_url = f"{TURKSAT_JSON_BASE}/{target.day}.json"
         try:
             request = urllib.request.Request(
                 day_url,
                 headers={
-                    "User-Agent": "Mozilla/5.0 KulakTV-EPG-Updater/1.0",
+                    "User-Agent": "Mozilla/5.0 KulakTV-EPG-Updater/1.1",
                     "Referer": "https://www.turksatkablo.com.tr/yayin-akisi.aspx",
                     "Accept": "application/json,text/plain,*/*",
                 },
             )
-            with urllib.request.urlopen(
-                request,
-                timeout=EPG_TIMEOUT,
-            ) as response:
-                payload = response.read()
+            try:
+                with urllib.request.urlopen(
+                    request,
+                    timeout=EPG_TIMEOUT,
+                ) as response:
+                    payload = response.read()
+            except ssl.SSLCertVerificationError:
+                if not TURKSAT_INSECURE_FALLBACK or not is_turksat_json_url(day_url):
+                    raise
+                print(
+                    "::warning::Türksat EPG HTTPS sertifikası doğrulanamadı; "
+                    "yalnızca resmi Türksat EPG JSON endpoint'i için doğrulama "
+                    "kapalı yedek deneme yapılıyor."
+                )
+                insecure_context = ssl._create_unverified_context()
+                with urllib.request.urlopen(
+                    request,
+                    timeout=EPG_TIMEOUT,
+                    context=insecure_context,
+                ) as response:
+                    payload = response.read()
+            except urllib.error.URLError as exc:
+                reason = getattr(exc, "reason", None)
+                if not (
+                    TURKSAT_INSECURE_FALLBACK
+                    and is_turksat_json_url(day_url)
+                    and "CERTIFICATE_VERIFY_FAILED" in str(reason)
+                ):
+                    raise
+                print(
+                    "::warning::Türksat EPG HTTPS sertifikası doğrulanamadı; "
+                    "yalnızca resmi Türksat EPG JSON endpoint'i için doğrulama "
+                    "kapalı yedek deneme yapılıyor."
+                )
+                insecure_context = ssl._create_unverified_context()
+                with urllib.request.urlopen(
+                    request,
+                    timeout=EPG_TIMEOUT,
+                    context=insecure_context,
+                ) as response:
+                    payload = response.read()
+
             data = json.loads(payload.decode("utf-8-sig"))
-            if not isinstance(data, dict) or not isinstance(data.get("k"), list):
-                raise RuntimeError("Türksat JSON biçimi beklenenden farklı.")
+            raw_channels = data.get("k") if isinstance(data, dict) else None
+            if not isinstance(raw_channels, list) or not raw_channels:
+                raise RuntimeError("Türksat EPG JSON'unda geçerli kanal listesi yok.")
+            valid_channels = sum(
+                1
+                for item in raw_channels
+                if isinstance(item, dict) and str(item.get("n") or "").strip()
+            )
+            if valid_channels < 5:
+                raise RuntimeError(
+                    f"Türksat EPG JSON'u beklenenden farklı: {valid_channels} geçerli kanal."
+                )
             results.append((data, target, day_url))
         except Exception as exc:
             errors.append(f"{day_url}: {exc}")
@@ -179,8 +263,6 @@ def fetch_turksat_json() -> list[tuple[dict[str, object], datetime, str]]:
         raise RuntimeError("Türksat güncel EPG JSON'u alınamadı: " + " | ".join(errors))
 
     return results
-
-
 def build_epg_from_turksat(
     data: dict[str, object],
     actual_date: datetime,
