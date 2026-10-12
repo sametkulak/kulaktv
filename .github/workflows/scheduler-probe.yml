@@ -2,10 +2,8 @@ name: KulakTV scheduler test
 
 on:
   schedule:
-    # TEST: 16:45 Türkiye saati = 13:45 UTC.
-    # Timezone alanını bilinçli olarak kaldırıyoruz; yalnızca klasik UTC
-    # cron sözdizimiyle GitHub scheduler'ı izole ediyoruz.
-    - cron: "45 13 * * *"
+    # TEK SEFERLİK TEST: 17:00 Türkiye saati = 14:00 UTC.
+    - cron: "0 14 * * *"
   workflow_dispatch:
 
 permissions:
