@@ -87,7 +87,17 @@ def normalize(value: object) -> str:
         text,
     )
     text = re.sub(r"\b(?:TURKIYE|TURKEY)\b", " ", text)
-    return re.sub(r"[^A-Z0-9]+", "", text)
+    text = re.sub(r"[^A-Z0-9]+", "", text)
+    aliases = {
+        "NOWTV": "NOW",
+        "FOX": "NOW",
+        "FOXTV": "NOW",
+        "SHOW": "SHOWTV",
+        "SHOWTVHD": "SHOWTV",
+        "AHABERHD": "AHABER",
+        "SOZCU": "SOZCUTV",
+    }
+    return aliases.get(text, text)
 
 
 def check_channel_pipeline(status: dict[str, object]) -> list[str]:
@@ -192,11 +202,17 @@ def check_filter_metadata(status: dict[str, object]) -> list[str]:
         name = str(source.get("name") or "")
         if name not in required_filtered:
             continue
+
         seen_filtered.add(name)
-        if source.get("filter") != "Turkish TV only: radio/podcast/webcam/adult excluded":
-            problems.append(f"{name} için Türk TV filtresi işaretlenmemiş.")
-        if "filteredOutCount" not in source:
-            problems.append(f"{name} için filteredOutCount eksik.")
+
+        # Başarılı kaynakta filtre metadata'sı zorunlu. Kaynak erişilemiyorsa
+        # filtre hiç uygulanmadığı için filteredOutCount beklemek yanlıştır;
+        # upstream arızasını ayrı kaynak-sağlık kontrolü zaten yakalar.
+        if source.get("status") == "ok":
+            if source.get("filter") != "Turkish TV only: radio/podcast/webcam/adult excluded":
+                problems.append(f"{name} için Türk TV filtresi işaretlenmemiş.")
+            if "filteredOutCount" not in source:
+                problems.append(f"{name} için filteredOutCount eksik.")
 
     missing = required_filtered - seen_filtered
     if missing:
