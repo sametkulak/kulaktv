@@ -263,6 +263,57 @@ def fetch_turksat_json() -> list[tuple[dict[str, object], datetime, str]]:
         raise RuntimeError("Türksat güncel EPG JSON'u alınamadı: " + " | ".join(errors))
 
     return results
+def program_title_key(title: object) -> str:
+    value = str(title or "").strip().lower()
+    value = re.sub(r"\s+", " ", value)
+    return value
+
+
+def append_epg_program(programs: list[dict[str, object]], item: dict[str, object]) -> bool:
+    """Append one program unless it overlaps an existing schedule entry.
+
+    Türksat verisi ilk sırada işlenir. Sonraki XMLTV kaynakları aynı zaman
+    aralığını kapsayan bir kayıt gönderirse mevcut kayıt korunur. Yalnızca
+    mevcut kayıt placeholder ("-") ise daha anlamlı başlıkla değiştirilebilir.
+    """"
+    start = item.get("start")
+    stop = item.get("stop")
+    try:
+        start_dt = datetime.fromisoformat(str(start).replace("Z", "+00:00"))
+        stop_dt = datetime.fromisoformat(str(stop).replace("Z", "+00:00"))
+    except (TypeError, ValueError):
+        return False
+
+    title_key = program_title_key(item.get("title"))
+    placeholder = title_key in {"", "-" ,"program bilgisi yok"}
+
+    for index, existing in enumerate(programs):
+        try:
+            existing_start = datetime.fromisoformat(str(existing.get("start")).replace("Z", "+00:00"))
+            existing_stop = datetime.fromisoformat(str(existing.get("stop")).replace("Z", "+00:00"))
+        except (TypeError, ValueError):
+            continue
+
+        if existing.get("start") == item.get("start") and title_key == program_title_key(existing.get("title")):
+            return False
+
+        overlap_start = max(start_dt, existing_start)
+        overlap_stop = min(stop_dt, existing_stop)
+        overlap_seconds = max(0.0, (overlap_stop - overlap_start).total_seconds())
+        new_duration = max(1.0, (stop_dt - start_dt).total_seconds())
+        existing_duration = max(1.0, (existing_stop - existing_start).total_seconds())
+        overlap_ratio = overlap_seconds / min(new_duration, existing_duration)
+
+        if overlap_ratio >= 0.60:
+            existing_placeholder = program_title_key(existing.get("title")) in {"", "-", "program bilgisi yok"}
+            if existing_placeholder and not placeholder:
+                programs[index] = item
+                return True
+            return False
+
+    programs.append(item)
+    return True
+
 def build_epg_from_turksat(
     data: dict[str, object],
     actual_date: datetime,
@@ -332,15 +383,7 @@ def build_epg_from_turksat(
                 "stop": stop.isoformat().replace("+00:00", "Z"),
                 "title": title,
             }
-            if any(
-                isinstance(existing, dict)
-                and existing.get("start") == item["start"]
-                and existing.get("title") == item["title"]
-                for existing in programs
-            ):
-                continue
-            if len(programs) < 40:
-                programs.append(item)
+            if len(programs) < 40 and append_epg_program(programs, item):
                 programme_count += 1
 
     for bucket in result.values():
@@ -616,15 +659,8 @@ def main() -> int:
                 for item in source_programs:
                     if not isinstance(item, dict):
                         continue
-                    if any(
-                        isinstance(existing, dict)
-                        and existing.get("start") == item.get("start")
-                        and existing.get("title") == item.get("title")
-                        for existing in target_programs
-                    ):
-                        continue
                     if len(target_programs) < 40:
-                        target_programs.append(item)
+                        append_epg_program(target_programs, item)
 
         for bucket in merged_channels.values():
             programs = bucket.get("programs")
