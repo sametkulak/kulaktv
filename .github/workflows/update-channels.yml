@@ -2,10 +2,8 @@ name: KulakTV kanal listesini güncelle
 # Günlük güncelleme pipeline testi için zararsız push tetikleyicisi.
 
 on:
-  schedule:
-    # Günlük kanal güncellemesi: 15:15 Türkiye saati.
-    - cron: "15 15 * * *"
-      timezone: "Europe/Istanbul"
+  # GitHub's schedule backend is not firing for this repository.
+  # Daily execution is triggered externally via cron-job.org -> workflow_dispatch.
   workflow_dispatch:
   push:
     paths:
@@ -60,6 +58,9 @@ jobs:
 
       - name: Yeni kanal listesine göre EPG güncellemesini çalıştır
         run: python scripts/update_epg.py
+
+      - name: Otomasyon watchdog doğrulaması
+        run: python scripts/automation_watchdog.py
 
       - name: Çıktı JSON'larını doğrula
         run: |
