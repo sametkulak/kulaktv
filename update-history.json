@@ -1252,8 +1252,8 @@
       },
       "epg": {
         "status": "updated",
-        "matchedChannels": 76,
-        "programmeCount": 996
+        "matchedChannels": 77,
+        "programmeCount": 2456
       },
       "changes": {
         "channelDelta": 43,
