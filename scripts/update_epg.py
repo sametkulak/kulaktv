@@ -275,7 +275,7 @@ def append_epg_program(programs: list[dict[str, object]], item: dict[str, object
     Türksat verisi ilk sırada işlenir. Sonraki XMLTV kaynakları aynı zaman
     aralığını kapsayan bir kayıt gönderirse mevcut kayıt korunur. Yalnızca
     mevcut kayıt placeholder ("-") ise daha anlamlı başlıkla değiştirilebilir.
-    """"
+    """
     start = item.get("start")
     stop = item.get("stop")
     try:
