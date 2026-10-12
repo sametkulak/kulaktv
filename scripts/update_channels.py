@@ -142,6 +142,22 @@ HEALTH_MANIFEST_DEPTH = 2
 FAILED_STREAK_TO_REMOVE = 2
 GLOBAL_HEALTH_MIN_RATIO = 0.20
 
+# Guardrails: an upstream source outage or malformed playlist must not replace
+# a healthy list with an implausibly different dataset.
+MIN_SOURCE_SUCCESS_RATIO = 0.60
+MIN_CHANNEL_RETENTION_RATIO = 0.55
+MAX_CHANNEL_GROWTH_RATIO = 2.00
+REQUIRED_MAJOR_CHANNELS = (
+    "ATV",
+    "KANAL D",
+    "STAR TV",
+    "TRT 1",
+    "SHOW TV",
+    "NOW",
+    "TV8",
+)
+
+
 LOGO_REPO_API = "https://api.github.com/repos/tv-logo/tv-logos/contents/countries/turkey"
 LOGO_REPO_RAW = "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/turkey"
 LOGO_FETCH_TIMEOUT = 20
@@ -1172,6 +1188,65 @@ def write_status(payload: dict[str, object]) -> None:
     )
 
 
+def normalized_channel_keys(channels: list[dict[str, object]]) -> set[str]:
+    return {
+        normalize_name(str(item.get("name") or ""))
+        for item in channels
+        if normalize_name(str(item.get("name") or ""))
+    }
+
+
+def validate_update_guardrails(
+    successful_count: int,
+    configured_count: int,
+    previous_channels: list[dict[str, object]],
+    merged_channels: list[dict[str, object]],
+) -> None:
+    if configured_count:
+        ratio = successful_count / configured_count
+        if ratio < MIN_SOURCE_SUCCESS_RATIO:
+            raise RuntimeError(
+                f"Upstream kaynak sağlığı beklenenden düşük: "
+                f"{successful_count}/{configured_count} kaynak başarılı "
+                f"(%{ratio * 100:.0f}). Son sağlam playlist korunuyor."
+            )
+
+    previous_count = len(previous_channels)
+    current_count = len(merged_channels)
+
+    if previous_count >= MIN_CHANNELS and current_count < previous_count * MIN_CHANNEL_RETENTION_RATIO:
+        raise RuntimeError(
+            f"Kanal sayısı anormal düştü: {previous_count} -> {current_count}. "
+            f"Son sağlam playlist korunuyor."
+        )
+
+    if previous_count >= MIN_CHANNELS and current_count > previous_count * MAX_CHANNEL_GROWTH_RATIO:
+        raise RuntimeError(
+            f"Kanal sayısı anormal arttı: {previous_count} -> {current_count}. "
+            f"Son sağlam playlist korunuyor."
+        )
+
+    current_keys = normalized_channel_keys(merged_channels)
+    previous_keys = normalized_channel_keys(previous_channels)
+    required_present = sum(
+        1 for name in REQUIRED_MAJOR_CHANNELS
+        if normalize_name(name) in current_keys
+    )
+    required_were_present = sum(
+        1 for name in REQUIRED_MAJOR_CHANNELS
+        if normalize_name(name) in previous_keys
+    )
+
+    # Mevcut sağlam listede ana kanalların çoğu varsa, tek günlük upstream
+    # bozulması yüzünden topluca kaybolmalarına izin verme.
+    if required_were_present >= 5 and required_present < 5:
+        raise RuntimeError(
+            f"Ana kanal koruma kontrolü başarısız: "
+            f"{required_present}/{len(REQUIRED_MAJOR_CHANNELS)} ana kanal mevcut. "
+            f"Son sağlam playlist korunuyor."
+        )
+
+
 def main() -> int:
     now = datetime.now(timezone.utc)
     fetched_at = now.isoformat()
@@ -1282,6 +1357,13 @@ def main() -> int:
         previous_health_state,
         fetched_at,
         ratio,
+    )
+
+    validate_update_guardrails(
+        len(successful),
+        len(configured_sources),
+        previous_channels,
+        merged,
     )
 
     # Health policy completed. The per-channel health payload is no longer
