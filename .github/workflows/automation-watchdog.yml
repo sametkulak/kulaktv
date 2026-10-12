@@ -1,9 +1,6 @@
-name: KulakTV otomasyon watchdog
+name: KulakTV otomasyon watchdog (manuel/doğrulama)
 
 on:
-  schedule:
-    # Kanal güncellemesinden birkaç saat sonra ve gün içinde tekrar kontrol et.
-    - cron: "0 1,7,13,19 * * *"
   workflow_dispatch:
 
 permissions:
