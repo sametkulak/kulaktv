@@ -9,7 +9,7 @@
   <title>KulakTV</title>
   <link rel="icon" href="logo.png?v=20261009-1-1" type="image/png">
   <link rel="apple-touch-icon" href="logo.png?v=20261009-1-1">
-  <link rel="stylesheet" href="style.css?v=20261012-12">
+  <link rel="stylesheet" href="style.css?v=20261013-02">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
 </head>
 <body>
@@ -193,16 +193,19 @@
             <div class="admin-stat"><span>Sağlıklı URL</span><b id="adminHealthSummary">-</b></div>
             <div class="admin-stat"><span>EPG</span><b id="adminEpgSummary">-</b></div>
           </div>
+          <div id="adminSystemStatus" class="admin-system-status">Sistem durumu yükleniyor…</div>
           <div id="adminLastUpdate" class="admin-last-update">Son güncelleme kontrol ediliyor…</div>
         </section>
 
         <section class="settings-card admin-management-card">
           <div class="settings-title">Yönetici işlemleri</div>
           <div class="admin-management-actions">
+            <button id="manualUpdateBtn" class="settings-action admin-update-btn" type="button">↻<span>Manuel güncelleme</span></button>
             <button id="refreshAdminBtn" class="settings-action" type="button">↻<span>Durumu yenile</span></button>
-            <a class="settings-action admin-link-action" href="https://github.com/sametkulak/kulaktv/actions/workflows/update-channels.yml" target="_blank" rel="noopener noreferrer">↗<span>Actions'ı aç</span></a>
             <button id="logoutAdminBtn" class="settings-action admin-logout-btn" type="button">⎋<span>Admin çıkışı</span></button>
           </div>
+          <div id="manualUpdateStatus" class="admin-action-status">Manuel güncelleme için GitHub Actions açılır.</div>
+          <a class="admin-actions-link" href="https://github.com/sametkulak/kulaktv/actions/workflows/update-channels.yml" target="_blank" rel="noopener noreferrer">↗ GitHub Actions kanal güncelleme ekranını aç</a>
         </section>
 
         <section class="settings-card">
@@ -243,6 +246,6 @@
   </div>
 
   <script src="telemetry-config.js?v=20261012-1"></script>
-  <script src="app.js?v=20261013-01" defer></script>
+  <script src="app.js?v=20261013-02" defer></script>
 </body>
 </html>
