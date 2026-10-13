@@ -315,7 +315,9 @@ function renderAdminUsers(users){
     role.className='admin-user-select';
     role.innerHTML='<option value="user">Kullanıcı</option><option value="admin">Yönetici</option>';
     role.value=user.role==='admin'?'admin':'user';
-    role.title='Rol';
+    const isProtectedAdmin=String(user.username||'').trim().toLowerCase()==='admin';
+    role.disabled=isProtectedAdmin;
+    role.title=isProtectedAdmin?'admin hesabının rolü değiştirilemez':'Rol';
     role.addEventListener('change',async()=>{
       try{
         await authApi('/api/admin/users/'+Number(user.id),{
@@ -334,7 +336,9 @@ function renderAdminUsers(users){
     active.type='button';
     active.className='admin-user-small-btn'+(user.active===1?' active':'');
     active.textContent=user.active===1?'Aktif':'Pasif';
-    active.title='Aktif / pasif';
+    const protectedAdmin=isProtectedAdmin;
+    active.disabled=protectedAdmin;
+    active.title=protectedAdmin?'admin hesabının durumu değiştirilemez':'Aktif / pasif';
     active.addEventListener('click',async()=>{
       try{
         await authApi('/api/admin/users/'+Number(user.id),{
@@ -374,8 +378,8 @@ function renderAdminUsers(users){
     remove.type='button';
     remove.className='admin-user-small-btn danger';
     remove.textContent='Sil';
-    remove.disabled=authState.user?.id===user.id;
-    remove.title=remove.disabled?'Kendi hesabını silemezsin':'Kullanıcıyı sil';
+    remove.disabled=authState.user?.id===user.id || isProtectedAdmin;
+    remove.title=authState.user?.id===user.id?'Kendi hesabını silemezsin':isProtectedAdmin?'admin hesabı silinemez':'Kullanıcıyı sil';
     remove.addEventListener('click',async()=>{
       if(remove.disabled)return;
       if(!window.confirm(user.username+' kullanıcısı silinsin mi?'))return;
