@@ -1684,6 +1684,55 @@ async function loadUpdateStatus(){
     }
   }catch{}
 }
+
+let kulaktvInstallPrompt=null;
+
+function initKulakTVPwa(){
+  if('serviceWorker' in navigator){
+    window.addEventListener('load',()=>{
+      navigator.serviceWorker.register('./sw.js').catch(error=>{
+        console.warn('KulakTV PWA service worker kaydı başarısız:',error);
+      });
+    });
+  }
+
+  const installBtn=$('installAppBtn');
+
+  window.addEventListener('beforeinstallprompt',event=>{
+    event.preventDefault();
+    kulaktvInstallPrompt=event;
+    if(installBtn)installBtn.hidden=false;
+  });
+
+  window.addEventListener('appinstalled',()=>{
+    kulaktvInstallPrompt=null;
+    if(installBtn)installBtn.hidden=true;
+  });
+
+  installBtn?.addEventListener('click',async()=>{
+    if(kulaktvInstallPrompt){
+      kulaktvInstallPrompt.prompt();
+      try{
+        await kulaktvInstallPrompt.userChoice;
+      }catch{}
+      kulaktvInstallPrompt=null;
+      installBtn.hidden=true;
+      return;
+    }
+
+    if(/iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.navigator.standalone){
+      showError('iPhone/iPad: Paylaş → Ana Ekrana Ekle seçeneğini kullanabilirsiniz.');
+      setTimeout(clearError,3500);
+      return;
+    }
+
+    showError('Tarayıcı menüsündeki “Yükle” veya “Ana ekrana ekle” seçeneğini kullanabilirsiniz.');
+    setTimeout(clearError,3500);
+  });
+}
+
+initKulakTVPwa();
+
 const startKulakTV=()=>{
   loadUpdateStatus();
   loadHistory();
