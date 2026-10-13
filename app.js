@@ -618,8 +618,13 @@ async function loadHistory(){
       const dateText=d&&!Number.isNaN(d.getTime())?d.toLocaleDateString('tr-TR'):'';
       const timeText=d&&!Number.isNaN(d.getTime())?d.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):'';
       const delta=Number(changes.channelDelta||0);
-      const deltaText=delta>0 ? `+${delta}` : delta<0 ? `-${Math.abs(delta)}` : '±0';
-      return '<div class="history-item"><div><b>'+dateText+'</b><span>'+timeText+' • '+(run.status==='fetch_failed'?'Kaynak hatası':'Güncelleme')+'</span></div><div class="history-value">'+Number(run.channelCount||0)+' kanal <small>'+deltaText+'</small></div><div class="history-sub">'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak • '+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL • '+Number(changes.addedCount||0)+' eklendi / '+Number(changes.removedCount||0)+' çıkarıldı</div></div>';
+      const deltaText=delta>0 ? '+'+delta : delta<0 ? '-'+Math.abs(delta) : '±0';
+      const statusClass=run.status==='updated'?'ok':run.status==='rollback'?'warn':'error';
+      const statusText=run.status==='updated'?'Başarılı':run.status==='rollback'?'Geri alındı':'Kaynak hatası';
+      const healthRatio=Number(health.checked||0)?Math.round((Number(health.healthy||0)/Number(health.checked||0))*100):0;
+      const epg=run.epg||{};
+      const epgText=Number(epg.programmeCount||0)>0?Number(epg.matchedChannels||0)+' EPG kanal • '+Number(epg.programmeCount||0)+' program':'EPG veri yok';
+      return '<div class="history-item"><div class="history-head"><div><b>'+dateText+'</b><span>'+timeText+'</span></div><span class="history-badge '+statusClass+'">'+statusText+'</span></div><div class="history-value">'+Number(run.channelCount||0).toLocaleString('tr-TR')+' kanal <small>'+deltaText+'</small></div><div class="history-meta"><span>'+Number(run.configuredSourceCount||run.sourceCount||0)+' kaynak</span><span>'+Number(health.healthy||0)+'/'+Number(health.checked||0)+' URL (%'+healthRatio+')</span><span>+'+Number(changes.addedCount||0)+' / −'+Number(changes.removedCount||0)+'</span><span>'+escapeHtml(epgText)+'</span></div></div>';
     }).join('');
   }catch(err){
     console.warn('Güncelleme geçmişi yüklenemedi:',err);
@@ -1251,22 +1256,35 @@ async function fetchAdminStatusData(){
 
 function renderAdminOverview(data){
   const status=data?.status||{};
-  const epg=data?.epg||{};
+  const epg=data?.epg||status.epg||{};
   const sources=Array.isArray(status.sources)?status.sources:[];
   const configured=Number(status.configuredSourceCount||sources.length||0);
   const active=Number(status.sourceCount||sources.filter(x=>x.status==='ok').length||0);
   const health=status.healthCheck||{};
   const healthy=Number(health.healthyUrls||0);
   const checked=Number(health.checkedUrls||0);
+  const ratio=checked?Math.round((healthy/checked)*100):0;
   const epgChannels=Number(epg.matchedChannels||0);
   const epgPrograms=Number(epg.programmeCount||0);
+  const changes=status.changes||{};
+  const delta=Number(changes.channelDelta||0);
+  const deltaText=delta>0?'+'+delta:delta<0?'-'+Math.abs(delta):'±0';
+  const statusLabel=status.status==='fetch_failed'?'Kaynak hatası':status.status==='rollback'?'Geri alma':'Sağlıklı';
 
   if($('adminChannelCount'))$('adminChannelCount').textContent=Number(status.channelCount||0).toLocaleString('tr-TR');
   if($('adminSourceCount'))$('adminSourceCount').textContent=active+'/'+configured;
   if($('adminHealthSummary'))$('adminHealthSummary').textContent=healthy+'/'+checked;
   if($('adminEpgSummary'))$('adminEpgSummary').textContent=epgChannels+' / '+epgPrograms;
+  if($('adminSystemStatus')){
+    $('adminSystemStatus').innerHTML=
+      '<span class="admin-status-pill '+(status.status==='updated'?'ok':'warn')+'">● '+escapeHtml(statusLabel)+'</span>'+
+      '<span>Sağlık: %'+ratio+'</span>'+
+      '<span>Kanal değişimi: '+escapeHtml(deltaText)+'</span>'+
+      '<span>Eklenen: '+Number(changes.addedCount||0)+'</span>'+
+      '<span>Çıkarılan: '+Number(changes.removedCount||0)+'</span>';
+  }
   if($('adminLastUpdate')){
-    const prefix=status.status==='fetch_failed'?'Son işlem başarısız • liste korundu':'Son güncelleme';
+    const prefix=status.status==='fetch_failed'?'Son işlem başarısız • liste korundu':status.status==='rollback'?'Son işlem geri alındı':'Son başarılı güncelleme';
     $('adminLastUpdate').textContent=prefix+': '+formatAdminDate(status.updatedAt);
   }
 }
@@ -1296,6 +1314,15 @@ async function refreshAdminDashboard(){
 function initAdminControls(){
   $('refreshAdminBtn')?.addEventListener('click',async()=>{
     await refreshAdminDashboard();
+  });
+  $('manualUpdateBtn')?.addEventListener('click',()=>{
+    const url='https://github.com/sametkulak/kulaktv/actions/workflows/update-channels.yml';
+    window.open(url,'_blank');
+    const el=$('manualUpdateStatus');
+    if(el){
+      el.className='admin-action-status busy';
+      el.textContent='GitHub Actions açıldı. “Run workflow” ile manuel güncellemeyi başlatabilirsin.';
+    }
   });
   $('logoutAdminBtn')?.addEventListener('click',()=>{
     setAdminAuthenticated(false);
