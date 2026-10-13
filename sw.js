@@ -9,7 +9,7 @@ const APP_SHELL = [
   './telemetry-config.js?v=20261012-1',
   './logo.png?v=20261009-1-1',
   './favicon.svg',
-  './manifest.json'
+  './manifest.json?v=20261013-02'
 ];
 
 self.addEventListener('install', event => {
