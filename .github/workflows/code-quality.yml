@@ -7,6 +7,7 @@ on:
       - "index.html"
       - "style.css"
       - "telemetry-config.js"
+      - "auth.js"
       - "scripts/*.py"
       - ".github/workflows/*.yml"
   pull_request:
@@ -36,6 +37,7 @@ jobs:
       - name: JavaScript syntax
         run: |
           node --check app.js
+          node --check auth.js
           node --check telemetry-config.js
 
       - name: HTML ile JavaScript DOM referanslarını doğrula
