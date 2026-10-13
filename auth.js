@@ -321,7 +321,7 @@ function renderAdminUsers(users){
     name.textContent=user.username||'-';
 
     const meta=document.createElement('span');
-    meta.textContent=(user.active===1?'Aktif':'Pasif')+' • '+(user.role==='admin'?'Yönetici':'Kullanıcı');
+    meta.textContent=(user.active===1?'Aktif':'Pasif')+' • '+(user.role==='admin'?'Yönetici':'Kullanıcı')+' • Şifre: gizli';
 
     identity.append(name,meta);
 
@@ -372,7 +372,7 @@ function renderAdminUsers(users){
     const password=document.createElement('button');
     password.type='button';
     password.className='admin-user-small-btn';
-    password.textContent='Şifre';
+    password.textContent='Şifre değiştir';
     const canChangeProtectedAdminPassword =
       !isProtectedAdmin ||
       String(authState.user?.username||'').trim().toLowerCase()==='admin';
@@ -437,7 +437,7 @@ function ensureAdminManagementUi(){
     '<div class="admin-subtitle admin-users-subtitle">Kullanıcı yönetimi</div>'+
     '<form id="adminAddUserForm" class="admin-add-user-form">'+
       '<input id="newUserUsername" type="text" placeholder="Kullanıcı adı" maxlength="32" autocomplete="off" required>'+
-      '<input id="newUserPassword" type="password" placeholder="Şifre" minlength="3" autocomplete="new-password" required>'+
+      '<input id="newUserPassword" type="text" placeholder="Şifre" minlength="3" autocomplete="off" required>'+
       '<select id="newUserRole"><option value="user">Kullanıcı</option><option value="admin">Yönetici</option></select>'+
       '<button class="primary-btn" type="submit">Kullanıcı ekle</button>'+
     '</form>'+
