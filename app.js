@@ -1634,7 +1634,7 @@ function updateSourceButton(){
     const next=(state.sourceIndex+1)%total;
     btn.title=`Sonraki kaynak: ${next+1}/${total} • mevcut: ${q.label} ${q.score}/100`;
     btn.setAttribute('aria-label',`Kaynak değiştir, sonraki kaynak ${next+1}/${total}`);
-    if(label)label.textContent=`Kaynak Değiştir ${state.sourceIndex+1}/${total}`;
+    if(label)label.textContent='Kaynak Değiştir';
   }else{
     btn.title='Bu kanal için başka kaynak yok';
     btn.setAttribute('aria-label','Bu kanal için başka kaynak yok');
