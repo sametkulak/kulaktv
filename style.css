@@ -491,3 +491,5 @@ video{ -webkit-appearance:none; }
 .login-history-badge.closed{color:#aab4c2;background:#151d26;border:1px solid var(--line)}
 .login-history-times{display:flex;flex-wrap:wrap;gap:5px 9px;margin-top:5px;color:#7f8b9c;font-size:8px}
 
+
+.admin-user-small-btn.session-close-btn{color:#ffd37a}
