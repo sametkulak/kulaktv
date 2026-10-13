@@ -576,11 +576,14 @@ root.innerHTML=rows.map(item=>{
 
   const endReason=item.endReason ?? item.end_reason;
   const lastSeenAt=item.lastSeenAt ?? item.last_seen_at;
-  const open=!logoutAt;
+  const lastSeenMs=lastSeenAt?new Date(lastSeenAt).getTime():NaN;
+  const recentlySeen=Number.isFinite(lastSeenMs) && (Date.now()-lastSeenMs)<=90*1000;
+  const open=!logoutAt && recentlySeen;
+  const staleOpen=!logoutAt && !recentlySeen;
   const status=open?'active':'closed';
   const statusText=open
     ? 'Oturum açık'
-    : endReason==='timeout'
+    : endReason==='timeout' || staleOpen
       ? 'Bağlantı kesildi'
       : 'Çıkış yapıldı';
   const duration=formatDuration(loginAt,logoutAt);
