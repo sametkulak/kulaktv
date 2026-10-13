@@ -270,6 +270,87 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
   .connection-status b{display:none}
   .connection-status{width:30px;height:30px;padding:0;justify-content:center}
   .now-programme{font-size:10px}
+
+  /* Compact mobile player bar: keep every control inside the viewport. */
+  .player-bar{
+    left:6px;
+    right:6px;
+    bottom:8px;
+    transform:none;
+    min-width:0;
+    width:auto;
+    max-width:none;
+    height:58px;
+    gap:3px;
+    padding:5px 6px;
+    border-radius:14px;
+  }
+
+  .bar-channels{
+    width:68px;
+    min-width:68px;
+    padding:0 4px;
+    gap:0;
+  }
+  .bar-channels span:last-child{display:none}
+
+  .bar-btn{
+    width:34px;
+    min-width:34px;
+    height:34px;
+    border-radius:10px;
+    font-size:23px;
+  }
+
+  .bar-play{
+    width:44px;
+    min-width:44px;
+    height:44px;
+    font-size:16px;
+  }
+
+  .volume-btn,
+  .volume-btn.volume-on{
+    width:34px;
+    min-width:34px;
+    font-size:16px;
+  }
+
+  .bar-divider{
+    width:1px;
+    min-width:1px;
+    height:30px;
+    margin:0 1px;
+  }
+
+  .bar-current{
+    min-width:0;
+    flex:1 1 auto;
+    padding:0 3px;
+    overflow:hidden;
+  }
+  .bar-current-label{
+    font-size:6px;
+    letter-spacing:.7px;
+  }
+  #barChannelName{
+    min-width:0;
+    max-width:100%;
+    font-size:11px;
+  }
+
+  .bar-action{
+    width:34px;
+    min-width:34px;
+    height:34px;
+    padding:0;
+    gap:0;
+    font-size:13px;
+    border-radius:9px;
+    justify-content:center;
+  }
+  .bar-action span{display:none}
+  .source-change-btn{min-width:34px}
 }
 
 .admin-login{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.58);backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px}
