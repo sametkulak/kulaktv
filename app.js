@@ -1599,18 +1599,12 @@ function recordSourceEvent(url,type,latencyMs=0){
 }
 function updateSourceButton(){
   const btn=$('changeSourceBtn');
-  const qualityEl=$('sourceQuality');
   if(!btn)return;
   const total=state.sourceCandidates.length;
   btn.disabled=total<2;
   btn.classList.toggle('source-switching',total>=2);
   const current=state.sourceCandidates[state.sourceIndex];
   const q=current?getSourceQuality(current.url):{score:50,label:'Yeni'};
-  if(qualityEl){
-    qualityEl.textContent=q.label;
-    qualityEl.className='source-quality '+normalizeSearchText(q.label).replace(/[^a-z0-9]+/g,'-');
-    qualityEl.title=`Kaynak kalite puanı: ${q.score}/100`;
-  }
   const label=btn.querySelector('.bar-action-label, span:not(.bar-action-icon)');
   if(total>=2){
     const next=(state.sourceIndex+1)%total;
