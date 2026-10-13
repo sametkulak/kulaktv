@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-12T14:50:51.327984+00:00",
-  "channelCount": 286,
+  "updatedAt": "2026-10-13T09:00:53.371333+00:00",
+  "channelCount": 288,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -129,8 +129,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 686,
-    "healthyUrls": 386,
-    "failedUrls": 300,
+    "healthyUrls": 388,
+    "failedUrls": 298,
     "failures": [
       {
         "channel": "TRT1",
@@ -161,6 +161,11 @@
         "channel": "TRT 4K",
         "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
         "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -276,32 +281,28 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 0,
-    "removedAfterTwoFailures": 127
+    "pendingRemoval": 3,
+    "removedAfterTwoFailures": 125
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-12T14:50:51.327984+00:00",
+    "updatedAt": "2026-10-13T09:00:53.371333+00:00",
     "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/12.json,https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 62,
-    "programmeCount": 1981
+    "matchedChannels": 63,
+    "programmeCount": 2042
   },
   "changes": {
-    "channelDelta": 1,
-    "addedCount": 1,
+    "channelDelta": 2,
+    "addedCount": 2,
     "removedCount": 0,
     "addedChannels": [
-      "Number 1 Turk"
+      "TRT COCUK",
+      "DİM TV"
     ],
     "removedChannels": []
   },
