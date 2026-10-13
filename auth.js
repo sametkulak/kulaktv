@@ -427,10 +427,11 @@ function ensureAdminManagementUi(){
 
   document.getElementById('adminAddUserForm')?.addEventListener('submit',async event=>{
     event.preventDefault();
+    const form=event.currentTarget;
     const username=String(document.getElementById('newUserUsername')?.value||'').trim();
     const password=String(document.getElementById('newUserPassword')?.value||'');
     const role=String(document.getElementById('newUserRole')?.value||'user');
-    const submit=event.currentTarget.querySelector('button[type="submit"]');
+    const submit=form?.querySelector('button[type="submit"]');
 
     if(username.length<2){
       setAdminMessage('Kullanıcı adı en az 2 karakter olmalı.','error');
@@ -448,7 +449,7 @@ function ensureAdminManagementUi(){
         method:'POST',
         body:JSON.stringify({username,password,role})
       });
-      event.currentTarget.reset();
+      form?.reset();
       setAdminMessage('Kullanıcı eklendi.','success');
       await loadAdminManagement();
     }catch(error){
