@@ -1582,10 +1582,7 @@ $('allChannelsTab').addEventListener('click',()=>{state.showFavorites=false;appl
 $('favoritesTab').addEventListener('click',()=>{state.showFavorites=true;applyFilters();});$('clearFavoritesBtn').addEventListener('click',clearFavorites);
 $('loadUrl').addEventListener('click',async()=>{clearError();try{await loadUrl($('playlistUrl').value,'Özel M3U listesi');closeSettings();openChannels();}catch(e){setStatus('Hata');showError(`Liste yüklenemedi: ${e.message}. Harici M3U sunucusunun CORS izni vermesi gerekebilir.`);}});
 $('playlistUrl').addEventListener('keydown',e=>{if(e.key==='Enter')$('loadUrl').click();});
-$('defaultList').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
-$('bytefixList').addEventListener('click',async()=>{$('playlistUrl').value=BYTEFIX_LIST;try{await loadUrl(BYTEFIX_LIST,'ByteFix Repairs kaynak listesi');closeSettings();openChannels();}catch(e){showError(`ByteFix listesi tarayıcıdan doğrudan yüklenemedi: ${e.message}`);}});
 $('refreshDefault').addEventListener('click',async()=>{try{await loadDefault();closeSettings();openChannels();}catch(e){showError(e.message);}});
-$('iptvOrgList').addEventListener('click',async()=>{$('playlistUrl').value=IPTV_ORG_TR;try{await loadUrl(IPTV_ORG_TR,'iptv-org Türkiye');closeSettings();openChannels();}catch(e){showError(`iptv-org listesi yüklenemedi: ${e.message}`);}});
 $('loadFile').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{await loadM3UText(await file.text(),file.name);closeSettings();openChannels();}catch(err){showError(`Dosya okunamadı: ${err.message}`);}e.target.value='';});
 function getSourceQuality(url){
   const m=getSharedSourceQuality(url)||sourceQuality[url];
