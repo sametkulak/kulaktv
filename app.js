@@ -1311,7 +1311,7 @@ async function handleAdminLogin(event){
   const username=String($('adminUsername')?.value||'').trim();
   const password=String($('adminPassword')?.value||'');
   const digest=await sha256Hex(password);
-  const ok=username===ADMIN_USERNAME && digest===ADMIN_PASSWORD_SHA256;
+  const ok=username.toLowerCase()===ADMIN_USERNAME && digest===ADMIN_PASSWORD_SHA256;
   const err=$('adminLoginError');
   if(!ok){
     if(err)err.hidden=false;
