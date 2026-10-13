@@ -287,12 +287,17 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
   }
 
   .bar-channels{
-    width:68px;
-    min-width:68px;
-    padding:0 4px;
-    gap:0;
+    width:92px;
+    min-width:92px;
+    padding:0 5px;
+    gap:4px;
+    white-space:nowrap;
+    font-size:10px;
   }
-  .bar-channels span:last-child{display:none}
+  .bar-channels .bar-channel-icon,
+  .bar-channels span:last-child{
+    display:inline !important;
+  }
 
   .bar-btn{
     width:34px;
