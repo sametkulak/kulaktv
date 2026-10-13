@@ -356,7 +356,15 @@ function renderAdminUsers(users){
     password.type='button';
     password.className='admin-user-small-btn';
     password.textContent='Şifre';
+    const canChangeProtectedAdminPassword =
+      !isProtectedAdmin ||
+      String(authState.user?.username||'').trim().toLowerCase()==='admin';
+    password.disabled=!canChangeProtectedAdminPassword;
+    password.title=canChangeProtectedAdminPassword
+      ? 'Şifre değiştir'
+      : 'admin hesabının şifresini yalnızca admin kullanıcısı değiştirebilir';
     password.addEventListener('click',async()=>{
+      if(password.disabled)return;
       const next=window.prompt(user.username+' için yeni şifre:');
       if(next===null)return;
       if(next.length<3){
