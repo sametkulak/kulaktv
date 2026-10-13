@@ -179,15 +179,27 @@ function ensureSiteLoginModal(){
 async function initializeAuthGate(){
   const modal=ensureSiteLoginModal();
 
-  let settings={loginRequired:false};
-  try{
-    settings=await authApi('/api/settings');
-  }catch{
-    // Worker geçici olarak erişilemiyorsa mevcut public davranışı koru.
-    settings={loginRequired:false};
+  let settings=null;
+  let settingsLoaded=false;
+
+  for(let attempt=0;attempt<3 && !settingsLoaded;attempt++){
+    try{
+      settings=await authApi('/api/settings');
+      settingsLoaded=true;
+    }catch(error){
+      if(attempt<2){
+        await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));
+      }
+    }
   }
 
-  authState.loginRequired=Boolean(settings?.loginRequired);
+  // Giriş zorunlu olan bir sitede API geçici olarak erişilemezse
+  // güvenlik nedeniyle siteyi herkese açık hale getirme.
+  if(!settingsLoaded){
+    authState.loginRequired=true;
+  }else{
+    authState.loginRequired=Boolean(settings?.loginRequired);
+  }
 
   const user=await validateStoredSession();
 
