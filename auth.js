@@ -425,7 +425,9 @@ function ensureAdminManagementUi(){
       '<button class="primary-btn" type="submit">Kullanıcı ekle</button>'+
     '</form>'+
     '<div id="adminUserManagementMessage" class="admin-user-message" aria-live="polite"></div>'+
-    '<div id="adminUserList" class="admin-user-list"><div class="mini-muted">Kullanıcılar yükleniyor…</div></div>';
+    '<div id="adminUserList" class="admin-user-list"><div class="mini-muted">Kullanıcılar yükleniyor…</div></div>'+
+    '<div class="admin-subtitle admin-users-subtitle">Giriş / çıkış geçmişi</div>'+
+    '<div id="adminLoginHistory" class="admin-login-history"><div class="mini-muted">Geçmiş yükleniyor…</div></div>';
 
   card.append(panel);
 
@@ -484,6 +486,62 @@ function ensureAdminManagementUi(){
   });
 }
 
+function formatLoginDate(value){
+  const d=value?new Date(value):null;
+  return d&&!Number.isNaN(d.getTime())?d.toLocaleString('tr-TR',{dateStyle:'short',timeStyle:'short'}):'-';
+}
+
+function formatDuration(loginAt,logoutAt){
+  const start=new Date(loginAt||'');
+  const end=logoutAt?new Date(logoutAt):new Date();
+  if(Number.isNaN(start.getTime())||Number.isNaN(end.getTime())||end<start)return '';
+  const total=Math.max(0,Math.round((end-start)/1000));
+  const hours=Math.floor(total/3600);
+  const minutes=Math.floor((total%3600)/60);
+  const seconds=total%60;
+  if(hours)return hours+' sa '+minutes+' dk';
+  if(minutes)return minutes+' dk '+seconds+' sn';
+  return seconds+' sn';
+}
+
+function renderLoginHistory(rows){
+  const root=document.getElementById('adminLoginHistory');
+  if(!root)return;
+  if(!Array.isArray(rows)||!rows.length){
+    root.innerHTML='<div class="mini-muted">Henüz giriş / çıkış kaydı yok.</div>';
+    return;
+  }
+
+  root.innerHTML=rows.map(item=>{
+    const open=!item.logoutAt;
+    const status=open?'active':'closed';
+    const statusText=open?'Oturum açık':'Çıkış yapıldı';
+    const duration=formatDuration(item.loginAt,item.logoutAt);
+    return '<div class="login-history-item">'+
+      '<div class="login-history-head">'+
+        '<b>'+escapeHtml(item.username||'-')+'</b>'+
+        '<span class="login-history-badge '+status+'">'+statusText+'</span>'+
+      '</div>'+
+      '<div class="login-history-times">'+
+        '<span>Giriş: '+escapeHtml(formatLoginDate(item.loginAt))+'</span>'+
+        '<span>Çıkış: '+escapeHtml(item.logoutAt?formatLoginDate(item.logoutAt):'—')+'</span>'+
+        (duration?'<span>Süre: '+escapeHtml(duration)+'</span>':'')+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+async function loadLoginHistory(){
+  const root=document.getElementById('adminLoginHistory');
+  if(!root)return;
+  try{
+    const data=await authApi('/api/admin/login-history?limit=50');
+    renderLoginHistory(data?.sessions||[]);
+  }catch(error){
+    root.innerHTML='<div class="mini-muted">'+escapeHtml(error?.message||'Giriş geçmişi alınamadı.')+'</div>';
+  }
+}
+
 async function loadAdminManagement(){
   if(!(await requireAdminSession()))return;
   ensureAdminManagementUi();
@@ -501,6 +559,7 @@ async function loadAdminManagement(){
     if(state)state.textContent=settings?.loginRequired?'🔐 Giriş zorunlu':'🌐 Herkese açık';
 
     renderAdminUsers(users?.users||[]);
+    await loadLoginHistory();
   }catch(error){
     setAdminMessage(error?.message||'Yönetim verileri alınamadı.','error');
   }
