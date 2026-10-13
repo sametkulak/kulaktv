@@ -24,6 +24,7 @@ function getStoredUser(){
 function saveAuth(data){
   authState.token=String(data?.token||'');
   authState.user=data?.user||null;
+  startSessionHeartbeat();
   try{
     if(authState.token)localStorage.setItem(AUTH_TOKEN_KEY,authState.token);
     if(authState.user)localStorage.setItem(AUTH_USER_KEY,JSON.stringify(authState.user));
@@ -189,6 +190,10 @@ async function initializeAuthGate(){
   authState.loginRequired=Boolean(settings?.loginRequired);
 
   const user=await validateStoredSession();
+
+  if(user){
+    startSessionHeartbeat();
+  }
 
   if(!authState.loginRequired){
     modal.hidden=true;
@@ -570,6 +575,10 @@ async function loadAdminManagement(){
 }
 
 async function logoutCentralAuth(){
+  if(heartbeatTimer){
+    clearInterval(heartbeatTimer);
+    heartbeatTimer=null;
+  }
   try{await authApi('/api/logout',{method:'POST'});}catch{}
   clearAuth();
   const gate=document.getElementById('siteAuthGate');
@@ -578,6 +587,34 @@ async function logoutCentralAuth(){
     document.getElementById('siteAuthUsername')?.focus();
   }
   if(typeof window.closeSettings==='function')window.closeSettings();
+}
+
+let heartbeatTimer = null;
+
+async function sendSessionHeartbeat(){
+  if(!authState.token)return;
+
+  try{
+    await authApi('/api/session/heartbeat',{
+      method:'POST'
+    });
+  }catch(error){
+    // Sessizce bırak. Geçersiz oturum sonraki doğrulamada temizlenir.
+  }
+}
+
+function startSessionHeartbeat(){
+  if(heartbeatTimer){
+    clearInterval(heartbeatTimer);
+  }
+
+  if(!authState.token)return;
+
+  void sendSessionHeartbeat();
+
+  heartbeatTimer=setInterval(()=>{
+    void sendSessionHeartbeat();
+  },30000);
 }
 
 function initCentralAuth(){
