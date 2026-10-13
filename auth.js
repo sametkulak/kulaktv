@@ -512,23 +512,27 @@ function renderLoginHistory(rows){
     return;
   }
 
-  root.innerHTML=rows.map(item=>{
-    const open=!item.logoutAt;
-    const status=open?'active':'closed';
-    const statusText=open?'Oturum açık':'Çıkış yapıldı';
-    const duration=formatDuration(item.loginAt,item.logoutAt);
-    return '<div class="login-history-item">'+
-      '<div class="login-history-head">'+
-        '<b>'+escapeHtml(item.username||'-')+'</b>'+
-        '<span class="login-history-badge '+status+'">'+statusText+'</span>'+
-      '</div>'+
-      '<div class="login-history-times">'+
-        '<span>Giriş: '+escapeHtml(formatLoginDate(item.loginAt))+'</span>'+
-        '<span>Çıkış: '+escapeHtml(item.logoutAt?formatLoginDate(item.logoutAt):'—')+'</span>'+
-        (duration?'<span>Süre: '+escapeHtml(duration)+'</span>':'')+
-      '</div>'+
-    '</div>';
-  }).join('');
+root.innerHTML=rows.map(item=>{
+  const loginAt=item.loginAt ?? item.login_at;
+  const logoutAt=item.logoutAt ?? item.logout_at;
+
+  const open=!logoutAt;
+  const status=open?'active':'closed';
+  const statusText=open?'Oturum açık':'Çıkış yapıldı';
+  const duration=formatDuration(loginAt,logoutAt);
+
+  return '<div class="login-history-item">'+
+    '<div class="login-history-head">'+
+      '<b>'+escapeHtml(item.username||'-')+'</b>'+
+      '<span class="login-history-badge '+status+'">'+statusText+'</span>'+
+    '</div>'+
+    '<div class="login-history-times">'+
+      '<span>Giriş: '+escapeHtml(formatLoginDate(loginAt))+'</span>'+
+      '<span>Çıkış: '+escapeHtml(logoutAt?formatLoginDate(logoutAt):'—')+'</span>'+
+      (duration?'<span>Süre: '+escapeHtml(duration)+'</span>':'')+
+    '</div>'+
+  '</div>';
+}).join('');
 }
 
 async function loadLoginHistory(){
