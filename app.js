@@ -1684,7 +1684,21 @@ async function loadUpdateStatus(){
     }
   }catch{}
 }
-loadUpdateStatus();loadHistory();loadEpg();loadDefault().catch(e=>{setStatus('Liste yüklenemedi');showError(`Başlangıç listesi yüklenemedi: ${e.message}`);});
+const startKulakTV=()=>{
+  loadUpdateStatus();
+  loadHistory();
+  loadEpg();
+  loadDefault().catch(e=>{
+    setStatus('Liste yüklenemedi');
+    showError(`Başlangıç listesi yüklenemedi: ${e.message}`);
+  });
+};
+
+if(window.KULAKTV_AUTH?.ready){
+  window.KULAKTV_AUTH.ready.then(startKulakTV);
+}else{
+  startKulakTV();
+}
 
 window.addEventListener('online',()=>{if(state.current)setConnectionStatus('connecting','Bağlantı geri geldi');});
 window.addEventListener('offline',()=>setConnectionStatus('error','İnternet yok'));
