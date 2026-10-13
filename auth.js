@@ -521,9 +521,14 @@ root.innerHTML=rows.map(item=>{
   const loginAt=item.loginAt ?? item.login_at;
   const logoutAt=item.logoutAt ?? item.logout_at;
 
+  const endReason=item.endReason ?? item.end_reason;
   const open=!logoutAt;
   const status=open?'active':'closed';
-  const statusText=open?'Oturum açık':'Çıkış yapıldı';
+  const statusText=open
+    ? 'Oturum açık'
+    : endReason==='timeout'
+      ? 'Bağlantı kesildi'
+      : 'Çıkış yapıldı';
   const duration=formatDuration(loginAt,logoutAt);
 
   return '<div class="login-history-item">'+
