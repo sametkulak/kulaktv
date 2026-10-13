@@ -340,6 +340,11 @@ video{ -webkit-appearance:none; }
 .site-auth-title{text-align:center;font-size:24px;font-weight:900}
 .site-auth-subtitle{text-align:center;margin-top:4px;color:var(--muted);font-size:11px}
 .site-auth-form{display:flex;flex-direction:column;gap:11px;margin-top:20px}
+.site-password-wrap{position:relative}
+.site-password-wrap input{width:100%;padding-right:48px}
+.site-password-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:34px;border:0;border-radius:8px;background:transparent;color:#98a4b4;cursor:pointer;font-size:15px;display:grid;place-items:center}
+.site-password-toggle:hover{background:#151d26;color:#d6dde6}
+
 .site-auth-form label{font-size:11px;color:#bfc7d2;font-weight:800;display:flex;flex-direction:column;gap:6px}
 .site-auth-form input{min-height:46px}
 .site-auth-form .primary-btn{width:100%;min-height:46px;margin-top:2px}
