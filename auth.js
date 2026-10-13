@@ -299,7 +299,7 @@ function setAdminMessage(text,type=''){
   el.className='admin-user-message'+(type?' '+type:'');
 }
 
-function renderAdminUsers(users){
+function renderAdminUsers(users, presenceByUsername={}){
   const root=document.getElementById('adminUserList');
   if(!root)return;
 
@@ -324,6 +324,13 @@ function renderAdminUsers(users){
     meta.textContent=(user.active===1?'Aktif':'Pasif')+' • '+(user.role==='admin'?'Yönetici':'Kullanıcı')+' • Şifre: gizli';
 
     identity.append(name,meta);
+
+    const presence=presenceByUsername[String(user.username||'').trim().toLowerCase()];
+    if(presence?.lastSeenAt){
+      const seen=document.createElement('span');
+      seen.textContent='Son görülme: '+formatLoginDate(presence.lastSeenAt);
+      identity.append(seen);
+    }
 
     const controls=document.createElement('div');
     controls.className='admin-user-controls';
@@ -399,6 +406,38 @@ function renderAdminUsers(users){
       }
     });
 
+    const closeSessions=document.createElement('button');
+    closeSessions.type='button';
+    closeSessions.className='admin-user-small-btn';
+    closeSessions.textContent='Oturumları kapat';
+    const isCurrentUser=authState.user?.id===user.id;
+    const canManageProtectedAdminSessions =
+      !isProtectedAdmin ||
+      String(authState.user?.username||'').trim().toLowerCase()==='admin';
+    closeSessions.disabled=isCurrentUser || !canManageProtectedAdminSessions;
+    closeSessions.title=isCurrentUser
+      ? 'Kendi aktif oturumunu bu düğmeden kapatamazsın'
+      : canManageProtectedAdminSessions
+        ? 'Bu kullanıcının tüm aktif oturumlarını kapat'
+        : 'admin hesabının oturumlarını yalnızca admin kullanıcısı kapatabilir';
+    closeSessions.addEventListener('click',async()=>{
+      if(closeSessions.disabled)return;
+      if(!window.confirm(user.username+' kullanıcısının tüm aktif oturumları kapatılsın mı?'))return;
+      try{
+        const data=await authApi('/api/admin/users/'+Number(user.id)+'/logout-all',{
+          method:'POST'
+        });
+        const count=Number(data?.closedCount||0);
+        setAdminMessage(
+          count ? (user.username+' için '+count+' oturum kapatıldı.') : (user.username+' için açık oturum bulunamadı.'),
+          'success'
+        );
+        await loadAdminManagement();
+      }catch(error){
+        setAdminMessage(error?.message||'Kullanıcının oturumları kapatılamadı.','error');
+      }
+    });
+
     const remove=document.createElement('button');
     remove.type='button';
     remove.className='admin-user-small-btn danger';
@@ -417,7 +456,7 @@ function renderAdminUsers(users){
       }
     });
 
-    controls.append(role,active,password,remove);
+    controls.append(role,active,password,closeSessions,remove);
     row.append(identity,controls);
     root.append(row);
   });
@@ -534,6 +573,7 @@ root.innerHTML=rows.map(item=>{
   const logoutAt=item.logoutAt ?? item.logout_at;
 
   const endReason=item.endReason ?? item.end_reason;
+  const lastSeenAt=item.lastSeenAt ?? item.last_seen_at;
   const open=!logoutAt;
   const status=open?'active':'closed';
   const statusText=open
@@ -551,7 +591,8 @@ root.innerHTML=rows.map(item=>{
     '<div class="login-history-times">'+
       '<span>Giriş: '+escapeHtml(formatLoginDate(loginAt))+'</span>'+
       '<span>Çıkış: '+escapeHtml(logoutAt?formatLoginDate(logoutAt):'—')+'</span>'+
-      (duration?'<span>Süre: '+escapeHtml(duration)+'</span>':'')+
+      (open&&lastSeenAt?'<span>Son görülme: '+escapeHtml(formatLoginDate(lastSeenAt))+'</span>':'')+
+      (duration?'<span>Süre: '+escapeHtml(duration)+'</span>': '')+
     '</div>'+
   '</div>';
 }).join('');
@@ -559,12 +600,16 @@ root.innerHTML=rows.map(item=>{
 
 async function loadLoginHistory(){
   const root=document.getElementById('adminLoginHistory');
-  if(!root)return;
+  if(!root)return [];
+
   try{
-    const data=await authApi('/api/admin/login-history?limit=50');
-    renderLoginHistory(data?.sessions||[]);
+    const data=await authApi('/api/admin/login-history?limit=100');
+    const rows=Array.isArray(data?.sessions)?data.sessions:[];
+    renderLoginHistory(rows);
+    return rows;
   }catch(error){
     root.innerHTML='<div class="mini-muted">'+escapeHtml(error?.message||'Giriş geçmişi alınamadı.')+'</div>';
+    return [];
   }
 }
 
@@ -573,9 +618,10 @@ async function loadAdminManagement(){
   ensureAdminManagementUi();
 
   try{
-    const [settings,users]=await Promise.all([
+    const [settings,users,historyData]=await Promise.all([
       authApi('/api/settings'),
-      authApi('/api/admin/users')
+      authApi('/api/admin/users'),
+      authApi('/api/admin/login-history?limit=100')
     ]);
 
     const toggle=document.getElementById('loginRequiredToggle');
@@ -584,8 +630,43 @@ async function loadAdminManagement(){
     const state=document.getElementById('loginRequiredState');
     if(state)state.textContent=settings?.loginRequired?'🔐 Giriş zorunlu':'🌐 Herkese açık';
 
-    renderAdminUsers(users?.users||[]);
-    await loadLoginHistory();
+    const historyRows=Array.isArray(historyData?.sessions)?historyData.sessions:[];
+    const presenceByUsername={};
+    const onlineUsers=new Set();
+
+    historyRows.forEach(item=>{
+      const username=String(item.username||'').trim().toLowerCase();
+      if(!username)return;
+
+      const logoutAt=item.logoutAt ?? item.logout_at;
+      const lastSeenAt=item.lastSeenAt ?? item.last_seen_at;
+
+      if(!presenceByUsername[username]){
+        presenceByUsername[username]={lastSeenAt:null};
+      }
+
+      if(lastSeenAt){
+        const existing=presenceByUsername[username].lastSeenAt;
+        if(!existing || new Date(lastSeenAt)>new Date(existing)){
+          presenceByUsername[username].lastSeenAt=lastSeenAt;
+        }
+      }
+
+      if(!logoutAt){
+        onlineUsers.add(username);
+      }
+    });
+
+    renderAdminUsers(users?.users||[],presenceByUsername);
+
+    const onlineSummary=document.getElementById('adminOnlineSummary');
+    if(onlineSummary){
+      onlineSummary.textContent=onlineUsers.size
+        ? '🟢 Çevrimiçi: '+onlineUsers.size+' kullanıcı'
+        : '⚪ Şu an çevrimiçi kullanıcı yok';
+    }
+
+    renderLoginHistory(historyRows);
   }catch(error){
     setAdminMessage(error?.message||'Yönetim verileri alınamadı.','error');
   }
