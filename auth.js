@@ -328,7 +328,9 @@ function renderAdminUsers(users, presenceByUsername={}){
     const presence=presenceByUsername[String(user.username||'').trim().toLowerCase()];
     if(presence?.lastSeenAt){
       const seen=document.createElement('span');
-      seen.textContent='Son görülme: '+formatLoginDate(presence.lastSeenAt);
+      const seenMs=new Date(presence.lastSeenAt).getTime();
+      const online=Number.isFinite(seenMs) && (Date.now()-seenMs)<=90*1000;
+      seen.textContent=(online?'🟢 Çevrimiçi • ':'Son görülme: ')+formatLoginDate(presence.lastSeenAt);
       identity.append(seen);
     }
 
@@ -652,8 +654,11 @@ async function loadAdminManagement(){
         }
       }
 
-      if(!logoutAt){
-        onlineUsers.add(username);
+      if(!logoutAt && lastSeenAt){
+        const seenMs=new Date(lastSeenAt).getTime();
+        if(Number.isFinite(seenMs) && (Date.now()-seenMs) <= 90*1000){
+          onlineUsers.add(username);
+        }
       }
     });
 
