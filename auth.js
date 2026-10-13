@@ -113,13 +113,25 @@ function ensureSiteLoginModal(){
       '<div class="site-auth-subtitle">İzlemek için giriş yap</div>'+
       '<form id="siteAuthForm" class="site-auth-form">'+
         '<label>Kullanıcı adı<input id="siteAuthUsername" type="text" autocomplete="username" required></label>'+
-        '<label>Şifre<input id="siteAuthPassword" type="password" autocomplete="current-password" required></label>'+
+        '<label>Şifre<div class="site-password-wrap"><input id="siteAuthPassword" type="password" autocomplete="current-password" required><button type="button" class="site-password-toggle" id="siteAuthPasswordToggle" aria-label="Şifreyi göster" title="Şifreyi göster">◉</button></div></label>'+
         '<div id="siteAuthError" class="site-auth-error" hidden></div>'+
         '<button class="primary-btn" id="siteAuthSubmit" type="submit">Giriş yap</button>'+
       '</form>'+
     '</div>';
 
   document.body.prepend(modal);
+
+  const passwordInput=modal.querySelector('#siteAuthPassword');
+  const passwordToggle=modal.querySelector('#siteAuthPasswordToggle');
+  passwordToggle?.addEventListener('click',()=>{
+    const visible=passwordInput?.type==='text';
+    if(passwordInput)passwordInput.type=visible?'password':'text';
+    if(passwordToggle){
+      passwordToggle.textContent=visible?'◉':'◌';
+      passwordToggle.setAttribute('aria-label',visible?'Şifreyi göster':'Şifreyi gizle');
+      passwordToggle.title=visible?'Şifreyi göster':'Şifreyi gizle';
+    }
+  });
 
   modal.querySelector('#siteAuthForm')?.addEventListener('submit',async event=>{
     event.preventDefault();
