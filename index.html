@@ -9,9 +9,10 @@
   <title>KulakTV</title>
   <link rel="icon" href="logo.png?v=20261009-1-1" type="image/png">
   <link rel="apple-touch-icon" href="logo.png?v=20261009-1-1">
-  <link rel="stylesheet" href="style.css?v=20261013-15">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="style.css?v=20261013-16">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
-  <script src="auth.js?v=20261013-10" defer></script>
+  <script src="auth.js?v=20261013-11" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -162,6 +163,7 @@
           <button id="loadFile" class="settings-action">▣<span>M3U dosyası aç</span></button>
           <button id="copyStream" class="settings-action" disabled>⧉<span>Yayın URL'sini kopyala</span></button>
           <button id="openStream" class="settings-action" disabled>↗<span>Dış oynatıcıda aç</span></button>
+          <button id="installAppBtn" class="settings-action" type="button" hidden>⬇<span>Ana ekrana ekle</span></button>
           <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
         </section>
 
@@ -192,6 +194,7 @@
           <div id="adminSystemStatus" class="admin-system-status">Sistem durumu yükleniyor…</div>
           <div id="adminLastUpdate" class="admin-last-update">Son güncelleme kontrol ediliyor…</div>
           <div id="autoUpdateStatus" class="admin-auto-update-status">Otomatik güncelleme kontrol ediliyor…</div>
+          <div id="adminOnlineSummary" class="admin-online-summary">Çevrimiçi kullanıcılar: —</div>
         </section>
 
         <section class="settings-card admin-management-card">
@@ -236,6 +239,6 @@
   </div>
 
   <script src="telemetry-config.js?v=20261012-1"></script>
-  <script src="app.js?v=20261013-06" defer></script>
+  <script src="app.js?v=20261013-07" defer></script>
 </body>
 </html>
