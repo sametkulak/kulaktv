@@ -1,70 +1,222 @@
-# KulakTV - Static M3U / HLS Web Player
+# KulakTV
 
-KulakTV, build gerektirmeyen statik bir M3U/M3U8 web player'dır. Proje doğrudan **GitHub Pages**, **Cloudflare Pages** veya herhangi bir statik web sunucusunda yayınlanabilir.
+KulakTV, Türkiye'deki televizyon kanallarını canlı izlemek için hazırlanmış statik **M3U / M3U8 / HLS web player** projesidir. Site **GitHub Pages** üzerinde yayınlanır; kimlik doğrulama ve kullanıcı yönetimi ise ayrı bir **Cloudflare Worker + D1** servisi üzerinden yürütülür.
 
 ## Özellikler
 
-- Yerleşik `channels.m3u` Türkiye listesi
+### Oynatıcı
+- Yerleşik Türkiye kanal listesi
 - Harici M3U URL'si yükleme
-- Yerel `.m3u`, `.m3u8`, `.txt` dosyası açma
-- Kanal arama
-- Kategori/grup filtresi
+- Yerel `.m3u`, `.m3u8` ve `.txt` dosyası açma
+- Kanal arama ve favoriler
 - HLS.js ile Chrome / Edge / Firefox oynatma
 - Safari / iOS için native HLS desteği
-- Oynatma durumu göstergesi
-- Yayın URL'sini panoya kopyalama
-- JavaScript / CSS build süreci yok
+- Özel oynatıcı kontrol çubuğu
+- Kanal değiştirirken yedek kaynaklar arasında geçiş
+- Yayın bağlantısı ve bağlantı durumu göstergeleri
+- TV Rehberi (EPG) bilgileri
+- Tam ekran desteği
+- Media Session desteği
+- Mobil ve masaüstü uyumlu arayüz
+
+### Kaynak ve sağlık sistemi
+- Birden fazla public M3U kaynağının birleştirilmesi
+- Türk TV kanallarına yönelik filtreleme
+- HLS manifesti + en az bir medya segmenti ile yayın sağlık kontrolü
+- Başarılı kaynakları önce deneyen kaynak sıralaması
+- Kaynak kalite puanları
+- Bozulan kaynaklar için yeniden deneme ve güvenlik eşikleri
+- Kanal güncelleme guardrail'leri ile toplu hatalarda listenin korunması
+- Günlük kanal, kaynak ve EPG güncellemeleri
+- Güncelleme geçmişi ve sistem özeti
+
+### EPG
+- Öncelikli Türksat EPG verisi
+- Gerekirse XMLTV fallback
+- Kanal adları için alias eşleştirme
+- Güncel + sonraki gün programları
+- EPG veri kaybına karşı anomaly guardrail
+
+### Kullanıcı ve yönetim sistemi
+KulakTV'nin isteğe bağlı giriş sistemi ayrı bir Cloudflare Worker + D1 servisinde tutulur.
+
+- Kullanıcı adı / şifre ile giriş
+- `admin` ve `user` rolleri
+- Yönetici kullanıcı yönetimi
+- Kullanıcı ekleme, silme, aktif/pasif yapma
+- Şifre değiştirme
+- Bir kullanıcının tüm aktif oturumlarını kapatma
+- Aktif kullanıcı ve son görülme bilgisi
+- Heartbeat tabanlı çevrimiçi durum
+- Oturum timeout ve otomatik temizlik
+- Giriş / çıkış geçmişi
+- Yönetim panelinde kanal, kaynak, sağlık URL'si, EPG ve çevrimiçi kullanıcı özeti
+- Birincil `admin` hesabı için özel korumalar
+
+Kimlik doğrulama API'si GitHub Pages frontend'inden ayrı çalışır. Parolalar düz metin olarak saklanmaz; veritabanında hash'lenmiş olarak tutulur.
+
+> Not: Bu proje küçük ve kontrollü bir kullanıcı grubu için tasarlanmıştır. Cloudflare Worker tarafındaki kimlik doğrulama servisi, GitHub Pages üzerindeki statik frontend'den ayrı tutulur.
+
+### PWA / uygulama olarak kullanım
+KulakTV bir **Progressive Web App (PWA)** olarak da kurulabilir.
+
+- Chrome / Edge üzerinde uygulama olarak yükleme
+- Masaüstüne uygulama kısayolu
+- Mobil cihazlarda ana ekrana ekleme
+- Standalone görünüm
+- Service Worker ile temel uygulama kabuğu önbelleği
+- Dinamik kanal, EPG ve durum verileri ağ üzerinden alınır
+
+iPhone / iPad üzerinde Safari'de **Paylaş → Ana Ekrana Ekle** kullanılabilir.
 
 ## Dosya yapısı
 
 ```text
-kulaktv-player/
+kulaktv/
 ├── index.html
 ├── app.js
+├── auth.js
 ├── style.css
+├── manifest.json
+├── sw.js
 ├── channels.m3u
+├── epg.json
+├── epg-status.json
+├── source-quality.json
+├── health-state.json
+├── update-status.json
+├── update-history.json
+├── telemetry-config.js
+├── player-telemetry.json
+├── logo.png
+├── favicon.svg
 ├── .nojekyll
 ├── _headers
-├── logo.png
-├── source-quality.json
-├── player-telemetry.json
-├── telemetry-config.js
 ├── .github/workflows/
 ├── scripts/
 └── README.md
 ```
 
+## Mimari
+
+```text
+GitHub Pages
+    │
+    ├── index.html
+    ├── app.js
+    ├── auth.js
+    ├── style.css
+    ├── manifest.json
+    └── sw.js
+             │
+             │ HTTPS API
+             ▼
+Cloudflare Worker
+    │
+    └── D1: kulaktv-users
+         ├── users
+         ├── sessions
+         ├── login_history
+         └── settings
+```
+
+GitHub Pages yalnızca statik web uygulamasını sunar. Kullanıcı, session ve site erişim ayarları Cloudflare tarafındaki API tarafından yönetilir.
+
 ## GitHub Pages ile yayınlama
 
-1. GitHub'da yeni bir repository oluştur.
-2. Bu klasördeki **tüm dosyaları** repository kök dizinine yükle.
-3. GitHub'da `Settings → Pages` bölümüne gir.
-4. `Build and deployment` altında `Deploy from a branch` seç.
-5. Branch olarak `main`, klasör olarak `/ (root)` seç.
-6. Kaydet.
-7. GitHub birkaç dakika içinde sana `https://KULLANICI.github.io/REPO/` benzeri bir adres verir.
+1. Repository'yi GitHub'a yükle.
+2. GitHub → **Settings → Pages** bölümüne gir.
+3. **Build and deployment** altında **Deploy from a branch** seç.
+4. Branch olarak `main`, klasör olarak `/(root)` seç.
+5. Kaydet.
+6. GitHub Pages birkaç dakika içinde siteyi yayınlar.
 
-`.nojekyll` dosyası özellikle eklenmiştir. Böylece GitHub Pages içeriği Jekyll üzerinden dönüştürmeden doğrudan statik dosyalar olarak servis eder.
+`.nojekyll` dosyası statik dosyaların doğrudan servis edilmesini sağlar.
 
-## Cloudflare Pages ile yayınlama
+## Cloudflare Auth API
 
-### GitHub bağlantısı ile
+Kullanıcı sistemi için ayrı bir Cloudflare Worker gerekir.
 
-1. Projeyi GitHub repository'sine yükle.
-2. Cloudflare Dashboard → `Workers & Pages` → `Create application` → `Pages` bölümüne gir.
-3. GitHub repository'sini bağla.
-4. Framework olarak `None` / statik yapı kullan.
-5. **Build command:** boş bırak.
-6. **Build output directory:** `/` veya repository kökü.
-7. Deploy et.
+Temel API uçları:
 
-### Direct Upload ile
+```text
+POST /api/login
+POST /api/logout
+GET  /api/session
+POST /api/session/heartbeat
 
-Cloudflare Pages'in Direct Upload seçeneğinde proje klasörünü veya ZIP içeriğini yükleyebilirsin. Bu projede build komutu gerekmez.
+GET  /api/settings
+PUT  /api/settings
+
+GET  /api/admin/users
+POST /api/admin/users
+PUT  /api/admin/users/:id
+DELETE /api/admin/users/:id
+
+POST /api/admin/users/:id/logout-all
+GET  /api/admin/login-history
+```
+
+D1 tarafındaki temel tablolar:
+
+```text
+users
+sessions
+login_history
+settings
+```
+
+Worker'ın GitHub Pages üzerinde doğrudan şifre veya oturum verisi bulundurmasına gerek yoktur.
+
+## Oturum takibi
+
+Kullanıcı giriş yaptığında bir session kaydı oluşturulur ve istemci periyodik heartbeat gönderir. Worker, `last_seen_at` bilgisini günceller.
+
+Yakın zamanda heartbeat göndermeyen session'lar otomatik olarak aktif kullanıcı sayımından çıkarılır. Scheduled cleanup, süresi veya heartbeat zaman aşımı dolan session'ları temizler ve uygun durumlarda login geçmişini kapatır.
+
+Normal tarayıcı kapatmalarında tarayıcıdan güvenilir bir "çıkış yaptım" sinyali beklenmez. Bu nedenle sistem gerçek çevrimiçi durumu heartbeat + timeout mantığıyla takip eder.
+
+## Otomatik günlük kanal güncellemesi
+
+`scripts/update_channels.py` kanal kaynaklarını değerlendirir ve sağlıklı Türk TV kanallarını günceller. EPG ve watchdog kontrolleri de günlük otomasyon akışının parçasıdır.
+
+Güncelleme sonucunda aşağıdaki dosyalar değişebilir:
+
+```text
+channels.m3u
+health-state.json
+source-quality.json
+epg.json
+epg-status.json
+update-status.json
+update-history.json
+```
+
+Günlük otomasyon için GitHub Actions akışları kullanılır; zamanlama dış scheduler üzerinden tetiklenebilir. Ayrıca GitHub'daki **Actions → KulakTV kanal listesini güncelle** akışından manuel çalıştırma yapılabilir.
+
+Kaynak başarı oranı, kanal sayısı ve ana kanalların korunması için guardrail kontrolleri bulunur. Aşırı bozulmuş bir upstream kaynağın tüm listeyi silmesine izin verilmez.
+
+> Not: GitHub Actions runner'larının bulunduğu coğrafya bazı bölgesel yayınları yanıltıcı şekilde başarısız gösterebilir. Bu nedenle player tarafındaki gerçek tarayıcı oynatımı ayrıca önemlidir.
+
+## Yerleşik kanal listesi
+
+`channels.m3u`, başlangıç olarak public yayın uçlarından oluşturulmuş Türkiye kanal listesidir. Yayıncılar URL'lerini değiştirebildiği için tek tek yayınların sürekliliği garanti edilemez.
+
+Türkiye kanal listesi oluşturma sürecinde iptv-org Türkiye akışı referans alınabilir:
+
+`https://iptv-org.github.io/iptv/countries/tr.m3u`
+
+Ana proje:
+
+`https://github.com/iptv-org/iptv`
+
+## EPG
+
+EPG tarafında öncelik resmi Türksat verilerindedir. Mevcut ve sonraki gün için program verileri hazırlanır; kanal alias'larıyla eşleşme yapılır ve hatalı derecede küçülen EPG çıktıları guardrail ile durdurulur.
 
 ## Yerel test
 
-`file://` üzerinden açmak yerine HTTP sunucusu kullanılması tavsiye edilir:
+`file://` yerine HTTP sunucusu kullanılması tavsiye edilir:
 
 ```bash
 python -m http.server 8080
@@ -78,40 +230,20 @@ http://localhost:8080
 
 ## Harici M3U URL'si
 
-Harici bir M3U dosyasını tarayıcıdaki `fetch()` ile okuyabilmek için kaynak sunucunun CORS izni vermesi gerekir. CORS kapalıysa:
+Harici bir M3U listesini tarayıcıdaki `fetch()` ile okuyabilmek için kaynak sunucusunun CORS izni vermesi gerekir.
 
-- M3U dosyasını indirip `M3U Dosyası` ile yerel olarak açabilirsin.
-- Ya da kendi sunucunda CORS destekleyen bir kaynak kullanabilirsin.
+CORS kapalıysa:
+- M3U dosyasını indirip yerel olarak açabilirsin.
+- CORS destekleyen başka bir kaynak kullanabilirsin.
 
-Aynı durum bazı canlı HLS/M3U8 yayınlarında da geçerlidir. Playlist açılsa bile yayın sunucusu tarayıcıdan gelen medya isteğini engelleyebilir.
+Aynı durum bazı canlı HLS/M3U8 yayınlarında da geçerlidir.
 
-## Otomatik günlük kanal güncellemesi
+## Telemetry
 
-Projede `.github/workflows/update-channels.yml` ve `scripts/update_channels.py` bulunur. GitHub Actions her gün **06:15 Türkiye saati** civarında çalışır ve yapılandırılmış public M3U kaynaklarını birleştirir. KulakTV'de zaten bulunan kanallar için yalnızca izin verilen/güvenilir yayın alan adlarındaki URL değişiklikleri uygulanır; kaynakta kaybolan bir kanalın son bilinen URL'si otomatik olarak silinmez. Böylece tek bir upstream hatası yüzünden listenin boşalması engellenir.
+Player telemetry şu an **devre dışıdır**.
 
-İlk yüklemeden sonra ayrıca GitHub'da `Actions → KulakTV kanal listesini güncelle` ekranından `Run workflow` ile elle çalıştırabilirsin. Güncelleme gerçekleştiğinde `channels.m3u`, `update-status.json`, `health-state.json` ve `source-quality.json` güncellenebilir. GitHub Pages ana dalı yayın kaynağı olarak kullanıyorsa bu commit siteyi de yeniden yayınlatır. GitHub Pages, bir branch'ten yayın yapacak şekilde yapılandırıldığında source branch'e yapılan değişiklikleri otomatik olarak yayınlar.
-
-Not: GitHub Actions üzerinden yapılan HTTP kontrolü, Türkiye dışındaki GitHub runner konumu nedeniyle coğrafi kısıtlı yayınları güvenilir şekilde "çalışıyor" diye değerlendiremez. Player, kanalı gerçekten tarayıcıda açarken son durumu ayrıca gösterir.
-
-## Yerleşik kanal listesi
-
-`channels.m3u`, ücretsiz/herkese açık yayın uçlarından oluşturulmuş bir başlangıç listesidir. Yayın URL'leri yayıncı tarafından değiştirilebildiği için canlı yayınların sürekliliği garanti edilemez.
-
-Kaynak olarak iptv-org Türkiye akışı referans alınmıştır:
-
-https://iptv-org.github.io/iptv/countries/tr.m3u
-
-Ana proje:
-
-https://github.com/iptv-org/iptv
+Public frontend içine GitHub yazma yetkisi veya hassas token bırakılmadığı için eski Issue tabanlı telemetry yaklaşımı kullanılmaz. `telemetry-config.js` içinde aktif bir yazma token'ı bulunmamalıdır.
 
 ## Lisans / içerik sorumluluğu
 
-Bu repository yalnızca player yazılımını ve herkese açık yayın uçlarından oluşturulmuş örnek bir M3U listesini içerir. Telifli veya abonelik gerektiren yayınların izinsiz yeniden dağıtımından kullanıcı sorumludur.
-
-
-## Oynatma deneyimi ve ortak kaynak kalitesi
-
-Oynatma tarafında HLS.js ile Chrome/Edge/Firefox, Safari tarafında native HLS desteklenir. Kanal değişimlerinde eski HLS instance'ı, timer'lar ve callback'ler iptal edilir; böylece önceki kanalın gecikmiş olaylarının yeni kanala karışması engellenir.
-
-GitHub Pages üzerinde istemci tarafında GitHub yazma yetkisi tutulmadığı için player telemetry şu an **devre dışıdır**. Daha önce kullanılan Issue tabanlı telemetry modeli, public istemciye yazma token'ı bırakma gerektirdiğinden güvenli kabul edilmemiştir. `telemetry-config.js` içinde aktif token bulunmaz. Kaynak kalite puanları günlük sunucu tarafı health-check sonuçlarından üretilebilir.
+Bu repository player yazılımını ve public yayın uçlarından oluşturulmuş örnek bir kanal listesini içerir. Telifli veya abonelik gerektiren yayınların izinsiz yeniden dağıtımından kullanıcı sorumludur.
