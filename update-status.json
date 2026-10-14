@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-13T09:00:53.371333+00:00",
-  "channelCount": 288,
+  "updatedAt": "2026-10-14T09:00:49.524190+00:00",
+  "channelCount": 290,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 89,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -119,7 +119,7 @@
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
-      "trustScore": 73,
+      "trustScore": 74,
       "trustLabel": "Güvenilir",
       "automatic": false
     }
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 686,
-    "healthyUrls": 388,
-    "failedUrls": 298,
+    "checkedUrls": 687,
+    "healthyUrls": 397,
+    "failedUrls": 290,
     "failures": [
       {
         "channel": "TRT1",
@@ -144,11 +144,6 @@
       },
       {
         "channel": "TRT1",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "TRT1",
         "url": "http://87.246.54.249:8080/TRT1/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -156,16 +151,6 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TRT 4K",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -176,6 +161,11 @@
         "channel": "NOW TV",
         "url": "https://c.fulltvizle.com/fox/tracks-v1a1/mono.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "http://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • timed out',)"
       },
       {
         "channel": "TV 8",
@@ -219,11 +209,6 @@
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "SHOW TV HD",
         "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
@@ -254,11 +239,6 @@
       },
       {
         "channel": "KANAL D",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "KANAL D",
         "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -281,30 +261,55 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
     "pendingRemoval": 3,
-    "removedAfterTwoFailures": 125
+    "removedAfterTwoFailures": 123
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-13T09:00:53.371333+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/12.json,https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 63,
-    "programmeCount": 2042
+    "updatedAt": "2026-10-14T09:00:49.524190+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://www.turksatkablo.com.tr/userUpload/EPG/14.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 66,
+    "programmeCount": 2139
   },
   "changes": {
     "channelDelta": 2,
-    "addedCount": 2,
-    "removedCount": 0,
+    "addedCount": 4,
+    "removedCount": 2,
     "addedChannels": [
-      "TRT COCUK",
-      "DİM TV"
+      "CNN TURK",
+      "TRT SPOR YILDIZ",
+      "TRT 4K",
+      "TVNET"
     ],
-    "removedChannels": []
+    "removedChannels": [
+      "NR 1 TURK",
+      "Number 1 Turk"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }
