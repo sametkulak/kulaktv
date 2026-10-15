@@ -97,6 +97,10 @@ kulaktv/
 └── README.md
 ```
 
+## Proje notları ve harici servisler
+
+GitHub Pages, Cloudflare Worker + D1, cron-job.org, jsDelivr ve kanal/EPG kaynaklarının ne amaçla kullanıldığını unutmamak için [PROJECT_NOTES.md](PROJECT_NOTES.md) dosyasını inceleyin. Bu dosyada hiçbir secret, token veya gerçek kullanıcı şifresi tutulmamalıdır.
+
 ## Mimari
 
 ```text
