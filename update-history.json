@@ -1615,6 +1615,46 @@
           "Number 1 Turk"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-15T09:00:49.175594+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 292,
+      "logosFilled": 15,
+      "health": {
+        "checked": 688,
+        "healthy": 389,
+        "failed": 299,
+        "ratio": 0.565
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 81,
+        "iptv-org Türkiye": 68,
+        "discevisita": 90,
+        "iptv-turk-tr": 68,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 74
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 67,
+        "programmeCount": 2180
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 2,
+        "removedCount": 0,
+        "addedChannels": [
+          "Baby TV",
+          "Discovery Science Europe (1080p)"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
