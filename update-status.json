@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-15T09:00:49.175594+00:00",
-  "channelCount": 292,
+  "updatedAt": "2026-10-16T09:00:51.773152+00:00",
+  "channelCount": 288,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -36,8 +36,8 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 175,
-      "rawChannelCount": 175,
+      "channelCount": 176,
+      "rawChannelCount": 176,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -114,8 +114,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 159,
-      "rawChannelCount": 180,
+      "channelCount": 160,
+      "rawChannelCount": 181,
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 688,
-    "healthyUrls": 389,
-    "failedUrls": 299,
+    "checkedUrls": 691,
+    "healthyUrls": 386,
+    "failedUrls": 305,
     "failures": [
       {
         "channel": "TRT1",
@@ -219,11 +219,6 @@
       },
       {
         "channel": "SHOW TV HD",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=144949986573359afbfeae",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
-      },
-      {
-        "channel": "SHOW TV HD",
         "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
@@ -236,11 +231,6 @@
         "channel": "SHOW TV HD",
         "url": "https://tv.cdn-vizi.workers.dev/?ID=3",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=3537232978db7b25368a4b",
-        "detail": "('İki testte de başarısız • timed out',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -264,11 +254,6 @@
       },
       {
         "channel": "KANAL D",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=1130441933d454b324b033",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
-      },
-      {
-        "channel": "KANAL D",
         "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -281,30 +266,50 @@
         "channel": "STAR TV",
         "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://176.65.146.104:9981/stream/channelid/518299962",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 5,
-    "removedAfterTwoFailures": 122
+    "pendingRemoval": 6,
+    "removedAfterTwoFailures": 127
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-15T09:00:49.175594+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/14.json,https://www.turksatkablo.com.tr/userUpload/EPG/15.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 67,
-    "programmeCount": 2180
+    "updatedAt": "2026-10-16T09:00:51.773152+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/15.json,https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 63,
+    "programmeCount": 2074
   },
   "changes": {
-    "channelDelta": 2,
-    "addedCount": 2,
-    "removedCount": 0,
+    "channelDelta": -4,
+    "addedCount": 1,
+    "removedCount": 5,
     "addedChannels": [
-      "Baby TV",
-      "Discovery Science Europe (1080p)"
+      "Turksat Tanitim (1080p)"
     ],
-    "removedChannels": []
+    "removedChannels": [
+      "CNN TURK",
+      "TRT SPOR YILDIZ",
+      "TRT 4K",
+      "TVNET",
+      "Eurosport 2 Turkiye"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }

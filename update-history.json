@@ -1655,6 +1655,51 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-16T09:00:51.773152+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 288,
+      "logosFilled": 15,
+      "health": {
+        "checked": 691,
+        "healthy": 386,
+        "failed": 305,
+        "ratio": 0.559
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 81,
+        "iptv-org Türkiye": 68,
+        "discevisita": 90,
+        "iptv-turk-tr": 68,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 89,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 74
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 63,
+        "programmeCount": 2074
+      },
+      "changes": {
+        "channelDelta": -4,
+        "addedCount": 1,
+        "removedCount": 5,
+        "addedChannels": [
+          "Turksat Tanitim (1080p)"
+        ],
+        "removedChannels": [
+          "CNN TURK",
+          "TRT SPOR YILDIZ",
+          "TRT 4K",
+          "TVNET",
+          "Eurosport 2 Turkiye"
+        ]
+      }
     }
   ]
 }
