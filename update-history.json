@@ -1700,6 +1700,58 @@
           "Eurosport 2 Turkiye"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-17T09:00:49.156919+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 295,
+      "logosFilled": 15,
+      "health": {
+        "checked": 694,
+        "healthy": 403,
+        "failed": 291,
+        "ratio": 0.581
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 81,
+        "iptv-org Türkiye": 68,
+        "discevisita": 90,
+        "iptv-turk-tr": 68,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 67,
+        "programmeCount": 2238
+      },
+      "changes": {
+        "channelDelta": 7,
+        "addedCount": 10,
+        "removedCount": 3,
+        "addedChannels": [
+          "CNN TURK",
+          "TRT SPOR YILDIZ",
+          "TRT 4K",
+          "TVNET",
+          "Eurosport 2 Turkiye",
+          "beIN Sports 1 (1080p)",
+          "beIN Sports 2 (1080p)",
+          "beIN Sports 3 (1080p)",
+          "beIN Sports 4 (1080p)",
+          "beIN Sports 5 (1080p)"
+        ],
+        "removedChannels": [
+          "TV 264",
+          "Kanal Hayat (1080p)",
+          "Ada TV (1080p)"
+        ]
+      }
     }
   ]
 }

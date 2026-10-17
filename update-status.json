@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-16T09:00:51.773152+00:00",
-  "channelCount": 288,
+  "updatedAt": "2026-10-17T09:00:49.156919+00:00",
+  "channelCount": 295,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 89,
+      "trustScore": 90,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -114,12 +114,12 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 160,
-      "rawChannelCount": 181,
+      "channelCount": 165,
+      "rawChannelCount": 186,
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
-      "trustScore": 74,
+      "trustScore": 73,
       "trustLabel": "Güvenilir",
       "automatic": false
     }
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 691,
-    "healthyUrls": 386,
-    "failedUrls": 305,
+    "checkedUrls": 694,
+    "healthyUrls": 403,
+    "failedUrls": 291,
     "failures": [
       {
         "channel": "TRT1",
@@ -144,11 +144,6 @@
       },
       {
         "channel": "TRT1",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "TRT1",
         "url": "http://87.246.54.249:8080/TRT1/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -156,11 +151,6 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TRT 4K",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "NOW TV",
@@ -214,11 +204,6 @@
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "SHOW TV HD",
         "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
@@ -249,11 +234,6 @@
       },
       {
         "channel": "KANAL D",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
-      },
-      {
-        "channel": "KANAL D",
         "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
@@ -279,36 +259,63 @@
       },
       {
         "channel": "STAR TV",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 6,
-    "removedAfterTwoFailures": 127
+    "pendingRemoval": 3,
+    "removedAfterTwoFailures": 125
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-16T09:00:51.773152+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/15.json,https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 63,
-    "programmeCount": 2074
+    "updatedAt": "2026-10-17T09:00:49.156919+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://www.turksatkablo.com.tr/userUpload/EPG/17.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 67,
+    "programmeCount": 2238
   },
   "changes": {
-    "channelDelta": -4,
-    "addedCount": 1,
-    "removedCount": 5,
+    "channelDelta": 7,
+    "addedCount": 10,
+    "removedCount": 3,
     "addedChannels": [
-      "Turksat Tanitim (1080p)"
-    ],
-    "removedChannels": [
       "CNN TURK",
       "TRT SPOR YILDIZ",
       "TRT 4K",
       "TVNET",
-      "Eurosport 2 Turkiye"
+      "Eurosport 2 Turkiye",
+      "beIN Sports 1 (1080p)",
+      "beIN Sports 2 (1080p)",
+      "beIN Sports 3 (1080p)",
+      "beIN Sports 4 (1080p)",
+      "beIN Sports 5 (1080p)"
+    ],
+    "removedChannels": [
+      "TV 264",
+      "Kanal Hayat (1080p)",
+      "Ada TV (1080p)"
     ]
   },
   "message": "Multi-source playlist merged successfully."
