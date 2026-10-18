@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-17T09:00:49.156919+00:00",
-  "channelCount": 295,
+  "updatedAt": "2026-10-18T09:00:46.731349+00:00",
+  "channelCount": 301,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -36,8 +36,8 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 176,
-      "rawChannelCount": 176,
+      "channelCount": 182,
+      "rawChannelCount": 182,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 92,
+      "trustScore": 93,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -114,8 +114,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 165,
-      "rawChannelCount": 186,
+      "channelCount": 171,
+      "rawChannelCount": 192,
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 694,
-    "healthyUrls": 403,
-    "failedUrls": 291,
+    "checkedUrls": 700,
+    "healthyUrls": 406,
+    "failedUrls": 294,
     "failures": [
       {
         "channel": "TRT1",
@@ -201,6 +201,11 @@
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "https://vavoo.ahkm.workers.dev/?ID=144949986573359afbfeae",
+        "detail": "('İki testte de başarısız • timed out',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -276,47 +281,34 @@
         "channel": "KANAL 7",
         "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
         "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "KANAL 7",
-        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1000)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
     "pendingRemoval": 3,
-    "removedAfterTwoFailures": 125
+    "removedAfterTwoFailures": 124
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-17T09:00:49.156919+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://www.turksatkablo.com.tr/userUpload/EPG/17.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 67,
-    "programmeCount": 2238
+    "updatedAt": "2026-10-18T09:00:46.731349+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/17.json,https://www.turksatkablo.com.tr/userUpload/EPG/18.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 68,
+    "programmeCount": 2237
   },
   "changes": {
-    "channelDelta": 7,
-    "addedCount": 10,
-    "removedCount": 3,
+    "channelDelta": 6,
+    "addedCount": 6,
+    "removedCount": 0,
     "addedChannels": [
-      "CNN TURK",
-      "TRT SPOR YILDIZ",
-      "TRT 4K",
-      "TVNET",
-      "Eurosport 2 Turkiye",
-      "beIN Sports 1 (1080p)",
-      "beIN Sports 2 (1080p)",
-      "beIN Sports 3 (1080p)",
-      "beIN Sports 4 (1080p)",
-      "beIN Sports 5 (1080p)"
+      "beIN Sports 1 Turk",
+      "beIN Sports 3 Turk",
+      "beIN Sports 4 Turk",
+      "beIN Sports 5 Turk",
+      "beIN Sports Haber",
+      "beIN Sports 2 Turk"
     ],
-    "removedChannels": [
-      "TV 264",
-      "Kanal Hayat (1080p)",
-      "Ada TV (1080p)"
-    ]
+    "removedChannels": []
   },
   "message": "Multi-source playlist merged successfully."
 }

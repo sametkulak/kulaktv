@@ -1752,6 +1752,50 @@
           "Ada TV (1080p)"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-18T09:00:46.731349+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 301,
+      "logosFilled": 15,
+      "health": {
+        "checked": 700,
+        "healthy": 406,
+        "failed": 294,
+        "ratio": 0.58
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 81,
+        "iptv-org Türkiye": 68,
+        "discevisita": 90,
+        "iptv-turk-tr": 68,
+        "rideordie16/tv": 40,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 68,
+        "programmeCount": 2237
+      },
+      "changes": {
+        "channelDelta": 6,
+        "addedCount": 6,
+        "removedCount": 0,
+        "addedChannels": [
+          "beIN Sports 1 Turk",
+          "beIN Sports 3 Turk",
+          "beIN Sports 4 Turk",
+          "beIN Sports 5 Turk",
+          "beIN Sports Haber",
+          "beIN Sports 2 Turk"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
