@@ -1,6 +1,7 @@
 const KULAKTV_AUTH_API = 'https://kulaktv-auth.sametkulak96.workers.dev';
 const AUTH_TOKEN_KEY = 'kulaktv-auth-token-v1';
 const AUTH_USER_KEY = 'kulaktv-auth-user-v1';
+const AUTH_LOGIN_REQUIRED_CACHE_KEY = 'kulaktv-login-required-v1';
 const LEGACY_ADMIN_SESSION_KEY = 'kulaktv-admin-auth-v1';
 
 const authState = {
@@ -11,6 +12,7 @@ const authState = {
 
 let resolveAuthReady;
 const authReady = new Promise(resolve => { resolveAuthReady = resolve; });
+let authGateRetryTimer = null;
 
 function getAuthToken(){
   try{return localStorage.getItem(AUTH_TOKEN_KEY)||'';}catch{return '';}
@@ -20,6 +22,20 @@ function getStoredUser(){
     const raw=localStorage.getItem(AUTH_USER_KEY);
     return raw?JSON.parse(raw):null;
   }catch{return null;}
+}
+
+function getCachedLoginRequired(){
+  try{return localStorage.getItem(AUTH_LOGIN_REQUIRED_CACHE_KEY)==='1';}catch{return false;}
+}
+
+function cacheLoginRequired(required){
+  try{
+    if(required){
+      localStorage.setItem(AUTH_LOGIN_REQUIRED_CACHE_KEY,'1');
+    }else{
+      localStorage.removeItem(AUTH_LOGIN_REQUIRED_CACHE_KEY);
+    }
+  }catch{}
 }
 function saveAuth(data){
   authState.token=String(data?.token||'');
@@ -57,7 +73,8 @@ async function authApi(path, options={}){
 
   const res=await fetch(KULAKTV_AUTH_API+path,{
     ...options,
-    headers
+    headers,
+    cache:options.cache||'no-store'
   });
 
   let data={};
@@ -118,7 +135,9 @@ function ensureSiteLoginModal(){
         '<div id="siteAuthError" class="site-auth-error" hidden></div>'+
         '<button class="primary-btn" id="siteAuthSubmit" type="submit">Giriş yap</button>'+
       '</form>'+
-    '</div>';
+      '<div id="siteAuthConnectionState" class="site-auth-connection" hidden>'+
+        '<div id="siteAuthConnectionMessage" class="site-auth-error">Sunucuya bağlanılamıyor. Tekrar deneniyor…</div>'+
+        '<button id="siteAuthRetry" class="primary-btn" type="button">Tekrar dene</button>'+      '</div>'+    '</div>';
 
   document.body.prepend(modal);
 
@@ -173,33 +192,81 @@ function ensureSiteLoginModal(){
     }
   });
 
+  modal.querySelector('#siteAuthRetry')?.addEventListener('click',()=>{
+    void initializeAuthGate();
+  });
+
   return modal;
+}
+
+function setAuthConnectionState(visible, message){
+  const modal=document.getElementById('siteAuthGate');
+  if(!modal)return;
+
+  const form=modal.querySelector('#siteAuthForm');
+  const connection=modal.querySelector('#siteAuthConnectionState');
+  const messageEl=modal.querySelector('#siteAuthConnectionMessage');
+
+  if(messageEl && message)messageEl.textContent=message;
+  if(form)form.hidden=visible;
+  if(connection)connection.hidden=!visible;
+}
+
+function scheduleAuthGateRetry(){
+  if(authGateRetryTimer)clearTimeout(authGateRetryTimer);
+  authGateRetryTimer=setTimeout(()=>{
+    authGateRetryTimer=null;
+    void initializeAuthGate();
+  },5000);
 }
 
 async function initializeAuthGate(){
   const modal=ensureSiteLoginModal();
 
+  if(authGateRetryTimer){
+    clearTimeout(authGateRetryTimer);
+    authGateRetryTimer=null;
+  }
+
+  setAuthConnectionState(false);
+
   let settings=null;
   let settingsLoaded=false;
+  let lastSettingsError=null;
+  const retryDelays=[0,500,1000,1500,2500,4000];
 
-  for(let attempt=0;attempt<3 && !settingsLoaded;attempt++){
+  for(let attempt=0;attempt<retryDelays.length;attempt++){
+    if(retryDelays[attempt]>0){
+      await new Promise(resolve=>setTimeout(resolve,retryDelays[attempt]));
+    }
+
     try{
-      settings=await authApi('/api/settings');
+      settings=await authApi('/api/settings?_ts='+Date.now()+'-'+attempt,{
+        cache:'no-store'
+      });
       settingsLoaded=true;
+      break;
     }catch(error){
-      if(attempt<2){
-        await new Promise(resolve=>setTimeout(resolve,500*(attempt+1)));
-      }
+      lastSettingsError=error;
     }
   }
 
-  // Giriş zorunlu olan bir sitede API geçici olarak erişilemezse
-  // güvenlik nedeniyle siteyi herkese açık hale getirme.
   if(!settingsLoaded){
-    authState.loginRequired=true;
-  }else{
-    authState.loginRequired=Boolean(settings?.loginRequired);
+    // API cevap vermiyorsa bunu "yanlış şifre" gibi göstermeyelim.
+    // Özel erişim açıksa dahi siteyi yanlışlıkla herkese açmamak için
+    // bağlantı durumu ekranını gösterip otomatik tekrar deniyoruz.
+    authState.loginRequired=getCachedLoginRequired();
+    modal.hidden=false;
+    setAuthConnectionState(
+      true,
+      'Sunucuya bağlanılamıyor. Bağlantı yeniden deneniyor…'
+    );
+    scheduleAuthGateRetry();
+    return;
   }
+
+  authState.loginRequired=Boolean(settings?.loginRequired);
+  cacheLoginRequired(authState.loginRequired);
 
   const user=await validateStoredSession();
 
@@ -209,6 +276,7 @@ async function initializeAuthGate(){
 
   if(!authState.loginRequired){
     modal.hidden=true;
+    setAuthConnectionState(false);
     resolveAuthReady({
       authenticated:Boolean(user),
       user,
@@ -219,6 +287,7 @@ async function initializeAuthGate(){
 
   if(user){
     modal.hidden=true;
+    setAuthConnectionState(false);
     resolveAuthReady({
       authenticated:true,
       user,
@@ -228,9 +297,14 @@ async function initializeAuthGate(){
   }
 
   modal.hidden=false;
+  setAuthConnectionState(false);
+  const error=modal.querySelector('#siteAuthError');
+  if(error){
+    error.hidden=true;
+    error.textContent='';
+  }
   setTimeout(()=>modal.querySelector('#siteAuthUsername')?.focus(),50);
 }
-
 function showAdminLogin(){
   const modal=document.getElementById('adminLogin');
   if(!modal)return;
