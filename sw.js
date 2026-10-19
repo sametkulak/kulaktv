@@ -1,10 +1,10 @@
-const CACHE_NAME = 'kulaktv-shell-v2';
+const CACHE_NAME = 'kulaktv-shell-v3';
 
 const APP_SHELL = [
   './',
   './index.html',
   './style.css?v=20261013-17',
-  './auth.js?v=20261013-12',
+  './auth.js?v=20261019-01',
   './app.js?v=20261013-08',
   './telemetry-config.js?v=20261012-1',
   './logo.png?v=20261009-1-1',
