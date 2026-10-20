@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-19T09:00:50.403588+00:00",
-  "channelCount": 305,
+  "updatedAt": "2026-10-20T09:00:47.184627+00:00",
+  "channelCount": 297,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -28,7 +28,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 81,
+      "trustScore": 82,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -36,12 +36,12 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 182,
-      "rawChannelCount": 182,
+      "channelCount": 181,
+      "rawChannelCount": 181,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 68,
+      "trustScore": 69,
       "trustLabel": "Orta",
       "automatic": false
     },
@@ -54,7 +54,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -67,8 +67,8 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 68,
-      "trustLabel": "Orta",
+      "trustScore": 70,
+      "trustLabel": "Güvenilir",
       "automatic": false
     },
     {
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 40,
+      "trustScore": 41,
       "trustLabel": "Zayıf",
       "automatic": false
     },
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 93,
+      "trustScore": 94,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -114,8 +114,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 171,
-      "rawChannelCount": 192,
+      "channelCount": 170,
+      "rawChannelCount": 191,
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -144,8 +144,8 @@
       },
       {
         "channel": "TRT1",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://vavoo.ahkm.workers.dev/?ID=2346924541a665ce2b020a",
+        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
       },
       {
         "channel": "TRT1",
@@ -156,11 +156,6 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TRT 4K",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "NOW TV",
@@ -190,7 +185,7 @@
       {
         "channel": "TV 8",
         "url": "https://bcovlive-a.akamaihd.net/ccee7091e86040d18e14cd0efef2a51b/eu-central-1/6415845530001/profile_0/chunklist.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 503: Service Unavailable',)"
+        "detail": "('İki testte de başarısız • HTTP Error 400: Bad Request',)"
       },
       {
         "channel": "TV 8",
@@ -214,8 +209,8 @@
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://vavoo.ahkm.workers.dev/?ID=144949986573359afbfeae",
+        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -234,6 +229,11 @@
       },
       {
         "channel": "SHOW TV HD",
+        "url": "https://vavoo.ahkm.workers.dev/?ID=3537232978db7b25368a4b",
+        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
+      },
+      {
+        "channel": "SHOW TV HD",
         "url": "https://ciner-live.daioncdn.net/showtv/showtv_1080p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       },
@@ -249,8 +249,8 @@
       },
       {
         "channel": "KANAL D",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://vavoo.ahkm.workers.dev/?ID=1130441933d454b324b033",
+        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
       },
       {
         "channel": "KANAL D",
@@ -279,34 +279,38 @@
       },
       {
         "channel": "STAR TV",
-        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6893/index.m3u8",
-        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 12,
-    "removedAfterTwoFailures": 121
+    "pendingRemoval": 4,
+    "removedAfterTwoFailures": 129
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-19T09:00:50.403588+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/18.json,https://www.turksatkablo.com.tr/userUpload/EPG/19.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "updatedAt": "2026-10-20T09:00:47.184627+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/19.json,https://www.turksatkablo.com.tr/userUpload/EPG/20.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
     "matchedChannels": 68,
-    "programmeCount": 2177
+    "programmeCount": 2212
   },
   "changes": {
-    "channelDelta": 4,
-    "addedCount": 4,
-    "removedCount": 0,
-    "addedChannels": [
-      "TV 264",
-      "TOKAT TV",
-      "Kanal Hayat (1080p)",
-      "A2 HD.tr"
-    ],
-    "removedChannels": []
+    "channelDelta": -8,
+    "addedCount": 0,
+    "removedCount": 8,
+    "addedChannels": [],
+    "removedChannels": [
+      "Kent Türk TV",
+      "Kent Turk (1080p)",
+      "Turksat Tanitim (1080p)",
+      "beIN Sports 1 (1080p)",
+      "beIN Sports 2 (720p)",
+      "beIN Sports 3 (720p)",
+      "beIN Sports 4 (1080p)",
+      "beIN Sports 5 (1080p)"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }

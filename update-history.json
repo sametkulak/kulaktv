@@ -1838,6 +1838,52 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-20T09:00:47.184627+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 297,
+      "logosFilled": 15,
+      "health": {
+        "checked": 701,
+        "healthy": 398,
+        "failed": 303,
+        "ratio": 0.568
+      },
+      "providers": {
+        "OnurEröz Türkiye": 58,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 69,
+        "discevisita": 91,
+        "iptv-turk-tr": 70,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 94,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 68,
+        "programmeCount": 2212
+      },
+      "changes": {
+        "channelDelta": -8,
+        "addedCount": 0,
+        "removedCount": 8,
+        "addedChannels": [],
+        "removedChannels": [
+          "Kent Türk TV",
+          "Kent Turk (1080p)",
+          "Turksat Tanitim (1080p)",
+          "beIN Sports 1 (1080p)",
+          "beIN Sports 2 (720p)",
+          "beIN Sports 3 (720p)",
+          "beIN Sports 4 (1080p)",
+          "beIN Sports 5 (1080p)"
+        ]
+      }
     }
   ]
 }
