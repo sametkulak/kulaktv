@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-20T09:00:47.184627+00:00",
-  "channelCount": 297,
+  "updatedAt": "2026-10-21T09:00:48.510416+00:00",
+  "channelCount": 296,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -67,7 +67,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 70,
+      "trustScore": 71,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 89,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 701,
-    "healthyUrls": 398,
-    "failedUrls": 303,
+    "checkedUrls": 702,
+    "healthyUrls": 391,
+    "failedUrls": 311,
     "failures": [
       {
         "channel": "TRT1",
@@ -166,6 +166,11 @@
         "channel": "NOW TV",
         "url": "https://c.fulltvizle.com/fox/tracks-v1a1/mono.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "http://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • timed out',)"
       },
       {
         "channel": "TV 8",
@@ -276,40 +281,33 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 4,
-    "removedAfterTwoFailures": 129
+    "pendingRemoval": 11,
+    "removedAfterTwoFailures": 130
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-20T09:00:47.184627+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/19.json,https://www.turksatkablo.com.tr/userUpload/EPG/20.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 68,
-    "programmeCount": 2212
+    "updatedAt": "2026-10-21T09:00:48.510416+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/20.json,https://www.turksatkablo.com.tr/userUpload/EPG/21.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 67,
+    "programmeCount": 2176
   },
   "changes": {
-    "channelDelta": -8,
-    "addedCount": 0,
-    "removedCount": 8,
-    "addedChannels": [],
-    "removedChannels": [
+    "channelDelta": -1,
+    "addedCount": 2,
+    "removedCount": 3,
+    "addedChannels": [
       "Kent Türk TV",
-      "Kent Turk (1080p)",
-      "Turksat Tanitim (1080p)",
-      "beIN Sports 1 (1080p)",
-      "beIN Sports 2 (720p)",
-      "beIN Sports 3 (720p)",
-      "beIN Sports 4 (1080p)",
-      "beIN Sports 5 (1080p)"
+      "Kent Turk (1080p)"
+    ],
+    "removedChannels": [
+      "Baby TV",
+      "Kanal Hayat (1080p)",
+      "Discovery Science Europe (1080p)"
     ]
   },
   "message": "Multi-source playlist merged successfully."
