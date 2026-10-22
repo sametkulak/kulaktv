@@ -90,6 +90,15 @@
           </div>
         </div>
 
+        <div id="playbackRetryOverlay" class="playback-retry-overlay" hidden aria-live="polite">
+          <div class="playback-retry-card">
+            <div class="playback-retry-icon">↻</div>
+            <div id="playbackRetryTitle" class="playback-retry-title">Yayın açılamadı</div>
+            <div id="playbackRetryText" class="playback-retry-text">Tüm kaynaklar denendi.</div>
+            <button id="retryPlaybackBtn" class="primary-btn" type="button">Yeniden Dene</button>
+          </div>
+        </div>
+
         <div class="video-top-actions">
 <div id="connectionStatus" class="connection-status connecting" aria-live="polite"><span></span><b>Bağlanıyor</b></div>
         </div>
@@ -239,6 +248,6 @@
   </div>
 
   <script src="telemetry-config.js?v=20261012-1"></script>
-  <script src="app.js?v=20261013-09" defer></script>
+  <script src="app.js?v=20261022-01" defer></script>
 </body>
 </html>
