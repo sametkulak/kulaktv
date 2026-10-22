@@ -73,6 +73,13 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .icon-btn{min-height:42px;padding:0 13px;border-radius:11px;font-weight:850}
 .icon{font-size:18px}
 .mobile-channel-btn{display:none}
+.playback-retry-overlay{position:absolute;inset:0;z-index:8;display:grid;place-items:center;padding:20px;background:rgba(0,0,0,.48);backdrop-filter:blur(5px)}
+.playback-retry-overlay[hidden]{display:none}
+.playback-retry-card{width:min(360px,88vw);padding:24px 20px 20px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(12,17,23,.94);box-shadow:0 20px 70px rgba(0,0,0,.5);text-align:center}
+.playback-retry-icon{width:52px;height:52px;margin:0 auto 12px;border-radius:14px;display:grid;place-items:center;background:#151d26;border:1px solid rgba(255,255,255,.1);font-size:27px;color:#ff9a8b}
+.playback-retry-title{font-size:18px;font-weight:900}
+.playback-retry-text{margin-top:6px;color:#9da8b7;font-size:11px;line-height:1.45}
+.playback-retry-card .primary-btn{min-width:150px;margin-top:15px}
 .player-overlay{position:absolute;inset:0;z-index:3;display:grid;place-items:center;pointer-events:none;background:radial-gradient(circle,rgba(28,35,46,.42),rgba(0,0,0,.78));transition:opacity .2s ease}
 .stream-loader{position:absolute;inset:0;z-index:4;display:grid;place-items:center;align-content:center;text-align:center;background:#000;pointer-events:none}
 .stream-loader[hidden]{display:none}
