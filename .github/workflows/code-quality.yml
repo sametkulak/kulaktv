@@ -40,6 +40,9 @@ jobs:
           node --check auth.js
           node --check telemetry-config.js
 
+      # app.js ve index.html aynı committen checkout edilir.
+      # Yeni DOM elemanları eklenirken çoklu dosya değişiklikleri tek doğrulama
+      # noktasında birlikte kontrol edilir.
       - name: HTML ile JavaScript DOM referanslarını doğrula
         run: |
           python - <<'PY'
