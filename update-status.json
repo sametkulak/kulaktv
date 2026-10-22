@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-21T09:00:48.510416+00:00",
-  "channelCount": 296,
+  "updatedAt": "2026-10-22T09:00:52.042705+00:00",
+  "channelCount": 286,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -49,8 +49,8 @@
       "name": "discevisita",
       "url": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
-      "channelCount": 107,
-      "rawChannelCount": 107,
+      "channelCount": 105,
+      "rawChannelCount": 105,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 94,
+      "trustScore": 93,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 702,
-    "healthyUrls": 391,
-    "failedUrls": 311,
+    "checkedUrls": 700,
+    "healthyUrls": 388,
+    "failedUrls": 312,
     "failures": [
       {
         "channel": "TRT1",
@@ -159,6 +159,11 @@
       },
       {
         "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
+      },
+      {
+        "channel": "NOW TV",
         "url": "http://116.202.238.88/FOXTV_TR/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
@@ -166,11 +171,6 @@
         "channel": "NOW TV",
         "url": "https://c.fulltvizle.com/fox/tracks-v1a1/mono.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "http://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • timed out',)"
       },
       {
         "channel": "TV 8",
@@ -285,29 +285,33 @@
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 11,
-    "removedAfterTwoFailures": 130
+    "pendingRemoval": 2,
+    "removedAfterTwoFailures": 140
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-21T09:00:48.510416+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/20.json,https://www.turksatkablo.com.tr/userUpload/EPG/21.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 67,
-    "programmeCount": 2176
+    "updatedAt": "2026-10-22T09:00:52.042705+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/21.json,https://www.turksatkablo.com.tr/userUpload/EPG/22.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 64,
+    "programmeCount": 2075
   },
   "changes": {
-    "channelDelta": -1,
-    "addedCount": 2,
-    "removedCount": 3,
-    "addedChannels": [
-      "Kent Türk TV",
-      "Kent Turk (1080p)"
-    ],
+    "channelDelta": -10,
+    "addedCount": 0,
+    "removedCount": 10,
+    "addedChannels": [],
     "removedChannels": [
-      "Baby TV",
-      "Kanal Hayat (1080p)",
-      "Discovery Science Europe (1080p)"
+      "RIZE TURK HD",
+      "beIN Sports 1 Turk",
+      "beIN Sports 2 Turk",
+      "beIN Sports 3 Turk",
+      "beIN Sports 4 Turk",
+      "beIN Sports 5 Turk",
+      "beIN Sports Haber",
+      "Eurosport 1 Turkiye",
+      "Eurosport 2 Turkiye",
+      "Terra Mater WILD ENG"
     ]
   },
   "message": "Multi-source playlist merged successfully."
