@@ -767,6 +767,32 @@ function hideStreamLoader(){
   const root=$('streamLoader');
   if(root)root.hidden=true;
 }
+function showPlaybackRetry(detail,maxAttempts){
+  const overlay=$('playbackRetryOverlay');
+  const title=$('playbackRetryTitle');
+  const text=$('playbackRetryText');
+  if(!overlay)return;
+
+  if(title)title.textContent='Yayın açılamadı';
+  if(text){
+    const count=Math.max(0,Number(maxAttempts)||0);
+    text.textContent=count
+      ? (String(detail||'Tüm kaynaklar başarısız oldu.')+'. '+count+' kaynak denendi.')
+      : String(detail||'Yayın açılamadı.');
+  }
+  overlay.hidden=false;
+}
+function hidePlaybackRetry(){
+  const overlay=$('playbackRetryOverlay');
+  if(overlay)overlay.hidden=true;
+}
+function retryCurrentChannel(){
+  const ch=state.current;
+  if(!ch)return;
+  hidePlaybackRetry();
+  clearError();
+  playChannel(ch);
+}
 function playChannel(ch){
   // Eski kanalın tüm timer/callback/event zincirini kesin olarak geçersiz kıl.
   if(typeof state.cancelPlayback==='function') state.cancelPlayback();
@@ -777,6 +803,7 @@ function playChannel(ch){
     generation === state.playbackGeneration && state.current === ch;
 
   clearError();
+  hidePlaybackRetry();
   state.current = ch;
 
   const originalCandidates = [
@@ -907,7 +934,7 @@ function playChannel(ch){
     setStatus('Açılamadı');
     clearMediaSession();
     state.cancelPlayback = null;
-    showError(`${detail}. ${maxAttempts}/${maxAttempts} kaynak denendi. Diğer kaynakları "Kaynak Listesi" düğmesiyle tekrar seçebilirsiniz.`);
+    showPlaybackRetry(detail,maxAttempts);
   };
 
   const trySource = (candidate, sourceIndex) => {
@@ -1561,6 +1588,7 @@ window.addEventListener('resize',()=>{
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape' && state.epgOpen) closeEpg();
 });
+$('retryPlaybackBtn')?.addEventListener('click',retryCurrentChannel);
 $('changeSourceBtn').addEventListener('click',()=>{
   const total = state.sourceCandidates.length;
   if(total < 2 || !state.current || !state._switchSource) return;
