@@ -29,7 +29,8 @@ M3U_PATH = ROOT / "channels.m3u"
 STATUS_PATH = ROOT / "update-status.json"
 HEALTH_STATE_PATH = ROOT / "health-state.json"
 SOURCE_QUALITY_PATH = ROOT / "source-quality.json"
-PLAYER_TELEMETRY_PATH = ROOT / "player-telemetry.json"
+PLAYER_TELEMETRY_URL = "https://kulaktv-auth.sametkulak96.workers.dev/api/telemetry/quality"
+PLAYER_TELEMETRY_TIMEOUT = 20
 EPG_STATUS_PATH = ROOT / "epg-status.json"
 HISTORY_PATH = ROOT / "update-history.json"
 
@@ -271,12 +272,56 @@ def load_source_quality() -> dict[str, object]:
 
 
 def load_player_telemetry() -> dict[str, object]:
-    if not PLAYER_TELEMETRY_PATH.exists():
-        return {}
+    """Load aggregated player telemetry from the Cloudflare Worker.
+
+    The endpoint exposes only per-source aggregate counters. No user/session
+    records are downloaded by GitHub Actions.
+    """
+    request = urllib.request.Request(
+        PLAYER_TELEMETRY_URL,
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+        },
+    )
     try:
-        data = json.loads(PLAYER_TELEMETRY_PATH.read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else {}
-    except Exception:
+        with urllib.request.urlopen(request, timeout=PLAYER_TELEMETRY_TIMEOUT) as response:
+            status = getattr(response, "status", 200)
+            if not (200 <= status < 300):
+                raise RuntimeError(f"HTTP {status}")
+            payload = json.loads(response.read().decode("utf-8"))
+
+        if not isinstance(payload, dict):
+            return {}
+
+        sources = payload.get("sources")
+        if not isinstance(sources, dict):
+            return {}
+
+        normalized: dict[str, object] = {}
+        for url, source in sources.items():
+            if not isinstance(source, dict):
+                continue
+
+            successes = int(source.get("successes", 0) or 0)
+            failures = int(source.get("failures", 0) or 0)
+            stalls = int(source.get("stalls", 0) or 0)
+            latency_sum = int(source.get("latencySumMs", 0) or 0)
+            latency_count = int(source.get("latencyCount", 0) or 0)
+
+            normalized[str(url)] = {
+                "events": max(0, successes + failures + stalls),
+                "successes": max(0, successes),
+                "failures": max(0, failures),
+                "stalls": max(0, stalls),
+                "latencySumMs": max(0, latency_sum),
+                "latencyCount": max(0, latency_count),
+                "lastEventAt": source.get("lastEventAt"),
+            }
+
+        return {"sources": normalized}
+    except Exception as error:
+        print(f"Player telemetry alınamadı: {error}")
         return {}
 
 
