@@ -2086,6 +2086,76 @@
           "DELUXE MUSIC Winter Time"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-23T14:29:56.335318+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 282,
+      "logosFilled": 15,
+      "health": {
+        "checked": 698,
+        "healthy": 381,
+        "failed": 317,
+        "ratio": 0.546
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 69,
+        "discevisita": 90,
+        "iptv-turk-tr": 72,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 91,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 62,
+        "programmeCount": 2015
+      },
+      "changes": {
+        "channelDelta": -41,
+        "addedCount": 1,
+        "removedCount": 42,
+        "addedChannels": [
+          "DİM TV"
+        ],
+        "removedChannels": [
+          "TELE 1",
+          "NR 1 TURK",
+          "KANAL B",
+          "MUGLA TÜRK TV",
+          "TARIM TV",
+          "TÜRK KLİNİKLERİ TV",
+          "TV 25",
+          "TV 48",
+          "TV A",
+          "VAN GOLU TV",
+          "VRT",
+          "VTV TÜRK",
+          "PAZARCIK TV",
+          "FiNEST TV",
+          "5 OCAK TV",
+          "ÖNDE TV",
+          "ANADOLUM TV",
+          "SiNEMA TV",
+          "SiNEMA TV 2",
+          "SiNEMA Yerli",
+          "SiNEMA Yerli 2",
+          "SiNEMA Aile",
+          "SiNEMA Aile 2",
+          "SiNEMA Komedi",
+          "SiNEMA Komedi 2",
+          "SiNEMA Aksiyon",
+          "SiNEMA Aksiyon 2",
+          "SiNEMA 1001",
+          "SiNEMA 1002",
+          "TH TURK HABER TV"
+        ]
+      }
     }
   ]
 }
