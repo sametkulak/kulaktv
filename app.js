@@ -299,6 +299,7 @@ const SOURCE_START_TIMEOUT_MS = 14400;
 const SOURCE_STABILITY_MS = 3500;
 const SOURCE_STALL_GRACE_MS = 1800;
 const SOURCE_SWITCH_DELAY_MS = 1200;
+const RUNTIME_RECOVERY_DELAY_MS = 6000;
 
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
@@ -850,10 +851,14 @@ function playChannel(ch){
   let sourceStallRecorded = false;
   let runtimeStallRecorded = false;
   let activeSourceToken = 0;
+  let runtimeRecoveryTimer = null;
+  let runtimeRecoveryReason = '';
 
   const clearTimers = () => {
     for(const t of timers) clearTimeout(t);
     timers.clear();
+    runtimeRecoveryTimer = null;
+    runtimeRecoveryReason = '';
   };
 
   const detachVideoHandlers = () => {
@@ -883,6 +888,41 @@ function playChannel(ch){
     return timer;
   };
 
+  const cancelRuntimeRecovery = () => {
+    if(runtimeRecoveryTimer){
+      clearTimeout(runtimeRecoveryTimer);
+      timers.delete(runtimeRecoveryTimer);
+      runtimeRecoveryTimer=null;
+    }
+    runtimeRecoveryReason='';
+  };
+
+  const scheduleRuntimeRecovery = (detail='Yayın bağlantısı kesildi') => {
+    if(!isCurrentRun() || !settled || video.paused || video.ended || runtimeRecoveryTimer) return;
+
+    runtimeRecoveryReason=String(detail||'Yayın bağlantısı kesildi');
+    setConnectionStatus('buffering','Yeniden bağlanıyor');
+    setStatus(
+      `Yayın bağlantısı kesildi. ${RUNTIME_RECOVERY_DELAY_MS / 1000} sn içinde otomatik kurtarma deneniyor…`
+    );
+
+    runtimeRecoveryTimer=schedule(() => {
+      runtimeRecoveryTimer=null;
+      if(!isCurrentRun() || !settled || video.paused || video.ended) return;
+
+      const reason=runtimeRecoveryReason;
+      runtimeRecoveryReason='';
+      setConnectionStatus('connecting','Yeniden bağlanıyor');
+      setStatus(reason ? reason+' • kaynaklar yeniden deneniyor…' : 'Kaynaklar yeniden deneniyor…');
+
+      // Daha önce kullanıcı etkileşimiyle çalışan bir oynatmayı kurtardığımız
+      // için tarayıcının otomatik oynatma politikasına takılırsa sessiz başlatma
+      // fallback'i de kullanılabilir.
+      state.autoStarting=true;
+      playChannel(ch);
+    }, RUNTIME_RECOVERY_DELAY_MS);
+  };
+
   const success = (url, sourceIndex) => {
     if(!isCurrentRun() || settled) return;
     settled = true;
@@ -892,6 +932,7 @@ function playChannel(ch){
     state.sourceIndex = sourceIndex;
     state.currentUrl = url;
     state.autoStarting = false;
+    cancelRuntimeRecovery();
     updateSourceButton();
     hideStreamLoader();
     const latencyText = latencyMs > 0 ? ` • ${(latencyMs / 1000).toFixed(1)} sn` : '';
@@ -976,6 +1017,7 @@ function playChannel(ch){
       // izleme sırasındaki gerçek deneyimi de ölçeriz.
       if(settled){
         runtimeStallRecorded=false;
+        cancelRuntimeRecovery();
         setConnectionStatus('online',`Bağlı • Kaynak ${state.sourceIndex + 1}/${state.sourceCandidates.length}`);
         return;
       }
@@ -1020,7 +1062,13 @@ function playChannel(ch){
     };
 
     const onVideoError = () => {
-      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
+      if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
+
+      if(settled){
+        if(!video.paused) scheduleRuntimeRecovery('Video bağlantısı koptu');
+        return;
+      }
+
       if(!started) {
         failure('Video kaynağı tarayıcı tarafından reddedildi');
       } else {
@@ -1037,6 +1085,7 @@ function playChannel(ch){
           runtimeStallRecorded=true;
           recordSourceEvent(candidate.url,'stall');
         }
+        scheduleRuntimeRecovery('Yayın tamponlamayı bırakmadı');
         return;
       }
 
@@ -1061,6 +1110,12 @@ function playChannel(ch){
     video.onloadedmetadata = onLoaded;
     video.onerror = onVideoError;
     video.onwaiting = onWaiting;
+    video.onstalled = () => {
+      if(!isCurrentRun() || sourceToken!==activeSourceToken || video.paused || video.ended) return;
+      if(settled){
+        scheduleRuntimeRecovery('Yayın bağlantısı durdu');
+      }
+    };
 
     schedule(() => {
       if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
@@ -1102,9 +1157,13 @@ function playChannel(ch){
     });
 
     hlsInstance.on(Hls.Events.ERROR,(_e,data)=>{
-      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
+      if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
       if(data?.fatal) {
-        failure(data.details || 'HLS fatal error');
+        if(settled){
+          scheduleRuntimeRecovery(data.details || 'HLS bağlantısı koptu');
+        }else{
+          failure(data.details || 'HLS fatal error');
+        }
       }
     });
   };
