@@ -806,6 +806,8 @@ function playChannel(ch){
   clearError();
   hidePlaybackRetry();
   state.current = ch;
+  state._requestRuntimeRecovery = null;
+  state._runtimeNetworkLost = false;
 
   const originalCandidates = [
     ch,
@@ -897,31 +899,49 @@ function playChannel(ch){
     runtimeRecoveryReason='';
   };
 
-  const scheduleRuntimeRecovery = (detail='Yayın bağlantısı kesildi') => {
-    if(!isCurrentRun() || !settled || video.paused || video.ended || runtimeRecoveryTimer) return;
+  const scheduleRuntimeRecovery = (
+    detail='Yayın bağlantısı kesildi',
+    delay=RUNTIME_RECOVERY_DELAY_MS
+  ) => {
+    if(!isCurrentRun() || !settled || video.paused || runtimeRecoveryTimer) return;
 
     runtimeRecoveryReason=String(detail||'Yayın bağlantısı kesildi');
     setConnectionStatus('buffering','Yeniden bağlanıyor');
     setStatus(
-      `Yayın bağlantısı kesildi. ${RUNTIME_RECOVERY_DELAY_MS / 1000} sn içinde otomatik kurtarma deneniyor…`
+      delay <= 1500
+        ? 'Bağlantı geri geldi • yayın yenileniyor…'
+        : `Yayın bağlantısı kesildi. ${RUNTIME_RECOVERY_DELAY_MS / 1000} sn içinde otomatik kurtarma deneniyor…`
     );
 
     runtimeRecoveryTimer=schedule(() => {
       runtimeRecoveryTimer=null;
-      if(!isCurrentRun() || !settled || video.paused || video.ended) return;
+      if(!isCurrentRun() || !settled || video.paused) return;
 
       const reason=runtimeRecoveryReason;
       runtimeRecoveryReason='';
       setConnectionStatus('connecting','Yeniden bağlanıyor');
       setStatus(reason ? reason+' • kaynaklar yeniden deneniyor…' : 'Kaynaklar yeniden deneniyor…');
 
-      // Daha önce kullanıcı etkileşimiyle çalışan bir oynatmayı kurtardığımız
-      // için tarayıcının otomatik oynatma politikasına takılırsa sessiz başlatma
-      // fallback'i de kullanılabilir.
+      // Yayın daha önce oynadığı için bu bir kullanıcı başlatmalı oturumun
+      // devamıdır. Tarayıcı otomatik oynatma politikasına takılırsa mevcut
+      // startPlayback fallback'i yine devreye girebilir.
       state.autoStarting=true;
       playChannel(ch);
-    }, RUNTIME_RECOVERY_DELAY_MS);
+    }, Math.max(0,Number(delay)||0));
   };
+
+  const requestRuntimeRecovery = (
+    detail='Yayın bağlantısı kesildi',
+    delay=RUNTIME_RECOVERY_DELAY_MS,
+    force=false
+  ) => {
+    if(!isCurrentRun() || !settled || video.paused) return false;
+    if(force) cancelRuntimeRecovery();
+    scheduleRuntimeRecovery(detail,delay);
+    return true;
+  };
+
+  state._requestRuntimeRecovery = requestRuntimeRecovery;
 
   const success = (url, sourceIndex) => {
     if(!isCurrentRun() || settled) return;
@@ -1017,6 +1037,7 @@ function playChannel(ch){
       // izleme sırasındaki gerçek deneyimi de ölçeriz.
       if(settled){
         runtimeStallRecorded=false;
+        state._runtimeNetworkLost = false;
         cancelRuntimeRecovery();
         setConnectionStatus('online',`Bağlı • Kaynak ${state.sourceIndex + 1}/${state.sourceCandidates.length}`);
         return;
@@ -1065,7 +1086,7 @@ function playChannel(ch){
       if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
 
       if(settled){
-        if(!video.paused) scheduleRuntimeRecovery('Video bağlantısı koptu');
+        if(!video.paused) requestRuntimeRecovery('Video bağlantısı koptu');
         return;
       }
 
@@ -1085,7 +1106,7 @@ function playChannel(ch){
           runtimeStallRecorded=true;
           recordSourceEvent(candidate.url,'stall');
         }
-        scheduleRuntimeRecovery('Yayın tamponlamayı bırakmadı');
+        requestRuntimeRecovery('Yayın tamponlamayı bırakmadı');
         return;
       }
 
@@ -1113,7 +1134,7 @@ function playChannel(ch){
     video.onstalled = () => {
       if(!isCurrentRun() || sourceToken!==activeSourceToken || video.paused || video.ended) return;
       if(settled){
-        scheduleRuntimeRecovery('Yayın bağlantısı durdu');
+        requestRuntimeRecovery('Yayın bağlantısı durdu');
       }
     };
 
@@ -1160,7 +1181,7 @@ function playChannel(ch){
       if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
       if(data?.fatal) {
         if(settled){
-          scheduleRuntimeRecovery(data.details || 'HLS bağlantısı koptu');
+          requestRuntimeRecovery(data.details || 'HLS bağlantısı koptu');
         }else{
           failure(data.details || 'HLS fatal error');
         }
@@ -1836,8 +1857,39 @@ if(window.KULAKTV_AUTH?.ready){
   startKulakTV();
 }
 
-window.addEventListener('online',()=>{if(state.current)setConnectionStatus('connecting','Bağlantı geri geldi');});
-window.addEventListener('offline',()=>setConnectionStatus('error','İnternet yok'));
+window.addEventListener('online',()=>{
+  if(!state.current)return;
+
+  if(state._runtimeNetworkLost){
+    state._runtimeNetworkLost=false;
+    setConnectionStatus('connecting','Bağlantı geri geldi');
+
+    if(!video.paused && typeof state._requestRuntimeRecovery==='function'){
+      state._requestRuntimeRecovery(
+        'Bağlantı geri geldi, yayın yenileniyor',
+        1000,
+        true
+      );
+    }
+    return;
+  }
+
+  setConnectionStatus('connecting','Bağlantı geri geldi');
+});
+
+window.addEventListener('offline',()=>{
+  if(state.current && !video.paused){
+    state._runtimeNetworkLost=true;
+    setConnectionStatus('error','İnternet bağlantısı kesildi');
+
+    if(typeof state._requestRuntimeRecovery==='function'){
+      state._requestRuntimeRecovery('İnternet bağlantısı kesildi');
+    }
+    return;
+  }
+
+  setConnectionStatus('error','İnternet yok');
+});
 
 // Initial UI state
 updateFavoriteUi();
