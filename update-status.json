@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-23T14:29:56.335318+00:00",
-  "channelCount": 282,
+  "updatedAt": "2026-10-23T14:35:06.516490+00:00",
+  "channelCount": 280,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 91,
+      "trustScore": 92,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 93,
+      "trustScore": 92,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -156,6 +156,11 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -276,64 +281,32 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 3,
-    "removedAfterTwoFailures": 143
+    "pendingRemoval": 0,
+    "removedAfterTwoFailures": 145
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-23T14:29:56.335318+00:00",
+    "updatedAt": "2026-10-23T14:35:06.516490+00:00",
     "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/23.json,https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 62,
-    "programmeCount": 2015
+    "matchedChannels": 61,
+    "programmeCount": 1975
   },
   "changes": {
-    "channelDelta": -41,
+    "channelDelta": -2,
     "addedCount": 1,
-    "removedCount": 42,
+    "removedCount": 3,
     "addedChannels": [
-      "DİM TV"
+      "TELE 1"
     ],
     "removedChannels": [
-      "TELE 1",
-      "NR 1 TURK",
-      "KANAL B",
-      "MUGLA TÜRK TV",
-      "TARIM TV",
-      "TÜRK KLİNİKLERİ TV",
-      "TV 25",
-      "TV 48",
-      "TV A",
-      "VAN GOLU TV",
-      "VRT",
-      "VTV TÜRK",
-      "PAZARCIK TV",
-      "FiNEST TV",
-      "5 OCAK TV",
-      "ÖNDE TV",
-      "ANADOLUM TV",
-      "SiNEMA TV",
-      "SiNEMA TV 2",
-      "SiNEMA Yerli",
-      "SiNEMA Yerli 2",
-      "SiNEMA Aile",
-      "SiNEMA Aile 2",
-      "SiNEMA Komedi",
-      "SiNEMA Komedi 2",
-      "SiNEMA Aksiyon",
-      "SiNEMA Aksiyon 2",
-      "SiNEMA 1001",
-      "SiNEMA 1002",
-      "TH TURK HABER TV"
+      "TRT COCUK",
+      "HT SPOR",
+      "HTSpor TV (1080p)"
     ]
   },
   "message": "Multi-source playlist merged successfully."

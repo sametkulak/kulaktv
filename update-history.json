@@ -2156,6 +2156,49 @@
           "TH TURK HABER TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-23T14:35:06.516490+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 280,
+      "logosFilled": 15,
+      "health": {
+        "checked": 698,
+        "healthy": 381,
+        "failed": 317,
+        "ratio": 0.546
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 69,
+        "discevisita": 90,
+        "iptv-turk-tr": 72,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 92,
+        "ilyswch/IPTV-TR": 92,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 61,
+        "programmeCount": 1975
+      },
+      "changes": {
+        "channelDelta": -2,
+        "addedCount": 1,
+        "removedCount": 3,
+        "addedChannels": [
+          "TELE 1"
+        ],
+        "removedChannels": [
+          "TRT COCUK",
+          "HT SPOR",
+          "HTSpor TV (1080p)"
+        ]
+      }
     }
   ]
 }
