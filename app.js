@@ -320,8 +320,73 @@ const state = {
   })()),
   epg: { updatedAt:null, channels:{} },
   epgLoaded: false,
-  epgOpen: false
+  epgOpen: false,
+  runtimeRecoveryTimer: null,
+  runtimeRecoveryPending: false,
+  runtimeRecoveryAttempts: 0
 };
+
+function cancelRuntimeRecovery(resetAttempts=false){
+  if(state.runtimeRecoveryTimer){
+    clearTimeout(state.runtimeRecoveryTimer);
+    state.runtimeRecoveryTimer=null;
+  }
+  state.runtimeRecoveryPending=false;
+  if(resetAttempts) state.runtimeRecoveryAttempts=0;
+}
+
+function exhaustRuntimeRecovery(reason='Yayın bağlantısı kurtarılamadı'){
+  cancelRuntimeRecovery(false);
+  setConnectionStatus('error','Bağlantı koptu');
+  setStatus('Açılamadı');
+  clearMediaSession();
+  if(typeof state.cancelPlayback==='function') state.cancelPlayback();
+  state.cancelPlayback=null;
+  showPlaybackRetry(reason,state.sourceCandidates.length);
+}
+
+function scheduleRuntimeRecovery(ch,reason='HLS fatal network error'){
+  if(state.current!==ch || state.runtimeRecoveryPending) return;
+
+  if(state.runtimeRecoveryAttempts >= 2){
+    exhaustRuntimeRecovery('Otomatik bağlantı kurtarma denemeleri tükendi.');
+    return;
+  }
+
+  const delayMs=6000;
+  state.runtimeRecoveryAttempts++;
+  state.runtimeRecoveryPending=true;
+  setConnectionStatus('buffering','Bağlantı koptu');
+  setStatus('Bağlantı kesildi. Otomatik kurtarma hazırlanıyor…');
+
+  const timer=setTimeout(()=>{
+    if(state.runtimeRecoveryTimer!==timer) return;
+    state.runtimeRecoveryTimer=null;
+    state.runtimeRecoveryPending=false;
+
+    if(state.current!==ch) return;
+    setConnectionStatus('connecting','Yayın yeniden başlatılıyor');
+    setStatus('Aynı kanal yeniden bağlanıyor…');
+    playChannel(ch,{preserveRuntimeRecovery:true});
+  },delayMs);
+
+  state.runtimeRecoveryTimer=timer;
+  void reason;
+}
+
+function triggerRuntimeRecoveryNow(){
+  if(!state.runtimeRecoveryPending || !state.current) return;
+
+  const ch=state.current;
+  if(state.runtimeRecoveryTimer){
+    clearTimeout(state.runtimeRecoveryTimer);
+    state.runtimeRecoveryTimer=null;
+  }
+  state.runtimeRecoveryPending=false;
+  setConnectionStatus('connecting','Bağlantı geri geldi');
+  setStatus('Bağlantı geri geldi. Yayın yeniden başlatılıyor…');
+  playChannel(ch,{preserveRuntimeRecovery:true});
+}
 
 const $ = id => document.getElementById(id);
 const video = $('video');
@@ -793,8 +858,11 @@ function retryCurrentChannel(){
   clearError();
   playChannel(ch);
 }
-function playChannel(ch){
+function playChannel(ch,options={}){
+  const preserveRuntimeRecovery=Boolean(options.preserveRuntimeRecovery);
+
   // Eski kanalın tüm timer/callback/event zincirini kesin olarak geçersiz kıl.
+  cancelRuntimeRecovery(!preserveRuntimeRecovery);
   if(typeof state.cancelPlayback==='function') state.cancelPlayback();
   stopHls();
   state.playbackGeneration += 1;
@@ -900,6 +968,14 @@ function playChannel(ch){
     setMediaSessionPlaybackState('playing');
     mark(ch,'ok');
     setStatus(sourceIndex ? 'Canlı • alternatif kaynak' : 'Canlı');
+
+    // Yayın en az 30 saniye kararlı kaldıysa sonraki runtime kopmasında
+    // otomatik kurtarma bütçesini sıfırla. Böylece kısa aralıklarla tekrar
+    // eden kopmalar sonsuz yeniden başlatma döngüsüne dönüşmez.
+    schedule(() => {
+      if(!isCurrentRun() || !settled) return;
+      state.runtimeRecoveryAttempts=0;
+    },30000);
   };
 
   const failure = (detail='Yayın açılamadı') => {
@@ -1020,11 +1096,24 @@ function playChannel(ch){
     };
 
     const onVideoError = () => {
-      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
-      if(!started) {
-        failure('Video kaynağı tarayıcı tarafından reddedildi');
-      } else {
-        failure('Yayın başladıktan sonra durdu');
+      if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
+      if(!settled){
+        if(!started) {
+          failure('Video kaynağı tarayıcı tarafından reddedildi');
+        } else {
+          failure('Yayın başladıktan sonra durdu');
+        }
+        return;
+      }
+
+      // Runtime kurtarma yalnızca gerçek medya/network hatasında devreye girsin.
+      // Buffering/waiting olayları burada özellikle yok sayılır.
+      const mediaError=video.error;
+      const networkCode=(typeof MediaError!=='undefined' && MediaError.MEDIA_ERR_NETWORK)
+        ? MediaError.MEDIA_ERR_NETWORK
+        : 2;
+      if(mediaError?.code===networkCode){
+        scheduleRuntimeRecovery(ch,'HTMLMediaElement network error');
       }
     };
 
@@ -1102,16 +1191,28 @@ function playChannel(ch){
     });
 
     hlsInstance.on(Hls.Events.ERROR,(_e,data)=>{
-      if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
-      if(data?.fatal) {
-        failure(data.details || 'HLS fatal error');
+      if(!isCurrentRun() || sourceToken!==activeSourceToken) return;
+      if(!data?.fatal) return;
+
+      if(settled){
+        // HLS.js'in gerçekten kurtarılamaz ilan ettiği network hatasını esas al.
+        // bufferStalledError / waiting gibi genel buffering durumları runtime
+        // yeniden başlatma tetikleyicisi değildir.
+        if(data.type==='networkError'){
+          scheduleRuntimeRecovery(ch,data.details || 'HLS fatal network error');
+        }
+        return;
       }
+
+      failure(data.details || 'HLS fatal error');
     });
   };
 
   state._switchSource = (sourceIndex) => {
     if(!isCurrentRun() || !alternatives[sourceIndex]) return;
 
+    // Kullanıcının manuel kaynak değişimi bekleyen otomatik kurtarmayı iptal eder.
+    cancelRuntimeRecovery(true);
     clearTimers();
     detachVideoHandlers();
     stopHls();
