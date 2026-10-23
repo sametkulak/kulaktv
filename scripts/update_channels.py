@@ -1,4 +1,5 @@
 # EPG + source health + trust + history pipeline
+# D1 player telemetry endpoint'i Worker deploy edildikten sonra aktif kullanım için doğrulanıyor.
 # Günlük güncelleme pipelineı canlı test tetikleyicisi.
 #!/usr/bin/env python3
 """Build KulakTV's playlist by merging several public M3U sources.
