@@ -10,28 +10,14 @@ const UPDATE_HISTORY_URL = './update-history.json';
 
 
 const TELEMETRY_CONFIG = window.KULAKTV_TELEMETRY_CONFIG || {};
-const TELEMETRY_API_BASE = 'https://api.github.com/repos/sametkulak/kulaktv/issues';
+const TELEMETRY_API_BASE = String(
+  TELEMETRY_CONFIG.apiBase || 'https://kulaktv-auth.sametkulak96.workers.dev'
+).replace(/\/+$/, '');
 const TELEMETRY_STORAGE_KEY = 'kulaktv-pending-player-telemetry-v1';
 let telemetryQueue = [];
 let telemetrySending = false;
 let telemetryDisabledForSession = false;
 let telemetryFlushTimer = null;
-
-function getTelemetrySessionId(){
-  try{
-    const key='kulaktv-telemetry-session-v1';
-    const saved=sessionStorage.getItem(key);
-    if(saved)return saved;
-    const id=(globalThis.crypto?.randomUUID)
-      ? crypto.randomUUID()
-      : 's-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
-    sessionStorage.setItem(key,id);
-    return id;
-  }catch{
-    return 's-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
-  }
-}
-const telemetrySessionId=getTelemetrySessionId();
 
 function loadTelemetryQueue(){
   try{
@@ -42,51 +28,27 @@ function loadTelemetryQueue(){
 
 function saveTelemetryQueue(){
   try{
-    localStorage.setItem(TELEMETRY_STORAGE_KEY,JSON.stringify(telemetryQueue.slice(-60)));
+    localStorage.setItem(
+      TELEMETRY_STORAGE_KEY,
+      JSON.stringify(telemetryQueue.slice(-60))
+    );
   }catch{}
 }
 
 telemetryQueue=loadTelemetryQueue();
 
 function telemetryEnabled(){
-  const token=String(TELEMETRY_CONFIG.githubToken||'').trim();
-  const issueNumber=Number(TELEMETRY_CONFIG.issueNumber||0);
   return Boolean(
     TELEMETRY_CONFIG.enabled &&
-    token &&
-    token !== 'PASTE_FINE_GRAINED_TOKEN_HERE' &&
-    issueNumber > 0 &&
+    TELEMETRY_API_BASE &&
     !telemetryDisabledForSession
   );
 }
 
-// Public build'de istemci telemetry devre disiysa eski kuyrugu da tasima.
+// Telemetry devre dışı bırakılmışsa eski kuyruk verisini taşımıyoruz.
 if(!telemetryEnabled()){
   telemetryQueue=[];
   try{localStorage.removeItem(TELEMETRY_STORAGE_KEY);}catch{}
-}
-
-function getTelemetryDevice(){
-  const width=Math.min(window.innerWidth||0,window.screen?.width||0);
-  if(width<=700)return 'mobile';
-  if(width<=1100)return 'tablet';
-  return 'desktop';
-}
-
-function getTelemetryBrowser(){
-  const ua=navigator.userAgent||'';
-  if(/edg\//i.test(ua))return 'Edge';
-  if(/firefox\//i.test(ua))return 'Firefox';
-  if(/samsungbrowser\//i.test(ua))return 'Samsung Internet';
-  if(/opr\//i.test(ua))return 'Opera';
-  if(/chrome\//i.test(ua)&&!/edg\//i.test(ua))return 'Chrome';
-  if(/safari\//i.test(ua)&&!/chrome\//i.test(ua))return 'Safari';
-  return 'Diğer';
-}
-
-function getTelemetryConnection(){
-  const connection=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
-  return String(connection?.effectiveType||connection?.type||'unknown');
 }
 
 function queuePlaybackTelemetry(type,url,extra={}){
@@ -96,70 +58,60 @@ function queuePlaybackTelemetry(type,url,extra={}){
     type,
     at:new Date().toISOString(),
     url,
-    host:(() => { try{return new URL(url).hostname;}catch{return '';} })(),
     channel:state.current?.name||'unknown',
-    sourceIndex:Number(extra.sourceIndex ?? state.sourceIndex ?? -1)+1,
     latencyMs:Number(extra.latencyMs||0)||0,
-    detail:String(extra.detail||''),
   });
 
   saveTelemetryQueue();
 
   const flushEvery=Math.max(1,Number(TELEMETRY_CONFIG.flushEvery||6));
   if(telemetryQueue.length>=flushEvery){
-    flushPlaybackTelemetry();
+    void flushPlaybackTelemetry();
   }else{
     clearTimeout(telemetryFlushTimer);
-    telemetryFlushTimer=setTimeout(()=>flushPlaybackTelemetry(),Math.max(3000,Number(TELEMETRY_CONFIG.flushIntervalMs||15000)));
+    telemetryFlushTimer=setTimeout(
+      ()=>void flushPlaybackTelemetry(),
+      Math.max(3000,Number(TELEMETRY_CONFIG.flushIntervalMs||15000))
+    );
   }
 }
 
 async function flushPlaybackTelemetry(keepalive=false){
   if(telemetrySending||!telemetryEnabled()||!telemetryQueue.length)return;
 
-  const maxBatch=Math.max(1,Math.min(12,Number(TELEMETRY_CONFIG.maxBatchEvents||12)));
+  const maxBatch=Math.max(
+    1,
+    Math.min(12,Number(TELEMETRY_CONFIG.maxBatchEvents||12))
+  );
+
   const batch=telemetryQueue.splice(0,maxBatch);
   saveTelemetryQueue();
   telemetrySending=true;
 
-  const token=String(TELEMETRY_CONFIG.githubToken||'').trim();
-  const issueNumber=Number(TELEMETRY_CONFIG.issueNumber||0);
-  const payload={
-    sessionId:telemetrySessionId,
-    sentAt:new Date().toISOString(),
-    client:{
-      device:getTelemetryDevice(),
-      browser:getTelemetryBrowser(),
-      connection:getTelemetryConnection(),
-      touchPoints:Number(navigator.maxTouchPoints||0),
-      language:String(navigator.language||'unknown'),
-      width:Number(window.innerWidth||0),
-      height:Number(window.innerHeight||0)
-    },
-    events:batch
-  };
-
   try{
-    const res=await fetch(`${TELEMETRY_API_BASE}/${issueNumber}/comments`,{
+    const res=await fetch(TELEMETRY_API_BASE+'/api/telemetry',{
       method:'POST',
       keepalive:Boolean(keepalive),
       headers:{
-        'Accept':'application/vnd.github+json',
-        'Authorization':`Bearer ${token}`,
-        'Content-Type':'application/json',
-        'X-GitHub-Api-Version':'2026-03-10'
+        'Accept':'application/json',
+        'Content-Type':'application/json'
       },
       body:JSON.stringify({
-        body:`KULAKTV-TELEMETRY v1\\n${JSON.stringify(payload)}`
+        events:batch.map(event=>({
+          type:event.type,
+          url:event.url,
+          channel:event.channel,
+          latencyMs:event.latencyMs
+        }))
       })
     });
 
     if(!res.ok){
       telemetryQueue=[...batch,...telemetryQueue].slice(-60);
       saveTelemetryQueue();
-      if(res.status===401||res.status===403){
-        telemetryDisabledForSession=true;
-        console.warn('KulakTV telemetry yetkisi reddedildi.');
+
+      if(res.status===400||res.status===403||res.status===429){
+        console.warn('KulakTV telemetry reddedildi:',res.status);
       }
     }
   }catch(err){
@@ -168,24 +120,38 @@ async function flushPlaybackTelemetry(keepalive=false){
     console.warn('KulakTV telemetry gönderilemedi:',err);
   }finally{
     telemetrySending=false;
+
     if(telemetryQueue.length){
-      const flushEvery=Math.max(1,Number(TELEMETRY_CONFIG.flushEvery||6));
+      const flushEvery=Math.max(
+        1,
+        Number(TELEMETRY_CONFIG.flushEvery||6)
+      );
+
       clearTimeout(telemetryFlushTimer);
+
       if(telemetryQueue.length>=flushEvery){
         void flushPlaybackTelemetry();
       }else{
         telemetryFlushTimer=setTimeout(
-          ()=>flushPlaybackTelemetry(),
-          Math.max(3000,Number(TELEMETRY_CONFIG.flushIntervalMs||15000))
+          ()=>void flushPlaybackTelemetry(),
+          Math.max(
+            3000,
+            Number(TELEMETRY_CONFIG.flushIntervalMs||15000)
+          )
         );
       }
     }
   }
 }
 
-window.addEventListener('pagehide',()=>{ void flushPlaybackTelemetry(true); });
+window.addEventListener('pagehide',()=>{
+  void flushPlaybackTelemetry(true);
+});
+
 document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='hidden') void flushPlaybackTelemetry(true);
+  if(document.visibilityState==='hidden'){
+    void flushPlaybackTelemetry(true);
+  }
 });
 
 function loadSourceQuality(){
