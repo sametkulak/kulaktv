@@ -1976,6 +1976,44 @@
           "Terra Mater WILD ENG"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-23T09:00:53.015060+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 9,
+      "channelCount": 285,
+      "logosFilled": 5,
+      "health": {
+        "checked": 521,
+        "healthy": 332,
+        "failed": 189,
+        "ratio": 0.637
+      },
+      "providers": {
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 69,
+        "discevisita": 91,
+        "iptv-turk-tr": 72,
+        "rideordie16/tv": 41,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 94,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 2144
+      },
+      "changes": {
+        "channelDelta": -1,
+        "addedCount": 0,
+        "removedCount": 1,
+        "addedChannels": [],
+        "removedChannels": [
+          "DİM TV"
+        ]
+      }
     }
   ]
 }
