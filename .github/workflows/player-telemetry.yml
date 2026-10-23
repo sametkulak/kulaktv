@@ -26,7 +26,7 @@ jobs:
 
     steps:
       - name: Repository'yi al
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Güncel main ile hizala
         run: git pull --rebase origin main
