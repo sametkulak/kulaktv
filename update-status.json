@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-23T14:35:06.516490+00:00",
-  "channelCount": 280,
+  "updatedAt": "2026-10-24T09:00:52.780045+00:00",
+  "channelCount": 284,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -28,7 +28,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 82,
+      "trustScore": 83,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -67,7 +67,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 72,
+      "trustScore": 73,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 41,
+      "trustScore": 44,
       "trustLabel": "Zayıf",
       "automatic": false
     },
@@ -106,7 +106,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 92,
+      "trustScore": 93,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -129,8 +129,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 698,
-    "healthyUrls": 381,
-    "failedUrls": 317,
+    "healthyUrls": 389,
+    "failedUrls": 309,
     "failures": [
       {
         "channel": "TRT1",
@@ -156,11 +156,6 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -281,33 +276,37 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 0,
-    "removedAfterTwoFailures": 145
+    "pendingRemoval": 2,
+    "removedAfterTwoFailures": 141
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-23T14:35:06.516490+00:00",
+    "updatedAt": "2026-10-24T09:00:52.780045+00:00",
     "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/23.json,https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 61,
-    "programmeCount": 1975
+    "matchedChannels": 64,
+    "programmeCount": 2134
   },
   "changes": {
-    "channelDelta": -2,
-    "addedCount": 1,
-    "removedCount": 3,
+    "channelDelta": 4,
+    "addedCount": 4,
+    "removedCount": 0,
     "addedChannels": [
-      "TELE 1"
-    ],
-    "removedChannels": [
       "TRT COCUK",
       "HT SPOR",
+      "BIR TV",
       "HTSpor TV (1080p)"
-    ]
+    ],
+    "removedChannels": []
   },
   "message": "Multi-source playlist merged successfully."
 }

@@ -2199,6 +2199,48 @@
           "HTSpor TV (1080p)"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-24T09:00:52.780045+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 284,
+      "logosFilled": 15,
+      "health": {
+        "checked": 698,
+        "healthy": 389,
+        "failed": 309,
+        "ratio": 0.557
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 69,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 44,
+        "qazim/IPTV": 92,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 64,
+        "programmeCount": 2134
+      },
+      "changes": {
+        "channelDelta": 4,
+        "addedCount": 4,
+        "removedCount": 0,
+        "addedChannels": [
+          "TRT COCUK",
+          "HT SPOR",
+          "BIR TV",
+          "HTSpor TV (1080p)"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
