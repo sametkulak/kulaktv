@@ -2241,6 +2241,48 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-25T09:00:48.378008+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 285,
+      "logosFilled": 15,
+      "health": {
+        "checked": 699,
+        "healthy": 386,
+        "failed": 313,
+        "ratio": 0.552
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 69,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 46,
+        "qazim/IPTV": 92,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 73
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 2143
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 2,
+        "removedCount": 1,
+        "addedChannels": [
+          "RIZE TURK HD",
+          "FX (Turkiye)"
+        ],
+        "removedChannels": [
+          "like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        ]
+      }
     }
   ]
 }

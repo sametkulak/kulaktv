@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-24T09:00:52.780045+00:00",
-  "channelCount": 284,
+  "updatedAt": "2026-10-25T09:00:48.378008+00:00",
+  "channelCount": 285,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -36,8 +36,8 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 181,
-      "rawChannelCount": 181,
+      "channelCount": 184,
+      "rawChannelCount": 184,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 44,
+      "trustScore": 46,
       "trustLabel": "Zayıf",
       "automatic": false
     },
@@ -114,8 +114,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 169,
-      "rawChannelCount": 190,
+      "channelCount": 171,
+      "rawChannelCount": 192,
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 698,
-    "healthyUrls": 389,
-    "failedUrls": 309,
+    "checkedUrls": 699,
+    "healthyUrls": 386,
+    "failedUrls": 313,
     "failures": [
       {
         "channel": "TRT1",
@@ -156,6 +156,11 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -206,6 +211,11 @@
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "SHOW TV HD",
+        "url": "https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv_1080p.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -271,42 +281,32 @@
         "channel": "STAR TV",
         "url": "http://176.65.146.104:9981/stream/channelid/518299962",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 2,
+    "pendingRemoval": 5,
     "removedAfterTwoFailures": 141
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-24T09:00:52.780045+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/23.json,https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 64,
-    "programmeCount": 2134
+    "updatedAt": "2026-10-25T09:00:48.378008+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://www.turksatkablo.com.tr/userUpload/EPG/25.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 65,
+    "programmeCount": 2143
   },
   "changes": {
-    "channelDelta": 4,
-    "addedCount": 4,
-    "removedCount": 0,
+    "channelDelta": 1,
+    "addedCount": 2,
+    "removedCount": 1,
     "addedChannels": [
-      "TRT COCUK",
-      "HT SPOR",
-      "BIR TV",
-      "HTSpor TV (1080p)"
+      "RIZE TURK HD",
+      "FX (Turkiye)"
     ],
-    "removedChannels": []
+    "removedChannels": [
+      "like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }
