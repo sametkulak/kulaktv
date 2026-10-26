@@ -2283,6 +2283,48 @@
           "like Gecko) Chrome/120.0.0.0 Safari/537.36"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-26T09:01:01.088967+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 284,
+      "logosFilled": 15,
+      "health": {
+        "checked": 701,
+        "healthy": 386,
+        "failed": 315,
+        "ratio": 0.551
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 69,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 47,
+        "qazim/IPTV": 91,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 72
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 64,
+        "programmeCount": 2054
+      },
+      "changes": {
+        "channelDelta": -1,
+        "addedCount": 1,
+        "removedCount": 2,
+        "addedChannels": [
+          "like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        ],
+        "removedChannels": [
+          "DİM TV",
+          "FX (Turkiye)"
+        ]
+      }
     }
   ]
 }

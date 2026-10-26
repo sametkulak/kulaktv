@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-25T09:00:48.378008+00:00",
-  "channelCount": 285,
+  "updatedAt": "2026-10-26T09:01:01.088967+00:00",
+  "channelCount": 284,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 46,
+      "trustScore": 47,
       "trustLabel": "Zayıf",
       "automatic": false
     },
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 92,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -119,7 +119,7 @@
       "filteredOutCount": 21,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
-      "trustScore": 73,
+      "trustScore": 72,
       "trustLabel": "Güvenilir",
       "automatic": false
     }
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 699,
+    "checkedUrls": 701,
     "healthyUrls": 386,
-    "failedUrls": 313,
+    "failedUrls": 315,
     "failures": [
       {
         "channel": "TRT1",
@@ -156,11 +156,6 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -211,11 +206,6 @@
         "channel": "SHOW TV HD",
         "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv_1080p.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -281,31 +271,41 @@
         "channel": "STAR TV",
         "url": "http://176.65.146.104:9981/stream/channelid/518299962",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 5,
-    "removedAfterTwoFailures": 141
+    "pendingRemoval": 2,
+    "removedAfterTwoFailures": 142
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-25T09:00:48.378008+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://www.turksatkablo.com.tr/userUpload/EPG/25.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 65,
-    "programmeCount": 2143
+    "updatedAt": "2026-10-26T09:01:01.088967+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/25.json,https://www.turksatkablo.com.tr/userUpload/EPG/26.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 64,
+    "programmeCount": 2054
   },
   "changes": {
-    "channelDelta": 1,
-    "addedCount": 2,
-    "removedCount": 1,
+    "channelDelta": -1,
+    "addedCount": 1,
+    "removedCount": 2,
     "addedChannels": [
-      "RIZE TURK HD",
-      "FX (Turkiye)"
+      "like Gecko) Chrome/120.0.0.0 Safari/537.36"
     ],
     "removedChannels": [
-      "like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      "DİM TV",
+      "FX (Turkiye)"
     ]
   },
   "message": "Multi-source playlist merged successfully."
