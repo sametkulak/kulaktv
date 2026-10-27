@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-26T09:01:01.088967+00:00",
-  "channelCount": 284,
+  "updatedAt": "2026-10-27T09:00:51.374885+00:00",
+  "channelCount": 283,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 47,
+      "trustScore": 48,
       "trustLabel": "Zayıf",
       "automatic": false
     },
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 91,
+      "trustScore": 90,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 701,
-    "healthyUrls": 386,
-    "failedUrls": 315,
+    "checkedUrls": 699,
+    "healthyUrls": 383,
+    "failedUrls": 316,
     "failures": [
       {
         "channel": "TRT1",
@@ -285,27 +285,24 @@
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 2,
-    "removedAfterTwoFailures": 142
+    "pendingRemoval": 3,
+    "removedAfterTwoFailures": 143
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-26T09:01:01.088967+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/25.json,https://www.turksatkablo.com.tr/userUpload/EPG/26.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 64,
-    "programmeCount": 2054
+    "updatedAt": "2026-10-27T09:00:51.374885+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/26.json,https://www.turksatkablo.com.tr/userUpload/EPG/27.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 63,
+    "programmeCount": 2045
   },
   "changes": {
     "channelDelta": -1,
-    "addedCount": 1,
-    "removedCount": 2,
-    "addedChannels": [
-      "like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    ],
+    "addedCount": 0,
+    "removedCount": 1,
+    "addedChannels": [],
     "removedChannels": [
-      "DİM TV",
-      "FX (Turkiye)"
+      "TELE 1"
     ]
   },
   "message": "Multi-source playlist merged successfully."

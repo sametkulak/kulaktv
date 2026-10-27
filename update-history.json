@@ -2325,6 +2325,45 @@
           "FX (Turkiye)"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-27T09:00:51.374885+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 283,
+      "logosFilled": 15,
+      "health": {
+        "checked": 699,
+        "healthy": 383,
+        "failed": 316,
+        "ratio": 0.548
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 69,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 48,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 72
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 63,
+        "programmeCount": 2045
+      },
+      "changes": {
+        "channelDelta": -1,
+        "addedCount": 0,
+        "removedCount": 1,
+        "addedChannels": [],
+        "removedChannels": [
+          "TELE 1"
+        ]
+      }
     }
   ]
 }
