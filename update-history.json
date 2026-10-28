@@ -2364,6 +2364,46 @@
           "TELE 1"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-28T09:00:53.214072+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 285,
+      "logosFilled": 15,
+      "health": {
+        "checked": 685,
+        "healthy": 389,
+        "failed": 296,
+        "ratio": 0.568
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 70,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 49,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 74
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 63,
+        "programmeCount": 2046
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 2,
+        "removedCount": 0,
+        "addedChannels": [
+          "NR 1 TURK",
+          "Number 1 Turk"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
