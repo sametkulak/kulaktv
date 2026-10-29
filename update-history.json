@@ -2404,6 +2404,49 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-29T09:00:52.745074+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 285,
+      "logosFilled": 15,
+      "health": {
+        "checked": 687,
+        "healthy": 390,
+        "failed": 297,
+        "ratio": 0.568
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 71,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 49,
+        "qazim/IPTV": 90,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 75
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 64,
+        "programmeCount": 2111
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 2,
+        "removedCount": 2,
+        "addedChannels": [
+          "TELE 1",
+          "Eurosport 1 Turkiye"
+        ],
+        "removedChannels": [
+          "MAKKAH TV",
+          "Mekke TV Canli"
+        ]
+      }
     }
   ]
 }

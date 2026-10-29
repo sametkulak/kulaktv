@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-28T09:00:53.214072+00:00",
+  "updatedAt": "2026-10-29T09:00:52.745074+00:00",
   "channelCount": 285,
   "sourceCount": 9,
   "changed": true,
@@ -41,7 +41,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 70,
+      "trustScore": 71,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -119,7 +119,7 @@
       "filteredOutCount": 16,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
-      "trustScore": 74,
+      "trustScore": 75,
       "trustLabel": "Güvenilir",
       "automatic": false
     }
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 685,
-    "healthyUrls": 389,
-    "failedUrls": 296,
+    "checkedUrls": 687,
+    "healthyUrls": 390,
+    "failedUrls": 297,
     "failures": [
       {
         "channel": "TRT1",
@@ -141,6 +141,11 @@
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "TRT1",
+        "url": "http://89.187.191.41/TRT-1-HD-TR/video.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "TRT1",
@@ -156,6 +161,16 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
+      },
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv_720p.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -266,45 +281,33 @@
         "channel": "STAR TV",
         "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "http://176.65.146.104:9981/stream/channelid/518299962",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "STAR TV",
-        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 3,
+    "pendingRemoval": 1,
     "removedAfterTwoFailures": 131
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-28T09:00:53.214072+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/27.json,https://www.turksatkablo.com.tr/userUpload/EPG/28.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 63,
-    "programmeCount": 2046
+    "updatedAt": "2026-10-29T09:00:52.745074+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/28.json,https://www.turksatkablo.com.tr/userUpload/EPG/29.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 64,
+    "programmeCount": 2111
   },
   "changes": {
-    "channelDelta": 2,
+    "channelDelta": 0,
     "addedCount": 2,
-    "removedCount": 0,
+    "removedCount": 2,
     "addedChannels": [
-      "NR 1 TURK",
-      "Number 1 Turk"
+      "TELE 1",
+      "Eurosport 1 Turkiye"
     ],
-    "removedChannels": []
+    "removedChannels": [
+      "MAKKAH TV",
+      "Mekke TV Canli"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }
