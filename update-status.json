@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-29T09:00:52.745074+00:00",
-  "channelCount": 285,
+  "updatedAt": "2026-10-30T09:00:51.361237+00:00",
+  "channelCount": 287,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -41,7 +41,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 71,
+      "trustScore": 72,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -93,7 +93,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -119,7 +119,7 @@
       "filteredOutCount": 16,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
-      "trustScore": 75,
+      "trustScore": 76,
       "trustLabel": "Güvenilir",
       "automatic": false
     }
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 687,
-    "healthyUrls": 390,
-    "failedUrls": 297,
+    "checkedUrls": 686,
+    "healthyUrls": 393,
+    "failedUrls": 293,
     "failures": [
       {
         "channel": "TRT1",
@@ -141,11 +141,6 @@
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "http://89.187.191.41/TRT-1-HD-TR/video.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "TRT1",
@@ -165,11 +160,6 @@
       {
         "channel": "NOW TV",
         "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv_720p.m3u8",
         "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
@@ -281,33 +271,40 @@
         "channel": "STAR TV",
         "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "http://176.65.146.104:9981/stream/channelid/518299962",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 1,
-    "removedAfterTwoFailures": 131
+    "pendingRemoval": 0,
+    "removedAfterTwoFailures": 129
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-29T09:00:52.745074+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/28.json,https://www.turksatkablo.com.tr/userUpload/EPG/29.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 64,
-    "programmeCount": 2111
+    "updatedAt": "2026-10-30T09:00:51.361237+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/29.json,https://www.turksatkablo.com.tr/userUpload/EPG/30.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 65,
+    "programmeCount": 2137
   },
   "changes": {
-    "channelDelta": 0,
+    "channelDelta": 2,
     "addedCount": 2,
-    "removedCount": 2,
+    "removedCount": 0,
     "addedChannels": [
-      "TELE 1",
-      "Eurosport 1 Turkiye"
-    ],
-    "removedChannels": [
       "MAKKAH TV",
       "Mekke TV Canli"
-    ]
+    ],
+    "removedChannels": []
   },
   "message": "Multi-source playlist merged successfully."
 }

@@ -2447,6 +2447,46 @@
           "Mekke TV Canli"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-10-30T09:00:51.361237+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 287,
+      "logosFilled": 15,
+      "health": {
+        "checked": 686,
+        "healthy": 393,
+        "failed": 293,
+        "ratio": 0.573
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 72,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 49,
+        "qazim/IPTV": 91,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 2137
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 2,
+        "removedCount": 0,
+        "addedChannels": [
+          "MAKKAH TV",
+          "Mekke TV Canli"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
