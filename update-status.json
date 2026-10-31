@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-10-30T09:00:51.361237+00:00",
-  "channelCount": 287,
+  "updatedAt": "2026-10-31T09:00:49.507660+00:00",
+  "channelCount": 288,
   "sourceCount": 9,
   "changed": true,
   "configuredSourceCount": 9,
@@ -36,8 +36,8 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 172,
-      "rawChannelCount": 172,
+      "channelCount": 173,
+      "rawChannelCount": 173,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -114,9 +114,9 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 159,
+      "channelCount": 160,
       "rawChannelCount": 175,
-      "filteredOutCount": 16,
+      "filteredOutCount": 15,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
       "trustScore": 76,
@@ -128,9 +128,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 686,
-    "healthyUrls": 393,
-    "failedUrls": 293,
+    "checkedUrls": 685,
+    "healthyUrls": 391,
+    "failedUrls": 294,
     "failures": [
       {
         "channel": "TRT1",
@@ -156,11 +156,6 @@
         "channel": "TRT1",
         "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
       },
       {
         "channel": "NOW TV",
@@ -281,28 +276,32 @@
         "channel": "STAR TV",
         "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 0,
+    "pendingRemoval": 4,
     "removedAfterTwoFailures": 129
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-10-30T09:00:51.361237+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/29.json,https://www.turksatkablo.com.tr/userUpload/EPG/30.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 65,
-    "programmeCount": 2137
+    "updatedAt": "2026-10-31T09:00:49.507660+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/30.json,https://www.turksatkablo.com.tr/userUpload/EPG/31.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 66,
+    "programmeCount": 2204
   },
   "changes": {
-    "channelDelta": 2,
-    "addedCount": 2,
+    "channelDelta": 1,
+    "addedCount": 1,
     "removedCount": 0,
     "addedChannels": [
-      "MAKKAH TV",
-      "Mekke TV Canli"
+      "Cartoon Network (Turkiye)"
     ],
     "removedChannels": []
   },

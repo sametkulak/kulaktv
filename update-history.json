@@ -2487,6 +2487,45 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-10-31T09:00:49.507660+00:00",
+      "status": "updated",
+      "sourceCount": 9,
+      "configuredSourceCount": 9,
+      "channelCount": 288,
+      "logosFilled": 15,
+      "health": {
+        "checked": 685,
+        "healthy": 391,
+        "failed": 294,
+        "ratio": 0.571
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 72,
+        "discevisita": 90,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 49,
+        "qazim/IPTV": 91,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 66,
+        "programmeCount": 2204
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 1,
+        "removedCount": 0,
+        "addedChannels": [
+          "Cartoon Network (Turkiye)"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
