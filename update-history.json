@@ -2526,6 +2526,50 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-01T09:00:45.612178+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 9,
+      "channelCount": 286,
+      "logosFilled": 5,
+      "health": {
+        "checked": 509,
+        "healthy": 334,
+        "failed": 175,
+        "ratio": 0.656
+      },
+      "providers": {
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 72,
+        "discevisita": 89,
+        "iptv-turk-tr": 73,
+        "rideordie16/tv": 49,
+        "qazim/IPTV": 92,
+        "ilyswch/IPTV-TR": 93,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 65,
+        "programmeCount": 1084
+      },
+      "changes": {
+        "channelDelta": -2,
+        "addedCount": 2,
+        "removedCount": 4,
+        "addedChannels": [
+          "ATV Avrupa (576p)",
+          "Discovery Science Europe"
+        ],
+        "removedChannels": [
+          "TELE 1",
+          "TOKAT TV",
+          "TRT Genc (1440p)",
+          "DocumentaryPlus"
+        ]
+      }
     }
   ]
 }
