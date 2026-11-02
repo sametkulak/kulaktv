@@ -43,6 +43,18 @@ Bu dosya, proje ileride devralındığında veya aylar sonra yeniden açıldığ
 - Cloudflare Worker Cron Trigger her dakika `cleanupSessions()` çalıştırır.
 - Normal çıkış, timeout ve admin tarafından kapatma login geçmişinde ayrı nedenlerle tutulur.
 
+### Player telemetry ve kaynak kalite geri bildirimi
+- Frontend telemetry aktiftir.
+- `telemetry-config.js` endpoint'i: `https://kulaktv-auth.sametkulak96.workers.dev`.
+- Olay gönderimi: `POST /api/telemetry`.
+- Toplu kalite okuması: `GET /api/telemetry/quality`.
+- `app.js` oynatma sırasında başarı, başarısızlık ve yayın başladıktan sonraki stall olaylarını toplar.
+- Olaylar küçük paketler halinde Worker'a gönderilir; sayfa gizlenirken/kapanırken de `keepalive` ile flush denenir.
+- GitHub Actions tarafında `scripts/update_channels.py`, yalnızca toplu kaynak sayaçlarını okur. Ham kullanıcı/session kaydı çekilmez.
+- `source-quality.json`, player telemetry verisini `playerScore` ve `playerWeight` ile server-side sağlık skoruna karıştırır.
+- Bu veri herkesin kullandığı ortak kaynak kalite puanının parçasıdır.
+- Eski GitHub Issue tabanlı telemetry akışı ve ona ait dosyalar kaldırılmıştır. Issue #1 artık veri taşıma noktası değildir.
+
 ## Günlük otomasyon ve dış zamanlayıcı
 
 ### cron-job.org
@@ -56,7 +68,6 @@ Bu dosya, proje ileride devralındığında veya aylar sonra yeniden açıldığ
 ### GitHub Actions
 - `update-channels.yml`: kanal listesi, sağlık kontrolü, EPG ve watchdog akışını tek günlük pipeline içinde yürütür.
 - `update-epg.yml`: EPG'yi gerektiğinde manuel olarak yenilemek için ayrıca bulunur.
-- `player-telemetry.yml`: eski telemetry iş akışını içerir; frontend telemetry şu anda kapalıdır.
 - Veri güncelleme sırasında guardrail'ler çalışır; toplu bozulma durumunda güvenli liste korunur.
 
 ## Kanal kaynakları
