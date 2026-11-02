@@ -1713,6 +1713,28 @@ function updateFullscreenButton(){
   const label=btn.querySelector('span');
   if(label)label.textContent=fullscreen?'Tam ekrandan çık':'Tam ekran';
 }
+let wasPlayingBeforeNativeFullscreen=false;
+video.addEventListener('webkitbeginfullscreen',()=>{
+  wasPlayingBeforeNativeFullscreen=!video.paused && !video.ended;
+});
+video.addEventListener('webkitendfullscreen',()=>{
+  const shouldResume=wasPlayingBeforeNativeFullscreen;
+  wasPlayingBeforeNativeFullscreen=false;
+  if(!shouldResume || !state.current) return;
+
+  // iOS may pause the media element while leaving its native fullscreen player.
+  // Keep the existing HLS/source session and resume it instead of rebuilding it.
+  setTimeout(()=>{
+    if(!state.current || !video.paused) return;
+    const resume=video.play();
+    if(resume && typeof resume.catch==='function'){
+      resume.catch(()=>{
+        // If iOS discarded the media session, rebuild only this channel as a fallback.
+        if(state.current && state.currentUrl) playChannel(state.current);
+      });
+    }
+  },180);
+});
 async function toggleFullscreen(){
   try{
     if(document.fullscreenElement){
