@@ -1,0 +1,71 @@
+name: KulakTV canlı smoke test
+
+on:
+  push:
+    paths:
+      - ".github/workflows/live-smoke-test.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Live Pages ve HLS kontrolü
+        run: |
+          python - <<'PY'
+          import urllib.request
+          from urllib.parse import urljoin
+
+          PAGE = "https://sametkulak.github.io/kulaktv/"
+          STREAMS = {
+              "TRT1": "https://tv-trt1.medya.trt.com.tr/master_720.m3u8",
+              "NOW TV": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+              "DREAM TURK": "https://live.duhnet.tv/S2/HLS_LIVE/dreamturknp/playlist.m3u8",
+          }
+          UA = "KulakTV-Live-Smoke-Test/1.0"
+
+          def fetch(url, timeout=20):
+              req = urllib.request.Request(
+                  url,
+                  headers={"User-Agent": UA, "Accept": "*/*"},
+              )
+              with urllib.request.urlopen(req, timeout=timeout) as r:
+                  return r.status, r.geturl(), r.read(256 * 1024).decode("utf-8", "replace")
+
+          status, final_url, html = fetch(PAGE)
+          print(f"PAGE: HTTP {status} {final_url}")
+          if status != 200 or "KulakTV" not in html:
+              raise SystemExit("Pages smoke test failed")
+
+          for name, url in STREAMS.items():
+              status, final_url, manifest = fetch(url)
+              print(f"{name} MANIFEST: HTTP {status} {final_url}")
+              if status != 200 or "#EXTM3U" not in manifest:
+                  raise SystemExit(f"{name}: manifest failed")
+
+              lines = [line.strip() for line in manifest.splitlines() if line.strip() and not line.startswith("#")]
+              if not lines:
+                  raise SystemExit(f"{name}: manifest has no media references")
+
+              child_or_segment = urljoin(final_url, lines[0])
+              status2, final2, body2 = fetch(child_or_segment, timeout=20)
+              print(f"{name} REF: HTTP {status2} {final2}")
+
+              if status2 != 200:
+                  raise SystemExit(f"{name}: first referenced resource failed")
+
+              if "#EXTM3U" in body2:
+                  lines2 = [line.strip() for line in body2.splitlines() if line.strip() and not line.startswith("#")]
+                  if not lines2:
+                      raise SystemExit(f"{name}: child playlist has no media references")
+                  segment = urljoin(final2, lines2[0])
+                  status3, final3, _ = fetch(segment, timeout=20)
+                  print(f"{name} MEDIA: HTTP {status3} {final3}")
+                  if status3 != 200:
+                      raise SystemExit(f"{name}: media segment failed")
+
+          print("LIVE SMOKE TEST: PASS")
+          PY
