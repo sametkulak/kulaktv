@@ -766,7 +766,7 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
                 # channel title using malformed single quotes. Keep only the
                 # actual title portion.
                 match_name = re.search(
-                    r'^(.*?)(?:\s+)(?:tvg-name|group-title|tvg-logo)=',
+                    r'^(.*?)(?:\s+)(?:tvg-name|group-title|tvg-logo|yedek\d*|backup\d*)=',
                     title,
                     re.I,
                 )
