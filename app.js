@@ -417,6 +417,9 @@ function parseM3U(text) {
     const line=lines[i].trim(); if(!line.startsWith('#EXTINF:')) continue;
     const comma=line.indexOf(','), meta=comma>=0?line.slice(0,comma):line;
     let name=comma>=0?line.slice(comma+1).trim():'İsimsiz Kanal'; const attrs=parseAttrs(meta); let url='';
+    // Some upstream M3U files incorrectly place backup URL attributes after the comma.
+    // Strip them from the display title so they never leak into channel/player UI.
+    name=name.replace(/\s+(?:yedek|backup)\d*\s*=\s*(?:"[^"]*"|'[^']*'|[^\s]+)/gi,'').trim();
     for(let j=i+1;j<lines.length;j++){ const next=lines[j].trim(); if(!next||next.startsWith('#')) continue; url=next;i=j;break; }
     if(!url) continue;
     name=name.replace(/\s*\[(?:Not 24\/7|Geo-blocked)\]\s*$/i,'').trim();
