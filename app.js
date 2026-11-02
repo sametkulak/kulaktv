@@ -788,6 +788,30 @@ function getAlternativeChannels(ch){
   if(!normalized)return [];
   return state.channels.filter(x=>x!==ch&&canonicalChannelKey(x)===normalized);
 }
+
+function getPlayableSourceCandidates(ch){
+  const candidates=[
+    ch,
+    ...(ch.alternatives||[]).map(url=>({...ch,url})),
+    ...getAlternativeChannels(ch)
+  ];
+  const seen=new Set();
+  return candidates.filter(item=>{
+    if(!item?.url)return false;
+    try{
+      const parsed=new URL(item.url,window.location.href);
+      // HTTP and HTTPS variants of the same host/path are the same stream,
+      // not independent backups. Keep the first (normally HTTPS) occurrence.
+      const identity=(parsed.hostname+parsed.pathname+parsed.search).toLowerCase();
+      if(seen.has(identity))return false;
+      seen.add(identity);
+      if(window.location.protocol==='https:' && parsed.protocol==='http:')return false;
+      return parsed.protocol==='https:'||parsed.protocol==='http:';
+    }catch{
+      return false;
+    }
+  });
+}
 async function openInExternalPlayer(url){
   try {
     const opened = window.open(url, '_blank', 'noopener,noreferrer');
@@ -813,8 +837,8 @@ function setCurrentTitle(ch){
   $('nowTitle').textContent=ch.name;
   $('mobileNowTitle').textContent=ch.name;
   $('barChannelName').textContent=ch.name;
-  const fallbackCount = Array.isArray(ch.alternatives) ? ch.alternatives.length : 0;
-  $('nowMeta').textContent = `${ch.group} • HLS / M3U8${fallbackCount ? ` • ${fallbackCount} yedek kaynak` : ''}`;
+  const fallbackCount = Math.max(0,getPlayableSourceCandidates(ch).length-1);
+  $('nowMeta').textContent = `${ch.group} • HLS / M3U8${fallbackCount ? ` • ${fallbackCount} kullanılabilir yedek` : ''}`;
   updateNowLogo(ch);
   video.poster = String(ch.logo || '').trim();
   setStreamLoader(ch);
@@ -898,24 +922,7 @@ async function playChannel(ch,options={}){
     if(!isCurrentRun()) return;
   }
 
-  const originalCandidates = [
-    ch,
-    ...(ch.alternatives || []).map(url => ({...ch, url})),
-    ...getAlternativeChannels(ch)
-  ]
-    .filter((item,index,arr)=>item?.url && arr.findIndex(x=>x.url===item.url)===index)
-    // GitHub Pages is HTTPS. Browsers block HTTP media as mixed content, so
-    // there is no value in spending retry time on candidates the browser
-    // cannot legally load. Keep HTTP sources for non-HTTPS deployments.
-    .filter(item => {
-      try{
-        const pageProtocol = window.location.protocol;
-        const sourceProtocol = new URL(item.url, window.location.href).protocol;
-        return !(pageProtocol === 'https:' && sourceProtocol === 'http:');
-      }catch{
-        return false;
-      }
-    });
+  const originalCandidates = getPlayableSourceCandidates(ch);
 
   // Shared GitHub quality history now decides the initial source order.
   const orderedCandidates = sharedSourceQualityLoaded
@@ -940,6 +947,7 @@ async function playChannel(ch,options={}){
   let settled = false;
   const timers = new Set();
   let sourceStartedAt = 0;
+  const sourceTimeoutRetries = new Map();
   let sourceStallRecorded = false;
   let runtimeStallRecorded = false;
   let activeSourceToken = 0;
@@ -1008,8 +1016,22 @@ async function playChannel(ch,options={}){
     clearTimers();
     detachVideoHandlers();
 
-    if(alternatives[attemptIndex]?.url) {
-      recordSourceEvent(alternatives[attemptIndex].url,'failure');
+    const failedCandidate=alternatives[attemptIndex];
+    if(failedCandidate?.url) recordSourceEvent(failedCandidate.url,'failure');
+
+    // NOW TV's HTTPS CDN occasionally accepts the connection but does not
+    // begin playback on the first request. Give that exact source one short
+    // second chance before moving to the next independent source.
+    const isNowTv=normalizeChannelName(ch.name).replace(/\\s+/g,'')==='nowtv';
+    const isStartTimeout=String(detail).includes('saniye içinde oynatılmaya başlamadı');
+    const retryCount=failedCandidate?.url ? (sourceTimeoutRetries.get(failedCandidate.url)||0) : 0;
+    if(isNowTv && isStartTimeout && failedCandidate?.url && retryCount<1){
+      sourceTimeoutRetries.set(failedCandidate.url,retryCount+1);
+      setConnectionStatus('connecting','Kaynak tekrar deneniyor');
+      setStatus(`NOW TV: Kaynak ${attemptIndex+1}/${maxAttempts} kısa süreli tekrar deneniyor…`);
+      stopHls();
+      schedule(()=>trySource(failedCandidate,attemptIndex),500);
+      return;
     }
 
     stopHls();
@@ -1181,12 +1203,13 @@ async function playChannel(ch,options={}){
     video.onerror = onVideoError;
     video.onwaiting = onWaiting;
 
+    const startTimeoutMs=(sourceTimeoutRetries.get(candidate.url)||0)>0 ? 8000 : SOURCE_START_TIMEOUT_MS;
     schedule(() => {
       if(!isCurrentRun() || settled || sourceToken!==activeSourceToken) return;
       if(!started) {
-        failure(`Kaynak ${SOURCE_START_TIMEOUT_MS / 1000} saniye içinde oynatılmaya başlamadı`);
+        failure(`Kaynak ${startTimeoutMs / 1000} saniye içinde oynatılmaya başlamadı`);
       }
-    }, SOURCE_START_TIMEOUT_MS);
+    }, startTimeoutMs);
 
     if(video.canPlayType('application/vnd.apple.mpegurl')){
       video.src = candidate.url;
