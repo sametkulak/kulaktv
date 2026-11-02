@@ -2,3165 +2,2661 @@
   "NOW": {
     "name": "NOW TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TV8": {
     "name": "TV 8",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SHOWTV": {
     "name": "SHOW TV HD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANALD": {
     "name": "KANAL D",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "STARTV": {
     "name": "STAR TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TABII": {
     "name": "Tabii",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "HALKTV": {
     "name": "Halk TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTTURK": {
     "name": "TRT TURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL7": {
     "name": "KANAL 7",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "360": {
     "name": "360",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TEVE2": {
     "name": "TEVE2",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TV100": {
     "name": "TV100",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BEYAZTV": {
     "name": "BEYAZ TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTHABER": {
     "name": "TRT HABER",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "HABERTURK": {
     "name": "HABERTURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "24": {
     "name": "24",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DOSTTV": {
     "name": "DOST TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DIYANETTV": {
     "name": "DIYANET TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ASPOR": {
     "name": "A SPOR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTEBAORTAKUL": {
     "name": "TRT EBA ORTAKUL",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTCOCUKDIYANET": {
     "name": "TRT COCUK DIYANET",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTAVAZ": {
     "name": "TRT AVAZ",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTKURDI": {
     "name": "TRT KURDI",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTARABI": {
     "name": "TRT ARABI",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTWORLD": {
     "name": "TRT WORLD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTMUZIK": {
     "name": "TRT MUZIK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EUROD": {
     "name": "EURO D",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTCOCUK": {
     "name": "TRT COCUK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL7AVRUPA": {
     "name": "KANAL 7 AVRUPA",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TIVI6": {
     "name": "TIVI 6",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "HABERGLOBAL": {
     "name": "HABER GLOBAL",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL3": {
     "name": "KANAL 3",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL12": {
     "name": "KANAL 12",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL15": {
     "name": "KANAL 15",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL23": {
     "name": "KANAL 23",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL26": {
     "name": "KANAL 26",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL33": {
     "name": "KANAL 33",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANAL34": {
     "name": "KANAL 34",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL53": {
     "name": "KANAL 53",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL58": {
     "name": "KANAL 58",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL68": {
     "name": "KANAL 68",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANALAVRUPA": {
     "name": "KANAL AVRUPA",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANALB": {
     "name": "KANAL B",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANALZ": {
     "name": "KANAL Z",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANALPLUS": {
     "name": "KANAL PLUS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANALURFA": {
     "name": "KANAL URFA",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANALFIRAT": {
     "name": "KANAL FIRAT",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KAYTV": {
     "name": "KAY TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KOCAELITV": {
     "name": "KOCAELİ TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KTVKONYA": {
     "name": "KTV KONYA",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "LIFETV": {
     "name": "LİFE TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MAVIKARADENIZTV": {
     "name": "MAVi KARADENiZ TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MERCANTV": {
     "name": "MERCAN TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "METROPOLTV": {
     "name": "METROPOL TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "MUGLATURKTV": {
     "name": "MUGLA TÜRK TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "OLAYTURK": {
     "name": "OLAY TURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SUNTV": {
     "name": "SUN TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TARIMTV": {
     "name": "TARIM TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TEMPOTV": {
     "name": "TEMPO TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TONTV": {
     "name": "TON TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRAKYATURKTV": {
     "name": "TRAKYA TÜRK TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TV25": {
     "name": "TV 25",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TV41": {
     "name": "TV 41",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TV48": {
     "name": "TV 48",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TV52": {
     "name": "TV 52",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TV264": {
     "name": "TV 264",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TVA": {
     "name": "TV A",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "URFANATIKTV": {
     "name": "UR FANATiK TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "VANGOLUTV": {
     "name": "VAN GOLU TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "VRT": {
     "name": "VRT",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "VTVTURK": {
     "name": "VTV TÜRK",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "VUSLATTV": {
     "name": "VUSLAT TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "RIZETURK": {
     "name": "RIZE TURK HD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "PAZARCIKTV": {
     "name": "PAZARCIK TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ORDUBELTV": {
     "name": "ORDU BEL TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DAMARTV": {
     "name": "DAMAR TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ARABESKTV": {
     "name": "ARABESK TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SILATV": {
     "name": "SILA TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ZEYNOTV": {
     "name": "ZEYNO TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EZOTV": {
     "name": "EZO TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TOPPOPTV": {
     "name": "TOP POP TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "AVIVATV": {
     "name": "A VİVA TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ARMATV": {
     "name": "ARMA TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "GENCSMSTV": {
     "name": "GENC SMS TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SAGLIKCHANEL": {
     "name": "SAGLIK CHANEL",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "5OCAKTV": {
     "name": "5 OCAK TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "HURTV": {
     "name": "HÜR TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BRUKSELTURK": {
     "name": "BRÜKSEL TÜRK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ONDETV": {
     "name": "ÖNDE TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ANADOLUMTV": {
     "name": "ANADOLUM TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "360TV": {
     "name": "360 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NTV": {
     "name": "NTV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "24TV": {
     "name": "24 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TGRTHABER": {
     "name": "TGRT HABER",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SINEMA1": {
     "name": "SiNEMA 1",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TV85": {
     "name": "TV 8.5",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTSPORYILDIZ": {
     "name": "TRT SPOR YILDIZ",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "TV4": {
     "name": "TV 4",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BIRTV": {
     "name": "BIR TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TELE1": {
     "name": "TELE 1",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KRT": {
     "name": "KRT",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TVNET": {
     "name": "TVNET",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "EKOTURK": {
     "name": "EKOTURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SINEMATV2": {
     "name": "SiNEMA TV 2",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMAYERLI": {
     "name": "SiNEMA Yerli",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMAYERLI2": {
     "name": "SiNEMA Yerli 2",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMAAILE2": {
     "name": "SiNEMA Aile 2",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMAKOMEDI": {
     "name": "SiNEMA Komedi",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMAKOMEDI2": {
     "name": "SiNEMA Komedi 2",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMAAKSIYON2": {
     "name": "SiNEMA Aksiyon 2",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMA1001": {
     "name": "SiNEMA 1001",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SINEMA1002": {
     "name": "SiNEMA 1002",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "MOVIESMARTTURK": {
     "name": "Moviesmart Türk HD",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "FILMSCREEN": {
     "name": "Film Screen HD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TABIITV": {
     "name": "Tabii TV HD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SPORTSTV": {
     "name": "SPORTS TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRT1": {
     "name": "TRT 1",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EURODSS": {
     "name": "EURO D HD SS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRT2": {
     "name": "TRT 2",
-    "failedStreak": 6,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 7,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-31T09:00:49.507660+00:00",
     "hasHealthyUrl": false
   },
   "FBTV": {
     "name": "FB TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TJKTV": {
     "name": "TJK TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "AKITTV": {
     "name": "AKIT TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "BENGUTURK": {
     "name": "BENGU TURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TURKHABER": {
     "name": "TURKHABER",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "NR1": {
     "name": "NR1",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NR1ASK": {
     "name": "NR1 ASK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NR1DAMAR": {
     "name": "NR1 DAMAR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NR1DANCE": {
     "name": "NR1 DANCE",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DREAMTURK": {
     "name": "DREAM TURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ULKETV": {
     "name": "ÜLKE TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EKOLTV": {
     "name": "EKOL TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "THTURKHABERTV": {
     "name": "TH TURK HABER TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "NR1TURK": {
     "name": "NR 1 TURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERLOVE": {
     "name": "POWER LOVE",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NR1TV": {
     "name": "NR 1 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERTURK": {
     "name": "POWER TURK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERTURKSLOW": {
     "name": "POWER TURK SLOW",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERTVAKUSTIK": {
     "name": "POWER TV AKUSTiK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERTURKTAPTAZE": {
     "name": "POWER TURK TAPTAZE",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERDANCE": {
     "name": "POWER DANCE",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SLOWKARADENIZTV": {
     "name": "SLOW KARADENIZ TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "HTSPOR": {
     "name": "HT SPOR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MELTEMTV": {
     "name": "MELTEM TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TIVITURK": {
     "name": "TiViTURK",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "DENIZPOSTASITV": {
     "name": "DENiZ POSTASI TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ISVICRETV": {
     "name": "İSVİÇRE TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DIZITV": {
     "name": "DİZİ TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "LALEGULTV": {
     "name": "LALEGUL TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SEMERKANDTVWAY": {
     "name": "SEMERKAND TV WAY",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "REHBERTV": {
     "name": "REHBER TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANALON4TV": {
     "name": "KANAL ON 4 TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ALZAHRATURKTV": {
     "name": "AL ZAHRA TURK TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MCTV": {
     "name": "MC TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MUKABELETV": {
     "name": "MUKABELE TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ALQURANKAREEMKABE": {
     "name": "Al QURAN KAREEM - KABE CANLI",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRTDIYANETCOCUK": {
     "name": "TRT DİYANET ÇOCUK",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TURKMENELITV": {
     "name": "TÜRKMENELİ TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "AKSUTV": {
     "name": "AKSU TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ANADOLUNETTV": {
     "name": "ANADOLUNET TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ARASTV": {
     "name": "ARAS TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BODRUMKENTTV": {
     "name": "BODRUM KENT TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "BRTV": {
     "name": "BRTV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BURSALINETV": {
     "name": "BURSA LiNE TV",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "CAYTV": {
     "name": "CAY TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "CIFTCITV": {
     "name": "ÇİFTÇİ TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DERINTV": {
     "name": "DERiN TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DIMTV": {
     "name": "DİM TV",
-    "failedStreak": 13,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 14,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-24T09:00:52.780045+00:00",
     "hasHealthyUrl": false
   },
   "ERCIYESTV": {
     "name": "ERCİYES TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ERTV": {
     "name": "ER TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ESTV": {
     "name": "ES TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ETVKAYSERI": {
     "name": "ETV KAYSERi",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ETVMANISA": {
     "name": "ETV MANiSA",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "GRTGAZIANTEPTV": {
     "name": "GRT GAZİANTEP TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "GUNEYDOGUTV": {
     "name": "GUNEYDOGU TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "HUNATTV": {
     "name": "HUNAT TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ICELTV": {
     "name": "iCEL TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "IZMIRTIME35TV": {
     "name": "İZMİR TIME 35 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "IKRATV": {
     "name": "İKRA TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KARDELENTV": {
     "name": "KARDELEN TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANAL19": {
     "name": "KANAL 19",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANAL32": {
     "name": "KANAL 32",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TOKATTV": {
     "name": "TOKAT TV",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "BELEMTURK": {
     "name": "BELEMTÜRK",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ZAROKTVKURTCE": {
     "name": "Zarok TV Kürtçe",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CNNTURK": {
     "name": "CNN TURK",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "CINE1": {
     "name": "CINE 1",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SDMSINEMA": {
     "name": "SDM SiNEMA",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MINIKAGO": {
     "name": "MINIKA GO",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "A2": {
     "name": "A2",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TLC": {
     "name": "TLC",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "TAGESSCHAU24": {
     "name": "TAGESSCHAU 24",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NDR": {
     "name": "NDR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "RAKUTENACTION": {
     "name": "RAKUTEN ACTION",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "RAKUTENCRIME": {
     "name": "RAKUTEN CRIME",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "RAKUTENCOMEDY": {
     "name": "RAKUTEN COMEDY",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "RAKUTENDRAMA": {
     "name": "RAKUTEN DRAMA",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "MAKKAHTV": {
     "name": "MAKKAH TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MADINAHTV": {
     "name": "MADINAH TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTSPOR": {
     "name": "TRT SPOR",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ATV": {
     "name": "ATV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FLASHHABER": {
     "name": "FLASH HABER",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CNBCE": {
     "name": "CNBC-E",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EKOLHABER": {
     "name": "Ekol Haber",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BENGUTURKTV": {
     "name": "Benguturk TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TBMMTV": {
     "name": "TBMM TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DHA": {
     "name": "DHA Canli",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-01T09:00:45.612178+00:00",
     "hasHealthyUrl": false
   },
   "BLOOMBERGHT": {
     "name": "Bloomberg HT",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BURSAASTV": {
     "name": "Bursa AS TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FINANSTURKTV": {
     "name": "Finans Turk TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "HABER61TV": {
     "name": "Haber61 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTBELGESEL": {
     "name": "TRT Belgesel",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "GZT": {
     "name": "GZT",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "CINEXTV": {
     "name": "Cinex TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "LUYSTV": {
     "name": "Luys TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EDESSATV": {
     "name": "Edessa TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FORTUNATV": {
     "name": "Fortuna TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SERCEMTV": {
     "name": "Sercem TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ERZURUMWEBTV": {
     "name": "Erzurum Web TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ILKETV": {
     "name": "Ilke TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANALV": {
     "name": "Kanal V",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KENTTURKTV": {
     "name": "Kent Türk TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KONYAOLAYTV": {
     "name": "Konya Olay TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "LINETV": {
     "name": "Line TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "MAVIKARADENIZMKTV": {
     "name": "Mavi Karadeniz MK TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MTURKTV": {
     "name": "MTurk TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TV1": {
     "name": "TV 1",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TV42": {
     "name": "TV 42",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "VAN65TV": {
     "name": "Van 65 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ATVALANYA": {
     "name": "ATV Alanya",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SUNRTV": {
     "name": "Sun RTV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ON4TV": {
     "name": "On4 TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ALANYAPOSTATV": {
     "name": "Alanya Posta TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ALTASTV": {
     "name": "Altas TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "AFROTURKTV": {
     "name": "Afroturk TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "OLAYTURKTV": {
     "name": "Olay Turk TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SAT7TURK": {
     "name": "Sat 7 Turk",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MEKKETV": {
     "name": "Mekke TV Canli",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MEDINETV": {
     "name": "Medine TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SEMARKANDTV": {
     "name": "Semarkand TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "VAVTV": {
     "name": "Vav TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "IKRADIYARTV": {
     "name": "Ikra (Diyar) TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ALZAHRATVTURK": {
     "name": "Al-Zahra TV Turk",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SSPORT": {
     "name": "S Sport",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SSPORT2": {
     "name": "S Sport 2",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "EKOLSPORTS": {
     "name": "Ekol Sports",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TJKTV2": {
     "name": "TJK TV 2",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "POWERTV": {
     "name": "Power TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERTURKTV": {
     "name": "Powerturk TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "POWERTURKAKUSTIK": {
     "name": "Powerturk Akustik",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NUMBER1TV": {
     "name": "Number 1 TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NUMBER1TURK": {
     "name": "Number 1 Turk",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NUMBER1DANCE": {
     "name": "Number 1 Dance",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NUMBER1DAMAR": {
     "name": "Number 1 Damar",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NUMBER1ASK": {
     "name": "Number 1 Ask",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KRALPOPTV": {
     "name": "Kral Pop TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DISNEYJR": {
     "name": "Disney Jr.",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "MINIKACOCUK": {
     "name": "Minika Cocuk",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTEBATV": {
     "name": "TRT EBA TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ZAROKTV": {
     "name": "Zarok TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BABYTV": {
     "name": "Baby TV",
-    "failedStreak": 21,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 22,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-19T09:00:50.403588+00:00",
     "hasHealthyUrl": false
   },
   "PERSIANA": {
     "name": "Persiana Turkiye",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NDRTV": {
     "name": "NDR TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TAGESSCHAUTV": {
     "name": "Tagesschau TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ALMAHRIAHTV": {
     "name": "Almahriah TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MEKAMELEENTV": {
     "name": "Mekameleen TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ELSHARQTV": {
     "name": "Elsharq TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SYRIATV": {
     "name": "Syria TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "4UTV": {
     "name": "4U TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "A2TV": {
     "name": "A2TV (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "AHABER": {
     "name": "A Haber (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ALRAFIDAINTV": {
     "name": "Al-Rafidain TV (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ALZAHRATVTURKIC": {
     "name": "Al-Zahra TV Turkic (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ASTV900P": {
     "name": "AS TV (900p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ATVAVRUPA": {
     "name": "ATV Avrupa (576p)",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "LIKEGECKOCHROME130000SAFARI53736": {
     "name": "like Gecko) Chrome/130.0.0.0 Safari/537.36",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "BURSATV": {
     "name": "Bursa TV (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "CEKMEKOYTV": {
     "name": "Cekmekoy TV (1080p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "DIYARTV": {
     "name": "Diyar TV (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EUROSPORT1": {
     "name": "Eurosport 1 Turkiye",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "EUROSPORT2": {
     "name": "Eurosport 2 Turkiye",
-    "failedStreak": 20,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 21,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-20T09:00:47.184627+00:00",
     "hasHealthyUrl": false
   },
   "FLASHHABERTV": {
     "name": "Flash Haber TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FX": {
     "name": "FX (Turkiye)",
-    "failedStreak": 13,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 14,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "HABERTURKTV": {
     "name": "Haberturk TV (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "HTSPORTV": {
     "name": "HTSpor TV (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KANALHAYAT": {
     "name": "Kanal Hayat (1080p)",
-    "failedStreak": 21,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 22,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-19T09:00:50.403588+00:00",
     "hasHealthyUrl": false
   },
   "KENTTURK": {
     "name": "Kent Turk (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KNMUSICTV": {
     "name": "KN Music TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "QAFTV": {
     "name": "Qaf TV (1080p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SEMERKANDTV": {
     "name": "Semerkand TV (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SHOWTURK": {
     "name": "Show Turk (1080p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "SPACETOON": {
     "name": "Spacetoon Turkey (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TGRTBELGESEL": {
     "name": "TGRT Belgesel (576p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRT3": {
     "name": "TRT 3 (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRTEBA": {
     "name": "TRT EBA (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TRTEBAILKOKUL": {
     "name": "TRT EBA Ilkokul (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRTEBALISE": {
     "name": "TRT EBA Lise (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRTGENC": {
     "name": "TRT Genc (1440p)",
-    "failedStreak": 4,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 5,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T09:00:59.445465+00:00",
     "hasHealthyUrl": false
   },
   "TURKHABERTV": {
     "name": "TurkHaber TV (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "YOLTV": {
     "name": "YOL TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MKTV": {
     "name": "MK TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ULUSALTV": {
     "name": "ULUSAL TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "MEDYAHABERTV": {
     "name": "MedyaHaber TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BRT1": {
     "name": "BRT 1",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BBCEARTH": {
     "name": "BBC Earth",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CGTNDOCUMENTRY": {
     "name": "CGTN Documentry",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DISCOVERINGCHINA": {
     "name": "Discovering China",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 2,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-02T11:17:33.930672+00:00",
     "hasHealthyUrl": false
   },
   "DOCUMENTARYPLUS": {
     "name": "DocumentaryPlus",
-    "failedStreak": 7,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 8,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-30T09:00:51.361237+00:00",
     "hasHealthyUrl": false
   },
   "DOCUMENTARY": {
     "name": "Documentary+",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NHKWORLD": {
     "name": "NHK WORLD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TERRAMATERWILDENG": {
     "name": "Terra Mater WILD ENG",
-    "failedStreak": 20,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 21,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-20T09:00:47.184627+00:00",
     "hasHealthyUrl": false
   },
   "TERRAMATERWILD": {
     "name": "Terra Mater WILD",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FXTV": {
     "name": "FX TV HD",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "EURONEWSEN": {
     "name": "EURONEWS EN",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BBCNEWS": {
     "name": "BBC NEWS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SKYNEWS": {
     "name": "Sky News",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "GBNEWS": {
     "name": "GB NEWS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DW": {
     "name": "DW",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FRANCE24": {
     "name": "France 24",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ALJAZEERA": {
     "name": "Al Jazeera",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ABCNEWS": {
     "name": "ABC News",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "RTNEWS": {
     "name": "RT NEWS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CGTN": {
     "name": "CGTN",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "I24NEWSEN": {
     "name": "i24 NEWS EN",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "FOXNEWS": {
     "name": "FOX NEWS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CNNINT": {
     "name": "CNN INT",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CBSNEWS": {
     "name": "CBS NEWS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "CBCNEWS": {
     "name": "CBC News",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NBCNEWSNOW": {
     "name": "NBC News NOW",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "GLOBALNEWS": {
     "name": "GLOBAL NEWS",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NOWNEWSUSA": {
     "name": "NOW NEWS USA",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "NOWNEWSGLOBAL": {
     "name": "NOW NEWS GLOBAL",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ABCNEWSAUSTRALIA": {
     "name": "ABC NEWS AUSTRALIA",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "AFRICA24EN": {
     "name": "AFRICA 24 EN",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "EURONEWSDEUTSCH": {
     "name": "Euronews Deutsch",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "RTDEUTSCH": {
     "name": "RT DEUTSCH",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "RTL": {
     "name": "RTL",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DASERSTE": {
     "name": "Das Erste",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SR": {
     "name": "SR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "WDR": {
     "name": "WDR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NDRINTERNATIONAL": {
     "name": "NDR International",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NDRHAMBURG": {
     "name": "NDR Hamburg",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "AUGSBURGTV": {
     "name": "Augsburg TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ARDALPHA": {
     "name": "ARD Alpha",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BRNORD": {
     "name": "BR Nord",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "HR": {
     "name": "HR",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DELUXEMUSIC": {
     "name": "DELUXE MUSIC",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "DELUXEMUSICDEUTSCHPOP": {
     "name": "DELUXE MUSIC Deutsch Pop",
-    "failedStreak": 18,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 19,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-22T09:00:52.042705+00:00",
     "hasHealthyUrl": false
   },
   "DELUXEMUSICWINTERTIME": {
     "name": "DELUXE MUSIC Winter Time",
-    "failedStreak": 18,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 19,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-22T09:00:52.042705+00:00",
     "hasHealthyUrl": false
   },
   "TRACEURBAN": {
     "name": "TRACE URBAN",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "VEVOPOP": {
     "name": "VEVO POP",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "VEVOPOPFAST": {
     "name": "VEVO POP FAST",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "VEVOHPRB": {
     "name": "VEVO HP RB",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TV8INT": {
     "name": "TV 8 INT",
-    "failedStreak": 5,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 6,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-11-01T09:00:45.612178+00:00",
     "hasHealthyUrl": false
   },
   "SHOWMAX": {
     "name": "SHOW MAX",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TATLISESTV": {
     "name": "TATLISES TV",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "BURSAASTV900P": {
     "name": "Bursa AS TV (900p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "GONCATV": {
     "name": "Gonca TV (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "GRT900P": {
     "name": "GRT (900p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "HELWATV": {
     "name": "Helwa TV (1080p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "KANALDDRAMA": {
     "name": "Kanal D Drama (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "KAYTV900P": {
     "name": "Kay TV (900p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "MAVIKARADENIZ": {
     "name": "MaviKaradeniz (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "NATIONALGEOGRAPHICWILD": {
     "name": "National Geographic Wild",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "OLAYTURKTVKAYSERI": {
     "name": "Olay Türk TV Kayseri (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ON6": {
     "name": "On 6 (1080p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "ONCUTV1024P": {
     "name": "Öncü TV (1024p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TR24TV": {
     "name": "TR24 TV (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TMB": {
     "name": "TMB",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TRTEBAORTAOKUL": {
     "name": "TRT EBA Ortaokul (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TV24": {
     "name": "TV 24 (720p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "TYTTURK": {
     "name": "TYT Turk",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "UUTVUSKUDARUNIVERSITESITV": {
     "name": "ÜÜ TV Üsküdar Üniversitesi TV (1080p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "VIZYON58TV": {
     "name": "Vizyon 58 TV (720p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "TGRTBELGESELTV": {
     "name": "TGRT Belgesel TV (576p)",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "CGTNDOCUMENTARY": {
     "name": "CGTN Documentary",
-    "failedStreak": 40,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 41,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": null,
     "hasHealthyUrl": false
   },
   "A2TR": {
     "name": "A2 HD.tr",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "SDMTV": {
     "name": "SDM TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "BEGENTV": {
     "name": "BEGEN TV",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   },
   "ADATV": {
     "name": "Ada TV (1080p)",
-    "failedStreak": 25,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
+    "failedStreak": 26,
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
     "lastHealthyAt": "2026-10-15T09:00:49.175594+00:00",
     "hasHealthyUrl": false
   },
   "ASTV": {
     "name": "AS TV (1080p)",
     "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "ATVYEDEK1HTTPSRNTTWMJCINTURKNETERCDNNETLCPMVEFBYOATVATV360PM3U8YEDEK2HTTPSRNTTWMJCINTURKNETERCDNNETLCPMVEFBYOATVATVM3U8": {
-    "name": "ATV Yedek1=\"https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv_360p.m3u8\" Yedek2=\"https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/atv/atv.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KANALDYEDEK1HTTPSDEMIRORENDAIONCDNNETKANALDKANALDM3U8APPKANALDWEBYEDEK2HTTPSACKAXSQACWTURKNETERCDNNETOZFKFBBJBAKANALDKANALD1080PM3U8YEDEK3HTTPSDEMIRORENDAIONCDNNETKANALDKANALDM3U8APPKANALDWEBANDCEYEDEK4HTTPSDEMIRORENDAIONCDNNETKANALDKANALD1080PM3U8APPKANALDWEB": {
-    "name": "KANAL D Yedek1=\"https://demiroren.daioncdn.net/kanald/kanald.m3u8?app=kanald_web\" Yedek2=\"https://ackaxsqacw.turknet.ercdn.net/ozfkfbbjba/kanald/kanald_1080p.m3u8\" Yedek3=\"https://demiroren.daioncdn.net/kanald/kanald.m3u8?app=kanald_web&ce=\" Yedek4=\"https://demiroren.daioncdn.net/kanald/kanald_1080p.m3u8?app=kanald_web\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "STARTVYEDEK1HTTPSDOGUSDAIONCDNNETSTARTVSTARTV720PM3U8APPA20AC41EBDC34AA1934D26B484480AC9ANDCE3ANDSID8L4W3LST4CO5YEDEK2HTTPSDOGUSDAIONCDNNETSTARTVSTARTVM3U8APPA20AC41EBDC34AA1934D26B484480AC9YEDEK3HTTPSDOGUSDAIONCDNNETSTARTVSTARTV720PM3U8YEDEK4HTTPSEMMAZBVKKFTURKNETERCDNNETCNIFUOWZZASTARTVSTARTV720PM3U8YEDEK5HTTPSTVCDNVIZIWORKERSDEVID5YEDEK6HTTPSVAVOOAHKMWORKERSDEVID272055669263AF9BE64671": {
-    "name": "STAR TV Yedek1=\"https://dogus.daioncdn.net/startv/startv_720p.m3u8?app=a20ac41e-bdc3-4aa1-934d-26b484480ac9&ce=3&sid=8l4w3lst4co5\" Yedek2=\"https://dogus.daioncdn.net/startv/startv.m3u8?app=a20ac41e-bdc3-4aa1-934d-26b484480ac9\" Yedek3=\"https://dogus-live.daioncdn.net/startv/startv_720p.m3u8\" Yedek4=\"https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8\" Yedek5=\"https://tv.cdn-vizi.workers.dev/?ID=5\" Yedek6=\"https://vavoo.ahkm.workers.dev/?ID=272055669263af9be64671\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRT1YEDEK1HTTPSTVTRT1MEDYATRTCOMTRMASTERM3U8YEDEK2HTTPSTVTRT1MEDYATRTCOMTRMASTER1440M3U8YEDEK3HTTPSTVTRT1MEDYATRTCOMTRMASTER1080M3U8YEDEK4HTTPSTRTDAIONCDNNETTRT1MASTER1080PM3U8APPWEBYEDEK5HTTPSVAVOOAHKMWORKERSDEVID2346924541A665CE2B020A": {
-    "name": "TRT1 Yedek1=\"https://tv-trt1.medya.trt.com.tr/master.m3u8\" Yedek2=\"https://tv-trt1.medya.trt.com.tr/master_1440.m3u8\" Yedek3=\"https://tv-trt1.medya.trt.com.tr/master_1080.m3u8\" Yedek4=\"https://trt.daioncdn.net/trt-1/master_1080p.m3u8?app=web\" Yedek5=\"https://vavoo.ahkm.workers.dev/?ID=2346924541a665ce2b020a\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "SHOWTVYEDEK1HTTPSRMTFTBJLNETURKNETERCDNNETBPEYTMNQYPSHOWTVSHOWTV1080PM3U8YEDEK2HTTPSVAVOOAHKMWORKERSDEVID144949986573359AFBFEAEYEDEK3HTTPSGOLDVODORGHPGDISCOO123456521M3U8YEDEK4HTTPSTVCDNVIZIWORKERSDEVID3YEDEK5HTTPSVAVOOAHKMWORKERSDEVID3537232978DB7B25368A4B": {
-    "name": "SHOW TV HD Yedek1=\"https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv_1080p.m3u8\" Yedek2=\"https://vavoo.ahkm.workers.dev/?ID=144949986573359afbfeae\" Yedek3=\"https://goldvod.org/live/hpgdiscoo/123456/521.m3u8\" Yedek4=\"https://tv.cdn-vizi.workers.dev/?ID=3\" Yedek5=\"https://vavoo.ahkm.workers.dev/?ID=3537232978db7b25368a4b\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "NOWTVYEDEK1HTTPSUYCYYUUZYHTURKNETERCDNNETNPHINDGYTWNOWTVNOWTV720PM3U8": {
-    "name": "NOW TV Yedek1=\"https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv_720p.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TV8YEDEK1HTTPSXCANLITVAPPCOMKANAL8INDEXM3U8YEDEK2HTTPSTRN03TULIXTVGTTV8TVTRACKSV1A1MONOM3U8YEDEK3HTTPSBCOVLIVEAAKAMAIHDNETCCEE7091E86040D18E14CD0EFEF2A51BEUCENTRAL16415845530001PROFILE0CHUNKLISTM3U8YEDEK4HTTPSGOLDVODORGTVUYANIKID8ANDEXTENSIONM3U8": {
-    "name": "TV 8 Yedek1=\"https://x.canlitvapp.com/kanal8/index.m3u8\" Yedek2=\"https://trn03.tulix.tv/gt-tv8-tv/tracks-v1a1/mono.m3u8\" Yedek3=\"https://bcovlive-a.akamaihd.net/ccee7091e86040d18e14cd0efef2a51b/eu-central-1/6415845530001/profile_0/chunklist.m3u8\" Yedek4=\"https://goldvod.org/tv/uyanik?id=8&extension=m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "BEYAZTVYEDEK1HTTPSBEYAZTVDAIONCDNNETBEYAZTVBEYAZTV1080PM3U8YEDEK2HTTPSMNNLMNCDNCOMBLUTVBEYAZTV2M3U8": {
-    "name": "BEYAZ TV Yedek1=\"https://beyaztv-live.daioncdn.net/beyaztv/beyaztv_1080p.m3u8\" Yedek2=\"https://mn-nl.mncdn.com/blutv_beyaztv2/live.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRTHABERYEDEK1HTTPSTVTRTHABERMEDYATRTCOMTRMASTERM3U8": {
-    "name": "TRT HABER Yedek1=\"https://tv-trthaber.medya.trt.com.tr/master.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "HALKTVYEDEK1HTTPSHALKTVDAIONCDNNETHALKTVHALKTVM3U8YEDEK2HTTPSHALKTVDAIONCDNNETHALKTVHALKTV1080PM3U8APPC86957D374A744DA9AD2DC358C769609": {
-    "name": "Halk TV Yedek1=\"https://halktv-live.daioncdn.net/halktv/halktv.m3u8\" Yedek2=\"https://halktv.daioncdn.net/halktv/halktv_1080p.m3u8?app=c86957d3-74a7-44da-9ad2-dc358c769609\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "ASPORYEDEK1HTTPSRNTTWMJCINTURKNETERCDNNETLCPMVEFBYOASPORASPOR1080PM3U8YEDEK2HTTPSXCANLITVAPPCOMASPORINDEXM3U8YEDEK3HTTPSTRKVZDAIONCDNNETASPORASPOR1080PM3U8YEDEK4HTTPS217301174E158M3U8YEDEK5HTTPSTRKVZDAIONCDNNETASPORASPORM3U8YEDEK6HTTPSCANLITVULUSALXYZASPORINDEXM3U8": {
-    "name": "A SPOR Yedek1=\"https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8\" Yedek2=\"https://x.canlitvapp.com/aSPOR/index.m3u8\" Yedek3=\"https://trkvz-live.daioncdn.net/aSPOR/aSPOR_1080p.m3u8\" Yedek4=\"https://217.30.11.74/e/158.m3u8\" Yedek5=\"https://trkvz-live.daioncdn.net/aSPOR/aSPOR.m3u8\" Yedek6=\"https://live.canlitvulusal.xyz/live/aspor/index.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "NTVYEDEK1HTTPSDOGUSDAIONCDNNETNTVNTV1080PM3U8YEDEK2HTTPSDOGUSDAIONCDNNETNTVNTVM3U8APPNTVWEBYEDEK3HTTPSEMMAZBVKKFTURKNETERCDNNETCNIFUOWZZANTVNTV720PM3U8YEDEK4HTTPSTRN03TULIXTVGTNTVTVINDEXM3U8YEDEK5HTTPSCANLITVULUSALXYZNTVINDEXM3U8": {
-    "name": "NTV Yedek1=\"https://dogus.daioncdn.net/ntv/ntv_1080p.m3u8\" Yedek2=\"https://dogus.daioncdn.net/ntv/ntv.m3u8?app=ntv_web\" Yedek3=\"https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/ntv/ntv_720p.m3u8\" Yedek4=\"https://trn03.tulix.tv/gt-ntvtv/index.m3u8\" Yedek5=\"https://canlitvulusal.xyz/live/ntv/index.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TV100YEDEK1HTTPSTV100DAIONCDNNETTV100TV1001080PM3U8YEDEK2HTTPSTV100DAIONCDNNETTV100TV1001080PM3U8APPWEB": {
-    "name": "TV100 Yedek1=\"https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8\" Yedek2=\"https://tv100.daioncdn.net/tv100/tv100_1080p.m3u8?app=web\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "HABERTURKYEDEK1HTTPSCINERDAIONCDNNETHABERTURKTVHABERTURKTV1080PM3U8SID8B65NNYXPDWMANDAPPC98AB0B050CC495BBB37778E91F5FF5BANDCE2YEDEK2HTTPSTVENSONHABERCOMHABERTURKHABERTURKM3U8YEDEK3HTTPSTRN03TULIXTVGTHABERTURKINDEXM3U8": {
-    "name": "HABERTURK Yedek1=\"https://ciner.daioncdn.net/haberturktv/haberturktv_1080p.m3u8?sid=8b65nnyxpdwm&app=c98ab0b0-50cc-495b-bb37-778e91f5ff5b&ce=2\" Yedek2=\"https://tv.ensonhaber.com/haberturk/haberturk.m3u8\" Yedek3=\"https://trn03.tulix.tv/gt-haberturk/index.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "HABERGLOBALYEDEK1HTTPSTVENSONHABERCOMHABERGLOBALHABERGLOBALM3U8": {
-    "name": "HABER GLOBAL Yedek1=\"https://tv.ensonhaber.com/haberglobal/haberglobal.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TGRTHABERYEDEK1HTTPSTGRTHABERDAIONCDNNETTGRTHABERTGRTHABERM3U8YEDEK2HTTPSTGRTHABERDAIONCDNNETTGRTHABERTGRTHABER1080PM3U8YEDEK3HTTPSB01C02NLMEDIATRIPLENETVIDEOONLYLIVEMTSXXKZWWUQTGLIVEBROADCAST5FE4598BE8E5DSMILPLAYLISTM3U8": {
-    "name": "TGRT HABER Yedek1=\"https://tgrthaber-live.daioncdn.net/tgrthaber/tgrthaber.m3u8\" Yedek2=\"https://tgrthaber-live.daioncdn.net/tgrthaber/tgrthaber_1080p.m3u8\" Yedek3=\"https://b01c02nl.mediatriple.net/videoonlylive/mtsxxkzwwuqtglive/broadcast_5fe4598be8e5d.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "24TVYEDEK1HTTPSTVENSONHABERCOMTV24TV24M3U8YEDEK2HTTPSTURKMEDYAERCDNNETTV24TV24M3U8YEDEK3HTTPSMNNLMNCDNCOMKANAL24KANAL24SMILCHUNKLISTB896000M3U8": {
-    "name": "24 TV Yedek1=\"https://tv.ensonhaber.com/tv24/tv24.m3u8\" Yedek2=\"https://turkmedya-live.ercdn.net/tv24/tv24.m3u8\" Yedek3=\"https://mn-nl.mncdn.com/kanal24/kanal24.smil/chunklist_b896000.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TV85YEDEK1HTTPSTV8DAIONCDNNETTV8BUCUKTV8BUCUK1080PM3U8APPTV8BUCUKWEBANDCE3YEDEK2HTTPSTV8DAIONCDNNETTV8BUCUKTV8BUCUKM3U8APPTV8BUCUKWEBYEDEK3HTTPSTVARECTV3XYZTV85M3U8YEDEK4HTTPSBCOVLIVEAAKAMAIHDNET8FE5DABCDBCD4AF0ACE7B991A12A6A4CEUCENTRAL16415845530001PROFILE0CHUNKLISTM3U8": {
-    "name": "TV 8.5 Yedek1=\"https://tv8.daioncdn.net/tv8bucuk/tv8bucuk_1080p.m3u8?app=tv8bucuk_web&ce=3\" Yedek2=\"https://tv8.daioncdn.net/tv8bucuk/tv8bucuk.m3u8?app=tv8bucuk_web\" Yedek3=\"https://tv.arectv3.xyz/live/tv85.m3u8\" Yedek4=\"https://bcovlive-a.akamaihd.net/8fe5dabcdbcd4af0ace7b991a12a6a4c/eu-central-1/6415845530001/profile_0/chunklist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRTSPORYILDIZYEDEK1HTTPSIPTVWORKERMARKCLARKWORKERSDEVID54YEDEK2HTTPSTGNBOZZTVCOMDVRFL05GINTRTSPOR2PLAYLISTM3U8YEDEK3HTTPSTVTRTSPOR2MEDYATRTCOMTRMASTERM3U8YEDEK4HTTPSTRTDAIONCDNNETTRTSPORYILDIZMASTERM3U8APPWEBANDPLATFORMTRTSPOR": {
-    "name": "TRT SPOR YILDIZ Yedek1=\"https://iptv-worker.mark-clark.workers.dev/?ID=54\" Yedek2=\"https://tgn.bozztv.com/dvrfl05/gin-trtspor2/playlist.m3u8\" Yedek3=\"https://tv-trtspor2.medya.trt.com.tr/master.m3u8\" Yedek4=\"https://trt.daioncdn.net/trtspor-yildiz/master.m3u8?app=web&platform=trtspor\"",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": null,
-    "hasHealthyUrl": false
-  },
-  "TRTMUZIKYEDEK1HTTPSTVTRTMUZIKMEDYATRTCOMTRMASTER720M3U8": {
-    "name": "TRT MUZIK Yedek1=\"https://tv-trtmuzik.medya.trt.com.tr/master_720.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRTTURKYEDEK1HTTPSTVTRTTURKMEDYATRTCOMTRMASTERM3U8": {
-    "name": "TRT TURK Yedek1=\"https://tv-trtturk.medya.trt.com.tr/master.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRTAVAZYEDEK1HTTPSTVTRTAVAZMEDYATRTCOMTRMASTER720M3U8": {
-    "name": "TRT AVAZ Yedek1=\"https://tv-trtavaz.medya.trt.com.tr/master_720.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "360TVYEDEK1HTTPSTURKMEDYAERCDNNETTV360TV360M3U8": {
-    "name": "360 TV Yedek1=\"https://turkmedya-live.ercdn.net/tv360/tv360.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TELE1YEDEK1HTTPSTELE1DVRBLUTVCOMBLUTVTELE1DVR2LIVE720P2000000KBPSINDEXM3U8YEDEK2HTTPSTELE1ERCDNNETTELE1TELE11080PM3U8": {
-    "name": "TELE 1 Yedek1=\"https://tele1dvr.blutv.com/blutv_tele1_dvr2/live_720p2000000kbps/index.m3u8\" Yedek2=\"https://tele1-live.ercdn.net/tele1/tele1_1080p.m3u8\"",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": null,
-    "hasHealthyUrl": false
-  },
-  "BLOOMBERGHTYEDEK1HTTPSENSONHABERERCDNNETBLOOMBERGHTBLOOMBERGHTM3U8YEDEK2HTTPSTVENSONHABERCOMBLOOMBERGHTBLOOMBERGHTM3U8YEDEK3HTTPSMUMBAIEDGESMARTPLAYTVINBLOOMBERGHTINDEXM3U8YEDEK4HTTPSCINERDAIONCDNNETBLOOMBERGHTBLOOMBERGHTM3U8": {
-    "name": "Bloomberg HT Yedek1=\"https://ensonhaber-live.ercdn.net/bloomberght/bloomberght.m3u8\" Yedek2=\"https://tv.ensonhaber.com/bloomberght/bloomberght.m3u8\" Yedek3=\"https://mumbai-edge.smartplaytv.in/BloombergHT/index.m3u8\" Yedek4=\"https://ciner-live.daioncdn.net/bloomberght/bloomberght.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "EKOTURKYEDEK1HTTPSYTHLSKEKIKAKADEMIORGYOUTUBECHANNELUCAGVKXPAKWXMWDMCHBRVCWQM3U8": {
-    "name": "EKOTURK Yedek1=\"https://ythls.kekikakademi.org/youtube/channel/UCAGVKxpAKwXMWdmcHbrvcwQ.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "HTSPORYEDEK1HTTPSCINERERCDNNETHTSPORHTSPORM3U8": {
-    "name": "HT SPOR Yedek1=\"https://ciner-live.ercdn.net/htSPOR/htSPOR.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KRALPOPTVYEDEK1HTTPSDOGUSDAIONCDNNETKRALPOPTVPLAYLISTM3U8": {
-    "name": "KRAL POP TV FHD Yedek1=\"https://dogus-live.daioncdn.net/kralpoptv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "DREAMTURKYEDEK1HTTPSDUHNETTVS2HLSLIVEDREAMTURKNPPLAYLISTM3U8": {
-    "name": "DREAM TURK Yedek1=\"https://live.duhnet.tv//S2/HLS_LIVE/dreamturknp/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "360YEDEK1HTTPSTURKMEDYAERCDNNETTV360TV360M3U8": {
-    "name": "360 Yedek1=\"https://turkmedya-live.ercdn.net/tv360/tv360.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TEVE2YEDEK1HTTPSDUHNETTVS2HLSLIVETEVE2NPTRACK41000PLAYLISTM3U8": {
-    "name": "TEVE2 Yedek1=\"https://live.duhnet.tv/S2/HLS_LIVE/teve2np/track_4_1000/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "DOSTTVYEDEK1HTTPSTVSMSCLUBTVZPHPKANALDOSTANDFILEM3U8": {
-    "name": "DOST TV Yedek1=\"https://tvsms.club/tvz.php?kanal=dost&file=.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "EURODYEDEK1HTTPSDUHNETTVS2HLSLIVEEURODNPPLAYLISTM3U8": {
-    "name": "EURO D Yedek1=\"https://live.duhnet.tv/S2/HLS_LIVE/eurodnp/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KANAL7AVRUPAYEDEK1HTTPSLIVETVRADYOTVONLINENETKANAL7LIVEKANAL7AVRPLAYLISTM3U8": {
-    "name": "KANAL 7 AVRUPA Yedek1=\"https://livetv.radyotvonline.net/kanal7live/kanal7avr/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KANAL23YEDEK1HTTPSCDNKANAL23YAYINCOMTRKANAL23INDEXM3U8": {
-    "name": "KANAL 23 Yedek1=\"https://cdn-kanal23.yayin.com.tr/kanal23/index.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KANAL34YEDEK1HTTPSVDODIGITALBOXXYZ3266KANAL34TVLIVEM3U8": {
-    "name": "KANAL 34 Yedek1=\"https://vdo.digitalbox.xyz:3266/live/kanal34tvlive.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KANAL58YEDEK1HTTPSARTIDIJITALMEDYACOMARTIDIJITALKANAL58KANAL58PLAYLISTM3U8": {
-    "name": "KANAL 58 Yedek1=\"https://live.artidijitalmedya.com/artidijital_kanal58/kanal58/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KAYTVYEDEK1HTTPSARTIDIJITALMEDYACOMARTIDIJITALKAYTVKAYTV1PLAYLISTM3U8": {
-    "name": "KAY TV Yedek1=\"https://live.artidijitalmedya.com/artidijital_kaytv/kaytv1/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KOCAELITVYEDEK1HTTPSEDGE1SOCIALSMARTTVKOCAELITVBANT1PLAYLISTM3U8": {
-    "name": "KOCAELİ TV Yedek1=\"https://edge1.socialsmart.tv/kocaelitv/bant1/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "LIFETVYEDEK1HTTPSARTIDIJITALMEDYACOMARTIDIJITALLIFETVLIFETVPLAYLISTM3U8": {
-    "name": "LİFE TV Yedek1=\"https://live.artidijitalmedya.com/artidijital_lifetv/lifetv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "MERCANTVYEDEK1HTTPSARTIDIJITALMEDYACOMARTIDIJITALMERCANTVMERCANTVPLAYLISTM3U8": {
-    "name": "MERCAN TV Yedek1=\"https://live.artidijitalmedya.com/artidijital_mercantv/mercantv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TV264YEDEK1HTTPSB01C02NLMEDIATRIPLENETVIDEOONLYLIVEMTDXKKITGBRCKILIVEBROADCAST5EE244263FD6DSMILPLAYLISTM3U8": {
-    "name": "TV 264 Yedek1=\"https://b01c02nl.mediatriple.net/videoonlylive/mtdxkkitgbrckilive/broadcast_5ee244263fd6d.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "MINIKAGOYEDEK1HTTPSRNTTWMJCINTURKNETERCDNNETLCPMVEFBYOMINIKAGOMINIKAGOM3U8": {
-    "name": "MINIKA GO Yedek1=\"https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/minikago/minikago.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TV4YEDEK1HTTPSTURKMEDYAERCDNNETTV4TV4M3U8": {
-    "name": "TV 4 Yedek1=\"https://turkmedya-live.ercdn.net/tv4/tv4.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "BIRTVYEDEK1HTTPSEDGE1SOCIALSMARTTVBIRTVBANT1PLAYLISTM3U8YEDEK2HTTPSEDGE1SOCIALSMARTTVBIRTVBANT1CHUNKSM3U8YEDEK3HTTPSARTIDIJITALMEDYACOMARTIDIJITALBIRTVBIRTVPLAYLISTM3U8": {
-    "name": "BIR TV Yedek1=\"https://edge1.socialsmart.tv/birtv/bant1/playlist.m3u8\" Yedek2=\"https://edge1.socialsmart.tv/birtv/bant1/chunks.m3u8\" Yedek3=\"https://live.artidijitalmedya.com/artidijital_birtv/birtv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TVNETYEDEK1HTTPSTVNETLGMNCDNCOMTVNETTVNETPLAYLISTM3U8YEDEK2HTTPSTRN03TULIXTVGTTVNETINDEXM3U8": {
-    "name": "TVNET Yedek1=\"https://tvnet-live.lg.mncdn.com/tvnet/tvnet/playlist.m3u8\" Yedek2=\"https://trn03.tulix.tv/gt-tvnet/index.m3u8\"",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": null,
-    "hasHealthyUrl": false
-  },
-  "TABIITVYEDEK1HTTPSCEOKZOKGTDERBVRCOMTABIITVTABIITV1080PM3U8SIDIULYCZHCBES7NVVWJSIYCWANDBVRFLAGS10ANDBVRCHTABIITVANDBVRBW2800000": {
-    "name": "Tabii TV HD Yedek1=\"https://ceokzokgtd.erbvr.com/tabiitv/tabiitv_1080p.m3u8?sid=IUlyczhCBES7nvvwJSIycw&bvr_flags=10&bvr_ch=tabiitv&bvr_bw=2800000\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TJKTVYEDEK1HTTPSTJKTVTJKORGTJKTVM3U8": {
-    "name": "TJK TV Yedek1=\"https://tjktv-live.tjk.org/tjktv.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "BENGUTURKYEDEK1HTTPSENSONHABERERCDNNETBENGUTURKBENGUTURKM3U8": {
-    "name": "BENGU TURK Yedek1=\"https://ensonhaber-live.ercdn.net/benguturk/benguturk.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "NR1DAMARYEDEK1HTTPSB01C02NLMEDIATRIPLENETVIDEOONLYLIVEMTKGEUIHRLFWLIVEBROADCAST5C9E19877B340SMILCHUNKLISTB400000M3U8MD5API5VTN5DEXL5CVRHMQBNQANDEXPIRES1696713505": {
-    "name": "NR1 DAMAR Yedek1=\"https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/broadcast_5c9e19877b340.smil/chunklist_b400000.m3u8?md5=api5VtN5dEXl5cvRHMQBNQ&expires=1696713505\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "POWERTURKTAPTAZEYEDEK1HTTPSLIVETVPOWERAPPCOMTRPTURKTAPTAZETAPTAZESMILPLAYLISTM3U8": {
-    "name": "POWER TURK TAPTAZE Yedek1=\"https://livetv.powerapp.com.tr/pturktaptaze/taptaze.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "POWERLOVEYEDEK1HTTPSLIVETVPOWERAPPCOMTRPLOVELOVESMILPLAYLISTM3U8": {
-    "name": "POWER LOVE Yedek1=\"https://livetv.powerapp.com.tr/plove/love.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "POWERTURKYEDEK1HTTPSLIVETVPOWERAPPCOMTRPOWERTURKTVPOWERTURKHDSMILPLAYLISTM3U8": {
-    "name": "POWER TURK Yedek1=\"https://livetv.powerapp.com.tr/powerturkTV/powerturkhd.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "POWERTURKSLOWYEDEK1HTTPSLIVETVPOWERAPPCOMTRPTURKSLOWSLOWSMILPLAYLISTM3U8": {
-    "name": "POWER TURK SLOW Yedek1=\"https://livetv.powerapp.com.tr/pturkslow/slow.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "POWERDANCEYEDEK1HTTPSLIVETVPOWERAPPCOMTRDANCEDANCESMILPLAYLISTM3U8": {
-    "name": "POWER DANCE Yedek1=\"https://livetv.powerapp.com.tr/dance/dance.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "MELTEMTVYEDEK1HTTPSVHXYRSLYROCKETCDNCOMMELTEMTVPLAYLISTM3U8": {
-    "name": "MELTEM TV Yedek1=\"https://vhxyrsly.rocketcdn.com/meltemtv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "MCTVYEDEK1HTTPSRRRSZXLCDNCOMACCOUNTMCEUTVANDFILEMC2ANDOUTPUTPLAYLISTM3U8ANDPROTOCOLHTTPSANDSERVICEWOWZAANDTYPE": {
-    "name": "MC TV Yedek1=\"https://rrr.sz.xlcdn.com/?account=mceutv&file=mc2&output=playlist.m3u8&protocol=https&service=wowza&type=live\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRTDIYANETCOCUKYEDEK1HTTPSTVTRTDIYANETCOCUKMEDYATRTCOMTRMASTERM3U8": {
-    "name": "TRT DİYANET ÇOCUK Yedek1=\"https://tv-trtdiyanetcocuk.medya.trt.com.tr/master.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "CIFTCITVYEDEK1HTTPSARTIDIJITALMEDYACOMARTIDIJITALCIFTCITVCIFTCITVPLAYLISTM3U8": {
-    "name": "ÇİFTÇİ TV Yedek1=\"https://live.artidijitalmedya.com/artidijital_ciftcitv/ciftcitv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "HUNATTVYEDEK1HTTPS59CBA4D34B678STREAMLOCKNETCANLITVHUNATTVPLAYLISTM3U8": {
-    "name": "HUNAT TV Yedek1=\"https://59cba4d34b678.streamlock.net/canlitv/hunattv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "A2YEDEK1HTTPSRNTTWMJCINTURKNETERCDNNETLCPMVEFBYOA2TVA2TVM3U8YEDEK2HTTPSTRKVZDAIONCDNNETA2TVA2TVM3U8": {
-    "name": "A2 Yedek1=\"https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/a2tv/a2tv.m3u8\" Yedek2=\"https://trkvz-live.daioncdn.net/a2tv/a2tv.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TLCYEDEK1HTTPSTRN03TULIXTVGTTLCTVINDEXM3U8": {
-    "name": "TLC Yedek1=\"https://trn03.tulix.tv/gt-tlc-tv/index.m3u8\"",
-    "failedStreak": 1,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": null,
-    "hasHealthyUrl": false
-  },
-  "TAGESSCHAU24YEDEK1HTTPSTAGESSCHAUAKAMAIZEDNETHLS2020115TAGESSCHAUTAGESSCHAU1MASTER3328M3U8YEDEK2HTTPSTAGESSCHAUAKAMAIZEDNETHLS2020115TAGESSCHAUTAGESSCHAU1MASTERM3U8": {
-    "name": "TAGESSCHAU 24 Yedek1=\"https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master-720p-3328.m3u8\" Yedek2=\"https://tagesschau.akamaized.net/hls/live/2020115/tagesschau/tagesschau_1/master.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "MAKKAHTVYEDEK1HTTPSCDN01MEDIALIVEONE2096SAUDIQURANFHDTRACKSV1A1MONOTSM3U8": {
-    "name": "MAKKAH TV Yedek1=\"https://cdn01.medialive.one:2096/SAUDIQURANFHD/tracks-v1a1/mono.ts.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "MADINAHTVYEDEK1HTTPSCDNGLOBECASTAKAMAIZEDNETEDSSAUDISUNNAHHLSROKUINDEXM3U8YEDEK2HTTPSCDN22LHRTAMASHAWEBCOM8087JAZZAUTHSAUDISUNNAHNWABRPLAYLISTM3U8": {
-    "name": "MADINAH TV Yedek1=\"https://cdn-globecast.akamaized.net/live/eds/saudi_sunnah/hls_roku/index.m3u8\" Yedek2=\"https://cdn22lhr.tamashaweb.com:8087/jazzauth/SaudiSunnah(NW)-abr/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "CNBCEYEDEK1HTTPSRAWGITHUBUSERCONTENTCOMTECOTV2025TECOTVREFSHEADSMAINPLAYLISTCNBCEM3U8": {
-    "name": "CNBC-E Yedek1=\"https://raw.githubusercontent.com/tecotv2025/tecotv/refs/heads/main/playlist/CNBC_E.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "FORTUNATVYEDEK1HTTPSEDGE1SOCIALSMARTTVFTVTURKBANT1PLAYLISTM3U8": {
-    "name": "Fortuna TV Yedek1=\"https://edge1.socialsmart.tv/ftvturk/bant1/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "KENTTURKTVYEDEK1HTTPSARTIDIJITALMEDYACOMARTIDIJITAL38KENTTV38KENTTVPLAYLISTM3U8": {
-    "name": "Kent Türk TV Yedek1=\"https://live.artidijitalmedya.com/artidijital_38kenttv/38kenttv/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "SAT7TURKYEDEK1HTTPSSVSITWORKSCDNNETSAT7TURKLIVESAT7TURKSMILPLAYLISTDVRM3U8": {
-    "name": "Sat 7 Turk Yedek1=\"https://svs.itworkscdn.net/sat7turklive/sat7turk.smil/playlist_dvr.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "POWERTVYEDEK1HTTPSLIVETVPOWERAPPCOMTRPOWERTVPOWERHDSMILPLAYLISTM3U8": {
-    "name": "Power TV Yedek1=\"https://livetv.powerapp.com.tr/powerTV/powerhd.smil/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "ABCNEWSYEDEK1HTTPSMANIFESTPRODUCTIONPUBLICTUBIIO14E4F5F297874C498554F2AD109764A7PLAYLISTM3U8": {
-    "name": "ABC News Yedek1=\"https://live-manifest.production-public.tubi.io/live/14e4f5f2-9787-4c49-8554-f2ad109764a7/playlist.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
-    "hasHealthyUrl": true
-  },
-  "TRTCOCUKYEDEK1HTTPSTRN03TULIXTVGTTRTCOCUKINDEXM3U8YEDEK2HTTPSTVTRTCOCUKMEDYATRTCOMTRMASTER1080M3U8YEDEK3HTTPSTVTRTCOCUKMEDYATRTCOMTRMASTERM3U8": {
-    "name": "TRT COCUK Yedek1=\"https://trn03.tulix.tv/gt-trtcocuk/index.m3u8\" Yedek2=\"https://tv-trtcocuk.medya.trt.com.tr/master_1080.m3u8\" Yedek3=\"https://tv-trtcocuk.medya.trt.com.tr/master.m3u8\"",
-    "failedStreak": 0,
-    "lastCheckedAt": "2026-11-02T21:39:30.638409+00:00",
-    "lastHealthyAt": "2026-11-02T21:39:30.638409+00:00",
+    "lastCheckedAt": "2026-11-02T21:44:59.866301+00:00",
+    "lastHealthyAt": "2026-11-02T21:44:59.866301+00:00",
     "hasHealthyUrl": true
   }
 }

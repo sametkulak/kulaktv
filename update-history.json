@@ -2854,6 +2854,53 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-02T21:44:59.866301+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 259,
+      "logosFilled": 16,
+      "health": {
+        "checked": 535,
+        "healthy": 333,
+        "failed": 202,
+        "ratio": 0.622
+      },
+      "providers": {
+        "OnurEröz Türkiye": 62,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 73,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 55,
+        "programmeCount": 1752
+      },
+      "changes": {
+        "channelDelta": -80,
+        "addedCount": 0,
+        "removedCount": 8,
+        "addedChannels": [],
+        "removedChannels": [
+          "CNN TURK",
+          "TRT SPOR YILDIZ",
+          "TVNET",
+          "TOKAT TV",
+          "TLC",
+          "ATV Avrupa (576p)",
+          "Eurosport 1 Turkiye",
+          "Discovering China",
+          "TRT SPOR YILDIZ",
+          "TVNET",
+          "TLC"
+        ]
+      }
     }
   ]
 }
