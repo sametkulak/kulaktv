@@ -1019,13 +1019,14 @@ async function playChannel(ch,options={}){
     const failedCandidate=alternatives[attemptIndex];
     if(failedCandidate?.url) recordSourceEvent(failedCandidate.url,'failure');
 
-    // NOW TV's HTTPS CDN occasionally accepts the connection but does not
-    // begin playback on the first request. Give that exact source one short
-    // second chance before moving to the next independent source.
-    const isNowTv=normalizeChannelName(ch.name)==='nowtv';
+    // NOW TV and TV8 can occasionally accept the connection but fail to
+    // start playback on the first request. Retry that exact source once
+    // before moving to the next independent source.
+    const channelKey=normalizeChannelName(ch.name);
+    const retryFirstStartForChannel=channelKey==='nowtv'||channelKey==='tv8';
     const isStartTimeout=String(detail).includes('saniye içinde oynatılmaya başlamadı');
     const retryCount=failedCandidate?.url ? (sourceTimeoutRetries.get(failedCandidate.url)||0) : 0;
-    if(isNowTv && isStartTimeout && failedCandidate?.url && retryCount<1){
+    if(retryFirstStartForChannel && isStartTimeout && failedCandidate?.url && retryCount<1){
       sourceTimeoutRetries.set(failedCandidate.url,retryCount+1);
       setConnectionStatus('connecting','Kaynak tekrar deneniyor');
       setStatus(`NOW TV: Kaynak ${attemptIndex+1}/${maxAttempts} kısa süreli tekrar deneniyor…`);
