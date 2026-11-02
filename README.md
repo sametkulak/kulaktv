@@ -93,7 +93,6 @@ Bir kanal seçildiğinde oynatıcı aşağıdaki yolu izler:
 9. Stabilite kontrolü ve telemetry arka planda devam eder.
 10. Kaynak gerçekten açılamazsa sıradaki aday otomatik denenir.
 
-Eski sürümdeki gibi görüntünün kullanıcıya gösterilmesi için ek bir stabilite bekleme süresi yoktur. Stabilite kontrolü yalnızca kalite/fallback kararını etkiler.
 
 ---
 
@@ -149,16 +148,6 @@ Bu ayarlar ilk görüntüyü hızlandırmayı hedefler. Yayının gerçek bitrat
 ## 4. Kaynak yönetimi
 
 KulakTV tek bir M3U kaynağına güvenmez. Güncel kaynak seti script içinde tanımlı **7 public kaynaktan** oluşur:
-
-~~~text
-1. OnurEröz Türkiye
-2. ByteFix Repairs
-3. iptv-org Türkiye
-4. discevisita
-5. iptv-turk-tr
-6. qazim/IPTV
-7. dearbulut Türkiye
-~~~
 
 Kaynaklar zamanla değişebilir. Bu nedenle README'deki liste yalnızca mevcut yapı hakkında referanstır; gerçek kaynak URL'leri scripts/update_channels.py içindedir.
 
@@ -409,14 +398,7 @@ Türksat
 
 Gerekli durumlarda XMLTV kaynaklarına fallback uygulanır.
 
-Kullanılan referans kaynaklar arasında:
 
-~~~text
-https://www.turksatkablo.com.tr/
-https://iptv-org.github.io/epg/
-https://dearbulut.github.io/iptv/epg/guide.xml.gz
-https://epg.tvcdn.net/guide/tr-guide.xml
-~~~
 
 ### EPG işleme
 
