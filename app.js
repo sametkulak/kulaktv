@@ -266,6 +266,13 @@ const SOURCE_STABILITY_MS = 3500;
 const SOURCE_STALL_GRACE_MS = 1800;
 const SOURCE_SWITCH_DELAY_MS = 1200;
 
+function isMobilePlaybackDevice(){
+  return Boolean(
+    window.matchMedia?.('(max-width: 820px)').matches ||
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '')
+  );
+}
+
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
   sourceName: 'KulakTV kaynak listesi',
@@ -1140,14 +1147,29 @@ function playChannel(ch,options={}){
       return;
     }
 
-    state.hls = new Hls({
+    const mobilePlayback = isMobilePlaybackDevice();
+    const hlsConfig = {
       enableWorker:true,
       lowLatencyMode:true,
-      backBufferLength:30,
-      maxBufferLength:20,
-      manifestLoadingTimeOut:12000,
-      fragLoadingTimeOut:12000
-    });
+      backBufferLength:mobilePlayback ? 15 : 30,
+      maxBufferLength:mobilePlayback ? 12 : 20,
+      manifestLoadingTimeOut:10000,
+      fragLoadingTimeOut:10000
+    };
+
+    if(mobilePlayback){
+      // Mobilde ilk görüntüyü düşük seviyedeki ilk segmentle mümkün olduğunca
+      // hızlı al; sonraki segmentlerde ABR daha yüksek kaliteye çıkabilir.
+      // Küçük ekranı kalite seçimine dahil ederek gereksiz 1080p ilk segmenti
+      // indirmeyi de engelle.
+      hlsConfig.startLevel=0;
+      hlsConfig.startFragPrefetch=true;
+      hlsConfig.capLevelToPlayerSize=true;
+      hlsConfig.ignoreDevicePixelRatio=true;
+      hlsConfig.maxBufferSize=24*1024*1024;
+    }
+
+    state.hls = new Hls(hlsConfig);
 
     const hlsInstance = state.hls;
 
