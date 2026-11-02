@@ -43,7 +43,6 @@ SOURCES = [
     ("discevisita", "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u"),
     ("iptv-turk-tr", "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u"),
     ("qazim/IPTV", "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u"),
-    ("ilyswch/IPTV-TR", "https://raw.githubusercontent.com/ilyswch/IPTV-TR/main/box.m3u"),
     ("dearbulut Türkiye", "https://dearbulut.github.io/iptv/playlists/language/tur.m3u"),
 ]
 
@@ -1201,7 +1200,7 @@ def render_m3u(channels: list[dict[str, object]], fetched_at: str) -> str:
     lines = [
         "#EXTM3U",
         "# KulakTV multi-source playlist",
-        "# Sources: OnurEröz Türkiye + ByteFix Repairs + iptv-org Türkiye + discevisita + iptv-turk-tr + qazim/IPTV + ilyswch/IPTV-TR + UzunMuhalefet Türkiye + dearbulut Türkiye",
+        "# Sources: OnurEröz Türkiye + ByteFix Repairs + iptv-org Türkiye + discevisita + iptv-turk-tr + qazim/IPTV + UzunMuhalefet Türkiye + dearbulut Türkiye",
         f"# Last merged: {fetched_at}",
     ]
 
