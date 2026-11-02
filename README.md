@@ -28,6 +28,7 @@ KulakTV, Türkiye'deki televizyon kanallarını canlı izlemek için hazırlanm�
 - Bozulan kaynaklar için yeniden deneme ve güvenlik eşikleri
 - Kanal güncelleme guardrail'leri ile toplu hatalarda listenin korunması
 - Günlük kanal, kaynak ve EPG güncellemeleri
+- Anonim toplu player telemetry ile gerçek oynatma sonuçlarının kaynak puanına katılması
 - Güncelleme geçmişi ve sistem özeti
 
 ### EPG
@@ -87,7 +88,6 @@ kulaktv/
 ├── update-status.json
 ├── update-history.json
 ├── telemetry-config.js
-├── player-telemetry.json
 ├── logo.png
 ├── favicon.svg
 ├── .nojekyll
@@ -124,7 +124,7 @@ Cloudflare Worker
          └── settings
 ```
 
-GitHub Pages yalnızca statik web uygulamasını sunar. Kullanıcı, session ve site erişim ayarları Cloudflare tarafındaki API tarafından yönetilir.
+GitHub Pages yalnızca statik web uygulamasını sunar. Kullanıcı, session, site erişim ayarları ve player telemetry toplama API'si Cloudflare tarafındaki Worker üzerinden yönetilir.
 
 ## GitHub Pages ile yayınlama
 
@@ -244,9 +244,36 @@ Aynı durum bazı canlı HLS/M3U8 yayınlarında da geçerlidir.
 
 ## Telemetry
 
-Player telemetry şu an **devre dışıdır**.
+Player telemetry şu an **aktiftir** ve GitHub Issue tabanlı eski yapı yerine Cloudflare Worker üzerinden çalışır.
 
-Public frontend içine GitHub yazma yetkisi veya hassas token bırakılmadığı için eski Issue tabanlı telemetry yaklaşımı kullanılmaz. `telemetry-config.js` içinde aktif bir yazma token'ı bulunmamalıdır.
+Akış:
+
+```text
+Tarayıcı
+  │
+  ├── başarı / başarısızlık / stall / gecikme
+  │
+  ▼
+Cloudflare Worker
+  POST /api/telemetry
+  │
+  └── toplu kaynak sayaçları
+        │
+        ▼
+  GET /api/telemetry/quality
+        │
+        ▼
+GitHub Actions → scripts/update_channels.py
+        │
+        ▼
+source-quality.json
+```
+
+Tarayıcı yalnızca oynatma deneyimini değerlendirmek için gereken anonim olayları gönderir: kaynak URL'si, kanal, başarı/başarısızlık/stall ve gecikme. Ham IP, kullanıcı şifresi veya GitHub yazma token'ı frontend'e konulmaz.
+
+`source-quality.json` içindeki `playerScore`, `playerWeight`, `playerEvents` ve ilgili sayaçlar gerçek kullanıcı oynatma verisinin kaynak kalite puanına etkisini gösterir.
+
+Eski GitHub Issue tabanlı telemetry workflow'u, `player-telemetry.json` veri kutusu ve artık kullanılmayan telemetry işleme script'leri kaldırılmıştır.
 
 ## Lisans / içerik sorumluluğu
 
