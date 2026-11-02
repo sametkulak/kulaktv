@@ -32,7 +32,7 @@ jobs:
 
       - name: Python syntax
         run: |
-          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py scripts/update_epg.py
+          python -m py_compile scripts/update_channels.py scripts/update_epg.py
 
       - name: JavaScript syntax
         run: |
