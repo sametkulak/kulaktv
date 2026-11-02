@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-02T11:17:33.930672+00:00",
-  "channelCount": 284,
+  "updatedAt": "2026-11-02T21:39:30.638409+00:00",
+  "channelCount": 339,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -10,12 +10,12 @@
       "name": "OnurEröz Türkiye",
       "url": "https://onureroz.com/indirmeler/turk/index.m3u",
       "resolvedUrl": "https://onureroz.com/indirmeler/turk/index.m3u",
-      "channelCount": 413,
-      "rawChannelCount": 413,
+      "channelCount": 390,
+      "rawChannelCount": 390,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 59,
+      "trustScore": 61,
       "trustLabel": "Orta",
       "automatic": false
     },
@@ -23,8 +23,8 @@
       "name": "ByteFix Repairs",
       "url": "https://tinyurl.com/ByteFixRepairs2026",
       "resolvedUrl": "https://gist.githubusercontent.com/ByteFixRepairs/194e9e3a08075befa1703f02d4af82ad/raw/ByteFixRepairsTurkIPTV.m3u",
-      "channelCount": 172,
-      "rawChannelCount": 172,
+      "channelCount": 160,
+      "rawChannelCount": 160,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -36,12 +36,12 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 173,
-      "rawChannelCount": 173,
+      "channelCount": 159,
+      "rawChannelCount": 159,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 72,
+      "trustScore": 73,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -49,8 +49,8 @@
       "name": "discevisita",
       "url": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
-      "channelCount": 104,
-      "rawChannelCount": 104,
+      "channelCount": 94,
+      "rawChannelCount": 94,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -62,8 +62,8 @@
       "name": "iptv-turk-tr",
       "url": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/iptv-turk-tr/iptv/main/list.m3u",
-      "channelCount": 181,
-      "rawChannelCount": 181,
+      "channelCount": 170,
+      "rawChannelCount": 170,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -75,8 +75,8 @@
       "name": "qazim/IPTV",
       "url": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
-      "channelCount": 27,
-      "rawChannelCount": 27,
+      "channelCount": 18,
+      "rawChannelCount": 18,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
@@ -88,9 +88,9 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 161,
-      "rawChannelCount": 176,
-      "filteredOutCount": 15,
+      "channelCount": 148,
+      "rawChannelCount": 157,
+      "filteredOutCount": 9,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
       "trustScore": 76,
@@ -102,50 +102,10 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 640,
-    "healthyUrls": 376,
-    "failedUrls": 264,
+    "checkedUrls": 607,
+    "healthyUrls": 400,
+    "failedUrls": 207,
     "failures": [
-      {
-        "channel": "TRT1",
-        "url": "http://176.65.146.171:9981/stream/channelid/838617424?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "http://89.187.191.41/TRT-1-HD-TR/video.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=2346924541a665ce2b020a",
-        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "http://87.246.54.249:8080/TRT1/index.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "TRT1",
-        "url": "https://vavoo.to/vavoo-iptv/play/2346924541149e465206c7",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "http://116.202.238.88/FOXTV_TR/index.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "http://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • timed out',)"
-      },
       {
         "channel": "TV 8",
         "url": "https://x.canlitvapp.com/kanal8/index.m3u8",
@@ -155,16 +115,6 @@
         "channel": "TV 8",
         "url": "https://trn03.tulix.tv/gt-tv8-tv/tracks-v1a1/mono.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://89.187.191.41/TV8-HD-TR/video.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://89.36.94.225:80/956bassem/BHrMOpKtyb/1633",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
       },
       {
         "channel": "TV 8",
@@ -178,21 +128,6 @@
       },
       {
         "channel": "TV 8",
-        "url": "http://tv.smartglwiz.workers.dev/?ID=Now_HD",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://89.187.191.41/TV8-HD-TR/tracks-v1a1/mono.ts.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "http://95.174.71.114/TR-TV8/index.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "TV 8",
         "url": "https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788",
         "detail": "('İki testte de başarısız • HTTP Error 401: Unauthorized',)"
       },
@@ -203,18 +138,8 @@
       },
       {
         "channel": "SHOW TV HD",
-        "url": "http://176.65.146.171:9981/stream/channelid/569904314?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "SHOW TV HD",
         "url": "https://vavoo.ahkm.workers.dev/?ID=144949986573359afbfeae",
         "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
-      },
-      {
-        "channel": "SHOW TV HD",
-        "url": "http://tv.smartglwiz.workers.dev/?ID=ShowTV_HD",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -233,51 +158,153 @@
       },
       {
         "channel": "KANAL D",
-        "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
-      },
-      {
-        "channel": "KANAL D",
-        "url": "http://176.65.146.171:9981/stream/channelid/23410162?profile=htsp",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
-      },
-      {
-        "channel": "KANAL D",
         "url": "https://vavoo.ahkm.workers.dev/?ID=1130441933d454b324b033",
         "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
-      },
-      {
-        "channel": "KANAL D",
-        "url": "http://95.174.71.114/TR-KANAL-D/index.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
       },
       {
         "channel": "STAR TV",
         "url": "https://dogus-live.daioncdn.net/startv/startv_720p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://emmazbvkkf.turknet.ercdn.net/cnifuowzza/startv/startv_720p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://tv.cdn-vizi.workers.dev/?ID=5",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -3] Temporary failure in name resolution>',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://vavoo.ahkm.workers.dev/?ID=272055669263af9be64671",
+        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
+      },
+      {
+        "channel": "STAR TV",
+        "url": "https://raw.githubusercontent.com/ipstreet312/freeiptv/refs/heads/master/ressources/tur/star.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7_1080p.m3u8",
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7-live.daioncdn.net/kanal7/kanal7.m3u8",
+        "detail": "('İki testte de başarısız • segment unavailable: HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7dvr.blutv.com/blutv_kanal7_dvr2/live_720p2000000kbps/index.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7dvr.blutv.com'. (_ssl.c:1081)>\",)"
+      },
+      {
+        "channel": "KANAL 7",
+        "url": "https://kanal7.blutv.com/blutv_kanal7_live/live.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'kanal7.blutv.com'. (_ssl.c:1081)>\",)"
+      },
+      {
+        "channel": "TV100",
+        "url": "https://tv100-live.daioncdn.net/tv100/tv100_1080p.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+      },
+      {
+        "channel": "TV100",
+        "url": "https://tv100.daioncdn.net/tv100/tv100_1080p.m3u8?app=web",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+      },
+      {
+        "channel": "BEYAZ TV",
+        "url": "https://mn-nl.mncdn.com/blutv_beyaztv2/live.m3u8",
+        "detail": "('İki testte de başarısız • [Errno 104] Connection reset by peer',)"
+      },
+      {
+        "channel": "HABERTURK",
+        "url": "https://trn03.tulix.tv/gt-haberturk/index.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://x.canlitvapp.com/aSPOR/index.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://trkvz-live.daioncdn.net/aSPOR/aSPOR_1080p.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://217.30.11.74/e/158.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://trkvz-live.daioncdn.net/aSPOR/aSPOR.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
+        "channel": "A SPOR",
+        "url": "https://live.canlitvulusal.xyz/live/aspor/index.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 1,
-    "removedAfterTwoFailures": 124
+    "pendingRemoval": 12,
+    "removedAfterTwoFailures": 113
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-02T11:17:33.930672+00:00",
+    "updatedAt": "2026-11-02T21:39:30.638409+00:00",
     "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/2.json,https://www.turksatkablo.com.tr/userUpload/EPG/3.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 64,
-    "programmeCount": 2059
+    "matchedChannels": 60,
+    "programmeCount": 1920
   },
   "changes": {
-    "channelDelta": 3,
-    "addedCount": 3,
+    "channelDelta": 72,
+    "addedCount": 72,
     "removedCount": 0,
     "addedChannels": [
-      "CNN TURK",
-      "TRT SPOR YILDIZ",
-      "TVNET"
+      "ATV",
+      "KANAL D",
+      "STAR TV",
+      "TRT 1",
+      "SHOW TV HD",
+      "NOW TV",
+      "TV 8",
+      "BEYAZ TV",
+      "TRT HABER",
+      "Halk TV",
+      "A SPOR",
+      "NTV",
+      "TV100",
+      "HABERTURK",
+      "HABER GLOBAL",
+      "TGRT HABER",
+      "24 TV",
+      "TV 8.5",
+      "TRT MUZIK",
+      "TRT COCUK",
+      "TRT TURK",
+      "TRT AVAZ",
+      "360 TV",
+      "TELE 1",
+      "Bloomberg HT",
+      "EKOTURK",
+      "HT SPOR",
+      "Kral Pop TV",
+      "DREAM TURK",
+      "360"
     ],
     "removedChannels": []
   },

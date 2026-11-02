@@ -2788,6 +2788,72 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-02T21:39:30.638409+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 339,
+      "logosFilled": 16,
+      "health": {
+        "checked": 607,
+        "healthy": 400,
+        "failed": 207,
+        "ratio": 0.659
+      },
+      "providers": {
+        "OnurEröz Türkiye": 61,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 73,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 60,
+        "programmeCount": 1920
+      },
+      "changes": {
+        "channelDelta": 72,
+        "addedCount": 72,
+        "removedCount": 0,
+        "addedChannels": [
+          "ATV",
+          "KANAL D",
+          "STAR TV",
+          "TRT 1",
+          "SHOW TV HD",
+          "NOW TV",
+          "TV 8",
+          "BEYAZ TV",
+          "TRT HABER",
+          "Halk TV",
+          "A SPOR",
+          "NTV",
+          "TV100",
+          "HABERTURK",
+          "HABER GLOBAL",
+          "TGRT HABER",
+          "24 TV",
+          "TV 8.5",
+          "TRT MUZIK",
+          "TRT COCUK",
+          "TRT TURK",
+          "TRT AVAZ",
+          "360 TV",
+          "TELE 1",
+          "Bloomberg HT",
+          "EKOTURK",
+          "HT SPOR",
+          "Kral Pop TV",
+          "DREAM TURK",
+          "360"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
