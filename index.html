@@ -10,6 +10,8 @@
   <link rel="icon" href="logo.png?v=20261009-1-1" type="image/png">
   <link rel="apple-touch-icon" href="logo.png?v=20261009-1-1">
   <link rel="manifest" href="./manifest.json?v=20261013-02">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
   <link rel="stylesheet" href="style.css?v=20261013-18">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
   <script src="auth.js?v=20261019-01" defer></script>
@@ -74,7 +76,7 @@
       </header>
 
       <section id="videoStage" class="video-stage">
-        <video id="video" playsinline preload="metadata"></video>
+        <video id="video" playsinline preload="auto"></video>
 
         <div id="streamLoader" class="stream-loader" hidden aria-live="polite">
           <div id="streamLoaderLogo" class="stream-loader-logo"></div>
@@ -248,6 +250,6 @@
   </div>
 
   <script src="telemetry-config.js?v=20261023-05"></script>
-  <script src="app.js?v=20261023-05" defer></script>
+  <script src="app.js?v=20261102-01" defer></script>
 </body>
 </html>
