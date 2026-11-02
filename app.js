@@ -171,20 +171,33 @@ function saveSourceQuality(){
 }
 
 
-async function loadSharedSourceQuality(){
-  try{
-    const bust=(SHARED_SOURCE_QUALITY_URL.includes('?')?'&':'?')+'_='+Date.now();
-    const res=await fetch(SHARED_SOURCE_QUALITY_URL+bust,{cache:'no-store'});
-    if(!res.ok)throw new Error(`HTTP ${res.status}`);
-    const data=await res.json();
-    sharedSourceQuality=(data && data.sources && typeof data.sources==='object') ? data.sources : {};
-    sharedSourceProviders=(data && data.providers && typeof data.providers==='object') ? data.providers : {};
-    sharedSourceQualityLoaded=true;
-    renderSourceTrustList();
-  }catch(err){
-    sharedSourceQualityLoaded=false;
-    console.warn('Ortak kaynak kalite verisi yüklenemedi:',err);
-  }
+let sharedSourceQualityPromise = null;
+
+function loadSharedSourceQuality(){
+  if(sharedSourceQualityLoaded) return Promise.resolve(true);
+  if(sharedSourceQualityPromise) return sharedSourceQualityPromise;
+
+  sharedSourceQualityPromise=(async()=>{
+    try{
+      const bust=(SHARED_SOURCE_QUALITY_URL.includes('?')?'&':'?')+'_='+Date.now();
+      const res=await fetch(SHARED_SOURCE_QUALITY_URL+bust,{cache:'no-store'});
+      if(!res.ok)throw new Error(`HTTP ${res.status}`);
+      const data=await res.json();
+      sharedSourceQuality=(data && data.sources && typeof data.sources==='object') ? data.sources : {};
+      sharedSourceProviders=(data && data.providers && typeof data.providers==='object') ? data.providers : {};
+      sharedSourceQualityLoaded=true;
+      renderSourceTrustList();
+      return true;
+    }catch(err){
+      sharedSourceQualityLoaded=false;
+      console.warn('Ortak kaynak kalite verisi yüklenemedi:',err);
+      return false;
+    }finally{
+      sharedSourceQualityPromise=null;
+    }
+  })();
+
+  return sharedSourceQualityPromise;
 }
 
 function getSharedSourceQuality(url){
@@ -853,7 +866,7 @@ function retryCurrentChannel(){
   clearError();
   playChannel(ch);
 }
-function playChannel(ch,options={}){
+async function playChannel(ch,options={}){
   const preserveRuntimeRecovery=Boolean(options.preserveRuntimeRecovery);
 
   // Eski kanalın tüm timer/callback/event zincirini kesin olarak geçersiz kıl.
@@ -868,6 +881,22 @@ function playChannel(ch,options={}){
   clearError();
   hidePlaybackRetry();
   state.current = ch;
+
+  // İlk tıklamada kalite verisi henüz yüklenmediyse eski M3U sırasıyla
+  // başlamayıp kısa süre bekle. Böylece ilk deneme ve manuel tekrar aynı
+  // güncel kaynak kalite sıralamasını kullanır. Ağ yanıt vermezse 2 sn sonra
+  // mevcut M3U sırasıyla devam ederek oynatmayı bloke etmeyiz.
+  if(!sharedSourceQualityLoaded){
+    setConnectionStatus('connecting','Kaynaklar hazırlanıyor');
+    setStatus('Yayın kaynakları kontrol ediliyor…');
+    let qualityWaitTimer=null;
+    await Promise.race([
+      loadSharedSourceQuality(),
+      new Promise(resolve=>{ qualityWaitTimer=setTimeout(resolve,2000); })
+    ]);
+    if(qualityWaitTimer!==null) clearTimeout(qualityWaitTimer);
+    if(!isCurrentRun()) return;
+  }
 
   const originalCandidates = [
     ch,
