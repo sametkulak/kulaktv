@@ -1022,7 +1022,7 @@ async function playChannel(ch,options={}){
     // NOW TV's HTTPS CDN occasionally accepts the connection but does not
     // begin playback on the first request. Give that exact source one short
     // second chance before moving to the next independent source.
-    const isNowTv=normalizeChannelName(ch.name).replace(/\\s+/g,'')==='nowtv';
+    const isNowTv=normalizeChannelName(ch.name)==='nowtv';
     const isStartTimeout=String(detail).includes('saniye içinde oynatılmaya başlamadı');
     const retryCount=failedCandidate?.url ? (sourceTimeoutRetries.get(failedCandidate.url)||0) : 0;
     if(isNowTv && isStartTimeout && failedCandidate?.url && retryCount<1){
