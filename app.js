@@ -273,6 +273,28 @@ function isMobilePlaybackDevice(){
   );
 }
 
+const streamPreconnectHosts = new Set();
+
+function preconnectStreamUrl(url){
+  try{
+    const parsed=new URL(url,window.location.href);
+    if(!/^https?:$/.test(parsed.protocol))return;
+    if(streamPreconnectHosts.has(parsed.origin))return;
+    streamPreconnectHosts.add(parsed.origin);
+
+    const link=document.createElement('link');
+    link.rel='preconnect';
+    link.href=parsed.origin;
+    link.crossOrigin='';
+    document.head.appendChild(link);
+
+    const dns=document.createElement('link');
+    dns.rel='dns-prefetch';
+    dns.href=parsed.origin;
+    document.head.appendChild(dns);
+  }catch{}
+}
+
 const state = {
   channels: [], filtered: [], current: null, currentUrl: '', hls: null,
   sourceName: 'KulakTV kaynak listesi',
@@ -874,6 +896,7 @@ function playChannel(ch,options={}){
   state.sourceCandidates = orderedCandidates.slice(0,10);
   state.sourceIndex = 0;
   state.currentUrl = state.sourceCandidates[0]?.url || ch.url;
+  preconnectStreamUrl(state.currentUrl);
   updateStreamActions();
   setCurrentTitle(ch);
   renderChannelList();
@@ -994,6 +1017,7 @@ function playChannel(ch,options={}){
     clearError();
 
     const sourceToken=++activeSourceToken;
+    preconnectStreamUrl(candidate.url);
     sourceStartedAt=performance.now();
     sourceStallRecorded=false;
     state.sourceIndex = sourceIndex;
@@ -1151,6 +1175,8 @@ function playChannel(ch,options={}){
     const hlsConfig = {
       enableWorker:true,
       lowLatencyMode:true,
+      initialLiveManifestSize:1,
+      startFragPrefetch:true,
       backBufferLength:mobilePlayback ? 15 : 30,
       maxBufferLength:mobilePlayback ? 12 : 20,
       manifestLoadingTimeOut:10000,
