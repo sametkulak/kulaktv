@@ -501,3 +501,23 @@ video{ -webkit-appearance:none; }
 
 
 .admin-user-small-btn.session-close-btn{color:#ffd37a}
+
+
+/* Visible build marker: helps verify the deployed player version. */
+.app-version{
+  position:fixed;
+  right:max(9px,env(safe-area-inset-right));
+  bottom:max(7px,env(safe-area-inset-bottom));
+  z-index:120;
+  padding:4px 7px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:7px;
+  background:rgba(8,11,16,.72);
+  color:rgba(220,228,238,.68);
+  font-size:9px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:.25px;
+  pointer-events:none;
+  backdrop-filter:blur(8px);
+}
