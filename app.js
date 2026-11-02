@@ -420,16 +420,34 @@ function parseM3U(text) {
     for(let j=i+1;j<lines.length;j++){ const next=lines[j].trim(); if(!next||next.startsWith('#')) continue; url=next;i=j;break; }
     if(!url) continue;
     name=name.replace(/\s*\[(?:Not 24\/7|Geo-blocked)\]\s*$/i,'').trim();
-    const alternatives = Object.entries(attrs)
-      .filter(([key, value]) => /^(?:yedek\d*|backup\d*)$/i.test(key) && /^https?:\/\//i.test(value) && value !== url)
+
+    // KulakTV production runs over HTTPS. Never keep HTTP stream URLs:
+    // browsers block them as mixed content and retrying them only wastes time.
+    const httpsAlternatives = Object.entries(attrs)
+      .filter(([key, value]) =>
+        /^(?:yedek\d*|backup\d*)$/i.test(key) &&
+        /^https:\/\//i.test(value) &&
+        value !== url
+      )
       .map(([, value]) => value);
+
+    const httpsUrls = [...new Set([
+      ...(url.startsWith('https://') ? [url] : []),
+      ...httpsAlternatives
+    ])];
+
+    // If the primary is HTTP, promote the first HTTPS backup. If no HTTPS
+    // source exists at all, omit this channel from the player list entirely.
+    if(!httpsUrls.length) continue;
+
+    const playableUrl = httpsUrls[0];
     out.push({
-      id: attrs['tvg-id'] || `${name}-${url}`,
+      id: attrs['tvg-id'] || `${name}-${playableUrl}`,
       name,
       group: attrs['group-title'] || 'Genel',
       logo: attrs['tvg-logo'] || '',
-      url,
-      alternatives: [...new Set(alternatives)]
+      url: playableUrl,
+      alternatives: httpsUrls.slice(1)
     });
   }
   return dedupeChannels(out);
@@ -805,8 +823,8 @@ function getPlayableSourceCandidates(ch){
       const identity=(parsed.hostname+parsed.pathname+parsed.search).toLowerCase();
       if(seen.has(identity))return false;
       seen.add(identity);
-      if(window.location.protocol==='https:' && parsed.protocol==='http:')return false;
-      return parsed.protocol==='https:'||parsed.protocol==='http:';
+      // This player is HTTPS-only: HTTP streams are never candidates.
+      return parsed.protocol==='https:';
     }catch{
       return false;
     }
