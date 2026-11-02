@@ -1022,12 +1022,16 @@ function playChannel(ch,options={}){
         return;
       }
 
+      // Kullanıcı deneyimi için yayın ilk oynadığı anda görünür olsun.
+      // 3.5 sn stabilite doğrulaması yalnızca telemetry/fallback kararını
+      // geciktirsin; video görüntüsünü geciktirmesin.
       setConnectionStatus('online','Bağlı');
       updateMediaSession(ch);
       setMediaSessionPlaybackState('playing');
+      hideStreamLoader();
       started = true;
       waitingAfterStart = false;
-      setStatus(`Kaynak ${sourceIndex+1}/${maxAttempts} oynatılıyor, doğrulanıyor…`);
+      setStatus('Canlı');
 
       schedule(() => {
         if(!isCurrentRun() || settled || sourceToken!==activeSourceToken || !started || waitingAfterStart || video.paused) {
@@ -1219,8 +1223,11 @@ async function loadM3UText(text,sourceName,autoPlayFirst=false){
   state.sourceCandidates=[];
   state.sourceIndex=-1;
 
+  // Ortak kalite verisini yayın açılışını bloklamadan arka planda yükle.
+  // İlk kanal seçiminde veri henüz hazır değilse mevcut M3U sırası kullanılır;
+  // sonraki kanal seçimlerinde kalite sıralaması devrede olur.
   if(!sharedSourceQualityLoaded){
-    await loadSharedSourceQuality();
+    void loadSharedSourceQuality();
   }
 
   state.autoStarting = Boolean(autoPlayFirst);
@@ -1832,6 +1839,11 @@ const startKulakTV=()=>{
   loadUpdateStatus();
   loadHistory();
   loadEpg();
+
+  // Kalite verisini ve kanal listesini paralel başlat.
+  // Böylece kalite dosyası ilk yayın açılışını bloklamaz.
+  void loadSharedSourceQuality();
+
   loadDefault().catch(e=>{
     setStatus('Liste yüklenemedi');
     showError(`Başlangıç listesi yüklenemedi: ${e.message}`);
