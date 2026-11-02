@@ -1,10 +1,10 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-02T10:57:19.509394+00:00",
-  "channelCount": 285,
-  "sourceCount": 8,
+  "updatedAt": "2026-11-02T11:07:51.373635+00:00",
+  "channelCount": 281,
+  "sourceCount": 7,
   "changed": true,
-  "configuredSourceCount": 9,
+  "configuredSourceCount": 8,
   "sources": [
     {
       "name": "OnurEröz Türkiye",
@@ -15,7 +15,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 60,
+      "trustScore": 59,
       "trustLabel": "Orta",
       "automatic": false
     },
@@ -72,19 +72,6 @@
       "automatic": false
     },
     {
-      "name": "rideordie16/tv",
-      "url": "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u",
-      "resolvedUrl": "https://raw.githubusercontent.com/rideordie16/tv/main/tv2.m3u",
-      "channelCount": 87,
-      "rawChannelCount": 87,
-      "filteredOutCount": 0,
-      "filter": "none",
-      "status": "ok",
-      "trustScore": 49,
-      "trustLabel": "Zayıf",
-      "automatic": false
-    },
-    {
       "name": "qazim/IPTV",
       "url": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/qazim/IPTV/main/TurkAzeri.m3u",
@@ -116,13 +103,13 @@
       "error": "HTTP Error 404: Not Found"
     }
   ],
-  "logosFilled": 15,
+  "logosFilled": 16,
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 679,
-    "healthyUrls": 370,
-    "failedUrls": 309,
+    "checkedUrls": 640,
+    "healthyUrls": 367,
+    "failedUrls": 273,
     "failures": [
       {
         "channel": "TRT1",
@@ -133,6 +120,11 @@
         "channel": "TRT1",
         "url": "http://176.65.146.171:9981/stream/channelid/602861748?profile=htsp",
         "detail": "('İki testte de başarısız • <urlopen error timed out>',)"
+      },
+      {
+        "channel": "TRT1",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2293/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       },
       {
         "channel": "TRT1",
@@ -155,19 +147,14 @@
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
+        "channel": "TRT 4K",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/4001/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
         "channel": "NOW TV",
         "url": "http://116.202.238.88/FOXTV_TR/index.m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno 111] Connection refused>',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://c.fulltvizle.com/fox/tracks-v1a1/mono.m3u8",
-        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "http://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • timed out',)"
       },
       {
         "channel": "TV 8",
@@ -231,6 +218,11 @@
       },
       {
         "channel": "SHOW TV HD",
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/6797/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
+      },
+      {
+        "channel": "SHOW TV HD",
         "url": "https://vavoo.ahkm.workers.dev/?ID=144949986573359afbfeae",
         "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
       },
@@ -255,11 +247,6 @@
         "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
       },
       {
-        "channel": "SHOW TV HD",
-        "url": "https://ciner-live.daioncdn.net/showtv/showtv_1080p.m3u8",
-        "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
         "channel": "KANAL D",
         "url": "http://89.187.191.41/Kanal-D-HD-TR/video.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
@@ -271,62 +258,33 @@
       },
       {
         "channel": "KANAL D",
-        "url": "https://vavoo.ahkm.workers.dev/?ID=1130441933d454b324b033",
-        "detail": "('İki testte de başarısız • HTTP Error 502: Bad Gateway',)"
+        "url": "http://c3921155.edmonst.net/iptv/DVHP2VB5QXL7UC/2326/index.m3u8",
+        "detail": "('İki testte de başarısız • manifest reachable but no media segment reference was found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 6,
-    "removedAfterTwoFailures": 133
+    "pendingRemoval": 2,
+    "removedAfterTwoFailures": 127
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-02T10:57:19.509394+00:00",
+    "updatedAt": "2026-11-02T11:07:51.373635+00:00",
     "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/2.json,https://www.turksatkablo.com.tr/userUpload/EPG/3.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 65,
-    "programmeCount": 2099
+    "matchedChannels": 61,
+    "programmeCount": 1960
   },
   "changes": {
-    "channelDelta": -41,
-    "addedCount": 2,
-    "removedCount": 43,
-    "addedChannels": [
-      "TELE 1",
-      "TOKAT TV"
-    ],
+    "channelDelta": -4,
+    "addedCount": 0,
+    "removedCount": 4,
+    "addedChannels": [],
     "removedChannels": [
-      "KANAL B",
-      "MUGLA TÜRK TV",
-      "TARIM TV",
-      "TÜRK KLİNİKLERİ TV",
-      "TV 25",
-      "TV 48",
-      "TV A",
-      "VAN GOLU TV",
-      "VRT",
-      "VTV TÜRK",
-      "PAZARCIK TV",
-      "FiNEST TV",
-      "5 OCAK TV",
-      "ÖNDE TV",
-      "ANADOLUM TV",
-      "SiNEMA TV",
-      "SiNEMA TV 2",
-      "SiNEMA Yerli",
-      "SiNEMA Yerli 2",
-      "SiNEMA Aile",
-      "SiNEMA Aile 2",
-      "SiNEMA Komedi",
-      "SiNEMA Komedi 2",
-      "SiNEMA Aksiyon",
-      "SiNEMA Aksiyon 2",
-      "SiNEMA 1001",
-      "SiNEMA 1002",
-      "TH TURK HABER TV",
-      "SLOW KARADENIZ TV",
-      "TiViTURK"
+      "CNN TURK",
+      "TRT SPOR YILDIZ",
+      "TVNET",
+      "TRT Genc (1440p)"
     ]
   },
   "message": "Multi-source playlist merged successfully."

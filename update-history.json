@@ -2709,6 +2709,46 @@
           "TiViTURK"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-02T11:07:51.373635+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 8,
+      "channelCount": 281,
+      "logosFilled": 16,
+      "health": {
+        "checked": 640,
+        "healthy": 367,
+        "failed": 273,
+        "ratio": 0.573
+      },
+      "providers": {
+        "OnurEröz Türkiye": 59,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 72,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 61,
+        "programmeCount": 1960
+      },
+      "changes": {
+        "channelDelta": -4,
+        "addedCount": 0,
+        "removedCount": 4,
+        "addedChannels": [],
+        "removedChannels": [
+          "CNN TURK",
+          "TRT SPOR YILDIZ",
+          "TVNET",
+          "TRT Genc (1440p)"
+        ]
+      }
     }
   ]
 }
