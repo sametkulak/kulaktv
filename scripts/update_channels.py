@@ -791,22 +791,35 @@ def parse_m3u(text: str) -> list[dict[str, object]]:
                 name,
                 flags=re.I,
             ).strip()
-            if is_blocked_stream_url(line):
+            # HTTPS-only playlist: promote a secure backup when the primary is HTTP.
+            candidates = [line]
+            candidates.extend(
+                value for key, value in current_meta.items()
+                if key.lower().startswith(("yedek", "backup"))
+            )
+            https_candidates: list[str] = []
+            for candidate in candidates:
+                try:
+                    parsed = urlsplit(candidate.strip())
+                    secure = parsed.scheme.lower() == "https" and bool(parsed.netloc)
+                except Exception:
+                    secure = False
+                if secure and not is_blocked_stream_url(candidate):
+                    if candidate not in https_candidates:
+                        https_candidates.append(candidate)
+
+            if not https_candidates:
                 pending = None
                 current_meta = {}
                 continue
-            alternatives: list[str] = []
-            for key, value in current_meta.items():
-                if key.lower().startswith(("yedek", "backup")) and re.match(
-                    r"^https?://", value, re.I
-                ) and not is_blocked_stream_url(value):
-                    if value != line and value not in alternatives:
-                        alternatives.append(value)
+
+            primary_url = https_candidates[0]
+            alternatives = https_candidates[1:]
 
             channels.append(
                 {
                     "name": name,
-                    "url": line,
+                    "url": primary_url,
                     "logo": current_meta.get("tvg-logo")
                     or current_meta.get("logo")
                     or "",
