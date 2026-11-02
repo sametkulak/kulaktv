@@ -2570,6 +2570,75 @@
           "DocumentaryPlus"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-02T09:00:59.445465+00:00",
+      "status": "updated",
+      "sourceCount": 8,
+      "configuredSourceCount": 9,
+      "channelCount": 326,
+      "logosFilled": 15,
+      "health": {
+        "checked": 679,
+        "healthy": 373,
+        "failed": 306,
+        "ratio": 0.549
+      },
+      "providers": {
+        "OnurEröz Türkiye": 60,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 72,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "rideordie16/tv": 49,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 76,
+        "programmeCount": 2382
+      },
+      "changes": {
+        "channelDelta": 40,
+        "addedCount": 41,
+        "removedCount": 1,
+        "addedChannels": [
+          "TRT Genc (1440p)",
+          "KANAL B",
+          "MUGLA TÜRK TV",
+          "TARIM TV",
+          "TÜRK KLİNİKLERİ TV",
+          "TV 25",
+          "TV 48",
+          "TV A",
+          "VAN GOLU TV",
+          "VRT",
+          "VTV TÜRK",
+          "PAZARCIK TV",
+          "FiNEST TV",
+          "5 OCAK TV",
+          "ÖNDE TV",
+          "ANADOLUM TV",
+          "SiNEMA TV",
+          "SiNEMA TV 2",
+          "SiNEMA Yerli",
+          "SiNEMA Yerli 2",
+          "SiNEMA Aile",
+          "SiNEMA Aile 2",
+          "SiNEMA Komedi",
+          "SiNEMA Komedi 2",
+          "SiNEMA Aksiyon",
+          "SiNEMA Aksiyon 2",
+          "SiNEMA 1001",
+          "SiNEMA 1002",
+          "TH TURK HABER TV",
+          "SLOW KARADENIZ TV"
+        ],
+        "removedChannels": [
+          "TRT 2"
+        ]
+      }
     }
   ]
 }
