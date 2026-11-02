@@ -1019,17 +1019,15 @@ async function playChannel(ch,options={}){
     const failedCandidate=alternatives[attemptIndex];
     if(failedCandidate?.url) recordSourceEvent(failedCandidate.url,'failure');
 
-    // NOW TV and TV8 can occasionally accept the connection but fail to
-    // start playback on the first request. Retry that exact source once
-    // before moving to the next independent source.
-    const channelKey=normalizeChannelName(ch.name);
-    const retryFirstStartForChannel=channelKey==='nowtv'||channelKey==='tv8';
+    // Any channel source that times out before playback starts gets one
+    // controlled retry. This handles transient CDN/connection startup issues
+    // consistently without maintaining channel-specific exceptions.
     const isStartTimeout=String(detail).includes('saniye içinde oynatılmaya başlamadı');
     const retryCount=failedCandidate?.url ? (sourceTimeoutRetries.get(failedCandidate.url)||0) : 0;
-    if(retryFirstStartForChannel && isStartTimeout && failedCandidate?.url && retryCount<1){
+    if(isStartTimeout && failedCandidate?.url && retryCount<1){
       sourceTimeoutRetries.set(failedCandidate.url,retryCount+1);
       setConnectionStatus('connecting','Kaynak tekrar deneniyor');
-      setStatus(`NOW TV: Kaynak ${attemptIndex+1}/${maxAttempts} kısa süreli tekrar deneniyor…`);
+      setStatus(`Kaynak ${attemptIndex+1}/${maxAttempts} kısa süreli tekrar deneniyor…`);
       stopHls();
       schedule(()=>trySource(failedCandidate,attemptIndex),500);
       return;
