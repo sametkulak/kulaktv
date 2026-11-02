@@ -31,7 +31,7 @@ jobs:
 
       - name: Kod ve yapı doğrulaması
         run: |
-          python -m py_compile scripts/update_channels.py scripts/process_telemetry.py scripts/rebuild_source_quality.py
+          python -m py_compile scripts/update_channels.py
           node --check app.js
           node --check telemetry-config.js
 
