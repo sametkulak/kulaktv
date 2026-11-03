@@ -765,6 +765,7 @@ async function logoutCentralAuth(){
   }
   try{await authApi('/api/logout',{method:'POST'});}catch{}
   clearAuth();
+  startVisitorTracking();
   const gate=document.getElementById('siteAuthGate');
   if(authState.loginRequired){
     if(gate)gate.hidden=false;
