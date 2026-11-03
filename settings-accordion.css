@@ -52,3 +52,18 @@
   .settings-accordion-title{font-size:16px}
   .settings-accordion-hint{font-size:12px}
 }
+
+/* Keep the final settings sections reachable above the fixed player controls. */
+.settings-drawer{
+  min-height:0;
+}
+.settings-body{
+  min-height:0;
+  flex:1 1 0%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
+  padding-bottom:calc(104px + env(safe-area-inset-bottom));
+  scroll-padding-bottom:calc(104px + env(safe-area-inset-bottom));
+}
