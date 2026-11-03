@@ -975,6 +975,28 @@ function renderVisitorStats(data){
         }).join('')
       : '<div class="mini-muted">Seçilen tarih aralığında ziyaret kaydı yok.</div>')+
   '</div>'+
+  '<h3 class="admin-section-title">Ziyaretçi geçmişi</h3>'+
+  '<div class="admin-visitor-recent">'+
+    (Array.isArray(data?.visitorHistory)&&data.visitorHistory.length
+      ? data.visitorHistory.map(item=>{
+          const totalSecs=Math.max(0,Number(item.totalDurationSeconds||0));
+          const totalMins=Math.floor(totalSecs/60);
+          const totalDuration=totalMins?totalMins+' dk '+(totalSecs%60)+' sn':totalSecs+' sn';
+          const shortId=String(item.visitorId||'').slice(0,8);
+          const ips=Array.isArray(item.ipAddresses)?item.ipAddresses:[];
+          const places=[...(item.cities||[]),...(item.countries||[])].filter(Boolean);
+          return '<div class="login-history-item">'+
+            '<div class="login-history-head"><b>Ziyaretçi '+escapeHtml(shortId)+'</b>'+
+            '<span class="login-history-badge closed">'+Number(item.visitCount||0)+' ziyaret</span></div>'+
+            '<div class="login-history-times"><span>İlk ziyaret: '+escapeHtml(formatLoginDate(item.firstVisitAt))+'</span>'+
+            '<span>Son ziyaret: '+escapeHtml(formatLoginDate(item.lastVisitAt))+'</span>'+
+            '<span>Toplam kullanım: '+escapeHtml(totalDuration)+'</span></div>'+
+            (ips.length?'<div class="login-history-times"><span>IP geçmişi: '+escapeHtml(ips.join(', '))+'</span></div>':'')+
+            (places.length?'<div class="login-history-times"><span>Konum geçmişi: '+escapeHtml([...new Set(places)].join(', '))+'</span></div>':'')+
+          '</div>';
+        }).join('')
+      : '<div class="mini-muted">Bu dönemde ziyaretçi geçmişi bulunamadı.</div>')+
+  '</div>'+
   '<div class="mini-muted">Dönem: '+escapeHtml(data?.periodLabel||'')+' • Anonim ziyaretçiler tarayıcı kimliğiyle sayılır; kullanıcılarla kesin olarak eşleştirilmez.</div>';
 }
 
