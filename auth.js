@@ -818,7 +818,7 @@ function getAnonymousVisitorId(){
   }
 }
 
-function getVisitorDeviceInfo(){
+async function getVisitorDeviceInfo(){
   const screenWidth=Math.max(0,Number(window.screen?.width||0));
   const screenHeight=Math.max(0,Number(window.screen?.height||0));
   let standalone=false;
@@ -826,13 +826,42 @@ function getVisitorDeviceInfo(){
     standalone=window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone===true;
   }catch{}
-  return {
+
+  const info={
     screenWidth:Math.min(screenWidth,10000),
     screenHeight:Math.min(screenHeight,10000),
     language:String(navigator.language||'').slice(0,20),
     platform:String(navigator.userAgentData?.platform||navigator.platform||'').slice(0,40),
     standalone
   };
+
+  // Chromium tabanlı tarayıcılarda izin verilen yüksek entropili cihaz bilgileri.
+  try{
+    const uaData=navigator.userAgentData;
+    if(uaData?.getHighEntropyValues){
+      const hints=await uaData.getHighEntropyValues([
+        'model','platformVersion','fullVersionList'
+      ]);
+      info.model=String(hints.model||'').slice(0,100);
+      info.osVersion=String(hints.platformVersion||'').slice(0,40);
+      const versions=Array.isArray(hints.fullVersionList)?hints.fullVersionList:[];
+      const preferred=versions.find(item=>/Microsoft Edge|Google Chrome|Chromium|Opera/i.test(item.brand))
+        || versions.find(item=>item.brand && !/Not.?A.?Brand/i.test(item.brand));
+      if(preferred) info.browserVersion=String(preferred.version||'').slice(0,40);
+      const platform=String(uaData.platform||'');
+      if(/android/i.test(platform) && info.model){
+        const model=info.model;
+        if(/samsung/i.test(model)) info.brand='Samsung';
+        else if(/xiaomi|redmi|poco/i.test(model)) info.brand='Xiaomi';
+        else if(/pixel/i.test(model)) info.brand='Google';
+        else if(/huawei/i.test(model)) info.brand='Huawei';
+        else if(/oppo/i.test(model)) info.brand='OPPO';
+        else if(/vivo/i.test(model)) info.brand='vivo';
+      }
+    }
+  }catch{}
+
+  return info;
 }
 
 async function sendVisitorHeartbeat(){
@@ -843,7 +872,7 @@ async function sendVisitorHeartbeat(){
       body:JSON.stringify({
         visitorId:getAnonymousVisitorId(),
         visitId:visitorVisitId,
-        device:getVisitorDeviceInfo()
+        device:await getVisitorDeviceInfo()
       }),
       keepalive:true
     });
