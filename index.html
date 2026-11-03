@@ -160,42 +160,46 @@
         <button id="closeSettings" class="close-btn" aria-label="Ayarları kapat">×</button>
       </div>
       <div class="settings-body">
-        <section class="settings-card">
+        <details class="settings-card settings-accordion">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Kaynak ayarları</span><span class="settings-accordion-hint">M3U adresi ve liste yükleme</span></summary>
           <div class="settings-title">M3U kaynak URL'si</div>
           <div class="settings-desc">Farklı bir listeyi geçici olarak yükleyebilirsin.</div>
           <div class="source-row">
             <input id="playlistUrl" type="url" placeholder="https://ornek.com/liste.m3u" autocomplete="off">
             <button id="loadUrl" class="primary-btn">Yükle</button>
           </div>
-        </section>
+        </details>
 
-        <section class="settings-card action-grid">
-          <button id="refreshDefault" class="settings-action">↻<span>Mevcut listeyi yeniden yükle</span></button>
-          <button id="loadFile" class="settings-action">▣<span>M3U dosyası aç</span></button>
-          <button id="copyStream" class="settings-action" disabled>⧉<span>Yayın URL'sini kopyala</span></button>
-          <button id="openStream" class="settings-action" disabled>↗<span>Dış oynatıcıda aç</span></button>
-          <button id="installAppBtn" class="settings-action" type="button" hidden>⬇<span>Ana ekrana ekle</span></button>
-          <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
-        </section>
+        <details class="settings-card settings-accordion">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Oynatma ve araçlar</span><span class="settings-accordion-hint">Yayın, dosya ve uygulama işlemleri</span></summary>
+          <div class="action-grid">
+            <button id="refreshDefault" class="settings-action">↻<span>Mevcut listeyi yeniden yükle</span></button>
+            <button id="loadFile" class="settings-action">▣<span>M3U dosyası aç</span></button>
+            <button id="copyStream" class="settings-action" disabled>⧉<span>Yayın URL'sini kopyala</span></button>
+            <button id="openStream" class="settings-action" disabled>↗<span>Dış oynatıcıda aç</span></button>
+            <button id="installAppBtn" class="settings-action" type="button" hidden>⬇<span>Ana ekrana ekle</span></button>
+            <input id="fileInput" type="file" accept=".m3u,.m3u8,.txt" hidden>
+          </div>
+        </details>
 
-        <section class="settings-card info-card">
-          <div class="settings-title">Oynatma deneyimi</div>
-          <div class="settings-desc">Kanal açma, kaynak düşmesi ve yeniden tamponlama sonuçları anonim toplu istatistik olarak kaynak kalite hesabına katkı verir. Ham cihaz kimliği veya IP bilgisi gönderilmez.</div>
-        </section>
-
-        <section class="settings-card">
+        <details class="settings-card settings-accordion">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Kaynak performansı</span><span class="settings-accordion-hint">Oynatma istatistikleri ve güven puanları</span></summary>
+          <div class="settings-card info-card">
+            <div class="settings-title">Oynatma deneyimi</div>
+            <div class="settings-desc">Kanal açma, kaynak düşmesi ve yeniden tamponlama sonuçları anonim toplu istatistik olarak kaynak kalite hesabına katkı verir. Ham cihaz kimliği veya IP bilgisi gönderilmez.</div>
+          </div>
           <div class="settings-title">Kaynak güven puanları</div>
           <div id="sourceTrustList" class="trust-list"><div class="mini-muted">Kaynak puanları yükleniyor…</div></div>
-        </section>
+        </details>
 
-        <section class="settings-card">
-          <div class="settings-title">Elektronik Program Rehberi</div>
+        <details class="settings-card settings-accordion">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Elektronik Program Rehberi</span><span class="settings-accordion-hint">EPG bağlantı durumu</span></summary>
           <div id="epgStatus" class="mini-muted">EPG kontrol ediliyor…</div>
           <div class="settings-desc">Mevcut kanallar için program başlıkları ve saatleri gösterilir.</div>
-        </section>
+        </details>
 
-        <section class="settings-card admin-overview-card">
-          <div class="settings-title">Yönetim özeti</div>
+        <details class="settings-card settings-accordion admin-overview-card">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Sistem durumu</span><span class="settings-accordion-hint">Kanallar, kaynaklar ve güncellemeler</span></summary>
           <div class="admin-stats-grid">
             <div class="admin-stat"><span>Kanal</span><b id="adminChannelCount">-</b></div>
             <div class="admin-stat"><span>Kaynak</span><b id="adminSourceCount">-</b></div>
@@ -206,24 +210,23 @@
           <div id="adminLastUpdate" class="admin-last-update">Son güncelleme kontrol ediliyor…</div>
           <div id="autoUpdateStatus" class="admin-auto-update-status">Otomatik güncelleme kontrol ediliyor…</div>
           <div id="adminOnlineSummary" class="admin-online-summary">Çevrimiçi kullanıcılar: —</div>
-        </section>
+        </details>
 
-        <section class="settings-card admin-management-card">
-          <div class="settings-title">Yönetim ve kullanıcılar</div>
+        <details class="settings-card settings-accordion admin-management-card">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Kullanıcı ve ziyaretçi yönetimi</span><span class="settings-accordion-hint">Hesaplar, oturumlar ve ziyaretçi raporu</span></summary>
           <div class="admin-management-actions">
             <button id="manualUpdateBtn" class="settings-action admin-update-btn" type="button">↻<span>Manuel güncelleme</span></button>
             <button id="refreshAdminBtn" class="settings-action" type="button">↻<span>Durumu yenile</span></button>
             <button id="logoutAdminBtn" class="settings-action admin-logout-btn" type="button">⎋<span>Admin çıkışı</span></button>
           </div>
           <div id="manualUpdateStatus" class="admin-action-status">Manuel güncelleme için GitHub Actions açılır.</div>
-        </section>
+        </details>
 
-        <section class="settings-card">
-          <div class="settings-title">Güncelleme geçmişi</div>
+        <details class="settings-card settings-accordion">
+          <summary class="settings-accordion-head"><span class="settings-accordion-title">Güncelleme geçmişi</span><span class="settings-accordion-hint">Son sistem güncellemeleri</span></summary>
           <div id="updateHistoryList" class="history-list"><div class="mini-muted">Geçmiş yükleniyor…</div></div>
-        </section>
+        </details>
 
-        
         <div id="errorBox" class="error-box" hidden></div>
       </div>
     </aside>
