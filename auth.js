@@ -818,6 +818,23 @@ function getAnonymousVisitorId(){
   }
 }
 
+function getVisitorDeviceInfo(){
+  const screenWidth=Math.max(0,Number(window.screen?.width||0));
+  const screenHeight=Math.max(0,Number(window.screen?.height||0));
+  let standalone=false;
+  try{
+    standalone=window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone===true;
+  }catch{}
+  return {
+    screenWidth:Math.min(screenWidth,10000),
+    screenHeight:Math.min(screenHeight,10000),
+    language:String(navigator.language||'').slice(0,20),
+    platform:String(navigator.userAgentData?.platform||navigator.platform||'').slice(0,40),
+    standalone
+  };
+}
+
 async function sendVisitorHeartbeat(){
   if(authState.token || !visitorVisitId)return;
   try{
@@ -825,7 +842,8 @@ async function sendVisitorHeartbeat(){
       method:'POST',
       body:JSON.stringify({
         visitorId:getAnonymousVisitorId(),
-        visitId:visitorVisitId
+        visitId:visitorVisitId,
+        device:getVisitorDeviceInfo()
       }),
       keepalive:true
     });
@@ -904,12 +922,22 @@ function renderVisitorStats(data){
           const dur=mins?mins+' dk '+(secs%60)+' sn':secs+' sn';
           const active=Boolean(item.active);
           const label=item.type==='user'?'Kullanıcı: '+(item.username||'Bilinmiyor'):'Anonim ziyaretçi';
+          const deviceParts=[
+            item.deviceType,
+            item.browser,
+            item.os,
+            item.screenResolution,
+            item.city&&item.country ? item.city+', '+item.country : (item.country||item.city),
+            item.language
+          ].filter(Boolean);
           return '<div class="login-history-item">'+
             '<div class="login-history-head"><b>'+escapeHtml(label)+'</b>'+
             '<span class="login-history-badge '+(active?'active':'closed')+'">'+(active?'Aktif':'Tamamlandı')+'</span></div>'+
             '<div class="login-history-times"><span>Başlangıç: '+escapeHtml(started)+'</span>'+
             '<span>Son görülme: '+escapeHtml(lastSeen)+'</span>'+
-            '<span>Süre: '+escapeHtml(dur)+'</span></div></div>';
+            '<span>Süre: '+escapeHtml(dur)+'</span></div>'+
+            (deviceParts.length?'<div class="login-history-times"><span>Cihaz: '+escapeHtml(deviceParts.join(' • '))+'</span></div>':'')+
+            '</div>';
         }).join('')
       : '<div class="mini-muted">Seçilen tarih aralığında ziyaret kaydı yok.</div>')+
   '</div>'+
