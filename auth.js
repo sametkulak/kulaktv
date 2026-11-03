@@ -559,8 +559,6 @@ function ensureAdminManagementUi(){
     '</form>'+
     '<div id="adminUserManagementMessage" class="admin-user-message" aria-live="polite"></div>'+
     '<div id="adminUserList" class="admin-user-list"><div class="mini-muted">Kullanıcılar yükleniyor…</div></div>'+
-    '<div class="admin-subtitle admin-users-subtitle">Giriş / çıkış geçmişi</div>'+
-    '<div id="adminLoginHistory" class="admin-login-history"><div class="mini-muted">Geçmiş yükleniyor…</div></div>'+
     '<div class="admin-subtitle admin-users-subtitle">Ziyaretçi ve oturum raporu</div>'+
     '<label class="admin-visitor-period">Tarih aralığı <select id="adminVisitorPeriod"><option value="24h">Son 24 saat</option><option value="7d">Son 7 gün</option><option value="30d" selected>Son 30 gün</option><option value="90d">Son 90 gün</option></select></label>'+
     '<div id="adminVisitorStats" class="admin-visitor-stats"><div class="mini-muted">Rapor yükleniyor…</div></div>';
@@ -752,7 +750,6 @@ async function loadAdminManagement(){
         : '⚪ Şu an çevrimiçi kullanıcı yok';
     }
 
-    renderLoginHistory(historyRows);
     await loadVisitorStats();
   }catch(error){
     setAdminMessage(error?.message||'Yönetim verileri alınamadı.','error');
