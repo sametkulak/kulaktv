@@ -1,0 +1,54 @@
+/* KulakTV settings accordion heading refinement — visual-only overrides. */
+.settings-accordion-head{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 26px;
+  grid-template-rows:auto auto;
+  align-items:center;
+  column-gap:10px;
+  row-gap:5px;
+  padding:15px 14px;
+  min-height:76px;
+}
+.settings-accordion-head::marker{content:"";}
+.settings-accordion-head::-webkit-details-marker{display:none}
+.settings-accordion-title{
+  grid-column:1;
+  grid-row:1;
+  display:block;
+  color:var(--accent2);
+  font-size:16px;
+  line-height:1.25;
+  font-weight:900;
+  letter-spacing:.05px;
+}
+.settings-accordion-hint{
+  grid-column:1;
+  grid-row:2;
+  display:block;
+  color:#9aa6b5;
+  font-size:12px;
+  line-height:1.35;
+  font-weight:400;
+}
+.settings-accordion-head::after{
+  grid-column:2;
+  grid-row:1 / span 2;
+  position:static;
+  transform:none;
+  align-self:center;
+  justify-self:end;
+  width:27px;
+  height:27px;
+  border-color:rgba(255,255,255,.13);
+  color:#aeb8c7;
+  font-size:19px;
+}
+.settings-accordion[open]>.settings-accordion-head{
+  border-bottom:1px solid rgba(255,102,87,.2);
+  margin-bottom:12px;
+}
+@media(max-width:600px){
+  .settings-accordion-head{min-height:78px;padding:15px 13px;column-gap:8px}
+  .settings-accordion-title{font-size:16px}
+  .settings-accordion-hint{font-size:12px}
+}
