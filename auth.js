@@ -953,8 +953,9 @@ function renderVisitorStats(data){
           const label=item.type==='user'?'Kullanıcı: '+(item.username||'Bilinmiyor'):'Anonim ziyaretçi';
           const deviceParts=[
             item.deviceType,
-            item.browser,
-            item.os,
+            [item.deviceBrand,item.deviceModel].filter(Boolean).join(' '),
+            item.browser ? item.browser+(item.browserVersion?' '+item.browserVersion:'') : '',
+            item.os ? item.os+(item.osVersion?' '+item.osVersion:'') : '',
             item.screenResolution,
             item.platform,
             item.city&&item.country ? item.city+', '+item.country : (item.country||item.city),
