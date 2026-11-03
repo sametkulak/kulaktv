@@ -561,8 +561,9 @@ function ensureAdminManagementUi(){
     '<div id="adminUserList" class="admin-user-list"><div class="mini-muted">Kullanıcılar yükleniyor…</div></div>'+
     '<div class="admin-subtitle admin-users-subtitle">Giriş / çıkış geçmişi</div>'+
     '<div id="adminLoginHistory" class="admin-login-history"><div class="mini-muted">Geçmiş yükleniyor…</div></div>'+
-    '<div class="admin-subtitle admin-users-subtitle">Ziyaretçi istatistikleri</div>'+
-    '<div id="adminVisitorStats" class="admin-visitor-stats"><div class="mini-muted">Ziyaretçi verileri yükleniyor…</div></div>';
+    '<div class="admin-subtitle admin-users-subtitle">Ziyaretçi ve oturum raporu</div>'+
+    '<label class="admin-visitor-period">Tarih aralığı <select id="adminVisitorPeriod"><option value="24h">Son 24 saat</option><option value="7d">Son 7 gün</option><option value="30d" selected>Son 30 gün</option><option value="90d">Son 90 gün</option></select></label>'+
+    '<div id="adminVisitorStats" class="admin-visitor-stats"><div class="mini-muted">Rapor yükleniyor…</div></div>';
 
   card.append(panel);
 
@@ -878,6 +879,7 @@ function startVisitorTracking(){
   },30000);
 }
 
+
 function renderVisitorStats(data){
   const root=document.getElementById('adminVisitorStats');
   if(!root)return;
@@ -886,10 +888,10 @@ function renderVisitorStats(data){
   const seconds=duration%60;
   const average=minutes?minutes+' dk '+seconds+' sn':seconds+' sn';
   const cards=[
-    ['Şu an aktif',Number(data?.activeNow||0)],
-    ['Bugün tekil ziyaretçi',Number(data?.uniqueVisitorsToday||0)],
-    ['Son 24 saat tekil',Number(data?.uniqueVisitors24h||0)],
-    ['Son 24 saat ziyaret',Number(data?.totalVisits24h||0)],
+    ['Aktif oturum',Number(data?.activeNow||0)],
+    ['Kayıtlı kullanıcı',Number(data?.authenticatedUsers||0)],
+    ['Anonim ziyaretçi',Number(data?.anonymousVisitors||0)],
+    ['Toplam oturum',Number(data?.totalVisits||0)],
     ['Ortalama süre',average]
   ];
   root.innerHTML='<div class="admin-stats-grid">'+cards.map(([label,value])=>
@@ -897,33 +899,35 @@ function renderVisitorStats(data){
   ).join('')+'</div>'+
   '<div class="admin-visitor-recent">'+
     (Array.isArray(data?.recentVisits)&&data.recentVisits.length
-      ? data.recentVisits.slice(0,12).map(item=>{
-          const started=formatLoginDate(item.started_at);
-          const lastSeen=formatLoginDate(item.last_seen_at);
-          const secs=Math.max(0,Number(item.duration_seconds||0));
+      ? data.recentVisits.slice(0,20).map(item=>{
+          const started=formatLoginDate(item.startedAt);
+          const lastSeen=formatLoginDate(item.lastSeenAt);
+          const secs=Math.max(0,Number(item.durationSeconds||0));
           const mins=Math.floor(secs/60);
           const dur=mins?mins+' dk '+(secs%60)+' sn':secs+' sn';
-          const active=!item.ended_at;
+          const active=Boolean(item.active);
+          const label=item.type==='user'?'Kullanıcı: '+(item.username||'Bilinmiyor'):'Anonim ziyaretçi';
           return '<div class="login-history-item">'+
-            '<div class="login-history-head"><b>Anonim ziyaretçi</b>'+
+            '<div class="login-history-head"><b>'+escapeHtml(label)+'</b>'+
             '<span class="login-history-badge '+(active?'active':'closed')+'">'+(active?'Aktif':'Tamamlandı')+'</span></div>'+
             '<div class="login-history-times"><span>Başlangıç: '+escapeHtml(started)+'</span>'+
             '<span>Son görülme: '+escapeHtml(lastSeen)+'</span>'+
             '<span>Süre: '+escapeHtml(dur)+'</span></div></div>';
         }).join('')
-      : '<div class="mini-muted">Henüz anonim ziyaret kaydı yok.</div>')+
+      : '<div class="mini-muted">Seçilen tarih aralığında ziyaret kaydı yok.</div>')+
   '</div>'+
-  '<div class="mini-muted">Güncelleme: '+escapeHtml(formatLoginDate(data?.updatedAt))+' • Anonim kimlikler tarayıcı bazındadır.</div>';
+  '<div class="mini-muted">Dönem: '+escapeHtml(data?.periodLabel||'')+' • Anonim ziyaretçiler tarayıcı kimliğiyle sayılır; kullanıcılarla kesin olarak eşleştirilmez.</div>';
 }
 
-async function loadVisitorStats(){
+async function loadVisitorStats(period){
   const root=document.getElementById('adminVisitorStats');
   if(!root)return;
+  const selected=period||document.getElementById('adminVisitorPeriod')?.value||'30d';
   try{
-    const data=await authApi('/api/admin/visitor-stats');
+    const data=await authApi('/api/admin/combined-visitor-stats?period='+encodeURIComponent(selected));
     renderVisitorStats(data);
   }catch(error){
-    root.innerHTML='<div class="mini-muted">Ziyaretçi istatistikleri alınamadı: '+escapeHtml(error?.message||'Bilinmeyen hata')+'</div>';
+    root.innerHTML='<div class="mini-muted">Birleşik ziyaretçi raporu alınamadı: '+escapeHtml(error?.message||'Bilinmeyen hata')+'</div>';
   }
 }
 
@@ -967,6 +971,10 @@ function initCentralAuth(){
 
   document.getElementById('refreshAdminBtn')?.addEventListener('click',()=>{
     void loadAdminManagement();
+  });
+
+  document.getElementById('adminVisitorPeriod')?.addEventListener('change',event=>{
+    void loadVisitorStats(event.currentTarget.value);
   });
 
   document.getElementById('adminLogin')?.addEventListener('click',event=>{
