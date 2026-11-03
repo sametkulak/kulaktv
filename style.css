@@ -131,6 +131,24 @@ video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .close-btn{width:42px;height:42px;border-radius:11px;font-size:27px}
 .settings-body{flex:1;overflow:auto;padding:12px}
 .settings-card{background:#111820;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px}
+
+.settings-accordion{padding:0;overflow:hidden}
+.settings-accordion-head{list-style:none;cursor:pointer;position:relative;display:flex;flex-direction:column;gap:4px;padding:15px 42px 15px 14px;min-height:64px;justify-content:center;user-select:none}
+.settings-accordion-head::-webkit-details-marker{display:none}
+.settings-accordion-head::after{content:"+";position:absolute;right:15px;top:50%;transform:translateY(-50%);width:25px;height:25px;border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;color:var(--muted);font-size:19px;font-weight:500}
+.settings-accordion[open]>.settings-accordion-head{border-bottom:1px solid var(--line);margin-bottom:12px}
+.settings-accordion[open]>.settings-accordion-head::after{content:"−"}
+.settings-accordion-title{font-size:13px;font-weight:900;color:#f2f5f9}
+.settings-accordion-hint{font-size:10px;color:var(--muted);line-height:1.35}
+.settings-accordion>*:not(summary){margin-left:13px;margin-right:13px}
+.settings-accordion>.settings-title:first-of-type{margin-top:0}
+.settings-accordion>.action-grid{margin-top:0;margin-bottom:13px}
+.settings-accordion>.admin-management-actions{margin-top:0}
+.settings-accordion>.admin-action-status{margin-bottom:13px}
+.settings-accordion>.trust-list,.settings-accordion>.admin-stats-grid{margin-bottom:13px}
+.settings-accordion>.settings-desc:last-child{margin-bottom:13px}
+.settings-accordion>.info-card{margin-top:0}
+
 .settings-title{font-size:13px;font-weight:900}.settings-desc{font-size:11px;line-height:1.45;color:var(--muted);margin-top:4px}
 .source-row{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:10px}.primary-btn{min-height:46px;padding:0 15px;border:0;border-radius:11px;background:var(--accent);color:#fff;font-weight:900}
 .source-links{display:flex;gap:15px;flex-wrap:wrap;margin-top:10px}.link-btn{border:0;background:transparent;color:#ff9586;font-size:11px;padding:2px 0}
