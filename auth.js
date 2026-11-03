@@ -40,6 +40,7 @@ function cacheLoginRequired(required){
 function saveAuth(data){
   authState.token=String(data?.token||'');
   authState.user=data?.user||null;
+  stopVisitorTracking();
   startSessionHeartbeat();
   try{
     if(authState.token)localStorage.setItem(AUTH_TOKEN_KEY,authState.token);
@@ -559,7 +560,9 @@ function ensureAdminManagementUi(){
     '<div id="adminUserManagementMessage" class="admin-user-message" aria-live="polite"></div>'+
     '<div id="adminUserList" class="admin-user-list"><div class="mini-muted">Kullanıcılar yükleniyor…</div></div>'+
     '<div class="admin-subtitle admin-users-subtitle">Giriş / çıkış geçmişi</div>'+
-    '<div id="adminLoginHistory" class="admin-login-history"><div class="mini-muted">Geçmiş yükleniyor…</div></div>';
+    '<div id="adminLoginHistory" class="admin-login-history"><div class="mini-muted">Geçmiş yükleniyor…</div></div>'+
+    '<div class="admin-subtitle admin-users-subtitle">Ziyaretçi istatistikleri</div>'+
+    '<div id="adminVisitorStats" class="admin-visitor-stats"><div class="mini-muted">Ziyaretçi verileri yükleniyor…</div></div>';
 
   card.append(panel);
 
@@ -749,6 +752,7 @@ async function loadAdminManagement(){
     }
 
     renderLoginHistory(historyRows);
+    await loadVisitorStats();
   }catch(error){
     setAdminMessage(error?.message||'Yönetim verileri alınamadı.','error');
   }
@@ -795,6 +799,131 @@ function startSessionHeartbeat(){
   heartbeatTimer=setInterval(()=>{
     void sendSessionHeartbeat();
   },30000);
+}
+
+
+const VISITOR_ID_KEY = 'kulaktv-anonymous-visitor-id-v1';
+let visitorHeartbeatTimer = null;
+let visitorVisitId = '';
+
+function getAnonymousVisitorId(){
+  try{
+    let id=localStorage.getItem(VISITOR_ID_KEY)||'';
+    if(!/^[a-f0-9-]{36}$/i.test(id)){
+      id=crypto.randomUUID();
+      localStorage.setItem(VISITOR_ID_KEY,id);
+    }
+    return id;
+  }catch{
+    return crypto.randomUUID();
+  }
+}
+
+async function sendVisitorHeartbeat(){
+  if(authState.token || !visitorVisitId)return;
+  try{
+    await authApi('/api/visitor/heartbeat',{
+      method:'POST',
+      body:JSON.stringify({
+        visitorId:getAnonymousVisitorId(),
+        visitId:visitorVisitId
+      }),
+      keepalive:true
+    });
+  }catch{}
+}
+
+function endAnonymousVisit(){
+  if(!visitorVisitId)return;
+  const payload=JSON.stringify({
+    visitorId:getAnonymousVisitorId(),
+    visitId:visitorVisitId
+  });
+  try{
+    const blob=new Blob([payload],{type:'application/json'});
+    if(!navigator.sendBeacon(KULAKTV_AUTH_API+'/api/visitor/end',blob)){
+      fetch(KULAKTV_AUTH_API+'/api/visitor/end',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:payload,
+        keepalive:true
+      }).catch(()=>{});
+    }
+  }catch{
+    fetch(KULAKTV_AUTH_API+'/api/visitor/end',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:payload,
+      keepalive:true
+    }).catch(()=>{});
+  }
+  visitorVisitId='';
+}
+
+function stopVisitorTracking(){
+  if(visitorHeartbeatTimer){
+    clearInterval(visitorHeartbeatTimer);
+    visitorHeartbeatTimer=null;
+  }
+  endAnonymousVisit();
+}
+
+function startVisitorTracking(){
+  if(authState.token || visitorHeartbeatTimer || visitorVisitId)return;
+  visitorVisitId=crypto.randomUUID();
+  void sendVisitorHeartbeat();
+  visitorHeartbeatTimer=setInterval(()=>{
+    void sendVisitorHeartbeat();
+  },30000);
+}
+
+function renderVisitorStats(data){
+  const root=document.getElementById('adminVisitorStats');
+  if(!root)return;
+  const duration=Math.max(0,Number(data?.averageDurationSeconds||0));
+  const minutes=Math.floor(duration/60);
+  const seconds=duration%60;
+  const average=minutes?minutes+' dk '+seconds+' sn':seconds+' sn';
+  const cards=[
+    ['Şu an aktif',Number(data?.activeNow||0)],
+    ['Bugün tekil ziyaretçi',Number(data?.uniqueVisitorsToday||0)],
+    ['Son 24 saat tekil',Number(data?.uniqueVisitors24h||0)],
+    ['Son 24 saat ziyaret',Number(data?.totalVisits24h||0)],
+    ['Ortalama süre',average]
+  ];
+  root.innerHTML='<div class="admin-stats-grid">'+cards.map(([label,value])=>
+    '<div class="admin-stat"><span>'+escapeHtml(label)+'</span><b>'+escapeHtml(String(value))+'</b></div>'
+  ).join('')+'</div>'+
+  '<div class="admin-visitor-recent">'+
+    (Array.isArray(data?.recentVisits)&&data.recentVisits.length
+      ? data.recentVisits.slice(0,12).map(item=>{
+          const started=formatLoginDate(item.started_at);
+          const lastSeen=formatLoginDate(item.last_seen_at);
+          const secs=Math.max(0,Number(item.duration_seconds||0));
+          const mins=Math.floor(secs/60);
+          const dur=mins?mins+' dk '+(secs%60)+' sn':secs+' sn';
+          const active=!item.ended_at;
+          return '<div class="login-history-item">'+
+            '<div class="login-history-head"><b>Anonim ziyaretçi</b>'+
+            '<span class="login-history-badge '+(active?'active':'closed')+'">'+(active?'Aktif':'Tamamlandı')+'</span></div>'+
+            '<div class="login-history-times"><span>Başlangıç: '+escapeHtml(started)+'</span>'+
+            '<span>Son görülme: '+escapeHtml(lastSeen)+'</span>'+
+            '<span>Süre: '+escapeHtml(dur)+'</span></div></div>';
+        }).join('')
+      : '<div class="mini-muted">Henüz anonim ziyaret kaydı yok.</div>')+
+  '</div>'+
+  '<div class="mini-muted">Güncelleme: '+escapeHtml(formatLoginDate(data?.updatedAt))+' • Anonim kimlikler tarayıcı bazındadır.</div>';
+}
+
+async function loadVisitorStats(){
+  const root=document.getElementById('adminVisitorStats');
+  if(!root)return;
+  try{
+    const data=await authApi('/api/admin/visitor-stats');
+    renderVisitorStats(data);
+  }catch(error){
+    root.innerHTML='<div class="mini-muted">Ziyaretçi istatistikleri alınamadı: '+escapeHtml(error?.message||'Bilinmeyen hata')+'</div>';
+  }
 }
 
 function initCentralAuth(){
@@ -846,7 +975,12 @@ function initCentralAuth(){
 
 initializeAuthGate().finally(()=>{
   initCentralAuth();
+  if(!authState.token){
+    startVisitorTracking();
+  }
 });
+
+window.addEventListener('pagehide',endAnonymousVisit,{capture:true});
 
 window.KULAKTV_AUTH = authState;
 window.KULAKTV_AUTH.ready = authReady;
