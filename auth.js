@@ -927,8 +927,12 @@ function renderVisitorStats(data){
             item.browser,
             item.os,
             item.screenResolution,
+            item.platform,
             item.city&&item.country ? item.city+', '+item.country : (item.country||item.city),
-            item.language
+            item.ipAddress ? 'IP: '+item.ipAddress : '',
+            item.isp ? 'Sağlayıcı: '+item.isp : '',
+            item.language,
+            item.standalone ? 'PWA' : ''
           ].filter(Boolean);
           return '<div class="login-history-item">'+
             '<div class="login-history-head"><b>'+escapeHtml(label)+'</b>'+
