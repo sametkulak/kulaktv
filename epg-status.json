@@ -1,8 +1,8 @@
 {
   "version": 1,
   "status": "updated",
-  "updatedAt": "2026-11-03T09:02:42.505887+00:00",
-  "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/3.json,https://www.turksatkablo.com.tr/userUpload/EPG/4.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-  "matchedChannels": 58,
-  "programmeCount": 1863
+  "updatedAt": "2026-11-04T09:03:15.950886+00:00",
+  "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/4.json,https://www.turksatkablo.com.tr/userUpload/EPG/5.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+  "matchedChannels": 60,
+  "programmeCount": 1925
 }

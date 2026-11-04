@@ -2940,6 +2940,44 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-04T09:00:52.792021+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 264,
+      "logosFilled": 16,
+      "health": {
+        "checked": 537,
+        "healthy": 332,
+        "failed": 205,
+        "ratio": 0.618
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 74,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 91,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 60,
+        "programmeCount": 1925
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 2,
+        "removedCount": 0,
+        "addedChannels": [
+          "Eurosport 1 Turkiye",
+          "Eurosport 2 Turkiye"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
