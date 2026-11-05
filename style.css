@@ -539,3 +539,14 @@ video{ -webkit-appearance:none; }
   pointer-events:none;
   backdrop-filter:blur(8px);
 }
+
+
+/* D1 storage usage */
+.admin-d1-storage{margin-top:10px;padding:10px;border:1px solid var(--line);background:#0d141b;border-radius:10px}
+.admin-d1-storage-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:10px;color:#c6ced9}
+.admin-d1-storage-head b{font-size:11px;color:#fff;text-align:right}
+.admin-d1-storage-track{height:7px;margin-top:8px;overflow:hidden;border-radius:99px;background:#26313e}
+.admin-d1-storage-fill{height:100%;width:0;background:#65c99a;border-radius:99px;transition:width .25s ease}
+.admin-d1-storage-fill.warn{background:#e5b85c}
+.admin-d1-storage-fill.danger{background:#e56b76}
+.admin-d1-storage-meta{margin-top:6px;font-size:9px;color:var(--muted);line-height:1.4}
