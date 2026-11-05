@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-04T09:00:52.792021+00:00",
-  "channelCount": 264,
+  "updatedAt": "2026-11-05T09:00:53.029830+00:00",
+  "channelCount": 261,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 91,
+      "trustScore": 92,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -88,8 +88,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 150,
-      "rawChannelCount": 159,
+      "channelCount": 149,
+      "rawChannelCount": 158,
       "filteredOutCount": 9,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -103,8 +103,8 @@
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
     "checkedUrls": 537,
-    "healthyUrls": 332,
-    "failedUrls": 205,
+    "healthyUrls": 333,
+    "failedUrls": 204,
     "failures": [
       {
         "channel": "TV 8",
@@ -253,32 +253,33 @@
       },
       {
         "channel": "A SPOR",
-        "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_1080p.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
+        "url": "https://live.canlitvulusal.xyz/live/aspor/index.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 3,
-    "removedAfterTwoFailures": 116
+    "pendingRemoval": 4,
+    "removedAfterTwoFailures": 119
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-04T09:00:52.792021+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/3.json,https://www.turksatkablo.com.tr/userUpload/EPG/4.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "updatedAt": "2026-11-05T09:00:53.029830+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/4.json,https://www.turksatkablo.com.tr/userUpload/EPG/5.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
     "matchedChannels": 60,
-    "programmeCount": 1925
+    "programmeCount": 1933
   },
   "changes": {
-    "channelDelta": 2,
-    "addedCount": 2,
-    "removedCount": 0,
-    "addedChannels": [
-      "Eurosport 1 Turkiye",
-      "Eurosport 2 Turkiye"
-    ],
-    "removedChannels": []
+    "channelDelta": -3,
+    "addedCount": 0,
+    "removedCount": 3,
+    "addedChannels": [],
+    "removedChannels": [
+      "NR 1 TURK",
+      "Number 1 Turk",
+      "TV 8 INT"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }

@@ -2978,6 +2978,45 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-05T09:00:53.029830+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 261,
+      "logosFilled": 16,
+      "health": {
+        "checked": 537,
+        "healthy": 333,
+        "failed": 204,
+        "ratio": 0.62
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 74,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 60,
+        "programmeCount": 1933
+      },
+      "changes": {
+        "channelDelta": -3,
+        "addedCount": 0,
+        "removedCount": 3,
+        "addedChannels": [],
+        "removedChannels": [
+          "NR 1 TURK",
+          "Number 1 Turk",
+          "TV 8 INT"
+        ]
+      }
     }
   ]
 }
