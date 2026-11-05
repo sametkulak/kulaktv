@@ -694,6 +694,37 @@ async function loadLoginHistory(){
   }
 }
 
+async function loadD1Storage(){
+  const value=document.getElementById('adminD1Storage');
+  const bar=document.getElementById('adminD1StorageBar');
+  const meta=document.getElementById('adminD1StorageMeta');
+  if(!value||!bar||!meta)return;
+
+  try{
+    const data=await authApi('/api/admin/d1-storage');
+    const used=Math.max(0,Number(data?.usedBytes||0));
+    const limit=Math.max(1,Number(data?.limitBytes||0));
+    const percent=Math.min(100,Math.max(0,Number(data?.usagePercent??(used/limit*100))));
+    const formatBytes=bytes=>{
+      if(bytes<1024)return bytes+' B';
+      if(bytes<1024*1024)return (bytes/1024).toFixed(1)+' KB';
+      if(bytes<1024*1024*1024)return (bytes/(1024*1024)).toFixed(2)+' MB';
+      return (bytes/(1024*1024*1024)).toFixed(2)+' GB';
+    };
+
+    value.textContent=formatBytes(used)+' / '+formatBytes(limit);
+    bar.style.width=percent.toFixed(1)+'%';
+    bar.classList.toggle('warn',percent>=70&&percent<90);
+    bar.classList.toggle('danger',percent>=90);
+    meta.textContent=percent.toFixed(2)+'% kullanılıyor • Son kontrol: '+formatLoginDate(data?.checkedAt||new Date().toISOString());
+  }catch(error){
+    value.textContent='Veri alınamadı';
+    bar.style.width='0%';
+    bar.classList.remove('warn','danger');
+    meta.textContent=error?.message||'D1 depolama bilgisi alınamadı.';
+  }
+}
+
 async function loadAdminManagement(){
   if(!(await requireAdminSession()))return;
   ensureAdminManagementUi();
@@ -750,7 +781,7 @@ async function loadAdminManagement(){
         : '⚪ Şu an çevrimiçi kullanıcı yok';
     }
 
-    await loadVisitorStats();
+    await Promise.all([loadVisitorStats(),loadD1Storage()]);
   }catch(error){
     setAdminMessage(error?.message||'Yönetim verileri alınamadı.','error');
   }
