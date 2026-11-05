@@ -12,10 +12,10 @@
   <link rel="manifest" href="./manifest.json?v=20261013-02">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://raw.githubusercontent.com" crossorigin>
-  <link rel="stylesheet" href="style.css?v=20261103-07">
+  <link rel="stylesheet" href="style.css?v=20261105-01">
   <link rel="stylesheet" href="settings-accordion.css?v=20261103-17">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js" defer></script>
-  <script src="auth.js?v=20261103-15" defer></script>
+  <script src="auth.js?v=20261105-01" defer></script>
 </head>
 <body>
   <div class="app-shell">
@@ -211,6 +211,11 @@
           <div id="adminLastUpdate" class="admin-last-update">Son güncelleme kontrol ediliyor…</div>
           <div id="autoUpdateStatus" class="admin-auto-update-status">Otomatik güncelleme kontrol ediliyor…</div>
           <div id="adminOnlineSummary" class="admin-online-summary">Çevrimiçi kullanıcılar: —</div>
+          <div class="admin-d1-storage">
+            <div class="admin-d1-storage-head"><span>D1 veritabanı depolaması</span><b id="adminD1Storage">Yükleniyor…</b></div>
+            <div class="admin-d1-storage-track"><div id="adminD1StorageBar" class="admin-d1-storage-fill"></div></div>
+            <div id="adminD1StorageMeta" class="admin-d1-storage-meta">Cloudflare kullanım bilgisi alınıyor…</div>
+          </div>
         </details>
 
         <details class="settings-card settings-accordion admin-management-card">
