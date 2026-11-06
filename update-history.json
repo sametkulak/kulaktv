@@ -3017,6 +3017,41 @@
           "TV 8 INT"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-06T09:00:54.565879+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 261,
+      "logosFilled": 16,
+      "health": {
+        "checked": 536,
+        "healthy": 336,
+        "failed": 200,
+        "ratio": 0.627
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 84,
+        "iptv-org Türkiye": 74,
+        "discevisita": 89,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 60,
+        "programmeCount": 1970
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
     }
   ]
 }
