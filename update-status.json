@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-06T09:00:54.565879+00:00",
-  "channelCount": 261,
+  "updatedAt": "2026-11-07T09:00:51.833429+00:00",
+  "channelCount": 262,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -28,7 +28,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 84,
+      "trustScore": 83,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -49,12 +49,12 @@
       "name": "discevisita",
       "url": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
-      "channelCount": 94,
-      "rawChannelCount": 94,
+      "channelCount": 80,
+      "rawChannelCount": 80,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 89,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 92,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -102,9 +102,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 536,
-    "healthyUrls": 336,
-    "failedUrls": 200,
+    "checkedUrls": 531,
+    "healthyUrls": 337,
+    "failedUrls": 194,
     "failures": [
       {
         "channel": "TV 8",
@@ -207,6 +207,11 @@
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       },
       {
+        "channel": "DOST TV",
+        "url": "https://dost.stream.emsal.im/tv/live.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
+      },
+      {
         "channel": "A SPOR",
         "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aSPOR/aSPOR_1080p.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
@@ -250,32 +255,32 @@
         "channel": "TRT COCUK",
         "url": "https://trn03.tulix.tv/gt-trtcocuk/index.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "KANAL 33",
-        "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1081)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 2,
-    "removedAfterTwoFailures": 119
+    "pendingRemoval": 1,
+    "removedAfterTwoFailures": 112
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-06T09:00:54.565879+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/5.json,https://www.turksatkablo.com.tr/userUpload/EPG/6.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 60,
-    "programmeCount": 1970
+    "updatedAt": "2026-11-07T09:00:51.833429+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/6.json,https://www.turksatkablo.com.tr/userUpload/EPG/7.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 59,
+    "programmeCount": 1945
   },
   "changes": {
-    "channelDelta": 0,
-    "addedCount": 0,
-    "removedCount": 0,
-    "addedChannels": [],
-    "removedChannels": []
+    "channelDelta": 1,
+    "addedCount": 2,
+    "removedCount": 1,
+    "addedChannels": [
+      "TOKAT TV",
+      "Discovering China"
+    ],
+    "removedChannels": [
+      "TÜRKMENELİ TV"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }

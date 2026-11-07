@@ -3052,6 +3052,46 @@
         "addedChannels": [],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-07T09:00:51.833429+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 262,
+      "logosFilled": 16,
+      "health": {
+        "checked": 531,
+        "healthy": 337,
+        "failed": 194,
+        "ratio": 0.635
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 91,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 91,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 59,
+        "programmeCount": 1945
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 2,
+        "removedCount": 1,
+        "addedChannels": [
+          "TOKAT TV",
+          "Discovering China"
+        ],
+        "removedChannels": [
+          "TÜRKMENELİ TV"
+        ]
+      }
     }
   ]
 }
