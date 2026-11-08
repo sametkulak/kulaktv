@@ -3092,6 +3092,43 @@
           "TÜRKMENELİ TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-08T09:00:47.914880+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 263,
+      "logosFilled": 16,
+      "health": {
+        "checked": 531,
+        "healthy": 338,
+        "failed": 193,
+        "ratio": 0.637
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 93,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 59,
+        "programmeCount": 1915
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 1,
+        "removedCount": 0,
+        "addedChannels": [
+          "TV 8 INT"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
