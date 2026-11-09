@@ -3129,6 +3129,45 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-09T09:00:53.065404+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 260,
+      "logosFilled": 16,
+      "health": {
+        "checked": 530,
+        "healthy": 326,
+        "failed": 204,
+        "ratio": 0.615
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 73,
+        "discevisita": 94,
+        "iptv-turk-tr": 71,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 58,
+        "programmeCount": 1844
+      },
+      "changes": {
+        "channelDelta": -3,
+        "addedCount": 0,
+        "removedCount": 3,
+        "addedChannels": [],
+        "removedChannels": [
+          "TELE 1",
+          "ARAS TV",
+          "Finans Turk TV"
+        ]
+      }
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-08T09:00:47.914880+00:00",
-  "channelCount": 263,
+  "updatedAt": "2026-11-09T09:00:53.065404+00:00",
+  "channelCount": 260,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -28,7 +28,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 83,
+      "trustScore": 82,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -41,7 +41,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 74,
+      "trustScore": 73,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -54,7 +54,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 93,
+      "trustScore": 94,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -67,7 +67,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 72,
+      "trustScore": 71,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 92,
+      "trustScore": 90,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -93,7 +93,7 @@
       "filteredOutCount": 9,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
-      "trustScore": 77,
+      "trustScore": 76,
       "trustLabel": "Güvenilir",
       "automatic": false
     }
@@ -102,20 +102,10 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 531,
-    "healthyUrls": 338,
-    "failedUrls": 193,
+    "checkedUrls": 530,
+    "healthyUrls": 326,
+    "failedUrls": 204,
     "failures": [
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
-      },
-      {
-        "channel": "NOW TV",
-        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv_720p.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
-      },
       {
         "channel": "TV 8",
         "url": "https://x.canlitvapp.com/kanal8/index.m3u8",
@@ -137,9 +127,14 @@
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
       },
       {
-        "channel": "SHOW TV HD",
-        "url": "https://rmtftbjlne.turknet.ercdn.net/bpeytmnqyp/showtv/showtv_1080p.m3u8",
-        "detail": "('İki testte de başarısız • The read operation timed out',)"
+        "channel": "TV 8",
+        "url": "https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788",
+        "detail": "('İki testte de başarısız • HTTP Error 401: Unauthorized',)"
+      },
+      {
+        "channel": "TV 8",
+        "url": "https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788&ce=3",
+        "detail": "('İki testte de başarısız • HTTP Error 401: Unauthorized',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -255,29 +250,36 @@
         "channel": "TRT COCUK",
         "url": "https://trn03.tulix.tv/gt-trtcocuk/index.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
+      },
+      {
+        "channel": "KANAL 33",
+        "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
+        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1081)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 5,
-    "removedAfterTwoFailures": 111
+    "pendingRemoval": 7,
+    "removedAfterTwoFailures": 114
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-08T09:00:47.914880+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/7.json,https://www.turksatkablo.com.tr/userUpload/EPG/8.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 59,
-    "programmeCount": 1915
+    "updatedAt": "2026-11-09T09:00:53.065404+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/8.json,https://www.turksatkablo.com.tr/userUpload/EPG/9.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 58,
+    "programmeCount": 1844
   },
   "changes": {
-    "channelDelta": 1,
-    "addedCount": 1,
-    "removedCount": 0,
-    "addedChannels": [
-      "TV 8 INT"
-    ],
-    "removedChannels": []
+    "channelDelta": -3,
+    "addedCount": 0,
+    "removedCount": 3,
+    "addedChannels": [],
+    "removedChannels": [
+      "TELE 1",
+      "ARAS TV",
+      "Finans Turk TV"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }
