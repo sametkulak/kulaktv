@@ -3168,6 +3168,47 @@
           "Finans Turk TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-10T09:00:53.114284+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 262,
+      "logosFilled": 16,
+      "health": {
+        "checked": 531,
+        "healthy": 341,
+        "failed": 190,
+        "ratio": 0.642
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 73,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 58,
+        "programmeCount": 1855
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 3,
+        "removedCount": 1,
+        "addedChannels": [
+          "TELE 1",
+          "ARAS TV",
+          "Finans Turk TV"
+        ],
+        "removedChannels": [
+          "BIR TV"
+        ]
+      }
     }
   ]
 }
