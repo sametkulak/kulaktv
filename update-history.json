@@ -3209,6 +3209,41 @@
           "BIR TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-11T09:00:53.692025+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 262,
+      "logosFilled": 16,
+      "health": {
+        "checked": 528,
+        "healthy": 334,
+        "failed": 194,
+        "ratio": 0.633
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 73,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 58,
+        "programmeCount": 1860
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
     }
   ]
 }
