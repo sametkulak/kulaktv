@@ -3244,6 +3244,45 @@
         "addedChannels": [],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-12T09:00:49.420854+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 259,
+      "logosFilled": 16,
+      "health": {
+        "checked": 529,
+        "healthy": 330,
+        "failed": 199,
+        "ratio": 0.624
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 73,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 89,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 57,
+        "programmeCount": 1832
+      },
+      "changes": {
+        "channelDelta": -3,
+        "addedCount": 0,
+        "removedCount": 3,
+        "addedChannels": [],
+        "removedChannels": [
+          "TOKAT TV",
+          "Eurosport 2 Turkiye",
+          "TV 8 INT"
+        ]
+      }
     }
   ]
 }
