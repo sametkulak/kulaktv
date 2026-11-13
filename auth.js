@@ -13,6 +13,8 @@ const authState = {
 let resolveAuthReady;
 const authReady = new Promise(resolve => { resolveAuthReady = resolve; });
 let authGateRetryTimer = null;
+let authGateInitPromise = null;
+let lastAuthResumeCheckAt = 0;
 
 function getAuthToken(){
   try{return localStorage.getItem(AUTH_TOKEN_KEY)||'';}catch{return '';}
@@ -72,11 +74,44 @@ async function authApi(path, options={}){
     headers.Authorization='Bearer '+authState.token;
   }
 
-  const res=await fetch(KULAKTV_AUTH_API+path,{
-    ...options,
-    headers,
-    cache:options.cache||'no-store'
-  });
+  const controller=new AbortController();
+  const timeoutMs=Number(options.timeoutMs)||8000;
+  const externalSignal=options.signal;
+  let timedOut=false;
+  const abortFromCaller=()=>{
+    try{controller.abort(externalSignal?.reason);}catch{controller.abort();}
+  };
+  if(externalSignal){
+    if(externalSignal.aborted)abortFromCaller();
+    else externalSignal.addEventListener('abort',abortFromCaller,{once:true});
+  }
+  const timeoutId=setTimeout(()=>{
+    timedOut=true;
+    controller.abort();
+  },timeoutMs);
+
+  let res;
+  try{
+    const requestOptions={...options};
+    delete requestOptions.timeoutMs;
+    delete requestOptions.signal;
+    res=await fetch(KULAKTV_AUTH_API+path,{
+      ...requestOptions,
+      headers,
+      signal:controller.signal,
+      cache:options.cache||'no-store'
+    });
+  }catch(error){
+    if(timedOut){
+      const timeoutError=new Error('Sunucu 8 saniye içinde yanıt vermedi.');
+      timeoutError.code='AUTH_TIMEOUT';
+      throw timeoutError;
+    }
+    throw error;
+  }finally{
+    clearTimeout(timeoutId);
+    externalSignal?.removeEventListener('abort',abortFromCaller);
+  }
 
   let data={};
   try{data=await res.json();}catch{}
@@ -221,7 +256,7 @@ function scheduleAuthGateRetry(){
   },5000);
 }
 
-async function initializeAuthGate(){
+async function runInitializeAuthGate(){
   const modal=ensureSiteLoginModal();
 
   if(authGateRetryTimer){
@@ -234,7 +269,7 @@ async function initializeAuthGate(){
   let settings=null;
   let settingsLoaded=false;
   let lastSettingsError=null;
-  const retryDelays=[0,500,1000,1500,2500,4000];
+  const retryDelays=[0,700,1400,2800,4500];
 
   for(let attempt=0;attempt<retryDelays.length;attempt++){
     if(retryDelays[attempt]>0){
@@ -257,6 +292,17 @@ async function initializeAuthGate(){
     // Özel erişim açıksa dahi siteyi yanlışlıkla herkese açmamak için
     // bağlantı durumu ekranını gösterip otomatik tekrar deniyoruz.
     authState.loginRequired=getCachedLoginRequired();
+
+    // Daha önce doğrulanmış oturumla sayfaya dönüldüyse geçici ağ
+    // kesintisi kullanıcıyı giriş ekranına düşürmesin. Oturum arka planda
+    // yeniden doğrulanır; başarısız olursa normal giriş akışı devreye girer.
+    if(authState.token && getStoredUser() && authState.loginRequired){
+      modal.hidden=true;
+      startSessionHeartbeat();
+      scheduleAuthGateRetry();
+      return;
+    }
+
     modal.hidden=false;
     setAuthConnectionState(
       true,
@@ -306,6 +352,29 @@ async function initializeAuthGate(){
   }
   setTimeout(()=>modal.querySelector('#siteAuthUsername')?.focus(),50);
 }
+function initializeAuthGate(){
+  if(authGateInitPromise)return authGateInitPromise;
+  authGateInitPromise=runInitializeAuthGate().finally(()=>{
+    authGateInitPromise=null;
+  });
+  return authGateInitPromise;
+}
+
+function handleAuthPageResume(){
+  if(document.visibilityState==='hidden')return;
+  const now=Date.now();
+  if(now-lastAuthResumeCheckAt<15000)return;
+  lastAuthResumeCheckAt=now;
+
+  // Uzun süre arka planda kalan sayfada Worker ve oturumu yeniden doğrula.
+  if(authState.token || getCachedLoginRequired()){
+    void initializeAuthGate();
+  }
+}
+
+document.addEventListener('visibilitychange',handleAuthPageResume);
+window.addEventListener('pageshow',handleAuthPageResume);
+
 function showAdminLogin(){
   const modal=document.getElementById('adminLogin');
   if(!modal)return;
