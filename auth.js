@@ -146,7 +146,14 @@ async function validateStoredSession(){
       }
       return data.user;
     }
-  }catch{}
+  }catch(error){
+    // Ağ/timeout hatasında geçerli olabilecek yerel oturumu silme.
+    // 401/403 gibi HTTP cevapları ise oturumun gerçekten reddedildiğini
+    // gösterir ve aşağıdaki temizleme akışına devam eder.
+    if(!error?.status){
+      return authState.user||null;
+    }
+  }
 
   clearAuth();
   return null;
