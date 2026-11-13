@@ -266,6 +266,16 @@ function scheduleAuthGateRetry(){
 async function runInitializeAuthGate(){
   const modal=ensureSiteLoginModal();
 
+  // Ayarlar endpoint'i yanıt vermeden önce kayıtlı oturumu belleğe al.
+  // Mobil tarayıcıda API geçici olarak erişilemiyorsa eski oturum bilgisi
+  // bağlantı ekranına düşmeden korunabilsin.
+  const cachedToken=getAuthToken();
+  const cachedUser=getStoredUser();
+  if(cachedToken){
+    authState.token=cachedToken;
+    authState.user=cachedUser;
+  }
+
   if(authGateRetryTimer){
     clearTimeout(authGateRetryTimer);
     authGateRetryTimer=null;
