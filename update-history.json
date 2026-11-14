@@ -3322,6 +3322,44 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-14T09:00:47.910140+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 264,
+      "logosFilled": 16,
+      "health": {
+        "checked": 532,
+        "healthy": 330,
+        "failed": 202,
+        "ratio": 0.62
+      },
+      "providers": {
+        "OnurEröz Türkiye": 63,
+        "ByteFix Repairs": 82,
+        "iptv-org Türkiye": 73,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 76
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 59,
+        "programmeCount": 1950
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 2,
+        "removedCount": 0,
+        "addedChannels": [
+          "BIR TV",
+          "TV 8 INT"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }

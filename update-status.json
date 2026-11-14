@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-13T09:00:51.921735+00:00",
-  "channelCount": 262,
+  "updatedAt": "2026-11-14T09:00:47.910140+00:00",
+  "channelCount": 264,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -102,9 +102,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 531,
-    "healthyUrls": 337,
-    "failedUrls": 194,
+    "checkedUrls": 532,
+    "healthyUrls": 330,
+    "failedUrls": 202,
     "failures": [
       {
         "channel": "TV 8",
@@ -125,16 +125,6 @@
         "channel": "TV 8",
         "url": "https://goldvod.org/tv/uyanik?id=8&extension=m3u8",
         "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788",
-        "detail": "('İki testte de başarısız • HTTP Error 401: Unauthorized',)"
-      },
-      {
-        "channel": "TV 8",
-        "url": "https://tv8.daioncdn.net/tv8/tv8.m3u8?app=7ddc255a-ef47-4e81-ab14-c0e5f2949788&ce=3",
-        "detail": "('İki testte de başarısız • HTTP Error 401: Unauthorized',)"
       },
       {
         "channel": "SHOW TV HD",
@@ -255,29 +245,38 @@
         "channel": "KANAL 33",
         "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
         "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1081)>\",)"
+      },
+      {
+        "channel": "KANAL 34",
+        "url": "https://vdo.digitalbox.xyz:3266/live/kanal34tvlive.m3u8",
+        "detail": "('İki testte de başarısız • <urlopen error [Errno -2] Name or service not known>',)"
+      },
+      {
+        "channel": "KANAL 68",
+        "url": "https://live.artidijitalmedya.com/artidijital_kanal68/kanal68/playlist.m3u8",
+        "detail": "('İki testte de başarısız • HTTP Error 404: Not Found',)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 3,
-    "removedAfterTwoFailures": 114
+    "pendingRemoval": 15,
+    "removedAfterTwoFailures": 112
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-13T09:00:51.921735+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/12.json,https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 58,
-    "programmeCount": 1876
+    "updatedAt": "2026-11-14T09:00:47.910140+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/13.json,https://www.turksatkablo.com.tr/userUpload/EPG/14.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 59,
+    "programmeCount": 1950
   },
   "changes": {
-    "channelDelta": 3,
-    "addedCount": 3,
+    "channelDelta": 2,
+    "addedCount": 2,
     "removedCount": 0,
     "addedChannels": [
-      "Eurosport 2 Turkiye",
-      "beIN Sports 1",
-      "Sozcu TV (1080p)"
+      "BIR TV",
+      "TV 8 INT"
     ],
     "removedChannels": []
   },
