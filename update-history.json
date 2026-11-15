@@ -3360,6 +3360,46 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-15T09:00:50.983988+00:00",
+      "status": "updated",
+      "sourceCount": 6,
+      "configuredSourceCount": 7,
+      "channelCount": 262,
+      "logosFilled": 6,
+      "health": {
+        "checked": 401,
+        "healthy": 300,
+        "failed": 101,
+        "ratio": 0.748
+      },
+      "providers": {
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 61,
+        "programmeCount": 1979
+      },
+      "changes": {
+        "channelDelta": -2,
+        "addedCount": 1,
+        "removedCount": 3,
+        "addedChannels": [
+          "KRT (1080p)"
+        ],
+        "removedChannels": [
+          "ARAS TV",
+          "France 24",
+          "beIN Sports 1"
+        ]
+      }
     }
   ]
 }
