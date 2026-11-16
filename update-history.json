@@ -3400,6 +3400,72 @@
           "beIN Sports 1"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-16T09:00:51.333381+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 305,
+      "logosFilled": 16,
+      "health": {
+        "checked": 533,
+        "healthy": 338,
+        "failed": 195,
+        "ratio": 0.634
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 72,
+        "programmeCount": 2244
+      },
+      "changes": {
+        "channelDelta": 43,
+        "addedCount": 43,
+        "removedCount": 0,
+        "addedChannels": [
+          "ARAS TV",
+          "France 24",
+          "CNN TURK",
+          "NR 1 TURK",
+          "KANAL B",
+          "MUGLA TÜRK TV",
+          "TARIM TV",
+          "TV 25",
+          "TV 48",
+          "TV A",
+          "VAN GOLU TV",
+          "VRT",
+          "VTV TÜRK",
+          "PAZARCIK TV",
+          "5 OCAK TV",
+          "ÖNDE TV",
+          "ANADOLUM TV",
+          "SiNEMA TV 2",
+          "SiNEMA Yerli",
+          "SiNEMA Yerli 2",
+          "SiNEMA Aile 2",
+          "SiNEMA Komedi",
+          "SiNEMA Komedi 2",
+          "SiNEMA Aksiyon 2",
+          "SiNEMA 1001",
+          "SiNEMA 1002",
+          "Moviesmart Türk HD",
+          "TH TURK HABER TV",
+          "SLOW KARADENIZ TV",
+          "TiViTURK"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
