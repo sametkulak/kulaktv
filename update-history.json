@@ -3466,6 +3466,77 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-17T09:00:52.872055+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 267,
+      "logosFilled": 16,
+      "health": {
+        "checked": 536,
+        "healthy": 346,
+        "failed": 190,
+        "ratio": 0.646
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 57,
+        "programmeCount": 1880
+      },
+      "changes": {
+        "channelDelta": -38,
+        "addedCount": 4,
+        "removedCount": 42,
+        "addedChannels": [
+          "DİM TV",
+          "Automoto la chaine (720p)",
+          "Chasse & Peche (540p)",
+          "Science & Vie TV (720p)"
+        ],
+        "removedChannels": [
+          "CNN TURK",
+          "NR 1 TURK",
+          "KANAL B",
+          "MUGLA TÜRK TV",
+          "TARIM TV",
+          "TV 25",
+          "TV 48",
+          "TV A",
+          "VAN GOLU TV",
+          "VRT",
+          "VTV TÜRK",
+          "PAZARCIK TV",
+          "5 OCAK TV",
+          "ÖNDE TV",
+          "ANADOLUM TV",
+          "SiNEMA TV 2",
+          "SiNEMA Yerli",
+          "SiNEMA Yerli 2",
+          "SiNEMA Aile 2",
+          "SiNEMA Komedi",
+          "SiNEMA Komedi 2",
+          "SiNEMA Aksiyon 2",
+          "SiNEMA 1001",
+          "SiNEMA 1002",
+          "Moviesmart Türk HD",
+          "TH TURK HABER TV",
+          "SLOW KARADENIZ TV",
+          "TiViTURK",
+          "SEMERKAND TV WAY",
+          "KANAL ON 4 TV"
+        ]
+      }
     }
   ]
 }

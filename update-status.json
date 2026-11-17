@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-16T09:00:51.333381+00:00",
-  "channelCount": 305,
+  "updatedAt": "2026-11-17T09:00:52.872055+00:00",
+  "channelCount": 267,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -88,8 +88,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 154,
-      "rawChannelCount": 164,
+      "channelCount": 156,
+      "rawChannelCount": 166,
       "filteredOutCount": 10,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -102,9 +102,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 533,
-    "healthyUrls": 338,
-    "failedUrls": 195,
+    "checkedUrls": 536,
+    "healthyUrls": 346,
+    "failedUrls": 190,
     "failures": [
       {
         "channel": "TV 8",
@@ -259,24 +259,28 @@
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 43,
-    "removedAfterTwoFailures": 71
+    "pendingRemoval": 2,
+    "removedAfterTwoFailures": 112
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-16T09:00:51.333381+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/15.json,https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 72,
-    "programmeCount": 2244
+    "updatedAt": "2026-11-17T09:00:52.872055+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://www.turksatkablo.com.tr/userUpload/EPG/17.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 57,
+    "programmeCount": 1880
   },
   "changes": {
-    "channelDelta": 43,
-    "addedCount": 43,
-    "removedCount": 0,
+    "channelDelta": -38,
+    "addedCount": 4,
+    "removedCount": 42,
     "addedChannels": [
-      "ARAS TV",
-      "France 24",
+      "DİM TV",
+      "Automoto la chaine (720p)",
+      "Chasse & Peche (540p)",
+      "Science & Vie TV (720p)"
+    ],
+    "removedChannels": [
       "CNN TURK",
       "NR 1 TURK",
       "KANAL B",
@@ -304,9 +308,10 @@
       "Moviesmart Türk HD",
       "TH TURK HABER TV",
       "SLOW KARADENIZ TV",
-      "TiViTURK"
-    ],
-    "removedChannels": []
+      "TiViTURK",
+      "SEMERKAND TV WAY",
+      "KANAL ON 4 TV"
+    ]
   },
   "message": "Multi-source playlist merged successfully."
 }
