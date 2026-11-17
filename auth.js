@@ -15,7 +15,6 @@ const authReady = new Promise(resolve => { resolveAuthReady = resolve; });
 let authGateRetryTimer = null;
 let authGateInitPromise = null;
 let lastAuthResumeCheckAt = 0;
-let authRetryAttempt = 0;
 let authConnectionUnavailable = false;
 
 function getAuthToken(){
@@ -257,17 +256,13 @@ function setAuthConnectionState(visible, message){
   if(connection)connection.hidden=!visible;
 }
 
-function scheduleAuthGateRetry(delayMs){
+function scheduleAuthGateRetry(){
   if(authGateRetryTimer)clearTimeout(authGateRetryTimer);
-  const delays=[2000,4000,8000,15000,30000];
-  const delay=Number.isFinite(delayMs)
-    ? Math.max(0,delayMs)
-    : delays[Math.min(authRetryAttempt,delays.length-1)];
-  authRetryAttempt=Math.min(authRetryAttempt+1,delays.length-1);
+  // Bağlantı kurulana kadar sabit 2 saniyede bir yeniden dene.
   authGateRetryTimer=setTimeout(()=>{
     authGateRetryTimer=null;
     void initializeAuthGate();
-  },delay);
+  },2000);
 }
 
 async function runInitializeAuthGate(){
@@ -338,7 +333,6 @@ async function runInitializeAuthGate(){
   }
 
   authConnectionUnavailable=false;
-  authRetryAttempt=0;
   authState.loginRequired=Boolean(settings?.loginRequired);
   cacheLoginRequired(authState.loginRequired);
 
@@ -395,7 +389,7 @@ function handleAuthPageResume(){
 
   // Uzun süre arka planda kalan sayfada Worker ve oturumu yeniden doğrula.
   if(authConnectionUnavailable || authState.token || getCachedLoginRequired()){
-    scheduleAuthGateRetry(0);
+    scheduleAuthGateRetry();
   }
 }
 
