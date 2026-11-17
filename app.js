@@ -1404,7 +1404,8 @@ function openChannels(){
   $('drawerBackdrop').classList.add('open');
   $('channelDrawer').setAttribute('aria-hidden','false');
   updateChannelButton();
-  setTimeout(()=>$('search').focus({preventScroll:true}),150);
+  // Kanal listesini açarken arama alanına otomatik odaklanma.
+  // Android'de bu işlem sanal klavyeyi açıp panelin görünümünü bozuyordu.
 }
 function closeChannels(){
   state.drawerOpen=false;
@@ -1784,8 +1785,15 @@ document.addEventListener('keydown',()=>{
 updateFullscreenButton();
 resetTransientDrawers();
 window.addEventListener('pageshow',resetTransientDrawers);
+let lastDrawerViewportWidth=window.innerWidth;
 window.addEventListener('resize',()=>{
-  // Masaüstü <-> mobil/rotasyon geçişinde açık drawer'ları kapat.
+  // Android sanal klavyesi açılıp kapanırken yükseklik değişir.
+  // Drawer'ları yalnızca gerçek genişlik değişiminde (rotasyon/breakpoint)
+  // kapat; klavye hareketi kanal listesini kapatmamalı.
+  const nextWidth=window.innerWidth;
+  const widthChanged=Math.abs(nextWidth-lastDrawerViewportWidth)>40;
+  lastDrawerViewportWidth=nextWidth;
+  if(!widthChanged)return;
   if(state.epgOpen) closeEpg();
   if(state.settingsOpen) closeSettings();
   if(state.drawerOpen) closeChannels();
