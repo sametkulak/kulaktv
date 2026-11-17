@@ -15,6 +15,8 @@ const authReady = new Promise(resolve => { resolveAuthReady = resolve; });
 let authGateRetryTimer = null;
 let authGateInitPromise = null;
 let lastAuthResumeCheckAt = 0;
+let authRetryAttempt = 0;
+let authConnectionUnavailable = false;
 
 function getAuthToken(){
   try{return localStorage.getItem(AUTH_TOKEN_KEY)||'';}catch{return '';}
@@ -255,12 +257,17 @@ function setAuthConnectionState(visible, message){
   if(connection)connection.hidden=!visible;
 }
 
-function scheduleAuthGateRetry(){
+function scheduleAuthGateRetry(delayMs){
   if(authGateRetryTimer)clearTimeout(authGateRetryTimer);
+  const delays=[2000,4000,8000,15000,30000];
+  const delay=Number.isFinite(delayMs)
+    ? Math.max(0,delayMs)
+    : delays[Math.min(authRetryAttempt,delays.length-1)];
+  authRetryAttempt=Math.min(authRetryAttempt+1,delays.length-1);
   authGateRetryTimer=setTimeout(()=>{
     authGateRetryTimer=null;
     void initializeAuthGate();
-  },5000);
+  },delay);
 }
 
 async function runInitializeAuthGate(){
@@ -286,7 +293,7 @@ async function runInitializeAuthGate(){
   let settings=null;
   let settingsLoaded=false;
   let lastSettingsError=null;
-  const retryDelays=[0,700,1400,2800,4500];
+  const retryDelays=[0,800,1800];
 
   for(let attempt=0;attempt<retryDelays.length;attempt++){
     if(retryDelays[attempt]>0){
@@ -305,6 +312,7 @@ async function runInitializeAuthGate(){
   }
 
   if(!settingsLoaded){
+    authConnectionUnavailable=true;
     // API cevap vermiyorsa bunu "yanlış şifre" gibi göstermeyelim.
     // Özel erişim açıksa dahi siteyi yanlışlıkla herkese açmamak için
     // bağlantı durumu ekranını gösterip otomatik tekrar deniyoruz.
@@ -329,6 +337,8 @@ async function runInitializeAuthGate(){
     return;
   }
 
+  authConnectionUnavailable=false;
+  authRetryAttempt=0;
   authState.loginRequired=Boolean(settings?.loginRequired);
   cacheLoginRequired(authState.loginRequired);
 
@@ -384,13 +394,21 @@ function handleAuthPageResume(){
   lastAuthResumeCheckAt=now;
 
   // Uzun süre arka planda kalan sayfada Worker ve oturumu yeniden doğrula.
-  if(authState.token || getCachedLoginRequired()){
-    void initializeAuthGate();
+  if(authConnectionUnavailable || authState.token || getCachedLoginRequired()){
+    scheduleAuthGateRetry(0);
+  }
+}
+
+function handleAuthNetworkOnline(){
+  if(authConnectionUnavailable){
+    // Ağ geri geldiğinde bekleme süresini atla ve API'yi hemen yeniden dene.
+    scheduleAuthGateRetry(0);
   }
 }
 
 document.addEventListener('visibilitychange',handleAuthPageResume);
 window.addEventListener('pageshow',handleAuthPageResume);
+window.addEventListener('online',handleAuthNetworkOnline);
 
 function showAdminLogin(){
   const modal=document.getElementById('adminLogin');
