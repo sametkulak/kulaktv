@@ -3537,6 +3537,45 @@
           "KANAL ON 4 TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-18T09:00:53.172837+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 267,
+      "logosFilled": 16,
+      "health": {
+        "checked": 537,
+        "healthy": 346,
+        "failed": 191,
+        "ratio": 0.644
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 95,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 91,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 78,
+        "programmeCount": 2449
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 1,
+        "removedCount": 1,
+        "addedChannels": [
+          "Chasse & Peche (576p)"
+        ],
+        "removedChannels": [
+          "BIR TV"
+        ]
+      }
     }
   ]
 }

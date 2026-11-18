@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-17T09:00:52.872055+00:00",
+  "updatedAt": "2026-11-18T09:00:53.172837+00:00",
   "channelCount": 267,
   "sourceCount": 7,
   "changed": true,
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -88,8 +88,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 156,
-      "rawChannelCount": 166,
+      "channelCount": 155,
+      "rawChannelCount": 165,
       "filteredOutCount": 10,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -102,10 +102,15 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 536,
+    "checkedUrls": 537,
     "healthyUrls": 346,
-    "failedUrls": 190,
+    "failedUrls": 191,
     "failures": [
+      {
+        "channel": "NOW TV",
+        "url": "https://uycyyuuzyh.turknet.ercdn.net/nphindgytw/nowtv/nowtv.m3u8",
+        "detail": "('İki testte de başarısız • The read operation timed out',)"
+      },
       {
         "channel": "TV 8",
         "url": "https://x.canlitvapp.com/kanal8/index.m3u8",
@@ -250,67 +255,30 @@
         "channel": "TRT COCUK",
         "url": "https://trn03.tulix.tv/gt-trtcocuk/index.m3u8",
         "detail": "('İki testte de başarısız • HTTP Error 403: Forbidden',)"
-      },
-      {
-        "channel": "KANAL 33",
-        "url": "https://edge1.socialsmart.tv/kanal33/bant1/playlist.m3u8",
-        "detail": "(\"İki testte de başarısız • <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'edge1.socialsmart.tv'. (_ssl.c:1081)>\",)"
       }
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
     "pendingRemoval": 2,
-    "removedAfterTwoFailures": 112
+    "removedAfterTwoFailures": 113
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-17T09:00:52.872055+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/16.json,https://www.turksatkablo.com.tr/userUpload/EPG/17.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 57,
-    "programmeCount": 1880
+    "updatedAt": "2026-11-18T09:00:53.172837+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/17.json,https://www.turksatkablo.com.tr/userUpload/EPG/18.json,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 78,
+    "programmeCount": 2449
   },
   "changes": {
-    "channelDelta": -38,
-    "addedCount": 4,
-    "removedCount": 42,
+    "channelDelta": 0,
+    "addedCount": 1,
+    "removedCount": 1,
     "addedChannels": [
-      "DİM TV",
-      "Automoto la chaine (720p)",
-      "Chasse & Peche (540p)",
-      "Science & Vie TV (720p)"
+      "Chasse & Peche (576p)"
     ],
     "removedChannels": [
-      "CNN TURK",
-      "NR 1 TURK",
-      "KANAL B",
-      "MUGLA TÜRK TV",
-      "TARIM TV",
-      "TV 25",
-      "TV 48",
-      "TV A",
-      "VAN GOLU TV",
-      "VRT",
-      "VTV TÜRK",
-      "PAZARCIK TV",
-      "5 OCAK TV",
-      "ÖNDE TV",
-      "ANADOLUM TV",
-      "SiNEMA TV 2",
-      "SiNEMA Yerli",
-      "SiNEMA Yerli 2",
-      "SiNEMA Aile 2",
-      "SiNEMA Komedi",
-      "SiNEMA Komedi 2",
-      "SiNEMA Aksiyon 2",
-      "SiNEMA 1001",
-      "SiNEMA 1002",
-      "Moviesmart Türk HD",
-      "TH TURK HABER TV",
-      "SLOW KARADENIZ TV",
-      "TiViTURK",
-      "SEMERKAND TV WAY",
-      "KANAL ON 4 TV"
+      "BIR TV"
     ]
   },
   "message": "Multi-source playlist merged successfully."
