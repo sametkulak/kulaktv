@@ -3613,6 +3613,43 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-20T09:00:54.751858+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 269,
+      "logosFilled": 16,
+      "health": {
+        "checked": 539,
+        "healthy": 345,
+        "failed": 194,
+        "ratio": 0.64
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 96,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 89,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 82,
+        "programmeCount": 2506
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 1,
+        "removedCount": 0,
+        "addedChannels": [
+          "TOKAT TV"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
