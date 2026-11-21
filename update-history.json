@@ -3650,6 +3650,46 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-21T09:00:54.472659+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 270,
+      "logosFilled": 16,
+      "health": {
+        "checked": 541,
+        "healthy": 349,
+        "failed": 192,
+        "ratio": 0.645
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 96,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 84,
+        "programmeCount": 2718
+      },
+      "changes": {
+        "channelDelta": 1,
+        "addedCount": 2,
+        "removedCount": 1,
+        "addedChannels": [
+          "beIN Sports 1 Turk (1080p)",
+          "TRT 3 (1080p)"
+        ],
+        "removedChannels": [
+          "ATV Alanya"
+        ]
+      }
     }
   ]
 }
