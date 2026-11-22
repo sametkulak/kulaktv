@@ -3690,6 +3690,44 @@
           "ATV Alanya"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-22T09:00:52.887721+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 268,
+      "logosFilled": 16,
+      "health": {
+        "checked": 540,
+        "healthy": 344,
+        "failed": 196,
+        "ratio": 0.637
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 96,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 80,
+        "programmeCount": 2469
+      },
+      "changes": {
+        "channelDelta": -2,
+        "addedCount": 0,
+        "removedCount": 2,
+        "addedChannels": [],
+        "removedChannels": [
+          "MELTEM TV",
+          "ARAS TV"
+        ]
+      }
     }
   ]
 }
