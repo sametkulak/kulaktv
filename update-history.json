@@ -3728,6 +3728,44 @@
           "ARAS TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-23T09:00:54.399219+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 270,
+      "logosFilled": 16,
+      "health": {
+        "checked": 540,
+        "healthy": 345,
+        "failed": 195,
+        "ratio": 0.639
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 74,
+        "discevisita": 96,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 90,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 80,
+        "programmeCount": 2495
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 2,
+        "removedCount": 0,
+        "addedChannels": [
+          "MELTEM TV",
+          "ARAS TV"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
