@@ -1,6 +1,6 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-23T09:00:54.399219+00:00",
+  "updatedAt": "2026-11-24T09:00:51.749380+00:00",
   "channelCount": 270,
   "sourceCount": 7,
   "changed": true,
@@ -36,12 +36,12 @@
       "name": "iptv-org Türkiye",
       "url": "https://iptv-org.github.io/iptv/countries/tr.m3u",
       "resolvedUrl": "https://iptv-org.github.io/iptv/countries/tr.m3u",
-      "channelCount": 161,
-      "rawChannelCount": 161,
+      "channelCount": 163,
+      "rawChannelCount": 163,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 74,
+      "trustScore": 75,
       "trustLabel": "Güvenilir",
       "automatic": false
     },
@@ -80,7 +80,7 @@
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 90,
+      "trustScore": 91,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -88,8 +88,8 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 157,
-      "rawChannelCount": 166,
+      "channelCount": 158,
+      "rawChannelCount": 167,
       "filteredOutCount": 9,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
@@ -102,9 +102,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 540,
-    "healthyUrls": 345,
-    "failedUrls": 195,
+    "checkedUrls": 541,
+    "healthyUrls": 352,
+    "failedUrls": 189,
     "failures": [
       {
         "channel": "TV 8",
@@ -259,25 +259,22 @@
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 4,
+    "pendingRemoval": 1,
     "removedAfterTwoFailures": 111
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-23T09:00:54.399219+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/22.json,https://www.turksatkablo.com.tr/userUpload/EPG/23.json,https://dearbulut.github.io/iptv/epg/guide.xml.gz,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 80,
-    "programmeCount": 2495
+    "updatedAt": "2026-11-24T09:00:51.749380+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/23.json,https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://dearbulut.github.io/iptv/epg/guide.xml.gz,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 79,
+    "programmeCount": 2510
   },
   "changes": {
-    "channelDelta": 2,
-    "addedCount": 2,
+    "channelDelta": 0,
+    "addedCount": 0,
     "removedCount": 0,
-    "addedChannels": [
-      "MELTEM TV",
-      "ARAS TV"
-    ],
+    "addedChannels": [],
     "removedChannels": []
   },
   "message": "Multi-source playlist merged successfully."

@@ -3766,6 +3766,41 @@
         ],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-24T09:00:51.749380+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 270,
+      "logosFilled": 16,
+      "health": {
+        "checked": 541,
+        "healthy": 352,
+        "failed": 189,
+        "ratio": 0.651
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 75,
+        "discevisita": 96,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 91,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 79,
+        "programmeCount": 2510
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
     }
   ]
 }
