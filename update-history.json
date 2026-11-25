@@ -3801,6 +3801,47 @@
         "addedChannels": [],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-25T09:00:53.305492+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 272,
+      "logosFilled": 16,
+      "health": {
+        "checked": 541,
+        "healthy": 348,
+        "failed": 193,
+        "ratio": 0.643
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 75,
+        "discevisita": 96,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 80,
+        "programmeCount": 2556
+      },
+      "changes": {
+        "channelDelta": 2,
+        "addedCount": 3,
+        "removedCount": 1,
+        "addedChannels": [
+          "ATV Alanya",
+          "Bi Kanal (1080p)",
+          "Pati TV (1080p)"
+        ],
+        "removedChannels": [
+          "TOKAT TV"
+        ]
+      }
     }
   ]
 }
