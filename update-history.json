@@ -3842,6 +3842,44 @@
           "TOKAT TV"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-26T09:00:55.353300+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 270,
+      "logosFilled": 16,
+      "health": {
+        "checked": 540,
+        "healthy": 351,
+        "failed": 189,
+        "ratio": 0.65
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 75,
+        "discevisita": 97,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 79,
+        "programmeCount": 2494
+      },
+      "changes": {
+        "channelDelta": -2,
+        "addedCount": 0,
+        "removedCount": 2,
+        "addedChannels": [],
+        "removedChannels": [
+          "beIN Sports 1 Turk (1080p)",
+          "TRT 3 (1080p)"
+        ]
+      }
     }
   ]
 }

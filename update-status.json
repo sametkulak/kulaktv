@@ -1,7 +1,7 @@
 {
   "status": "updated",
-  "updatedAt": "2026-11-25T09:00:53.305492+00:00",
-  "channelCount": 272,
+  "updatedAt": "2026-11-26T09:00:55.353300+00:00",
+  "channelCount": 270,
   "sourceCount": 7,
   "changed": true,
   "configuredSourceCount": 7,
@@ -49,12 +49,12 @@
       "name": "discevisita",
       "url": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
       "resolvedUrl": "https://raw.githubusercontent.com/discevisita/iptv/main/tr.m3u",
-      "channelCount": 80,
-      "rawChannelCount": 80,
+      "channelCount": 77,
+      "rawChannelCount": 77,
       "filteredOutCount": 0,
       "filter": "none",
       "status": "ok",
-      "trustScore": 96,
+      "trustScore": 97,
       "trustLabel": "Çok güvenilir",
       "automatic": false
     },
@@ -88,9 +88,9 @@
       "name": "dearbulut Türkiye",
       "url": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
       "resolvedUrl": "https://dearbulut.github.io/iptv/playlists/language/tur.m3u",
-      "channelCount": 159,
+      "channelCount": 160,
       "rawChannelCount": 168,
-      "filteredOutCount": 9,
+      "filteredOutCount": 8,
       "filter": "Turkish TV only: radio/podcast/webcam/adult excluded",
       "status": "ok",
       "trustScore": 77,
@@ -102,9 +102,9 @@
   "healthCheck": {
     "enabled": true,
     "verification": "M3U8 manifest + at least one media segment",
-    "checkedUrls": 541,
-    "healthyUrls": 348,
-    "failedUrls": 193,
+    "checkedUrls": 540,
+    "healthyUrls": 351,
+    "failedUrls": 189,
     "failures": [
       {
         "channel": "TV 8",
@@ -259,28 +259,25 @@
     ],
     "ordering": "healthy-first, failed-last",
     "globalHealthDegraded": false,
-    "pendingRemoval": 3,
+    "pendingRemoval": 0,
     "removedAfterTwoFailures": 111
   },
   "epg": {
     "version": 1,
     "status": "updated",
-    "updatedAt": "2026-11-25T09:00:53.305492+00:00",
-    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/24.json,https://www.turksatkablo.com.tr/userUpload/EPG/25.json,https://dearbulut.github.io/iptv/epg/guide.xml.gz,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
-    "matchedChannels": 80,
-    "programmeCount": 2556
+    "updatedAt": "2026-11-26T09:00:55.353300+00:00",
+    "sourceUrl": "https://www.turksatkablo.com.tr/userUpload/EPG/25.json,https://www.turksatkablo.com.tr/userUpload/EPG/26.json,https://dearbulut.github.io/iptv/epg/guide.xml.gz,https://raw.githubusercontent.com/trology85/iptv-epg-turkey/main/epg/turksat_epg.xml.gz",
+    "matchedChannels": 79,
+    "programmeCount": 2494
   },
   "changes": {
-    "channelDelta": 2,
-    "addedCount": 3,
-    "removedCount": 1,
-    "addedChannels": [
-      "ATV Alanya",
-      "Bi Kanal (1080p)",
-      "Pati TV (1080p)"
-    ],
+    "channelDelta": -2,
+    "addedCount": 0,
+    "removedCount": 2,
+    "addedChannels": [],
     "removedChannels": [
-      "TOKAT TV"
+      "beIN Sports 1 Turk (1080p)",
+      "TRT 3 (1080p)"
     ]
   },
   "message": "Multi-source playlist merged successfully."
