@@ -3880,6 +3880,41 @@
           "TRT 3 (1080p)"
         ]
       }
+    },
+    {
+      "updatedAt": "2026-11-27T09:00:53.613437+00:00",
+      "status": "updated",
+      "sourceCount": 7,
+      "configuredSourceCount": 7,
+      "channelCount": 270,
+      "logosFilled": 16,
+      "health": {
+        "checked": 539,
+        "healthy": 349,
+        "failed": 190,
+        "ratio": 0.647
+      },
+      "providers": {
+        "OnurEröz Türkiye": 65,
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 75,
+        "discevisita": 97,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 91,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 80,
+        "programmeCount": 2490
+      },
+      "changes": {
+        "channelDelta": 0,
+        "addedCount": 0,
+        "removedCount": 0,
+        "addedChannels": [],
+        "removedChannels": []
+      }
     }
   ]
 }
