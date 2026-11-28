@@ -3915,6 +3915,46 @@
         "addedChannels": [],
         "removedChannels": []
       }
+    },
+    {
+      "updatedAt": "2026-11-28T09:00:50.718310+00:00",
+      "status": "updated",
+      "sourceCount": 6,
+      "configuredSourceCount": 7,
+      "channelCount": 275,
+      "logosFilled": 6,
+      "health": {
+        "checked": 409,
+        "healthy": 305,
+        "failed": 104,
+        "ratio": 0.746
+      },
+      "providers": {
+        "ByteFix Repairs": 83,
+        "iptv-org Türkiye": 75,
+        "discevisita": 97,
+        "iptv-turk-tr": 72,
+        "qazim/IPTV": 92,
+        "dearbulut Türkiye": 77
+      },
+      "epg": {
+        "status": "updated",
+        "matchedChannels": 81,
+        "programmeCount": 2548
+      },
+      "changes": {
+        "channelDelta": 5,
+        "addedCount": 5,
+        "removedCount": 0,
+        "addedChannels": [
+          "beIN Sports 1 Turk (1080p)",
+          "TRT 3 (1080p)",
+          "Channel 5 International (720p)",
+          "NTV Law (576p)",
+          "NTV Style (576p)"
+        ],
+        "removedChannels": []
+      }
     }
   ]
 }
